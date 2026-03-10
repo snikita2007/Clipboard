@@ -1,8 +1,11 @@
 #include <QApplication>
 #include <QWidget>
-#include <iostream>
-#include "ClipboardManager.h"
+#include <QDebug>
 
-int main(){
-    return 0;
+int main(int argc, char *argv[]){
+    QApplication a(argc, argv);
+    QWidget w;
+    w.show();
+    qDebug() << "Окно\n";
+    return a.exec();
 }

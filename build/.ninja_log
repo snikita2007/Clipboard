@@ -1,7 +1,15 @@
 # ninja log v7
-5	111	7946996340684465	Clipboard_autogen/timestamp	e16a77345b400e2f
-5	111	7946996340684465	Clipboard_autogen/mocs_compilation.cpp	e16a77345b400e2f
-5	111	7946996340684465	C:/Users/DotaMaster2/Documents/Clipboard/build/Clipboard_autogen/timestamp	e16a77345b400e2f
-5	111	7946996340684465	C:/Users/DotaMaster2/Documents/Clipboard/build/Clipboard_autogen/mocs_compilation.cpp	e16a77345b400e2f
-115	146	7946996341009120	CMakeFiles/Clipboard.dir/main.cpp.obj	ff3918e4ed20d0e3
-113	153	7946996341009120	CMakeFiles/Clipboard.dir/Clipboard_autogen/mocs_compilation.cpp.obj	c09c630f5dcd62c8
+4	107	7948657660511184	Clipboard_autogen/timestamp	e16a77345b400e2f
+4	107	7948657660511184	Clipboard_autogen/mocs_compilation.cpp	e16a77345b400e2f
+4	107	7948657660511184	C:/Users/DotaMaster2/Documents/Clipboard/build/Clipboard_autogen/timestamp	e16a77345b400e2f
+4	107	7948657660511184	C:/Users/DotaMaster2/Documents/Clipboard/build/Clipboard_autogen/mocs_compilation.cpp	e16a77345b400e2f
+109	138	7948657660843317	CMakeFiles/Clipboard.dir/Clipboard_autogen/mocs_compilation.cpp.obj	7280fa1cf448ad70
+111	1037	7948657660863339	CMakeFiles/Clipboard.dir/main.cpp.obj	4ecac0a1351728bd
+1039	1104	7948657670123740	Clipboard.exe	462b319467277395
+13	109	7948662728346963	Clipboard_autogen/timestamp	e16a77345b400e2f
+13	109	7948662728346963	Clipboard_autogen/mocs_compilation.cpp	e16a77345b400e2f
+13	109	7948662728346963	C:/Users/DotaMaster2/Documents/Clipboard/build/Clipboard_autogen/timestamp	e16a77345b400e2f
+13	109	7948662728346963	C:/Users/DotaMaster2/Documents/Clipboard/build/Clipboard_autogen/mocs_compilation.cpp	e16a77345b400e2f
+109	140	7948662729310325	CMakeFiles/Clipboard.dir/Clipboard_autogen/mocs_compilation.cpp.obj	7280fa1cf448ad70
+111	1029	7948662729328449	CMakeFiles/Clipboard.dir/main.cpp.obj	4ecac0a1351728bd
+1029	1092	7948662738504011	Clipboard.exe	462b319467277395

@@ -5,7 +5,6 @@ Widget::Widget(QWidget *parent)
 {
     main_first = new QPushButton("first");
     main_second = new QPushButton("second");
-    main_third = new QPushButton("third");
 
     text1 = new QLabel("Clipboard:");
 
@@ -14,7 +13,6 @@ Widget::Widget(QWidget *parent)
     main_layout->addWidget(text1);
     main_layout->addWidget(main_first);
     main_layout->addWidget(main_second);
-    main_layout->addWidget(main_third);
 }
 
 Widget::~Widget()

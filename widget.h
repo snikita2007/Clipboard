@@ -16,7 +16,6 @@ public:
 private:
     QPushButton *main_first;
     QPushButton *main_second;
-    QPushButton *main_third;
 
     QVBoxLayout *main_layout;
     QPixmap *main_pixmap;

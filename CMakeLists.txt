@@ -13,6 +13,8 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets Core)
 
 set(PROJECT_SOURCES
     main.cpp
+    widget.h
+    widget.cpp
 )
 
 add_executable(Clipboard ${PROJECT_SOURCES})

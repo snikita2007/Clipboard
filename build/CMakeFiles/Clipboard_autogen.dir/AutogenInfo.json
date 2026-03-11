@@ -422,7 +422,15 @@
 	"CROSS_CONFIG" : false,
 	"DEP_FILE" : "C:/Users/DotaMaster2/Documents/Clipboard/build/Clipboard_autogen/deps",
 	"DEP_FILE_RULE_NAME" : "Clipboard_autogen/timestamp",
-	"HEADERS" : [],
+	"HEADERS" : 
+	[
+		[
+			"C:/Users/DotaMaster2/Documents/Clipboard/widget.h",
+			"MU",
+			"EWIEGA46WW/moc_widget.cpp",
+			null
+		]
+	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
 	"INCLUDE_DIR" : "C:/Users/DotaMaster2/Documents/Clipboard/build/Clipboard_autogen/include",
 	"MOC_COMPILATION_FILE" : "C:/Users/DotaMaster2/Documents/Clipboard/build/Clipboard_autogen/mocs_compilation.cpp",
@@ -496,7 +504,8 @@
 	"SETTINGS_FILE" : "C:/Users/DotaMaster2/Documents/Clipboard/build/CMakeFiles/Clipboard_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
-		[ "C:/Users/DotaMaster2/Documents/Clipboard/main.cpp", "MU", null ]
+		[ "C:/Users/DotaMaster2/Documents/Clipboard/main.cpp", "MU", null ],
+		[ "C:/Users/DotaMaster2/Documents/Clipboard/widget.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],

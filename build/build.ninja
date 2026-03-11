@@ -73,6 +73,18 @@ build CMakeFiles/Clipboard.dir/main.cpp.obj: CXX_COMPILER__Clipboard_unscanned_D
   TARGET_PDB = Clipboard.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\Clipboard.dir
 
+build CMakeFiles/Clipboard.dir/widget.cpp.obj: CXX_COMPILER__Clipboard_unscanned_Debug C$:/Users/DotaMaster2/Documents/Clipboard/widget.cpp || cmake_object_order_depends_target_Clipboard
+  CONFIG = Debug
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -DWINVER=0x0A00 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN32_WINNT=0x0A00 -D_WIN64
+  DEP_FILE = CMakeFiles\Clipboard.dir\widget.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -IC:/Users/DotaMaster2/Documents/Clipboard/build/Clipboard_autogen/include -IC:/Users/DotaMaster2/Documents/Clipboard -isystem C:/msys64/mingw64/include/qt6/QtWidgets -isystem C:/msys64/mingw64/include/qt6 -isystem C:/msys64/mingw64/include/qt6/QtCore -isystem C:/msys64/mingw64/share/qt6/mkspecs/win32-g++ -isystem C:/msys64/mingw64/include/qt6/QtGui
+  OBJECT_DIR = CMakeFiles\Clipboard.dir
+  OBJECT_FILE_DIR = CMakeFiles\Clipboard.dir
+  TARGET_COMPILE_PDB = CMakeFiles\Clipboard.dir\
+  TARGET_PDB = Clipboard.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\Clipboard.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Clipboard
@@ -81,7 +93,7 @@ build CMakeFiles/Clipboard.dir/main.cpp.obj: CXX_COMPILER__Clipboard_unscanned_D
 #############################################
 # Link the executable Clipboard.exe
 
-build Clipboard.exe: CXX_EXECUTABLE_LINKER__Clipboard_Debug CMakeFiles/Clipboard.dir/Clipboard_autogen/mocs_compilation.cpp.obj CMakeFiles/Clipboard.dir/main.cpp.obj | C$:/msys64/mingw64/lib/libQt6Widgets.dll.a C$:/msys64/mingw64/lib/libQt6Gui.dll.a C$:/msys64/mingw64/lib/libQt6Core.dll.a || Clipboard_autogen Clipboard_autogen_timestamp_deps
+build Clipboard.exe: CXX_EXECUTABLE_LINKER__Clipboard_Debug CMakeFiles/Clipboard.dir/Clipboard_autogen/mocs_compilation.cpp.obj CMakeFiles/Clipboard.dir/main.cpp.obj CMakeFiles/Clipboard.dir/widget.cpp.obj | C$:/msys64/mingw64/lib/libQt6Widgets.dll.a C$:/msys64/mingw64/lib/libQt6Gui.dll.a C$:/msys64/mingw64/lib/libQt6Core.dll.a || Clipboard_autogen Clipboard_autogen_timestamp_deps
   CONFIG = Debug
   FLAGS = -g
   LINK_LIBRARIES = C:/msys64/mingw64/lib/libQt6Widgets.dll.a  C:/msys64/mingw64/lib/libQt6Gui.dll.a  C:/msys64/mingw64/lib/libQt6Core.dll.a  -lmpr  -luserenv  -ld3d11  -ldxgi  -ldxguid  -ld3d12  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32

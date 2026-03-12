@@ -1,5 +1,0 @@
-C:/Users/DotaMaster2/Documents/Clipboard/build/CMakeFiles/Clipboard.dir
-C:/Users/DotaMaster2/Documents/Clipboard/build/CMakeFiles/edit_cache.dir
-C:/Users/DotaMaster2/Documents/Clipboard/build/CMakeFiles/rebuild_cache.dir
-C:/Users/DotaMaster2/Documents/Clipboard/build/CMakeFiles/Clipboard_autogen_timestamp_deps.dir
-C:/Users/DotaMaster2/Documents/Clipboard/build/CMakeFiles/Clipboard_autogen.dir

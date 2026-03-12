@@ -14,13 +14,15 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 private:
-    QPushButton *main_first;
-    QPushButton *main_second;
+    QLabel *main_txtempty;
+    QLabel *main_txtrecent;
+    QPushButton *btnClear;
+    QPushButton *testbtn;
 
     QVBoxLayout *main_layout;
+    QHBoxLayout *topLayout;
     QPixmap *main_pixmap;
 
-    QLabel *text1;
 };
 
 #endif

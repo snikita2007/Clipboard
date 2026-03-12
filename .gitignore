@@ -1,0 +1,25 @@
+# Сборка
+build/
+cmake-build-*/
+*.exe
+*.dll
+*.a
+*.o
+*.obj
+
+# IDE - VS Code
+.vscode/
+.vs/
+
+# Qt
+*.user
+*.autosave
+moc_*.cpp
+moc_*.h
+ui_*.h
+qrc_*.cpp
+*_autogen/
+
+# Системные
+.DS_Store
+Thumbs.db

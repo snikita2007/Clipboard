@@ -8,6 +8,7 @@ set(CMAKE_AUTORCC ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets Core)
 
-set(PROJECT_SOURCES main.cpp widget.h widget.cpp)
+file(GLOB PROJECT_SOURCES *.cpp *.h *.qrc)
+
 add_executable(Clipboard ${PROJECT_SOURCES})
-target_link_libraries(Clipboard PRIVATE Qt6::Widgets Qt6::Core)
+target_link_libraries(Clipboard PRIVATE Qt6::Widgets Qt6::Core Qt6::Gui dwmapi)

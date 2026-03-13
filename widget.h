@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QLabel>
+#include <QIcon>
 
 class Widget : public QWidget{
     Q_OBJECT
@@ -14,9 +15,10 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 private:
-    QLabel *main_txtempty;
-    QLabel *main_txtrecent;
-    QPushButton *btnClear;
+    QLabel *main_txtempty;//Текст пустого буфера
+    QLabel *main_txtrecent;//Текст недавние
+    QPushButton *btnClear;//Отчитска
+    QPushButton *btnSetting;
     QPushButton *testbtn;
 
     QVBoxLayout *main_layout;

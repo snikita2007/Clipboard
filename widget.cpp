@@ -58,10 +58,10 @@ Widget::Widget(QWidget *parent)
     // Верхняя строка с Recent и кнопкой
     topLayout = new QHBoxLayout();
     topLayout->setAlignment(Qt::AlignVCenter); 
-    topLayout->addWidget(main_txtrecent, 0, Qt::AlignVCenter);
+    topLayout->addWidget(main_txtrecent);
     topLayout->addStretch();
-    topLayout->addWidget(btnClear, 0, Qt::AlignVCenter);
-    topLayout->addWidget(btnSetting, 0, Qt::AlignVCenter);
+    topLayout->addWidget(btnClear, 0);
+    topLayout->addWidget(btnSetting, 0);
     
     // Текст по центру
     main_txtempty = new QLabel("Clipboard is empty");

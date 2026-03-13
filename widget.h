@@ -6,10 +6,11 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QIcon>
+#include <QTimer>
 
 #ifdef Q_OS_WIN
 #include <dwmapi.h>
-#elif (Q_OS_MAC)
+#elif defined(Q_OS_MAC)
 extern "C" void applyMacVibrancy(unsigned long long winId); 
 #endif
 

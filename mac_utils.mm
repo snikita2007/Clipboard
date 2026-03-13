@@ -1,14 +1,12 @@
 #import <AppKit/AppKit.h>
-#include <QWidget>
 
 extern "C" void applyMacVibrancy(unsigned long long winId) {
-    NSView *view = (NSView *)winId;
-    NSWindow *window = [view window];
-    NSVisualEffectView *vibrantView = [[NSVisualEffectView alloc] initWithFrame:[[window contentView] bounds]];
-    [vibrantView setMaterial:NSVisualEffectMaterialUnderWindowBackground];
-    [vibrantView setBlendingMode:NSVisualEffectBlendingModeBehindWindow];
-    [vibrantView setState:NSVisualEffectStateActive];
-    [vibrantView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-    [[window contentView] addSubview:vibrantView positioned:NSWindowBelow relativeTo:nil];
-    [window setTitlebarAppearsTransparent:YES];
+    NSView *qtView = (NSView *)winId;
+    NSWindow *window = [qtView window];
+
+    window.titlebarAppearsTransparent = YES;
+    window.titleVisibility = NSWindowTitleHidden;
+    window.styleMask |= NSWindowStyleMaskFullSizeContentView;
+
+    [window setBackgroundColor:[NSColor colorWithDeviceRed:0.15 green:0.15 blue:0.15 alpha:1.0]];
 }

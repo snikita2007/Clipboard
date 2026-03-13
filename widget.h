@@ -2,12 +2,16 @@
 #define WIDGET_H
 
 #include <QWidget>
-#include <QDebug>
-#include <QPixmap>
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QLabel>
 #include <QIcon>
+
+#ifdef Q_OS_WIN
+#include <dwmapi.h>
+#elif (Q_OS_MAC)
+extern "C" void applyMacVibrancy(unsigned long long winId); 
+#endif
 
 class Widget : public QWidget{
     Q_OBJECT

@@ -1,10 +1,5 @@
 #include "widget.h"
 
-#ifdef Q_OS_WIN
-#include <dwmapi.h>
-#endif
-
-
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
 {
@@ -31,7 +26,20 @@ Widget::Widget(QWidget *parent)
         "QPushButton:hover {"
         "   background-color: rgba(200, 200, 200, 0.2);"
         "}";
-    
+
+    //Стиль для мак
+    #elif (Q_OS_MAC)
+    setAttribute(Qt::WA_TranslucentBackground);
+    applyMacVibrancy(this->winId());
+    this->setStyleSheet("background: transparent;");
+    buttonStyle = 
+        "QPushButton {"
+        "   background-color: rgba(255, 255, 255, 0.15);" 
+        "   border: 0.5px solid rgba(255, 255, 255, 0.2);"
+        "   border-radius: 6px;"
+        "   color: white;"
+        "}";
+
     #else
     buttonStyle = "QPushButton { padding: 5px; }"; //заглушка для остальных ос
     #endif

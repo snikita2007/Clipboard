@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QPixmap>
 #include <QVBoxLayout>
-#include <QPushbutton>
+#include <QPushButton>
 #include <QLabel>
 
 class Widget : public QWidget{

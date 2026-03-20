@@ -3,28 +3,33 @@ project(Clipboard)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON) 
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets Core Gui)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2)
 
-file(GLOB PROJECT_SOURCES *.cpp *.h *.qrc)
+set(PROJECT_SOURCES main.cpp backend.cpp backend.h windoweffects.h)
 
-#Mac
-if(APPLE)
-    list(APPEND PROJECT_SOURCES mac_utils.mm)
-endif()
-
-add_executable(Clipboard ${PROJECT_SOURCES})
-
-target_link_libraries(Clipboard PRIVATE Qt6::Widgets Qt6::Core Qt6::Gui)
+qt_add_executable(Clipboard ${PROJECT_SOURCES})
 
 if(WIN32)
-    # Только для Windows
+    target_sources(Clipboard PRIVATE windoweffects_win.cpp)
     target_link_libraries(Clipboard PRIVATE dwmapi)
 endif()
 
 if(APPLE)
-    # Только для Mac
+    enable_language(OBJCXX)
+    target_sources(Clipboard PRIVATE windoweffects_mac.mm)
     target_link_libraries(Clipboard PRIVATE "-framework AppKit")
 endif()
+
+qt_add_qml_module(Clipboard
+    URI Clipboard
+    VERSION 1.0
+    QML_FILES 
+        main.qml
+        Button.qml
+)
+
+target_link_libraries(Clipboard PRIVATE 
+    Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick  Qt6::QuickControls2
+)

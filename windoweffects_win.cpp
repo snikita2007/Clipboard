@@ -1,4 +1,4 @@
-#include "windoweffects.h"
+#include "WindowEffects.h"
 #include <dwmapi.h>
 #include <QQuickWindow>
 #include <QStyleHints>
@@ -7,8 +7,7 @@
 #define DWMWA_SYSTEMBACKDROP_TYPE 38
 #endif
 
-WindowEffects::WindowEffects(QObject *parent) : QObject(parent) {
-}
+WindowEffects::WindowEffects(QObject *parent) : QObject(parent) {}
 
 void WindowEffects::applyEffects(QObject *rootObject) {
     QQuickWindow *window = qobject_cast<QQuickWindow *>(rootObject);

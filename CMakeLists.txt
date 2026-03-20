@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(Clipboard)
+project(ClipboardProject)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
@@ -7,29 +7,50 @@ set(CMAKE_AUTOUIC ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2)
 
-set(PROJECT_SOURCES main.cpp backend.cpp backend.h windoweffects.h)
+set(PROJECT_SOURCES 
+    main.cpp 
+    backend.cpp 
+    backend.h 
+    WindowEffects.h
+)
 
-qt_add_executable(Clipboard ${PROJECT_SOURCES})
+qt_add_executable(ClipboardApp MACOSX_BUNDLE ${PROJECT_SOURCES})
 
 if(WIN32)
-    target_sources(Clipboard PRIVATE windoweffects_win.cpp)
-    target_link_libraries(Clipboard PRIVATE dwmapi)
+    target_sources(ClipboardApp PRIVATE windoweffects_win.cpp)
+    target_link_libraries(ClipboardApp PRIVATE dwmapi)
 endif()
 
 if(APPLE)
+    # Включаем поддержку Objective-C++
     enable_language(OBJCXX)
-    target_sources(Clipboard PRIVATE windoweffects_mac.mm)
-    target_link_libraries(Clipboard PRIVATE "-framework AppKit")
+    
+    # Явно добавляем файлы реализации для Mac
+    target_sources(ClipboardApp PRIVATE windoweffects_mac.mm)
+    
+    # Линк фреймворка
+    target_link_libraries(ClipboardApp PRIVATE "-framework AppKit")
+    
+    # Указываем ID бандла
+    set_target_properties(ClipboardApp PROPERTIES
+        MACOSX_BUNDLE_BUNDLE_IDENTIFIER "com.clipboard.app"
+    )
 endif()
 
-qt_add_qml_module(Clipboard
+
+qt_add_qml_module(ClipboardApp
     URI Clipboard
     VERSION 1.0
+    NO_PLUGIN
     QML_FILES 
         main.qml
         Button.qml
 )
 
-target_link_libraries(Clipboard PRIVATE 
-    Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick  Qt6::QuickControls2
+target_link_libraries(ClipboardApp PRIVATE 
+    Qt6::Core 
+    Qt6::Gui 
+    Qt6::Qml 
+    Qt6::Quick  
+    Qt6::QuickControls2
 )

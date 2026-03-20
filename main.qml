@@ -85,7 +85,7 @@ ApplicationWindow {
                     ListElement { title: "First copied item" }
                     ListElement { title: "Second copied item (a bit longer example)" }
                     ListElement { title: "Third copied item (a much longer text example for test button view)"}
-                    ListElement { title: "Fourth copied item (as longest title as i can try to fit to the frame of text. It can bee longer but it longest that can be displayed)" }
+                    ListElement { title: "Fourth copied item (as longest title as i can try to fit to the frame of text. It can be longer but it longest that can be displayed)" }
                     ListElement { title: "Fifth copied item" }
                     ListElement { title: "Sixth copied item" }
                     ListElement { title: "Seventh copied item" }

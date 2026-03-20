@@ -30,7 +30,7 @@ Button {
         anchors.fill: parent 
         radius: {
             if (Qt.platform.os === "windows") return 4    
-            if (Qt.platform.os === "osx")     return 12     
+            if (Qt.platform.os === "osx")     return 30     
             if (Qt.platform.os === "android") return 20     
             if (Qt.platform.os === "ios")     return 10 
             return 8                                    
@@ -40,7 +40,7 @@ Button {
             if (control.pressed) return Qt.rgba(1, 1, 1, 0.2)
             if (Qt.platform.os === "android" || Qt.platform.os === "ios") 
                 return palette.button
-            return Qt.rgba(1, 1, 1, 0.08) 
+            return Qt.rgba(0, 0, 0, 0.04) 
         }
     }
 }

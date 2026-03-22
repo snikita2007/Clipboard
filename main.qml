@@ -12,51 +12,188 @@ ApplicationWindow {
     minimumHeight: 370 
     minimumWidth: 350
 
-    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowSystemMenuHint | Qt.WindowTitleHint | Qt.WindowCloseButtonHint
-
-    background: null
-
+    flags: Qt.Window | Qt.CustomizeWindowHint 
+        
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 14
-        spacing: 12
+        spacing: 10
+        
+        Item {
+            id: titleBar
+            Layout.fillWidth: true
+            Layout.preferredHeight: 35
+            Layout.leftMargin: -10
+            Layout.rightMargin: -10
+            Layout.topMargin: -12
+
+            RowLayout {
+                anchors.fill: parent
+                spacing: 0
+
+                Item {
+                    Layout.preferredWidth: 10
+                    visible: Qt.platform.os !== "osx" 
+                }
+
+                Label {
+                    text: "Clipboard"
+                    font.pixelSize: 18
+                    font.weight: Font.DemiBold
+                    color: palette.windowText 
+                    Layout.fillWidth: true
+                    elide: Label.ElideRight
+                    verticalAlignment: Text.AlignVCenter
+                }
+
+                Loader{
+                    id: btnSettings
+                    source: "Button.qml"
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: 50
+
+                    onLoaded:{
+                        item.btnText = "⛭"
+                        item.btnRadius = 8
+                        item.padding = 0
+                        item.btnHoveredColor = Qt.rgba(1, 1, 1, 0.12)
+                        item.btnColor = Qt.rgba(0, 0 , 0, 0)
+                        item.clicked.connect(function() {
+                            console.log("Settings Button");
+                            settingsWindow.active = true;
+                        })
+                    }
+                }
+
+                Item {
+                    Layout.fillWidth: true
+                    visible: Qt.platform.os !== "osx" 
+                }
+
+                Loader{
+                    source: "Button.qml"
+                    Layout.preferredHeight: 35
+                    Layout.preferredWidth: 50
+                    onLoaded: {
+                        item.btnText = "✕"
+                        item.btnRadius = 8
+                        item.btnPadding = 0
+                        item.btnHoveredColor = Qt.rgba(0.9098, 0.0667, 0.1373)
+                        item.btnColor = Qt.rgba(0, 0 , 0, 0)
+                        item.clicked.connect(() => root.softClose())
+                    }
+                }
+                DragHandler {
+                    target: null 
+                    onActiveChanged: if (active) root.startSystemMove() 
+                }
+                Item {
+                    Layout.fillWidth: true
+                    visible: Qt.platform.os === "osx"
+                }
+            }  
+        }
 
         RowLayout {
+            id: topBar
             Layout.fillWidth: true
-            spacing: 10
+            state: ""
 
-            Label {
-                text: "Clipboard history"
-                font.pixelSize: 18
-                font.weight: Font.DemiBold
-                color: palette.windowText 
+            states: [
+                State {
+                    name: "searchmode"
+                    // Прячем Clear All (ОБЯЗАТЕЛЬНО В КАВЫЧКАХ)
+                    PropertyChanges { 
+                        target: btnClear
+                        opacity: 0
+                        visible: false
+                        Layout.preferredWidth: 0
+                        Layout.fillWidth: false 
+                    }
+                    // Растягиваем Search
+                    PropertyChanges { 
+                        target: btnSearch
+                        Layout.fillWidth: true 
+                    }
+                    PropertyChanges {
+                        target: btnSearch.item
+                        btnText: ""
+                    }
+                    // Показываем ввод
+                    PropertyChanges { 
+                        target: searchInput
+                        opacity: 1
+                        visible: true
+                    }
+                    PropertyChanges {
+                        target: historyList
+                        opacity: 0
+                        visible: false
+                    }
+                }
+            ]
+
+            transitions: Transition {
+                NumberAnimation { properties: "opacity,Layout.preferredWidth"; duration: 200; easing.type: Easing.OutCubic }
+            }
+
+            Loader {
+                id: btnSearch
+                source: "Button.qml"
+                Layout.preferredHeight: 30 
                 Layout.fillWidth: true
-                elide: Label.ElideRight
-                verticalAlignment: Text.AlignVCenter
-            }
 
-            Loader{
-                source: "Button.qml"
-                Layout.preferredHeight: 30 
-                Layout.preferredWidth: 70
+                onLoaded: {
+                    item.btnText = topBar.state === "searchmode" ? "" : "Search"
+                    item.clicked.connect(() => {
+                        if (topBar.state !== "searchmode") {
+                            topBar.state = "searchmode"
+                            searchInput.forceActiveFocus()
+                        }
+                    })
+                }
 
-                onLoaded:{
-                    item.btnText = "Clear All"
-                    item.padding = 12
-                    item.clicked.connect(function() {console.log("Clear All")})
+                TextField {
+                    id: searchInput
+                    anchors.fill: parent 
+                    anchors.leftMargin: 10
+                    anchors.rightMargin: 10
+                    z: 2
+                    visible: false
+                    opacity: 0
+                    placeholderText: "Type to search..."
+                    color: palette.windowText
+                    background: Item{}
+
+                    onTextChanged: {
+                        console.log("Searched for: " + text)
+                    }
+                    
+                    Text {
+                        text: "✕"
+                        opacity: 0.5
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        visible: topBar.state === "searchmode"
+                        color: palette.windowText
+                        font.pixelSize: 16
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                topBar.state = ""
+                                searchInput.text = ""
+                            }
+                        }
+                    }
                 }
             }
 
-            Loader{
+            Loader {
+                id: btnClear
                 source: "Button.qml"
-                Layout.preferredHeight: 30 
+                Layout.preferredHeight: 30
                 Layout.preferredWidth: 70
-
-                onLoaded:{
-                    item.btnText = "Settings"
-                    item.padding = 12
-                    item.clicked.connect(function() {console.log("Settings Button")})
-                }
+                onLoaded: item.btnText = "Clear All"
             }
         }
 
@@ -108,5 +245,31 @@ ApplicationWindow {
                 }
             }
         }
+    }
+    Loader {
+        id: settingsWindow
+        active: false
+        source: "settings.qml"
+        onLoaded: {
+            windowEffects.applyEffects(item)
+            item.show()
+            console.log("Settings window loaded and shown")
+        }
+        Connections {
+            target: settingsWindow.item
+            ignoreUnknownSignals: true
+        
+            function onClosing() {
+                settingsWindow.active = false
+            }
+        }
+    }
+
+    signal softClose()
+    onSoftClose: closeAnimation.start()
+    ParallelAnimation {
+        id: closeAnimation
+        NumberAnimation { target: root; property: "opacity"; to: 0; duration: 150; easing.type: Easing.OutCubic }
+        onFinished: root.close()
     }
 }

@@ -8,12 +8,11 @@
 #include "backend.h"
 
 int main(int argc, char *argv[]) {
-
     qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
 
     QGuiApplication app(argc, argv);
+    
     QQmlApplicationEngine engine;
-
     WindowEffects windowEffects;
     Backend backend;
 
@@ -27,8 +26,6 @@ int main(int argc, char *argv[]) {
 
     if (window) {
     windowEffects.applyEffects(window);
-    window->showMinimized();
-    window->showNormal();
     window->show();
     }
 

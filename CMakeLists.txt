@@ -22,16 +22,9 @@ if(WIN32)
 endif()
 
 if(APPLE)
-    # Включаем поддержку Objective-C++
     enable_language(OBJCXX)
-    
-    # Явно добавляем файлы реализации для Mac
     target_sources(ClipboardApp PRIVATE windoweffects_mac.mm)
-    
-    # Линк фреймворка
     target_link_libraries(ClipboardApp PRIVATE "-framework AppKit")
-    
-    # Указываем ID бандла
     set_target_properties(ClipboardApp PROPERTIES
         MACOSX_BUNDLE_BUNDLE_IDENTIFIER "com.clipboard.app"
     )
@@ -45,6 +38,7 @@ qt_add_qml_module(ClipboardApp
     QML_FILES 
         main.qml
         Button.qml
+        settings.qml
 )
 
 target_link_libraries(ClipboardApp PRIVATE 

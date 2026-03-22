@@ -11,6 +11,12 @@ Button {
     property int btnHeight: 100
     property int btnWidth: 100
     property int btnLineCount: 1
+    property color btnColor: (Qt.platform.os === "windows") 
+        ? (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.04) : Qt.rgba(1, 1, 1, 0.2)) // Windows
+        : (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1)  : Qt.rgba(0, 0, 0, 0.05)) // (Mac/Linux)
+    property color btnPressedColor: Qt.rgba(1, 1, 1, 0.08)
+    property color btnHoveredColor: Qt.rgba(1, 1, 1, 0.08)
+    property real btnRadius: 0
 
     width: control.btnWidth
     height: control.btnHeight
@@ -29,18 +35,14 @@ Button {
     background: Rectangle {
         anchors.fill: parent 
         radius: {
-            if (Qt.platform.os === "windows") return 4    
-            if (Qt.platform.os === "osx")     return 30     
-            if (Qt.platform.os === "android") return 20     
-            if (Qt.platform.os === "ios")     return 10 
-            return 8                                    
+            if (control.btnRadius > 0) return control.btnRadius;
+            
+            return (Qt.platform.os === "windows") ? 4 :
+                (Qt.platform.os === "osx")     ? 30 :
+                (Qt.platform.os === "android") ? 20 :
+                (Qt.platform.os === "ios")     ? 10 : 8;
         }
-
-        color: {
-            if (control.pressed) return Qt.rgba(1, 1, 1, 0.2)
-            if (Qt.platform.os === "android" || Qt.platform.os === "ios") 
-                return palette.button
-            return Qt.rgba(0, 0, 0, 0.04) 
-        }
+        color: control.pressed ? control.btnPressedColor : 
+           control.hovered ? control.btnHoveredColor : control.btnColor
     }
 }

@@ -1,6 +1,8 @@
+#import <AppKit/AppKit.h>
 #include "WindowEffects.h"
 #include <QQuickWindow>
-#import <AppKit/AppKit.h>
+#include <QGuiApplication>
+#include <QPalette>
 
 WindowEffects::WindowEffects(QObject *parent) : QObject(parent) {}
 
@@ -12,12 +14,9 @@ void WindowEffects::applyEffects(QObject *rootObject) {
     NSWindow *nsWindow = [qtView window];
     if (!nsWindow) return;
 
-    nsWindow.backgroundColor = [NSColor windowBackgroundColor];
-
-    nsWindow.styleMask |= NSWindowStyleMaskFullSizeContentView;
-    nsWindow.titlebarAppearsTransparent = YES;    
-
-    nsWindow.styleMask |= NSWindowStyleMaskTitled;
-    nsWindow.styleMask |= NSWindowStyleMaskFullSizeContentView;
-    nsWindow.movableByWindowBackground = YES;                 
+    nsWindow.titleVisibility = NSWindowTitleHidden;
+    // nsWindow.backgroundColor = [NSColor windowBackgroundColor];
+    nsWindow.backgroundColor = [NSColor clearColor];
+    nsWindow.appearance = nil;
+    nsWindow.movableByWindowBackground = YES;
 }

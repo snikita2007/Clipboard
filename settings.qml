@@ -11,6 +11,17 @@ Window {
 
     flags: Qt.Window | Qt.CustomizeWindowHint 
 
+    Rectangle {
+        id: bg
+        anchors.fill: parent
+        visible: Qt.platform.os = "osx"
+        color: (palette.windowText.r > 0.5) ? "#1E1E1E" : "#F5F5F5"
+        radius: 28
+        clip: true
+        border.width: 1
+        border.color: Qt.rgba(1, 1, 1, 0.1)
+    }
+
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 14
@@ -26,11 +37,63 @@ Window {
 
             RowLayout {
                 anchors.fill: parent
-                spacing: 0
+                spacing: (Qt.platform.os == "osx") ? 7 : 0
 
+                Item {Layout.preferredWidth: (Qt.platform.os == "osx") ? 5 : 10}
+
+                Loader{
+                    id: btnMacClose
+                    source: "Button.qml"
+                    Layout.preferredHeight: 14
+                    Layout.preferredWidth: 14
+                    visible: Qt.platform.os == "osx"
+
+                    onLoaded:{
+                        item.btnText = Qt.binding(function() { return item.hovered ? "✕" : "" })
+                        item.btnFontColor = Qt.rgba(0, 0, 0, 0.8)
+                        item.btnRadius = 50
+                        item.btnPadding = 0
+                        item.btnColor = Qt.binding(function() {
+                            return root.active ? Qt.rgba(1, 0.37, 0.34, 1) : (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
+                        })
+                        item.btnHoveredColor = Qt.rgba(1, 0.37, 0.34, 1)
+                        item.btnPressedColor = Qt.rgba(0.9, 0.37, 0.34)
+                        item.clicked.connect(() => settingsWindow.softClose())
+                    }
+                }
+
+                Loader{
+                    source: "Button.qml"
+                    Layout.preferredHeight: 14
+                    Layout.preferredWidth: 14
+                    visible: Qt.platform.os == "osx"
+
+                    onLoaded:{
+                        item.btnText = ""
+                        item.btnRadius = 50
+                        item.btnPadding = 0
+                        item.btnHoveredColor = (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
+                        item.btnPressedColor = (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
+                    }
+                }
+
+                Loader{
+                    source: "Button.qml"
+                    Layout.preferredHeight: 14
+                    Layout.preferredWidth: 14
+                    visible: Qt.platform.os == "osx"
+
+                    onLoaded:{
+                        item.btnText = ""
+                        item.btnRadius = 50
+                        item.btnPadding = 0
+                        item.btnHoveredColor = (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
+                        item.btnPressedColor = (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
+                    }
+                }
                 Item {
-                    Layout.preferredWidth: 10
-                    visible: Qt.platform.os !== "osx" 
+                    Layout.preferredWidth: 3
+                    visible: Qt.platform.os === "osx" 
                 }
 
                 Label {
@@ -42,6 +105,10 @@ Window {
                     elide: Label.ElideRight
                     verticalAlignment: Text.AlignVCenter
                 }
+                Item {
+                    Layout.preferredWidth: 5
+                    visible: Qt.platform.os === "osx" 
+                }
 
                 Item {
                     Layout.fillWidth: true
@@ -52,6 +119,7 @@ Window {
                     source: "Button.qml"
                     Layout.preferredHeight: 35
                     Layout.preferredWidth: 50
+                    visible: Qt.platform.os != "osx"
                     onLoaded: {
                         item.btnText = "✕"
                         item.btnRadius = 8
@@ -64,10 +132,6 @@ Window {
                 DragHandler {
                     target: null 
                     onActiveChanged: if (active) settingsWindow.startSystemMove() 
-                }
-                Item {
-                    Layout.fillWidth: true
-                    visible: Qt.platform.os === "osx"
                 }
             }  
         }

@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     Backend backend;
 
     engine.rootContext()->setContextProperty("windowEffects", &windowEffects);
-    engine.rootContext()->setContextProperty("myBackend", &backend);
+    engine.rootContext()->setContextProperty("backend", &backend);
 
     engine.load(QUrl(QStringLiteral("qrc:/Clipboard/main.qml")));
 

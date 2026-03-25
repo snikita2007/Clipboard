@@ -17,7 +17,7 @@ ApplicationWindow {
     background: Rectangle {
         id: bg
         anchors.fill: parent
-        visible: Qt.platform.os = "osx"
+        visible: Qt.platform.os === "osx"
         color: (palette.windowText.r > 0.5) ? "#1E1E1E" : "#F5F5F5"
         radius: 28
         clip: true
@@ -46,7 +46,7 @@ ApplicationWindow {
 
                 Loader{
                     id: btnMacClose
-                    source: "Button.qml"
+                    source: "MyButton.qml"
                     Layout.preferredHeight: 14
                     Layout.preferredWidth: 14
                     visible: Qt.platform.os == "osx"
@@ -66,7 +66,7 @@ ApplicationWindow {
                 }
 
                 Loader{
-                    source: "Button.qml"
+                    source: "MyButton.qml"
                     Layout.preferredHeight: 14
                     Layout.preferredWidth: 14
                     visible: Qt.platform.os == "osx"
@@ -81,7 +81,7 @@ ApplicationWindow {
                 }
 
                 Loader{
-                    source: "Button.qml"
+                    source: "MyButton.qml"
                     Layout.preferredHeight: 14
                     Layout.preferredWidth: 14
                     visible: Qt.platform.os == "osx"
@@ -111,7 +111,7 @@ ApplicationWindow {
 
                 Loader{
                     id: btnSettings
-                    source: "Button.qml"
+                    source: "MyButton.qml"
                     Layout.fillHeight: (Qt.platform.os !== "osx")
                     Layout.preferredHeight: (Qt.platform.os === "osx") ? 30 : -1
                     Layout.preferredWidth: (Qt.platform.os === "osx") ? 45 : 50 
@@ -119,7 +119,7 @@ ApplicationWindow {
                     onLoaded:{
                         item.btnText = "⛭" 
                         item.btnRadius = (Qt.platform.os === "osx") ? 30 : 8 
-                        item.btnFontSize = 18
+                        item.btnFontSize = 14
                         item.padding = 0
                         item.btnColor = ((Qt.platform.os === "osx") ? (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.05)  : Qt.rgba(0, 0, 0, 0.05)) : Qt.rgba(0, 0 , 0, 0) )
                         item.clicked.connect(function() {
@@ -139,12 +139,13 @@ ApplicationWindow {
                 }
 
                 Loader{
-                    source: "Button.qml"
+                    source: "MyButton.qml"
                     Layout.preferredHeight: 35
                     Layout.preferredWidth: 50
                     visible: Qt.platform.os != "osx"
                     onLoaded: {
                         item.btnText = "✕"
+                        item.btnFontSize = 14
                         item.btnRadius = 8
                         item.btnPadding = 0
                         item.btnHoveredColor = Qt.rgba(0.9098, 0.0667, 0.1373)
@@ -201,7 +202,7 @@ ApplicationWindow {
 
             Loader {
                 id: btnSearch
-                source: "Button.qml"
+                source: "MyButton.qml"
                 Layout.preferredHeight: 30 
                 Layout.fillWidth: true
 
@@ -252,10 +253,16 @@ ApplicationWindow {
 
             Loader {
                 id: btnClear
-                source: "Button.qml"
+                source: "MyButton.qml"
                 Layout.preferredHeight: 30
                 Layout.preferredWidth: 70
-                onLoaded: item.btnText = "Clear All"
+                onLoaded: {
+                    item.btnText = "Clear All"
+                    item.clicked.connect(() => {
+                            console.log("Cleared")
+                            backend.clearClip()
+                    })
+                }
             }
         }
 
@@ -281,6 +288,7 @@ ApplicationWindow {
                 boundsBehavior: Flickable.StopAtBounds
 
                 model: ListModel {
+                    id: clipList
                     ListElement { title: "First copied item" }
                     ListElement { title: "Second copied item (a bit longer example)" }
                     ListElement { title: "Third copied item (a much longer text example for test button view)"}
@@ -292,17 +300,22 @@ ApplicationWindow {
                 }
 
                 delegate: Loader{
-                    source: "Button.qml"
+                    id: delegateLoader
+
+                    required property string title 
+                    required property int index 
+
+                    source: "MyButton.qml"
                     width: historyList.width  
                     height: 70
 
                     onLoaded:{
-                        item.btnText = model.title
+                        item.btnText = title || "loading..."
                         item.btnAlignH = Text.AlignLeft
                         item.btnRadius = ((Qt.platform.os === "osx") ? 12 : 8 )
                         item.btnLineCount = 2
                         item.clicked.connect(() => {
-                            console.log("Нажат элемент: " + model.title)
+                            console.log("Нажат элемент: " + title)
                         })
                     }
                 }

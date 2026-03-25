@@ -14,7 +14,7 @@ Window {
     Rectangle {
         id: bg
         anchors.fill: parent
-        visible: Qt.platform.os = "osx"
+        visible: (Qt.platform.os === "osx")
         color: (palette.windowText.r > 0.5) ? "#1E1E1E" : "#F5F5F5"
         radius: 28
         clip: true
@@ -43,7 +43,7 @@ Window {
 
                 Loader{
                     id: btnMacClose
-                    source: "Button.qml"
+                    source: "MyButton.qml"
                     Layout.preferredHeight: 14
                     Layout.preferredWidth: 14
                     visible: Qt.platform.os == "osx"
@@ -63,7 +63,7 @@ Window {
                 }
 
                 Loader{
-                    source: "Button.qml"
+                    source: "MyButton.qml"
                     Layout.preferredHeight: 14
                     Layout.preferredWidth: 14
                     visible: Qt.platform.os == "osx"
@@ -78,7 +78,7 @@ Window {
                 }
 
                 Loader{
-                    source: "Button.qml"
+                    source: "MyButton.qml"
                     Layout.preferredHeight: 14
                     Layout.preferredWidth: 14
                     visible: Qt.platform.os == "osx"
@@ -116,7 +116,7 @@ Window {
                 }
 
                 Loader{
-                    source: "Button.qml"
+                    source: "MyButton.qml"
                     Layout.preferredHeight: 35
                     Layout.preferredWidth: 50
                     visible: Qt.platform.os != "osx"

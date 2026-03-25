@@ -37,8 +37,8 @@ qt_add_qml_module(ClipboardApp
     NO_PLUGIN
     QML_FILES 
         main.qml
-        Button.qml
         settings.qml
+        MyButton.qml
 )
 
 target_link_libraries(ClipboardApp PRIVATE 

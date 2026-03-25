@@ -44,56 +44,43 @@ ApplicationWindow {
 
                 Item {Layout.preferredWidth: (Qt.platform.os == "osx") ? 5 : 10}
 
-                Loader{
+                MyButton{
                     id: btnMacClose
-                    source: "MyButton.qml"
                     Layout.preferredHeight: 14
                     Layout.preferredWidth: 14
                     visible: Qt.platform.os == "osx"
-
-                    onLoaded:{
-                        item.btnText = Qt.binding(function() { return item.hovered ? "✕" : "" })
-                        item.btnFontColor = Qt.rgba(0, 0, 0, 0.8)
-                        item.btnRadius = 50
-                        item.btnPadding = 0
-                        item.btnColor = Qt.binding(function() {
-                            return root.active ? Qt.rgba(1, 0.37, 0.34, 1) : (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
-                        })
-                        item.btnHoveredColor = Qt.rgba(1, 0.37, 0.34, 1)
-                        item.btnPressedColor = Qt.rgba(0.9, 0.37, 0.34)
-                        item.clicked.connect(() => root.softClose())
-                    }
+                    btnText: hovered ? "✕" : ""
+                    btnFontColor: Qt.rgba(0, 0, 0, 0.8)
+                    btnRadius: 50
+                    btnPadding: 0
+                    btnColor: root.active ? Qt.rgba(1, 0.37, 0.34, 1) : (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
+                    btnHoveredColor: Qt.rgba(1, 0.37, 0.34, 1)
+                    btnPressedColor: Qt.rgba(0.9, 0.37, 0.34)
+                    onClicked: root.softClose()
                 }
 
-                Loader{
-                    source: "MyButton.qml"
+                MyButton{
                     Layout.preferredHeight: 14
                     Layout.preferredWidth: 14
                     visible: Qt.platform.os == "osx"
-
-                    onLoaded:{
-                        item.btnText = ""
-                        item.btnRadius = 50
-                        item.btnPadding = 0
-                        item.btnHoveredColor = (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
-                        item.btnPressedColor = (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
-                    }
+                    btnText: ""
+                    btnRadius: 50
+                    btnPadding: 0
+                    btnHoveredColor: (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
+                    btnPressedColor: (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
                 }
 
-                Loader{
-                    source: "MyButton.qml"
+                MyButton{
                     Layout.preferredHeight: 14
                     Layout.preferredWidth: 14
                     visible: Qt.platform.os == "osx"
-
-                    onLoaded:{
-                        item.btnText = ""
-                        item.btnRadius = 50
-                        item.btnPadding = 0
-                        item.btnHoveredColor = (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
-                        item.btnPressedColor = (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
-                    }
+                    btnText: ""
+                    btnRadius: 50
+                    btnPadding: 0
+                    btnHoveredColor: (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
+                    btnPressedColor: (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
                 }
+
                 Item {
                     Layout.preferredWidth: 3
                     visible: Qt.platform.os === "osx" 
@@ -109,23 +96,20 @@ ApplicationWindow {
                     verticalAlignment: Text.AlignVCenter
                 }
 
-                Loader{
+                MyButton{
                     id: btnSettings
-                    source: "MyButton.qml"
                     Layout.fillHeight: (Qt.platform.os !== "osx")
                     Layout.preferredHeight: (Qt.platform.os === "osx") ? 30 : -1
                     Layout.preferredWidth: (Qt.platform.os === "osx") ? 45 : 50 
 
-                    onLoaded:{
-                        item.btnText = "⛭" 
-                        item.btnRadius = (Qt.platform.os === "osx") ? 30 : 8 
-                        item.btnFontSize = 14
-                        item.padding = 0
-                        item.btnColor = ((Qt.platform.os === "osx") ? (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.05)  : Qt.rgba(0, 0, 0, 0.05)) : Qt.rgba(0, 0 , 0, 0) )
-                        item.clicked.connect(function() {
-                            console.log("Settings Button");
-                            settingsWindow.active = true;
-                        })
+                    btnText: "⛭" 
+                    btnRadius: (Qt.platform.os === "osx") ? 30 : 8 
+                    btnFontSize: 14
+                    padding: 0
+                    btnColor: ((Qt.platform.os === "osx") ? (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.05)  : Qt.rgba(0, 0, 0, 0.05)) : Qt.rgba(0, 0 , 0, 0) )
+                    onClicked:{
+                        console.log("Settings Button");
+                        settingsWindow.active = true;
                     }
                 }
                 Item {
@@ -138,21 +122,18 @@ ApplicationWindow {
                     visible: Qt.platform.os !== "osx" 
                 }
 
-                Loader{
-                    source: "MyButton.qml"
+                MyButton{
                     Layout.preferredHeight: 35
                     Layout.preferredWidth: 50
                     visible: Qt.platform.os != "osx"
-                    onLoaded: {
-                        item.btnText = "✕"
-                        item.btnFontSize = 14
-                        item.btnRadius = 8
-                        item.btnPadding = 0
-                        item.btnHoveredColor = Qt.rgba(0.9098, 0.0667, 0.1373)
-                        item.btnColor = Qt.rgba(0, 0 , 0, 0)
-                        item.clicked.connect(() => root.softClose())
-                    }
+                    btnText: "✕"
+                    btnRadius: 8
+                    btnPadding: 0
+                    btnHoveredColor: Qt.rgba(0.9098, 0.0667, 0.1373)
+                    btnColor: Qt.rgba(0, 0 , 0, 0)
+                    onClicked: root.softClose()
                 }
+
                 DragHandler {
                     target: null 
                     onActiveChanged: if (active) root.startSystemMove() 
@@ -163,6 +144,8 @@ ApplicationWindow {
         RowLayout {
             id: topBar
             Layout.fillWidth: true
+            Layout.preferredHeight: 30
+            spacing: 5
             state: ""
 
             states: [
@@ -170,102 +153,93 @@ ApplicationWindow {
                     name: "searchmode"
                     PropertyChanges { 
                         target: btnClear
-                        opacity: 0
-                        visible: false
                         Layout.preferredWidth: 0
-                        Layout.fillWidth: false 
+                        opacity: 0
+                        visible: false 
                     }
                     PropertyChanges { 
                         target: btnSearch
-                        Layout.fillWidth: true 
+                        btnText: "" 
                     }
                     PropertyChanges {
-                        target: btnSearch.item
-                        btnText: ""
-                    }
-                    PropertyChanges { 
                         target: searchInput
-                        opacity: 1
                         visible: true
+                        opacity: 1
                     }
                     PropertyChanges {
                         target: historyList
-                        opacity: 0
                         visible: false
                     }
                 }
             ]
 
             transitions: Transition {
-                NumberAnimation { properties: "opacity,Layout.preferredWidth"; duration: 200; easing.type: Easing.OutCubic }
+                NumberAnimation { 
+                    properties: "Layout.preferredWidth,opacity"; 
+                    duration: 200; 
+                    easing.type: Easing.OutCubic  
+                }
             }
 
-            Loader {
-                id: btnSearch
-                source: "MyButton.qml"
-                Layout.preferredHeight: 30 
+            Item {
+                id: searchWrapper
                 Layout.fillWidth: true
+                Layout.preferredHeight: 30
 
-                onLoaded: {
-                    item.btnText = topBar.state === "searchmode" ? "" : "Search"
-                    item.clicked.connect(() => {
-                        if (topBar.state !== "searchmode") {
-                            topBar.state = "searchmode"
-                            searchInput.forceActiveFocus()
-                        }
-                    })
+                MyButton {
+                    id: btnSearch
+                    anchors.fill: parent
+                    btnText: topBar.state === "searchmode" ? "" : "Search"
+                    onClicked: {
+                        topBar.state = "searchmode"
+                        searchInput.forceActiveFocus()
+                    }
                 }
 
                 TextField {
                     id: searchInput
-                    anchors.fill: parent 
-                    anchors.leftMargin: 10
-                    anchors.rightMargin: 10
-                    z: 2
+                    anchors.fill: parent
                     visible: false
                     opacity: 0
                     placeholderText: "Type to search..."
                     color: palette.windowText
-                    background: Item{}
+                    leftPadding: 10
+                    rightPadding: 30
+                    background: Item {} 
 
-                    onTextChanged: {
-                        console.log("Searched for: " + text)
-                    }
-                    
                     Text {
                         text: "✕"
-                        opacity: 0.5
                         anchors.right: parent.right
+                        anchors.rightMargin: 12
                         anchors.verticalCenter: parent.verticalCenter
-                        visible: topBar.state === "searchmode"
                         color: palette.windowText
-                        font.pixelSize: 16
+                        opacity: 0.5
+                        visible: topBar.state === "searchmode"
+
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                topBar.state = ""
                                 searchInput.text = ""
+                                topBar.state = ""
                             }
                         }
                     }
                 }
             }
 
-            Loader {
+            MyButton {
                 id: btnClear
-                source: "MyButton.qml"
-                Layout.preferredHeight: 30
                 Layout.preferredWidth: 70
-                onLoaded: {
-                    item.btnText = "Clear All"
-                    item.clicked.connect(() => {
-                            console.log("Cleared")
-                            backend.clearClip()
-                    })
+                Layout.preferredHeight: 30
+                btnText: "Clear All"
+                clip: true
+                
+                onClicked: {
+                    console.log("Cleared")
+                    clipList.clear();
                 }
             }
         }
-
 
         Frame {
             Layout.fillWidth: true
@@ -299,36 +273,36 @@ ApplicationWindow {
                     ListElement { title: "Another copied item" }
                 }
 
-                delegate: Loader{
+                delegate: MyButton{
                     id: delegateLoader
-
-                    required property string title 
-                    required property int index 
-
-                    source: "MyButton.qml"
                     width: historyList.width  
                     height: 70
-
-                    onLoaded:{
-                        item.btnText = title || "loading..."
-                        item.btnAlignH = Text.AlignLeft
-                        item.btnRadius = ((Qt.platform.os === "osx") ? 12 : 8 )
-                        item.btnLineCount = 2
-                        item.clicked.connect(() => {
-                            console.log("Нажат элемент: " + title)
-                        })
-                    }
+                    btnText: title || "loading..."
+                    btnAlignH: Text.AlignLeft
+                    btnRadius: ((Qt.platform.os === "osx") ? 12 : 8 )
+                    btnLineCount: 2
+                    onClicked: console.log("Нажат элемент: " + title)
                 }
+            }
+
+            Label {
+                text: "Clipboard is empty"
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.centerIn: historyList
+                font.weight: Font.Light
+                visible: clipList.count === 0 && historyList.visible === true
             }
         }
     }
+
     Loader {
         id: settingsWindow
         active: false
         source: "settings.qml"
         onLoaded: {
             windowEffects.applyEffects(item)
-            item.show()
+            show()
             console.log("Settings window loaded and shown")
         }
         Connections {

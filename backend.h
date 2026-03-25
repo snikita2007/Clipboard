@@ -16,7 +16,7 @@ public:
 
     // Q_INVOKABLE void removeFromClip();
 
-    Q_INVOKABLE void clearClip();
+    Q_INVOKABLE void clearClip(QObject* content);
 
 };
 

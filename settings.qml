@@ -41,56 +41,54 @@ Window {
 
                 Item {Layout.preferredWidth: (Qt.platform.os == "osx") ? 5 : 10}
 
-                Loader{
+                MyButton{
                     id: btnMacClose
-                    source: "MyButton.qml"
                     Layout.preferredHeight: 14
                     Layout.preferredWidth: 14
                     visible: Qt.platform.os == "osx"
-
-                    onLoaded:{
-                        item.btnText = Qt.binding(function() { return item.hovered ? "✕" : "" })
-                        item.btnFontColor = Qt.rgba(0, 0, 0, 0.8)
-                        item.btnRadius = 50
-                        item.btnPadding = 0
-                        item.btnColor = Qt.binding(function() {
-                            return root.active ? Qt.rgba(1, 0.37, 0.34, 1) : (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
-                        })
-                        item.btnHoveredColor = Qt.rgba(1, 0.37, 0.34, 1)
-                        item.btnPressedColor = Qt.rgba(0.9, 0.37, 0.34)
-                        item.clicked.connect(() => settingsWindow.softClose())
-                    }
+                    btnText: hovered ? "✕" : ""
+                    btnFontColor: Qt.rgba(0, 0, 0, 0.8)
+                    btnRadius: 50
+                    btnPadding: 0
+                    btnColor: settingsWindow.active ? Qt.rgba(1, 0.37, 0.34, 1) : (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
+                    btnHoveredColor: Qt.rgba(1, 0.37, 0.34, 1)
+                    btnPressedColor: Qt.rgba(0.9, 0.37, 0.34)
+                    onClicked: settingsWindow.softClose()
                 }
 
-                Loader{
-                    source: "MyButton.qml"
+                MyButton{
                     Layout.preferredHeight: 14
                     Layout.preferredWidth: 14
                     visible: Qt.platform.os == "osx"
-
-                    onLoaded:{
-                        item.btnText = ""
-                        item.btnRadius = 50
-                        item.btnPadding = 0
-                        item.btnHoveredColor = (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
-                        item.btnPressedColor = (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
-                    }
+                    btnText: ""
+                    btnRadius: 50
+                    btnPadding: 0
+                    btnHoveredColor: (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
+                    btnPressedColor: (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
                 }
 
-                Loader{
-                    source: "MyButton.qml"
+                MyButton{
                     Layout.preferredHeight: 14
                     Layout.preferredWidth: 14
                     visible: Qt.platform.os == "osx"
-
-                    onLoaded:{
-                        item.btnText = ""
-                        item.btnRadius = 50
-                        item.btnPadding = 0
-                        item.btnHoveredColor = (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
-                        item.btnPressedColor = (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
-                    }
+                    btnText: ""
+                    btnRadius: 50
+                    btnPadding: 0
+                    btnHoveredColor: (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
+                    btnPressedColor: (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
                 }
+
+                MyButton{
+                    Layout.preferredHeight: 14
+                    Layout.preferredWidth: 14
+                    visible: Qt.platform.os == "osx"
+                    btnText: ""
+                    btnRadius: 50
+                    btnPadding: 0
+                    btnHoveredColor: (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
+                    btnPressedColor: (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
+                }
+
                 Item {
                     Layout.preferredWidth: 3
                     visible: Qt.platform.os === "osx" 
@@ -115,19 +113,16 @@ Window {
                     visible: Qt.platform.os !== "osx" 
                 }
 
-                Loader{
-                    source: "MyButton.qml"
+                MyButton{
                     Layout.preferredHeight: 35
                     Layout.preferredWidth: 50
                     visible: Qt.platform.os != "osx"
-                    onLoaded: {
-                        item.btnText = "✕"
-                        item.btnRadius = 8
-                        item.btnPadding = 0
-                        item.btnHoveredColor = Qt.rgba(0.9098, 0.0667, 0.1373)
-                        item.btnColor = Qt.rgba(0, 0 , 0, 0)
-                        item.clicked.connect(() => settingsWindow.softClose())
-                    }
+                    btnText: "✕"
+                    btnRadius: 8
+                    btnPadding: 0
+                    btnHoveredColor: Qt.rgba(0.9098, 0.0667, 0.1373)
+                    btnColor: Qt.rgba(0, 0 , 0, 0)
+                    onClicked: settingsWindow.softClose()
                 }
                 DragHandler {
                     target: null 

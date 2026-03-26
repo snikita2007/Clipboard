@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -261,27 +262,33 @@ ApplicationWindow {
                 spacing: 5
                 boundsBehavior: Flickable.StopAtBounds
 
-                model: ListModel {
-                    id: clipList
-                    ListElement { title: "First copied item" }
-                    ListElement { title: "Second copied item (a bit longer example)" }
-                    ListElement { title: "Third copied item (a much longer text example for test button view)"}
-                    ListElement { title: "Fourth copied item (as longest title as i can try to fit to the frame of text. It can be longer but it longest that can be displayed)" }
-                    ListElement { title: "Fifth copied item" }
-                    ListElement { title: "Sixth copied item" }
-                    ListElement { title: "Seventh copied item" }
-                    ListElement { title: "Another copied item" }
-                }
+                model: backend ? backend.history : []
 
-                delegate: MyButton{
+                delegate: MyButton {
                     id: delegateLoader
+                    required property var modelData
                     width: historyList.width  
                     height: 70
-                    btnText: title || "loading..."
-                    btnAlignH: Text.AlignLeft
-                    btnRadius: ((Qt.platform.os === "osx") ? 12 : 8 )
-                    btnLineCount: 2
-                    onClicked: console.log("Нажат элемент: " + title)
+                    clip: true
+                    btnAlignH: Qt.AlignLeft
+                    btnText: modelData.type === "text" ? modelData.preview : ""
+                    Image {
+                        id: previewImage
+                        opacity: 0.1
+                        sourceSize.width: delegateLoader.width
+                        sourceSize.height: delegateLoader.height 
+                        visible: modelData.type === "image"
+                        source: visible ? modelData.preview : ""
+                        // sourceSize.width: 400 
+                        // sourceSize.height: 400
+                        asynchronous: true
+                        anchors.fill: parent
+                        // anchors.margins: 10
+                        fillMode: Image.PreserveAspectCrop
+                        horizontalAlignment: Image.AlignHCenter
+                        verticalAlignment: Image.AlignVCenter
+                    }
+                    onClicked: backend.copyToClip(modelData)
                 }
             }
 
@@ -291,7 +298,7 @@ ApplicationWindow {
                 horizontalAlignment: Text.AlignHCenter
                 anchors.centerIn: historyList
                 font.weight: Font.Light
-                visible: clipList.count === 0 && historyList.visible === true
+                visible: backend && backend.history.length === 0 && historyList.visible === true
             }
         }
     }

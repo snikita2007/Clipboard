@@ -4,20 +4,35 @@
 #include <QObject>
 #include <QDebug>
 #include <QGuiApplication>
+#include <QMimeData>
+#include <QClipboard>
+#include <QImage>
+#include <QUrl>
+#include <QFileInfo>
+#include <QImage>
+#include <QDir>
+#include <QStandardPaths>
+#include <QDateTime>
 
 class Backend : public QObject {
     Q_OBJECT
+    Q_PROPERTY(QVariantList history READ history NOTIFY historyChanged)
+
+signals:
+    void historyChanged();
+
+public slots:
+    void onClipboardChanged();
+
 public:
-    explicit Backend(QObject *parent = nullptr) : QObject(parent) {}
+    explicit Backend(QObject *parent = nullptr);
+    ~Backend();
+    QVariantList history() const { return m_history; }
+    Q_INVOKABLE void copyToClip(QVariant data);
 
-    Q_INVOKABLE void doWork();
-
-    // Q_INVOKABLE void addToClip();
-
-    // Q_INVOKABLE void removeFromClip();
-
-    Q_INVOKABLE void clearClip(QObject* content);
-
+private:
+    QVariantList m_history;
+    QString m_cacheDir;
 };
 
 #endif

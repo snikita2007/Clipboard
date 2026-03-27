@@ -13,7 +13,7 @@ ApplicationWindow {
     minimumHeight: 370 
     minimumWidth: 350
 
-    flags: Qt.Window | Qt.CustomizeWindowHint 
+    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint 
 
     background: Rectangle {
         id: bg
@@ -236,7 +236,6 @@ ApplicationWindow {
                 clip: true
                 
                 onClicked: {
-                    console.log("Cleared")
                     clipList.clear();
                 }
             }
@@ -262,7 +261,7 @@ ApplicationWindow {
                 spacing: 5
                 boundsBehavior: Flickable.StopAtBounds
 
-                model: backend ? backend.history : []
+                model: ListModel { id: clipList }
 
                 delegate: MyButton {
                     id: delegateLoader
@@ -270,6 +269,7 @@ ApplicationWindow {
                     width: historyList.width  
                     height: 70
                     clip: true
+                    btnRadius: (Qt.platform.os === "windows") ? 4 : 12
                     btnAlignH: Qt.AlignLeft
                     btnText: modelData.type === "text" ? modelData.preview : ""
                     Image {
@@ -290,6 +290,26 @@ ApplicationWindow {
                     }
                     onClicked: backend.copyToClip(modelData)
                 }
+
+                add: Transition {
+                    NumberAnimation { property: "opacity"; from: 0; to: 1.0; duration: 100 }
+                    NumberAnimation { property: "scale"; from: 0.8; to: 1.0; duration: 150; easing.type: Easing.OutBack }
+                }
+
+                displaced: Transition {
+                    NumberAnimation { 
+                        properties: "y"; 
+                        duration: 200; 
+                        easing.type: Easing.OutExpo 
+                    }
+                }
+                Connections {
+                    target: backend
+                    function onItemAdded(newItem) {
+                        clipList.insert(0, newItem);
+                        if (clipList.count > 50) clipList.remove(50);
+                    }
+                }
             }
 
             Label {
@@ -298,7 +318,7 @@ ApplicationWindow {
                 horizontalAlignment: Text.AlignHCenter
                 anchors.centerIn: historyList
                 font.weight: Font.Light
-                visible: backend && backend.history.length === 0 && historyList.visible === true
+                visible: clipList.count === 0 && historyList.visible === true
             }
         }
     }

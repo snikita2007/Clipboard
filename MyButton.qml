@@ -16,7 +16,7 @@ Button {
         ? (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.04) : Qt.rgba(1, 1, 1, 0.2)) // Windows
         : (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.05)  : Qt.rgba(0, 0, 0, 0.05)) // (Mac/Linux)
     property color btnPressedColor: Qt.rgba(1, 1, 1, 0.08)
-    property color btnHoveredColor: (Qt.platform.os === "osx") ? palette.highlight : Qt.rgba(1, 1, 1, 0.08)
+    property color btnHoveredColor: (Qt.platform.os === "osx") ? btnColor : Qt.rgba(1, 1, 1, 0.08)
     property real btnRadius: 0
     property int btnFontSize: 13 
     property color btnFontColor: palette.windowText

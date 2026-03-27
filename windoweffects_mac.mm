@@ -3,6 +3,7 @@
 #include <QQuickWindow>
 #include <QGuiApplication>
 #include <QPalette>
+#include "backend.h"
 
 WindowEffects::WindowEffects(QObject *parent) : QObject(parent) {}
 
@@ -15,8 +16,15 @@ void WindowEffects::applyEffects(QObject *rootObject) {
     if (!nsWindow) return;
 
     nsWindow.titleVisibility = NSWindowTitleHidden;
-    // nsWindow.backgroundColor = [NSColor windowBackgroundColor];
     nsWindow.backgroundColor = [NSColor clearColor];
     nsWindow.appearance = nil;
     nsWindow.movableByWindowBackground = YES;
+}
+
+void Backend::checkClipboardNative() {
+    NSPasteboard *pb = [NSPasteboard generalPasteboard];
+    long currentCount = [pb changeCount];
+    if (currentCount == m_lastChangeCount) {return;}
+    m_lastChangeCount = currentCount;
+    this->onClipboardChanged(); 
 }

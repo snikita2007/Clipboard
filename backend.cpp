@@ -8,6 +8,12 @@ Backend::Backend(QObject *parent) : QObject(parent)
 
     QClipboard *clipboard = QGuiApplication::clipboard();
     connect(clipboard, &QClipboard::dataChanged, this, &Backend::onClipboardChanged);
+
+    #ifdef Q_OS_MAC
+    QTimer *timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &Backend::checkClipboardNative);
+    timer->start(500);
+    #endif
 }
 
 Backend::~Backend() {
@@ -100,11 +106,9 @@ void Backend::onClipboardChanged() {
     
         m_history.prepend(item);
 
-        while (m_history.size() > 50) {
-            m_history.removeLast();
-        }
+        emit itemAdded(item); 
 
-        emit historyChanged();
+        if (m_history.size() > 50) m_history.removeLast();
     }
 }
 

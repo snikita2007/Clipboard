@@ -14,17 +14,7 @@ ApplicationWindow {
     minimumWidth: 350
 
     flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint 
-
-    background: Rectangle {
-        id: bg
-        anchors.fill: parent
-        visible: Qt.platform.os === "osx"
-        color: (palette.windowText.r > 0.5) ? "#1E1E1E" : "#F5F5F5"
-        radius: 28
-        clip: true
-        border.width: 1
-        border.color: Qt.rgba(1, 1, 1, 0.1)
-    }
+    background: null
 
     ColumnLayout {
         anchors.fill: parent
@@ -110,7 +100,9 @@ ApplicationWindow {
                     btnColor: ((Qt.platform.os === "osx") ? (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.05)  : Qt.rgba(0, 0, 0, 0.05)) : Qt.rgba(0, 0 , 0, 0) )
                     onClicked:{
                         console.log("Settings Button");
-                        settingsWindow.active = true;
+                        settingsWindow.opacity = 1;
+                        settingsWindow.show();
+                        root.hide();
                     }
                 }
                 Item {
@@ -323,22 +315,12 @@ ApplicationWindow {
         }
     }
 
-    Loader {
+    Settings {
         id: settingsWindow
-        active: false
-        source: "settings.qml"
-        onLoaded: {
-            windowEffects.applyEffects(item)
-            show()
-            console.log("Settings window loaded and shown")
-        }
-        Connections {
-            target: settingsWindow.item
-            ignoreUnknownSignals: true
-        
-            function onClosing() {
-                settingsWindow.active = false
-            }
+        visible: false
+
+        Component.onCompleted: {
+            windowEffects.applyEffects(settingsWindow)
         }
     }
 

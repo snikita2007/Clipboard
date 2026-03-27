@@ -23,8 +23,18 @@ endif()
 
 if(APPLE)
     enable_language(OBJCXX)
-    target_sources(ClipboardApp PRIVATE windoweffects_mac.mm)
-    target_link_libraries(ClipboardApp PRIVATE "-framework AppKit")
+    add_definitions(-DPLATFORM_OSX)
+    target_sources(ClipboardApp PRIVATE 
+        windoweffects_mac.mm
+        QtLiquidGlass.mm 
+    )
+    
+    target_link_libraries(ClipboardApp PRIVATE 
+        "-framework AppKit" 
+        "-framework Foundation"
+        "-framework QuartzCore"
+    )
+    
     set_target_properties(ClipboardApp PROPERTIES
         MACOSX_BUNDLE_BUNDLE_IDENTIFIER "com.clipboard.app"
     )
@@ -37,7 +47,7 @@ qt_add_qml_module(ClipboardApp
     NO_PLUGIN
     QML_FILES 
         main.qml
-        settings.qml
+        Settings.qml
         MyButton.qml
 )
 

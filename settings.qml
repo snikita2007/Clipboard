@@ -11,17 +11,6 @@ Window {
 
     flags: Qt.Window | Qt.CustomizeWindowHint 
 
-    Rectangle {
-        id: bg
-        anchors.fill: parent
-        visible: (Qt.platform.os === "osx")
-        color: (palette.windowText.r > 0.5) ? "#1E1E1E" : "#F5F5F5"
-        radius: 28
-        clip: true
-        border.width: 1
-        border.color: Qt.rgba(1, 1, 1, 0.1)
-    }
-
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 14
@@ -54,17 +43,6 @@ Window {
                     btnHoveredColor: Qt.rgba(1, 0.37, 0.34, 1)
                     btnPressedColor: Qt.rgba(0.9, 0.37, 0.34)
                     onClicked: settingsWindow.softClose()
-                }
-
-                MyButton{
-                    Layout.preferredHeight: 14
-                    Layout.preferredWidth: 14
-                    visible: Qt.platform.os == "osx"
-                    btnText: ""
-                    btnRadius: 50
-                    btnPadding: 0
-                    btnHoveredColor: (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
-                    btnPressedColor: (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
                 }
 
                 MyButton{
@@ -144,6 +122,9 @@ Window {
     ParallelAnimation {
         id: closeAnimation
         NumberAnimation { target: settingsWindow; property: "opacity"; to: 0; duration: 150; easing.type: Easing.OutCubic }
-        onFinished: settingsWindow.close()
+        onFinished: {
+            settingsWindow.hide()
+            root.show()
+        }
     }
 }

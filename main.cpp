@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("windowEffects", &windowEffects);
     engine.rootContext()->setContextProperty("backend", &backend);
 
-    engine.load(QUrl(QStringLiteral("qrc:/Clipboard/main.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/Clipboard/ui/main.qml")));
 
     QObject *root = engine.rootObjects().first();
     QQuickWindow *window = qobject_cast<QQuickWindow*>(root);

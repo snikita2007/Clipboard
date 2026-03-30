@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
     QObject *root = engine.rootObjects().first();
     QQuickWindow *window = qobject_cast<QQuickWindow*>(root);
 
+    // Наложение эффектов окна 
     if (window) {
     windowEffects.applyEffects(window);
     window->show();

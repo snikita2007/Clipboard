@@ -2,6 +2,7 @@
 #define BACKEND_H
 
 #include <QObject>
+#include <QtQml>
 #include <QTimer>
 #include <QDebug>
 #include <QGuiApplication>
@@ -16,22 +17,23 @@
 #include <QDateTime>
 
 class Backend : public QObject {
-    Q_OBJECT
-    Q_PROPERTY(QVariantList history READ history NOTIFY historyChanged)
+    Q_OBJECT // Позволяет классу использовать сигналы, слоты и систему свойств Qt
+    QML_ELEMENT // Регистрирует класс как доступный тип в QML
+    QML_SINGLETON // Создает экземпляр класса в единственном числе для всего QML приложения
 
 signals:
-    void historyChanged();
-    void itemAdded(QVariant item);
+    void itemAdded(QVariant item); // Сигнал о добавлении объекта в буфер
 
 public slots:
+    //Функция вызываемая при изменениии буфера 
     void onClipboardChanged();
 
 public:
     explicit Backend(QObject *parent = nullptr);
     ~Backend();
-    QVariantList history() const { return m_history; }
     Q_INVOKABLE void copyToClip(QVariant data);
     void checkClipboardNative();
+    Q_INVOKABLE void clearHistory();
 
 private:
     QVariantList m_history;

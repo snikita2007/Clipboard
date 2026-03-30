@@ -18,13 +18,7 @@ void WindowEffects::applyEffects(QObject *rootObject) {
     int glassId = AddGlassEffectView(nativeView, false);
     if (glassId != -1) {
         ConfigureGlassView(glassId, 30.0, 0.0, 0.0, 0.0, 0.0);
+        SetGlassViewAdaptiveAppearance(glassId, 2);
+        SetGlassViewVariant(glassId, 16);
     }
-}
-
-void Backend::checkClipboardNative() {
-    NSPasteboard *pb = [NSPasteboard generalPasteboard];
-    long currentCount = [pb changeCount];
-    if (currentCount == m_lastChangeCount) {return;}
-    m_lastChangeCount = currentCount;
-    this->onClipboardChanged(); 
 }

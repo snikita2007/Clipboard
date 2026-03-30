@@ -55,6 +55,9 @@ qt_add_qml_module(ClipboardApp
         ui/components/MyButton.qml
         ui/components/TitleBar.qml
         ui/Settings.qml
+    SOURCES
+        backend/backend.h 
+        backend/backend.cpp
 )
 
 target_link_libraries(ClipboardApp PRIVATE 

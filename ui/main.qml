@@ -1,7 +1,7 @@
-pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Clipboard
 import "components"
 
 ApplicationWindow {
@@ -113,6 +113,7 @@ ApplicationWindow {
                 clip: true
                 
                 onClicked: {
+                    backend.clearHistory();
                     clipList.clear();
                 }
             }
@@ -154,8 +155,8 @@ ApplicationWindow {
                         opacity: 0.1
                         sourceSize.width: delegateLoader.width
                         sourceSize.height: delegateLoader.height 
-                        visible: modelData.type === "image"
-                        source: visible ? modelData.preview : ""
+                        visible: delegateLoader.modelData.type === "image"
+                        source: visible ? delegateLoader.modelData.preview : ""
                         // sourceSize.width: 400 
                         // sourceSize.height: 400
                         asynchronous: true
@@ -165,7 +166,10 @@ ApplicationWindow {
                         horizontalAlignment: Image.AlignHCenter
                         verticalAlignment: Image.AlignVCenter
                     }
-                    onClicked: backend.copyToClip(modelData)
+                    onClicked: {
+                        let manualMap = { "type": modelData.type, "data": modelData.data }
+                        Backend.copyToClip(manualMap)
+                    }
                 }
 
                 add: Transition {

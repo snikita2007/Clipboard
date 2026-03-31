@@ -157,11 +157,8 @@ ApplicationWindow {
                         sourceSize.height: delegateLoader.height 
                         visible: delegateLoader.modelData.type === "image"
                         source: visible ? delegateLoader.modelData.preview : ""
-                        // sourceSize.width: 400 
-                        // sourceSize.height: 400
                         asynchronous: true
                         anchors.fill: parent
-                        // anchors.margins: 10
                         fillMode: Image.PreserveAspectCrop
                         horizontalAlignment: Image.AlignHCenter
                         verticalAlignment: Image.AlignVCenter

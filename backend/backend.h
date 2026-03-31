@@ -15,6 +15,7 @@
 #include <QDir>
 #include <QStandardPaths>
 #include <QDateTime>
+#include <QCryptographicHash>
 
 class Backend : public QObject {
     Q_OBJECT // Позволяет классу использовать сигналы, слоты и систему свойств Qt
@@ -25,14 +26,14 @@ signals:
     void itemAdded(QVariant item); // Сигнал о добавлении объекта в буфер
 
 public slots:
-    //Функция вызываемая при изменениии буфера 
+    //Функция вызываемая при изменениии буфера, автоматически проверяет файлы на повторы и их тип, добавляет в историю
     void onClipboardChanged();
 
 public:
     explicit Backend(QObject *parent = nullptr);
     ~Backend();
     Q_INVOKABLE void copyToClip(QVariant data);
-    void checkClipboardNative();
+    void checkClipboardNative(); // Обновление буфера для мака
     Q_INVOKABLE void clearHistory();
 
 private:

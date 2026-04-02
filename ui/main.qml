@@ -152,16 +152,12 @@ ApplicationWindow {
                     btnText: modelData.type === "text" ? modelData.preview : ""
                     Image {
                         id: previewImage
-                        opacity: 0.1
                         sourceSize.width: delegateLoader.width
                         sourceSize.height: delegateLoader.height 
                         visible: delegateLoader.modelData.type === "image"
                         source: visible ? delegateLoader.modelData.preview : ""
                         asynchronous: true
                         anchors.fill: parent
-                        fillMode: Image.PreserveAspectCrop
-                        horizontalAlignment: Image.AlignHCenter
-                        verticalAlignment: Image.AlignVCenter
                     }
                     onClicked: {
                         let manualMap = { "type": modelData.type, "data": modelData.data }

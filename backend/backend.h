@@ -32,7 +32,7 @@ public slots:
 public:
     explicit Backend(QObject *parent = nullptr);
     ~Backend();
-    Q_INVOKABLE void copyToClip(QVariant data);
+    Q_INVOKABLE void copyToClip(QVariant data); // Копирование в буфер из клиента
     void checkClipboardNative(); // Обновление буфера для мака
     Q_INVOKABLE void clearHistory();
 

@@ -38,7 +38,6 @@ void Backend::copyToClip(QVariant itemData) {
     if (map["type"].toString() == "image") {
         QImage img(map["data"].toString());
         if (!img.isNull()) {
-            mimeData->setImageData(img);
             QList<QUrl> urls;
             urls << QUrl::fromLocalFile(map["data"].toString());
             mimeData->setUrls(urls);
@@ -51,76 +50,73 @@ void Backend::copyToClip(QVariant itemData) {
     clipboard->setMimeData(mimeData);
 }
 
-void Backend::onClipboardChanged() {
+void Backend::onClipboardChanged(){
     QClipboard *clipboard = QGuiApplication::clipboard();
     const QMimeData *mimeData = clipboard->mimeData();
-    if (!mimeData) return;
-
     QVariantMap item;
-    QString currentHash;
-    QString finalPath;
+    QString hash;
+    QString path;
 
-    if (mimeData->hasUrls() && !mimeData->urls().isEmpty()) {
-        finalPath = mimeData->urls().first().toLocalFile();
-        if (!finalPath.isEmpty()) {
-            QFile file(finalPath);
-            if (file.open(QIODevice::ReadOnly)) {
-                currentHash = QCryptographicHash::hash(file.read(5 * 1024 * 1024), QCryptographicHash::Md5).toHex();
-                file.close();
+    if (mimeData->hasUrls()){
+        path = mimeData->urls().first().toLocalFile();
+        for (const QVariant &v : m_history){
+            if (v.toMap()["data"].toString() == path){
+                qDebug() << "URL skiped" << path;
+                return;
             }
-        }
-    }
-
-    if (currentHash.isEmpty() && mimeData->hasImage()) {
-        QImage img = qvariant_cast<QImage>(mimeData->imageData());
-        if (!img.isNull()) {
-            QByteArray jpgData;
-            QBuffer buffer(&jpgData);
-            buffer.open(QIODevice::WriteOnly);
-            img.save(&buffer, "JPG", 90); 
-            buffer.close();
-
-            currentHash = QCryptographicHash::hash(jpgData, QCryptographicHash::Md5).toHex();
-            finalPath = m_cacheDir + QString("/clip_%1.jpg").arg(currentHash);
-
-            if (!QFile::exists(finalPath)) {
-                QFile file(finalPath);
-                if (file.open(QIODevice::WriteOnly)) {
-                    file.write(jpgData);
-                    file.close();
-                }
-            }
-        }
-    }
-
-    if (!currentHash.isEmpty()) {
-        for (const QVariant &v : m_history) {
-            if (v.toMap()["hash"].toString() == currentHash) return; 
         }
         item["type"] = "image";
-        item["data"] = finalPath;
-        item["hash"] = currentHash;
-        item["preview"] = QUrl::fromLocalFile(finalPath).toString();
-    } 
+        item["data"] = path;
+        item["preview"] = QUrl::fromLocalFile(path).toString();
+        qDebug() << "URL copyed" << path;
+    }
+    
+    else if (mimeData->hasImage()){
+        QImage img = qvariant_cast<QImage>(mimeData->imageData());
+        QByteArray data;
+        QBuffer buffer(&data);
+        buffer.open(QIODevice::WriteOnly);
+        img.save(&buffer, "JPG");
+        buffer.close();
 
-    else if (mimeData->hasText()) {
-        QString text = mimeData->text().trimmed();
-        if (text.isEmpty()) return;
-
-        for (const QVariant &v : m_history) {
-            if (v.toMap()["data"].toString() == text) return;
+        hash = QCryptographicHash::hash(data, QCryptographicHash::Md5).toHex();
+        path = m_cacheDir + QString("/clip_%1.jpg").arg(hash);
+        for (const QVariant &v : m_history){
+            if (v.toMap()["hash"].toString() == hash){
+                qDebug() << "Img skiped" << hash;
+                return;
+            }
         }
+        QFile file(path);
+        if (file.open(QIODevice::WriteOnly)) {
+            file.write(data);
+            file.close();
+        }
+        item["type"] = "image";
+        item["data"] = path;
+        item["hash"] = hash;
+        item["preview"] = QUrl::fromLocalFile(path).toString();
+        qDebug() << "Img copyed" << path;
+    }
 
+    else if (mimeData->hasText()){
+        QString text = mimeData->text();
+        for (const QVariant &v : m_history) {
+            if (v.toMap()["data"].toString() == text) {
+                qDebug() << "Text skiped" << text;
+                return;
+            };
+        }
         item["type"] = "text";
         item["data"] = text;
-        item["preview"] = text.left(100).simplified();
+        item["preview"] = text.simplified();
+        qDebug() << "Text copyed";
     }
 
-    if (!item.isEmpty()) {
-        m_history.prepend(item);
-        emit itemAdded(item);
-        if (m_history.size() > 50) m_history.removeLast();
-    }
+    if (item.isEmpty()) return;
+    m_history.prepend(item);
+    emit itemAdded(item);
+    if (m_history.size() > 50) m_history.removeLast();
 }
 
 void Backend::clearHistory() {

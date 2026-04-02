@@ -32,6 +32,7 @@ if(APPLE)
     target_sources(ClipboardApp PRIVATE 
         backend/window_effects/windoweffects_mac.mm
         backend/window_effects/QtLiquidGlass.mm 
+        backend/backend.mm
     )
     
     target_link_libraries(ClipboardApp PRIVATE 

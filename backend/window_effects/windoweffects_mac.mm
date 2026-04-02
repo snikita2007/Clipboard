@@ -18,7 +18,5 @@ void WindowEffects::applyEffects(QObject *rootObject) {
     int glassId = AddGlassEffectView(nativeView, false);
     if (glassId != -1) {
         ConfigureGlassView(glassId, 30.0, 0.0, 0.0, 0.0, 0.0);
-        SetGlassViewAdaptiveAppearance(glassId, 2);
-        SetGlassViewVariant(glassId, 16);
     }
 }

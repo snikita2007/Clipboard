@@ -17,6 +17,41 @@ ApplicationWindow {
     flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint 
     background: null
 
+    Action {
+        id: clearHistoryAction
+        text: "Clear history"
+        shortcut: "Ctrl+Alt+C"
+        onTriggered: {
+            backend.clearHistory()
+            clipList.clear()
+        }
+    }
+
+    Action {
+        id: preferencesAction
+        text: "Preferences"
+        onTriggered: settingsWindow.active = true
+    }
+
+    menuBar: (Qt.platform.os === "osx") ? MenuBar : null
+    
+    MenuBar {
+        Menu {
+            title: "Edit"
+
+            MenuItem {
+                action: clearHistoryAction
+            }
+        }
+        Menu {
+            title: "ClipboardApp"
+
+            MenuItem {
+                action: preferencesAction
+            }
+        }
+    }
+
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 14
@@ -25,7 +60,7 @@ ApplicationWindow {
         TitleBar {
             id: titleBar
             settingsWindow: settingsWindow
-            showSettingsButton: true
+            showSettingsButton: Qt.platform.os !== "osx"
             curentTitle: "Clipboard"
         }
 
@@ -42,18 +77,19 @@ ApplicationWindow {
                     PropertyChanges { 
                         btnClear.Layout.preferredWidth: 0 
                         btnClear.opacity: 0
-                        btnClear.visible: false 
-                        btnSearch.btnText: "" 
+                        btnSearch.btnOpacity: 0.0
                         searchInput.visible: true
                         searchInput.opacity: 1
-                        historyList.visible: false
+                        historyList.scale: 1.05
+                        historyList.opacity: 0
+                        filterList.visible: true
                     }
                 }
             ]
 
             transitions: Transition {
                 NumberAnimation { 
-                    properties: "Layout.preferredWidth,opacity"; 
+                    properties: "Layout.preferredWidth,opacity,scale"; 
                     duration: 200; 
                     easing.type: Easing.OutCubic  
                 }
@@ -68,6 +104,7 @@ ApplicationWindow {
                     id: btnSearch
                     anchors.fill: parent
                     btnText: topBar.state === "searchmode" ? "" : "Search"
+                    btnOpacity: 0.5
                     onClicked: {
                         topBar.state = "searchmode"
                         searchInput.forceActiveFocus()
@@ -80,8 +117,19 @@ ApplicationWindow {
                     visible: false
                     opacity: 0
                     placeholderText: "Type to search..."
+                    onTextChanged: {
+                        filteredClipList.clear()
+                        if (text.length > 0) {
+                            for (let i = 0; i < clipList.count; i++) {
+                                let item = clipList.get(i)
+                                if (item.preview.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
+                                    filteredClipList.append(item)
+                                }
+                            }
+                        }
+                    }
                     color: palette.windowText
-                    leftPadding: 10
+                    leftPadding: 15
                     rightPadding: 30
                     background: Item {} 
 
@@ -110,6 +158,7 @@ ApplicationWindow {
                 Layout.preferredWidth: 70
                 Layout.preferredHeight: 30
                 btnText: "Clear All"
+                visible: Qt.platform.os !== "osx"
                 clip: true
                 
                 onClicked: {
@@ -132,12 +181,47 @@ ApplicationWindow {
                 radius: 12
             }
 
+            ListModel {
+                id: filteredClipList
+            }
+
+            ListView {
+                id: filterList
+                anchors.fill: parent
+                model: filteredClipList
+                visible: false
+
+                delegate: MyButton {
+                    required property var modelData
+                    width: historyList.width  
+                    height: 70
+                    clip: true
+                    btnRadius: (Qt.platform.os === "windows") ? 4 : 12
+                    btnAlignH: Qt.AlignLeft
+                    btnText: modelData.type === "text" ? modelData.preview : ""
+                    Image {
+                        id: previewImage
+                        sourceSize.width: delegateLoader.width
+                        sourceSize.height: delegateLoader.height 
+                        visible: delegateLoader.modelData.type === "image"
+                        source: visible ? delegateLoader.modelData.preview : ""
+                        asynchronous: true
+                        anchors.fill: parent
+                    }
+                    onClicked: {
+                        let manualMap = { "type": modelData.type, "data": modelData.data }
+                        Backend.copyToClip(manualMap)
+                    }
+                }
+            }
+
             ListView {
                 id: historyList
                 anchors.fill: parent
                 clip: true
                 spacing: 5
                 boundsBehavior: Flickable.StopAtBounds
+                transformOrigin: Item.Top
 
                 model: ListModel { id: clipList }
 
@@ -203,7 +287,8 @@ ApplicationWindow {
         source: "Settings.qml"
         onLoaded: {
             windowEffects.applyEffects(item)
-            show()
+            item.visible = true
+            item.raise()
             console.log("Settings window loaded and shown")
         }
         Connections {

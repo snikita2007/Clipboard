@@ -29,7 +29,7 @@ Item {
             btnFontColor: Qt.rgba(0, 0, 0, 0.8)
             btnRadius: 50
             btnPadding: 0
-            btnColor: control.Window.window.active ? Qt.rgba(1, 0.37, 0.34, 1) : (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(0, 0, 0, 0.05))
+            btnColor: control.Window.window.active ? Qt.rgba(1, 0.37, 0.34, 1) : (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.05) : Qt.rgba(0, 0, 0, 0.05))
             btnHoveredColor: Qt.rgba(1, 0.37, 0.34, 1)
             btnPressedColor: Qt.rgba(0.9, 0.37, 0.34)
             onClicked: control.Window.window.softClose()

@@ -33,9 +33,11 @@ ApplicationWindow {
         onTriggered: settingsWindow.active = true
     }
 
-    menuBar: (Qt.platform.os === "osx") ? MenuBar : null
+    menuBar: (Qt.platform.os === "osx") ? macOsBar : null
     
     MenuBar {
+        id: macOsBar
+        visible: Qt.platform.os === "osx"
         Menu {
             title: "Edit"
 
@@ -200,7 +202,6 @@ ApplicationWindow {
                     btnAlignH: Qt.AlignLeft
                     btnText: modelData.type === "text" ? modelData.preview : ""
                     Image {
-                        id: previewImage
                         sourceSize.width: delegateLoader.width
                         sourceSize.height: delegateLoader.height 
                         visible: delegateLoader.modelData.type === "image"

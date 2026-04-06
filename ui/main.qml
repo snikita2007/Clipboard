@@ -195,17 +195,17 @@ ApplicationWindow {
 
                 delegate: MyButton {
                     required property var modelData
-                    width: historyList.width  
+                    width: parent.width  
                     height: 70
                     clip: true
                     btnRadius: (Qt.platform.os === "windows") ? 4 : 12
                     btnAlignH: Qt.AlignLeft
                     btnText: modelData.type === "text" ? modelData.preview : ""
                     Image {
-                        sourceSize.width: delegateLoader.width
-                        sourceSize.height: delegateLoader.height 
-                        visible: delegateLoader.modelData.type === "image"
-                        source: visible ? delegateLoader.modelData.preview : ""
+                        sourceSize.width: parent.width
+                        sourceSize.height: parent.height 
+                        visible: parent.modelData.type === "image"
+                        source: visible ? parent.modelData.preview : ""
                         asynchronous: true
                         anchors.fill: parent
                     }

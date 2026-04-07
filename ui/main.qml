@@ -237,8 +237,8 @@ ApplicationWindow {
                         id: previewImage
                         sourceSize.width: delegateLoader.width
                         sourceSize.height: delegateLoader.height 
-                        visible: delegateLoader.model.type === "image"
-                        source: visible ? delegateLoader.model.preview : ""
+                        visible: model.type === "image"
+                        source: visible ? model.preview : ""
                         asynchronous: true
                         anchors.fill: parent
                     }

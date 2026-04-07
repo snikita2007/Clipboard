@@ -12,13 +12,12 @@ set(PROJECT_SOURCES
     backend/backend.cpp
     backend/backend.h  
     backend/window_effects/WindowEffects.h
-    backend/backend.cpp
+    backend/window_effects/WindowEffects_linux.cpp
     backend/ip.cpp
     backend/socket.cpp
     backend/examplethreads.cpp
     backend/backend.h
     backend/server.h
-    backend/window_effects/WindowEffects.h
     backend/ip.h
     backend/examplethreads.h
 )

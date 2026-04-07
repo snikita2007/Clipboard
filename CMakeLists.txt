@@ -5,13 +5,24 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON) 
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Widgets Concurrent)
 
 set(PROJECT_SOURCES 
     main.cpp 
     backend/backend.cpp
     backend/backend.h  
     backend/window_effects/WindowEffects.h
+    backend/window_effects/WindowEffects.cpp
+    backend/backend.cpp
+    backend/window_effects/WindowEffects.cpp
+    backend/ip.cpp
+    backend/socket.cpp
+    backend/examplethreads.cpp
+    backend/backend.h
+    backend/server.h
+    backend/window_effects/WindowEffects.h
+    backend/ip.h
+    backend/examplethreads.h
 )
 
 qt_add_executable(ClipboardApp MACOSX_BUNDLE ${PROJECT_SOURCES})
@@ -67,4 +78,14 @@ target_link_libraries(ClipboardApp PRIVATE
     Qt6::Qml 
     Qt6::Quick  
     Qt6::QuickControls2
+    Qt6::Widgets
+    Qt6::Network
+    Qt6::Concurrent
 )
+
+
+# target_include_directories(ClipboardApp PRIVATE     
+#     ${CMAKE_CURRENT_SOURCE_DIR}
+#     ${CMAKE_CURRENT_SOURCE_DIR}/backend
+#     ${CMAKE_CURRENT_SOURCE_DIR}/backend/window_effects)
+

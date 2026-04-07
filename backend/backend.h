@@ -5,6 +5,7 @@
 #include <QtQml>
 #include <QTimer>
 #include <QDebug>
+#include "server.h"
 #include <QGuiApplication>
 #include <QMimeData>
 #include <QClipboard>
@@ -30,7 +31,7 @@ public slots:
     void onClipboardChanged();
 
 public:
-    explicit Backend(QObject *parent = nullptr);
+    explicit Backend(UdpServer *server, QObject *parent = nullptr);
     ~Backend();
     Q_INVOKABLE void copyToClip(QVariant data); // Копирование в буфер из клиента
     void checkClipboardNative(); // Обновление буфера для мака

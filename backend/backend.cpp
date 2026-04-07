@@ -1,6 +1,7 @@
 #include "backend.h"
+#include "server.h"
 
-Backend::Backend(QObject *parent) : QObject(parent) 
+Backend::Backend(UdpServer *server, QObject *parent) : QObject(parent) 
 {   
     // Создание папки с кешем в temp
     QString tempPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
@@ -11,11 +12,15 @@ Backend::Backend(QObject *parent) : QObject(parent)
     QClipboard *clipboard = QGuiApplication::clipboard();
     connect(clipboard, &QClipboard::dataChanged, this, &Backend::onClipboardChanged);
 
+    QObject::connect(clipboard, &QClipboard::dataChanged, [server]() {
+        server->sayHello();
+    });
+
     // Таймер для обновления буфера на мак
     #ifdef Q_OS_MAC
-    QTimer *timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, &Backend::checkClipboardNative);
-    timer->start(500);
+        QTimer *timer = new QTimer(this);
+        connect(timer, &QTimer::timeout, this, &Backend::checkClipboardNative);
+        timer->start(500);
     #endif
 }
 

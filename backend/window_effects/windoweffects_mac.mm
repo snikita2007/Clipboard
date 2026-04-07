@@ -14,7 +14,9 @@ void WindowEffects::applyEffects(QObject *rootObject) {
     QQuickWindow *window = qobject_cast<QQuickWindow *>(rootObject);
     if (!window) return;
     window->setColor(Qt::transparent);
-    void* nativeView = (void*)window->winId();
+    NSView* nativeView = (NSView *)window->winId();
+    NSWindow *nativeWindow = [nativeView window];
+    [nativeWindow setMovableByWindowBackground:YES];
     int glassId = AddGlassEffectView(nativeView, false);
     if (glassId != -1) {
         ConfigureGlassView(glassId, 30.0, 0.0, 0.0, 0.0, 0.0);

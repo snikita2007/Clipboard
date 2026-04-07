@@ -194,7 +194,6 @@ ApplicationWindow {
                 visible: false
 
                 delegate: MyButton {
-                    required property var modelData
                     width: parent.width  
                     height: 70
                     clip: true
@@ -204,8 +203,8 @@ ApplicationWindow {
                     Image {
                         sourceSize.width: parent.width
                         sourceSize.height: parent.height 
-                        visible: parent.modelData.type === "image"
-                        source: visible ? parent.modelData.preview : ""
+                        visible: parent.model.type === "image"
+                        source: visible ? parent.model.preview : ""
                         asynchronous: true
                         anchors.fill: parent
                     }

@@ -33,9 +33,11 @@ ApplicationWindow {
         onTriggered: settingsWindow.active = true
     }
 
-    menuBar: (Qt.platform.os === "osx") ? MenuBar : null
+    menuBar: (Qt.platform.os === "osx") ? macOsBar : null
     
     MenuBar {
+        id: macOsBar
+        visible: Qt.platform.os === "osx"
         Menu {
             title: "Edit"
 
@@ -192,18 +194,18 @@ ApplicationWindow {
                 visible: false
 
                 delegate: MyButton {
-                    width: historyList.width  
+                    required property var modelData
+                    width: parent.width  
                     height: 70
                     clip: true
                     btnRadius: (Qt.platform.os === "windows") ? 4 : 12
                     btnAlignH: Qt.AlignLeft
                     btnText: model.type === "text" ? model.preview : ""
                     Image {
-                        id: previewImage
-                        sourceSize.width: delegateLoader.width
-                        sourceSize.height: delegateLoader.height 
-                        visible: delegateLoader.model.type === "image"
-                        source: visible ? delegateLoader.model.preview : ""
+                        sourceSize.width: parent.width
+                        sourceSize.height: parent.height 
+                        visible: parent.modelData.type === "image"
+                        source: visible ? parent.modelData.preview : ""
                         asynchronous: true
                         anchors.fill: parent
                     }

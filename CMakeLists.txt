@@ -12,7 +12,6 @@ set(PROJECT_SOURCES
     backend/backend.cpp
     backend/backend.h  
     backend/window_effects/WindowEffects.h
-    backend/window_effects/WindowEffects_linux.cpp
     backend/ip.cpp
     backend/socket.cpp
     backend/examplethreads.cpp
@@ -32,6 +31,10 @@ target_include_directories(ClipboardApp PRIVATE
 if(WIN32)
     target_sources(ClipboardApp PRIVATE backend/window_effects/windoweffects_win.cpp)
     target_link_libraries(ClipboardApp PRIVATE dwmapi)
+endif()
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    target_sources(ClipboardApp PRIVATE backend/window_effects/WindowEffects_linux.cpp)
 endif()
 
 if(APPLE)

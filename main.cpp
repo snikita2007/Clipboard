@@ -21,8 +21,6 @@
 #include "examplethreads.h"
 #include <fstream>
 
-using namespace std;
-
 int main(int argc, char *argv[]) {
     qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
     QGuiApplication app(argc, argv);
@@ -46,11 +44,11 @@ int main(int argc, char *argv[]) {
         qDebug() << IPS;
         server.Recive(IPS);
 
-        ofstream out("/home/danil/Documents/Clipboard/ips.txt");
+        std::ofstream out("/home/danil/Documents/Clipboard/ips.txt");
     
         if (out.is_open()) {
             for (QString &ip : IPS)
-            out << ip.toStdString() << endl;
+            out << ip.toStdString() << std::endl;
         }
     
         out.close();
@@ -80,27 +78,4 @@ int main(int argc, char *argv[]) {
 }
 
 
-// int main(int argc, char *argv[]) {
-//     qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
-//     QGuiApplication app(argc, argv);
-
-//     QQmlApplicationEngine engine;
-//     WindowEffects windowEffects;
-//     Backend backend(&server);
-
-//     engine.rootContext()->setContextProperty("windowEffects", &windowEffects);
-//     engine.rootContext()->setContextProperty("backend", &backend);
-
-//     engine.load(QUrl(QStringLiteral("qrc:/Clipboard/ui/main.qml")));
-
-//     QObject *root = engine.rootObjects().first();
-//     QQuickWindow *window = qobject_cast<QQuickWindow*>(root);
-
-//     if (window) {
-//         windowEffects.applyEffects(window);
-//         window->show();
-//     }
-
-//     return app.exec();
-// }
 

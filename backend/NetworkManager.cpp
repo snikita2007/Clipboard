@@ -32,18 +32,30 @@ void NetworkManager::sendDiscoveryPacket() {
 void NetworkManager::processUdpPackets() {
     while (m_udpSocket->hasPendingDatagrams()) {
         QNetworkDatagram datagram = m_udpSocket->receiveDatagram();
-        qDebug() << "ПОЙМАЛ ПАКЕТ ОТ:" << datagram.senderAddress().toString() << "ДАННЫЕ:" << datagram.data();
+        QHostAddress senderIp = datagram.senderAddress();
+
+        // Проверяем, не наш ли это адрес
+        bool isMe = false;
+        const QList<QHostAddress> allAddresses = QNetworkInterface::allAddresses();
+        for (const QHostAddress &address : allAddresses) {
+            if (senderIp == address) {
+                isMe = true;
+                break;
+            }
+        }
+
+        if (isMe) continue; // Игнорируем пакеты от самого себя
+
         if (datagram.data() == "CLIP_DISCOVERY") {
-            QHostAddress senderIp = datagram.senderAddress();
-            
-            // Если это не наш собственный IP, добавляем в список
-            // if (!m_knownDevices.contains(senderIp)) {
+            if (!m_knownDevices.contains(senderIp)) {
                 m_knownDevices.insert(senderIp);
+                qDebug() << "НАЙДЕНО НОВОЕ УСТРОЙСТВО:" << senderIp.toString();
                 emit deviceFound(senderIp.toString());
-            // }
+            }
         }
     }
 }
+
 
 void NetworkManager::broadcastClipboard(const QVariantMap &data) {
     for (const QHostAddress &ip : m_knownDevices) {

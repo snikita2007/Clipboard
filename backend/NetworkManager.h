@@ -9,6 +9,8 @@
 #include <QDataStream>
 #include <QVariantMap>
 #include <QTimer>
+#include <QNetworkInterface>
+
 
 class NetworkManager : public QObject
 {

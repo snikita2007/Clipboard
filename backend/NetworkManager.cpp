@@ -2,11 +2,17 @@
 
 NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 {
-    // --- 1. Настройка UDP (Поиск) ---
     m_udpSocket = new QUdpSocket(this);
-    m_udpSocket->bind(QHostAddress::Any, UDP_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
-    m_udpSocket->joinMulticastGroup(GROUP_ADDR);
-    
+
+    // 1. Привязываемся строго к IPv4
+    // ReuseAddressHint позволяет нескольким копиям приложения работать на одном порту
+    bool bound = m_udpSocket->bind(QHostAddress::AnyIPv4, UDP_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
+    if (!bound) {
+        qDebug() << "Ошибка Bind:" << m_udpSocket->errorString();
+    }
+    if (!m_udpSocket->joinMulticastGroup(GROUP_ADDR)) {
+        qDebug() << "Ошибка Join Group:" << m_udpSocket->errorString();
+    }
     connect(m_udpSocket, &QUdpSocket::readyRead, this, &NetworkManager::processUdpPackets);
 
     // Таймер для рассылки своего присутствия каждые 5 секунд

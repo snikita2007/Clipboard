@@ -4,7 +4,7 @@ NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 {
     // --- 1. Настройка UDP (Поиск) ---
     m_udpSocket = new QUdpSocket(this);
-    m_udpSocket->bind(QHostAddress::AnyIPv4, UDP_PORT, QUdpSocket::ShareAddress);
+    m_udpSocket->bind(QHostAddress::Any, UDP_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
     m_udpSocket->joinMulticastGroup(GROUP_ADDR);
     
     connect(m_udpSocket, &QUdpSocket::readyRead, this, &NetworkManager::processUdpPackets);
@@ -25,6 +25,7 @@ NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 
 void NetworkManager::sendDiscoveryPacket() {
     m_udpSocket->writeDatagram("CLIP_DISCOVERY", GROUP_ADDR, UDP_PORT);
+    qDebug() << "Отправка пакета поиска через все интерфейсы...";
 }
 
 void NetworkManager::processUdpPackets() {

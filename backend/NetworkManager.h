@@ -33,7 +33,7 @@ private:
     // Настройки сети
     const quint16 UDP_PORT = 45454;
     const quint16 TCP_PORT = 45455;
-    const QHostAddress GROUP_ADDR = QHostAddress("239.255.255.250");
+    const QHostAddress GROUP_ADDR = QHostAddress::Broadcast;
 
     QUdpSocket *m_udpSocket;
     QTcpServer *m_tcpServer;

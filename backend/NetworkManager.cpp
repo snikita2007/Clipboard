@@ -4,21 +4,16 @@ NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 {
     m_udpSocket = new QUdpSocket(this);
 
-    // 1. Привязываемся строго к IPv4
-    // ReuseAddressHint позволяет нескольким копиям приложения работать на одном порту
-    bool bound = m_udpSocket->bind(QHostAddress::AnyIPv4, UDP_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
-    if (!bound) {
-        qDebug() << "Ошибка Bind:" << m_udpSocket->errorString();
-    }
-    if (!m_udpSocket->joinMulticastGroup(GROUP_ADDR)) {
-        qDebug() << "Ошибка Join Group:" << m_udpSocket->errorString();
-    }
+    // Привязываемся к порту
+    m_udpSocket->bind(QHostAddress::AnyIPv4, UDP_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
+    
+    // ВАЖНО: Удаляем строку joinMulticastGroup(GROUP_ADDR);
+
     connect(m_udpSocket, &QUdpSocket::readyRead, this, &NetworkManager::processUdpPackets);
 
-    // Таймер для рассылки своего присутствия каждые 5 секунд
     m_discoveryTimer = new QTimer(this);
     connect(m_discoveryTimer, &QTimer::timeout, this, &NetworkManager::sendDiscoveryPacket);
-    m_discoveryTimer->start(5000);
+    m_discoveryTimer->start(2000);
 
     // --- 2. Настройка TCP (Передача) ---
     m_tcpServer = new QTcpServer(this);
@@ -37,14 +32,15 @@ void NetworkManager::sendDiscoveryPacket() {
 void NetworkManager::processUdpPackets() {
     while (m_udpSocket->hasPendingDatagrams()) {
         QNetworkDatagram datagram = m_udpSocket->receiveDatagram();
+        qDebug() << "ПОЙМАЛ ПАКЕТ ОТ:" << datagram.senderAddress().toString() << "ДАННЫЕ:" << datagram.data();
         if (datagram.data() == "CLIP_DISCOVERY") {
             QHostAddress senderIp = datagram.senderAddress();
             
             // Если это не наш собственный IP, добавляем в список
-            if (!m_knownDevices.contains(senderIp)) {
+            // if (!m_knownDevices.contains(senderIp)) {
                 m_knownDevices.insert(senderIp);
                 emit deviceFound(senderIp.toString());
-            }
+            // }
         }
     }
 }

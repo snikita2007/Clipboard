@@ -1,7 +1,6 @@
 #include "backend.h"
-#include "server.h"
 
-Backend::Backend(UdpServer *server, QObject *parent) : QObject(parent) 
+Backend::Backend(QObject *parent) : QObject(parent) 
 {   
     // Создание папки с кешем в temp
     QString tempPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
@@ -12,9 +11,8 @@ Backend::Backend(UdpServer *server, QObject *parent) : QObject(parent)
     QClipboard *clipboard = QGuiApplication::clipboard();
     connect(clipboard, &QClipboard::dataChanged, this, &Backend::onClipboardChanged);
 
-    QObject::connect(clipboard, &QClipboard::dataChanged, [server]() {
-        server->sayHello();
-    });
+    m_network = new NetworkManager(this);
+    connect(m_network, &NetworkManager::dataReceived, this, &Backend::handleRemoteData);
 
     // Таймер для обновления буфера на мак
     #ifdef Q_OS_MAC
@@ -33,29 +31,57 @@ Backend::~Backend() {
     }
 }
 
+void Backend::handleRemoteData(QVariantMap data) {
+    m_isInternalUpdate = true; // Блокируем исходящую отправку
+    
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    
+    if (data["type"].toString() == "image") {
+        // Если пришла картинка в байтах, сохраняем её в кеш
+        QByteArray rawData = data["raw_data"].toByteArray();
+        QString hash = QCryptographicHash::hash(rawData, QCryptographicHash::Md5).toHex();
+        QString path = m_cacheDir + QString("/remote_%1.jpg").arg(hash);
+        
+        QFile file(path);
+        if (file.open(QIODevice::WriteOnly)) {
+            file.write(rawData);
+            file.close();
+            clipboard->setImage(QImage(path));
+        }
+    } else {
+        clipboard->setText(data["data"].toString());
+    }
+}
 
 void Backend::copyToClip(QVariant itemData) {
     QVariantMap map = itemData.toMap();
     QClipboard *clipboard = QGuiApplication::clipboard();
-    QMimeData *mimeData = new QMimeData();
+    
+    // 1. Устанавливаем в локальный буфер
+    if (map["type"].toString() == "image") {
+        clipboard->setImage(QImage(map["data"].toString()));
+    } else {
+        clipboard->setText(map["data"].toString());
+    }
 
-    // Проверка типа данных
+    // 2. Отправляем в сеть (если нужно принудительно при клике)
+    // Подготовим данные: если это картинка, нужно отправить байты, а не путь
     if (map["type"].toString() == "image") {
         QImage img(map["data"].toString());
-        if (!img.isNull()) {
-            QList<QUrl> urls;
-            urls << QUrl::fromLocalFile(map["data"].toString());
-            mimeData->setUrls(urls);
-        }
+        QByteArray ba;
+        QBuffer buf(&ba);
+        img.save(&buf, "JPG");
+        map["raw_data"] = ba; // Добавляем байты для сети
     }
-    else {
-        mimeData->setText(map["data"].toString());
-    }
-    // Запись в буфер
-    clipboard->setMimeData(mimeData);
+    m_network->broadcastClipboard(map);
 }
 
+
 void Backend::onClipboardChanged(){
+    if (m_isInternalUpdate) {
+        m_isInternalUpdate = false; 
+        return;
+    }
     QClipboard *clipboard = QGuiApplication::clipboard();
     const QMimeData *mimeData = clipboard->mimeData();
     QVariantMap item;
@@ -105,10 +131,22 @@ void Backend::onClipboardChanged(){
         item["preview"] = text.simplified();
     }
 
-    if (item.isEmpty()) return;
-    m_history.prepend(item);
-    emit itemAdded(item);
-    if (m_history.size() > 50) m_history.removeLast();
+    if (!item.isEmpty()) {
+        m_history.prepend(item);
+        emit itemAdded(item);
+        if (m_history.size() > 50) m_history.removeLast();
+
+        // АВТО-ОТПРАВКА: если скопировали что-то новое, сразу шлем в сеть
+        QVariantMap networkItem = item;
+        if (item["type"] == "image") {
+            QImage img(item["data"].toString());
+            QByteArray ba;
+            QBuffer buf(&ba);
+            img.save(&buf, "JPG");
+            networkItem["raw_data"] = ba;
+        }
+        m_network->broadcastClipboard(networkItem);
+    }
 }
 
 void Backend::clearHistory() {

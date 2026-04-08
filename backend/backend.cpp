@@ -32,6 +32,7 @@ Backend::~Backend() {
 }
 
 void Backend::handleRemoteData(QVariantMap data) {
+    qDebug() << "ВИНДА: handleRemoteData вызван! Тип:" << data["type"].toString();
     m_isInternalUpdate = true; // Блокируем исходящую отправку
     
     QClipboard *clipboard = QGuiApplication::clipboard();
@@ -51,6 +52,10 @@ void Backend::handleRemoteData(QVariantMap data) {
     } else {
         clipboard->setText(data["data"].toString());
     }
+    QTimer::singleShot(500, this, [this](){
+        m_isInternalUpdate = false; 
+        qDebug() << "Дверь открыта, можно снова копировать";
+    });
 }
 
 void Backend::copyToClip(QVariant itemData) {
@@ -78,10 +83,6 @@ void Backend::copyToClip(QVariant itemData) {
 
 
 void Backend::onClipboardChanged(){
-    if (m_isInternalUpdate) {
-        m_isInternalUpdate = false; 
-        return;
-    }
     QClipboard *clipboard = QGuiApplication::clipboard();
     const QMimeData *mimeData = clipboard->mimeData();
     QVariantMap item;

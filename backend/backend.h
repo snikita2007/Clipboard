@@ -41,7 +41,7 @@ private:
     QVariantList m_history;
     QString m_cacheDir;
     NetworkManager *m_network;
-    bool m_isInternalUpdate;
+    bool m_isInternalUpdate = false;
     #ifdef Q_OS_MAC
     long m_lastChangeCount = -1; 
     #endif

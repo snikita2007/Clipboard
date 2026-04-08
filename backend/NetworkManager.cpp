@@ -84,16 +84,20 @@ void NetworkManager::onNewTcpConnection() {
 
 void NetworkManager::readIncomingData() {
     QTcpSocket *socket = qobject_cast<QTcpSocket*>(sender());
-    if (!socket) return;
-
     QDataStream in(socket);
     in.setVersion(QDataStream::Qt_6_0);
 
     QVariantMap receivedMap;
+    
+    // ТРАНЗАКЦИЯ ГАРАНТИРУЕТ, ЧТО МЫ НЕ НАЧНЕМ ЧИТАТЬ, ПОКА ВСЕ БАЙТЫ НЕ ПРИДУТ
     in.startTransaction();
     in >> receivedMap;
 
     if (in.commitTransaction()) {
+        qDebug() << "ДАННЫЕ ПОЛУЧЕНЫ ПОЛНОСТЬЮ!";
         emit dataReceived(receivedMap);
+    } else {
+        // Если данных мало, Qt просто подождет следующего readyRead
+        qDebug() << "Ждем дозагрузки данных... Текущий буфер:" << socket->bytesAvailable();
     }
 }

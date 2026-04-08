@@ -145,6 +145,7 @@ void Backend::onClipboardChanged(){
             img.save(&buf, "JPG");
             networkItem["raw_data"] = ba;
         }
+        qDebug() << "SENDING:" << networkItem["type"].toString() << "Data size:" << networkItem["data"].toString().length();
         m_network->broadcastClipboard(networkItem);
     }
 }

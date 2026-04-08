@@ -6,8 +6,7 @@ NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 
     // Привязываемся к порту
     m_udpSocket->bind(QHostAddress::AnyIPv4, UDP_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
-    
-    // ВАЖНО: Удаляем строку joinMulticastGroup(GROUP_ADDR);
+
 
     connect(m_udpSocket, &QUdpSocket::readyRead, this, &NetworkManager::processUdpPackets);
 
@@ -26,7 +25,7 @@ NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 
 void NetworkManager::sendDiscoveryPacket() {
     m_udpSocket->writeDatagram("CLIP_DISCOVERY", GROUP_ADDR, UDP_PORT);
-    qDebug() << "Отправка пакета поиска через все интерфейсы...";
+    qDebug() << "Sending packages (all ports)...";
 }
 
 void NetworkManager::processUdpPackets() {
@@ -49,7 +48,7 @@ void NetworkManager::processUdpPackets() {
         if (datagram.data() == "CLIP_DISCOVERY") {
             if (!m_knownDevices.contains(senderIp)) {
                 m_knownDevices.insert(senderIp);
-                qDebug() << "НАЙДЕНО НОВОЕ УСТРОЙСТВО:" << senderIp.toString();
+                qDebug() << "Device spoted:" << senderIp.toString();
                 emit deviceFound(senderIp.toString());
             }
         }

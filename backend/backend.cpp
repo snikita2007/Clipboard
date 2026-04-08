@@ -32,16 +32,13 @@ Backend::~Backend() {
 }
 
 void Backend::handleRemoteData(QVariantMap data) {
-    qDebug() << "ВИНДА: handleRemoteData вызван! Тип:" << data["type"].toString();
-    m_isInternalUpdate = true; // Блокируем исходящую отправку
-    
     QClipboard *clipboard = QGuiApplication::clipboard();
     
     if (data["type"].toString() == "image") {
         // Если пришла картинка в байтах, сохраняем её в кеш
         QByteArray rawData = data["raw_data"].toByteArray();
         QString hash = QCryptographicHash::hash(rawData, QCryptographicHash::Md5).toHex();
-        QString path = m_cacheDir + QString("/remote_%1.jpg").arg(hash);
+        QString path = m_cacheDir + QString("/remote_%1.png").arg(hash);
         
         QFile file(path);
         if (file.open(QIODevice::WriteOnly)) {
@@ -52,10 +49,6 @@ void Backend::handleRemoteData(QVariantMap data) {
     } else {
         clipboard->setText(data["data"].toString());
     }
-    QTimer::singleShot(500, this, [this](){
-        m_isInternalUpdate = false; 
-        qDebug() << "Дверь открыта, можно снова копировать";
-    });
 }
 
 void Backend::copyToClip(QVariant itemData) {
@@ -94,10 +87,10 @@ void Backend::onClipboardChanged(){
         QByteArray data;
         QBuffer buffer(&data);
         buffer.open(QIODevice::WriteOnly);
-        img.save(&buffer, "JPG");
+        img.save(&buffer, "PNG");
         buffer.close();
         hash = QCryptographicHash::hash(data, QCryptographicHash::Md5).toHex();
-        path = m_cacheDir + QString("/clip_%1.jpg").arg(hash);
+        path = m_cacheDir + QString("/clip_%1.png").arg(hash);
         for (const QVariant &v : m_history){
             if (v.toMap()["hash"].toString() == hash) return;
         }
@@ -143,7 +136,7 @@ void Backend::onClipboardChanged(){
             QImage img(item["data"].toString());
             QByteArray ba;
             QBuffer buf(&ba);
-            img.save(&buf, "JPG");
+            img.save(&buf, "PNG");
             networkItem["raw_data"] = ba;
         }
         qDebug() << "SENDING:" << networkItem["type"].toString() << "Data size:" << networkItem["data"].toString().length();

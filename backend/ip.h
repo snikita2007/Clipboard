@@ -1,39 +1,30 @@
 #ifndef NETWORKSCANNER_H
 #define NETWORKSCANNER_H
 
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
-#include <QQuickWindow>
-#include <QDebug>
-#include <QFile>
-#include <QProcess>
-#include <QRegularExpression>
-#include <QNetworkInterface>
-#include <QThread>
-#include <QDateTime>
-#include "WindowEffects.h"
-#include <unistd.h>
-#include "backend.h"
-#include "server.h"
+#include <QObject>
 #include <QUdpSocket>
-#include <QClipboard>
+#include <QTimer>
+#include <QSet>
 
-
-class NetworkScanner : public QObject {
+class NetworkScanner : public QObject
+{
     Q_OBJECT
+public:
+    explicit NetworkScanner(QObject *parent = nullptr);
+    void startScanning(quint16 port); 
 
-    private: 
-        QStringList foundDevices;
+signals:
+    void devicesUpdated(QStringList ipList); 
 
-        bool pingDevice(const QString& ip);
-        QString getNetworkPrefix();
-        QString getHostname(const QString& ip);
+private slots:
+    void sendDiscoveryRequest();  
+    void readPendingDatagrams();
 
-    public:
-        explicit NetworkScanner();
-        QStringList scanNetwork(int number);
-
+private:
+    QUdpSocket *udpSocket;
+    QTimer *timer;
+    quint16 m_port;
+    QSet<QString> foundDevices;
 };
 
 #endif

@@ -18,7 +18,6 @@
 #include <QClipboard>
 #include <ip.h>
 #include <QThread>
-#include "examplethreads.h"
 #include <fstream>
 
 using namespace std;
@@ -27,36 +26,41 @@ int main(int argc, char *argv[]) {
     qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
     QGuiApplication app(argc, argv);
     
-    ExampleThreads threadA("test"); 
+    // ExampleThreads threadA("test"); 
 
-    QStringList IPS;
+    // QStringList IPS;
     
     UdpServer server;
+    NetworkScanner scanner;
+
+    scanner.startScanning(1234);
 
     server.startServer(1234);    
 
-    QObject::connect(&UdpServer::instance(), &UdpServer::dataReceived, [&IPS](QStringList ips) {
-        qDebug() << "Получено в main:" << ips;
-        IPS.append(ips);
-    });
+    QObject::connect(&scanner, &NetworkScanner::devicesUpdated, &server, &UdpServer::updateIps);
 
-    QObject::connect(&threadA, &QThread::finished, [&IPS, &server]() {
-        qDebug() << "поток завершен";
+    // QObject::connect(&UdpServer::instance(), &UdpServer::dataReceived, [&IPS](QStringList ips) {
+    //     qDebug() << "Получено в main:" << ips;
+    //     IPS.append(ips);
+    // });
 
-        qDebug() << IPS;
-        server.Recive(IPS);
+    // QObject::connect(&threadA, &QThread::finished, [&IPS, &server]() {
+    //     qDebug() << "поток завершен";
 
-        ofstream out("/home/danil/Documents/Clipboard/ips.txt");
+    //     qDebug() << IPS;
+    //     server.Recive(IPS);
+
+    //     ofstream out("/home/danil/Documents/Clipboard/ips.txt");
     
-        if (out.is_open()) {
-            for (QString &ip : IPS)
-            out << ip.toStdString() << endl;
-        }
+    //     if (out.is_open()) {
+    //         for (QString &ip : IPS)
+    //         out << ip.toStdString() << endl;
+    //     }
     
-        out.close();
-    });
+    //     out.close();
+    // });
     
-    threadA.start();   
+    // threadA.start();   
 
     QQmlApplicationEngine engine;
     WindowEffects windowEffects;
@@ -70,7 +74,6 @@ int main(int argc, char *argv[]) {
     QObject *root = engine.rootObjects().first();
     QQuickWindow *window = qobject_cast<QQuickWindow*>(root);
 
-    // Наложение эффектов окна 
     if (window) {
         windowEffects.applyEffects(window);
         window->show();
@@ -78,29 +81,4 @@ int main(int argc, char *argv[]) {
 
     return app.exec();
 }
-
-
-// int main(int argc, char *argv[]) {
-//     qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
-//     QGuiApplication app(argc, argv);
-
-//     QQmlApplicationEngine engine;
-//     WindowEffects windowEffects;
-//     Backend backend(&server);
-
-//     engine.rootContext()->setContextProperty("windowEffects", &windowEffects);
-//     engine.rootContext()->setContextProperty("backend", &backend);
-
-//     engine.load(QUrl(QStringLiteral("qrc:/Clipboard/ui/main.qml")));
-
-//     QObject *root = engine.rootObjects().first();
-//     QQuickWindow *window = qobject_cast<QQuickWindow*>(root);
-
-//     if (window) {
-//         windowEffects.applyEffects(window);
-//         window->show();
-//     }
-
-//     return app.exec();
-// }
 

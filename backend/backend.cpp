@@ -12,8 +12,8 @@ Backend::Backend(UdpServer *server, QObject *parent) : QObject(parent)
     QClipboard *clipboard = QGuiApplication::clipboard();
     connect(clipboard, &QClipboard::dataChanged, this, &Backend::onClipboardChanged);
 
-    QObject::connect(clipboard, &QClipboard::dataChanged, [server]() {
-        server->sayHello();
+    QObject::connect(this, &Backend::itemAdded, [server](const QVariantMap &item) {
+        server->sayHello(item);
     });
 
     // Таймер для обновления буфера на мак
@@ -33,19 +33,19 @@ Backend::~Backend() {
     }
 }
 
-
 void Backend::copyToClip(QVariant itemData) {
     QVariantMap map = itemData.toMap();
     QClipboard *clipboard = QGuiApplication::clipboard();
     QMimeData *mimeData = new QMimeData();
 
-    // Проверка типа данных
     if (map["type"].toString() == "image") {
         QImage img(map["data"].toString());
         if (!img.isNull()) {
             QList<QUrl> urls;
             urls << QUrl::fromLocalFile(map["data"].toString());
             mimeData->setUrls(urls);
+
+            mimeData->setImageData(img); 
         }
     }
     else {

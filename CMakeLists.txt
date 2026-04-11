@@ -14,11 +14,9 @@ set(PROJECT_SOURCES
     backend/window_effects/WindowEffects.h
     backend/ip.cpp
     backend/socket.cpp
-    backend/examplethreads.cpp
     backend/backend.h
     backend/server.h
     backend/ip.h
-    backend/examplethreads.h
 )
 
 qt_add_executable(ClipboardApp MACOSX_BUNDLE ${PROJECT_SOURCES})

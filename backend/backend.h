@@ -24,7 +24,7 @@ class Backend : public QObject {
     QML_SINGLETON // Создает экземпляр класса в единственном числе для всего QML приложения
 
 signals:
-    void itemAdded(QVariant item); // Сигнал о добавлении объекта в буфер
+    void itemAdded(QVariantMap item); // Сигнал о добавлении объекта в буфер
 
 public slots:
     //Функция вызываемая при изменениии буфера, автоматически проверяет файлы на повторы и их тип, добавляет в историю

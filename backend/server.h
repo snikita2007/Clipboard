@@ -2,7 +2,8 @@
 #define UDPSERVER_H
 
 #include <QObject>
-#include <QUdpSocket>
+#include <QTcpSocket>
+#include <QTcpServer>
 
 class UdpServer : public QObject
 {
@@ -10,19 +11,27 @@ class UdpServer : public QObject
 public:
     explicit UdpServer(QObject *parent = nullptr);
     bool startServer(quint16 port);
-    void sayHello(); 
+    void sayHello(QVariantMap item); 
     void Recive(QStringList data);
     QStringList ips;
     static UdpServer& instance();
-
+    void copyToClip(QVariantMap itemData);
+    
 signals:
     void dataReceived(QStringList ips);
 
+public slots:
+    void updateIps(const QStringList &newIps);
+
 private slots:
-    void readPendingDatagrams();
+    void Connection();
     
 protected:
-    QUdpSocket *udpSocket;
+    QTcpSocket *tcpSocket;
+    QTcpServer *m_tcpServer;
+    bool isProcessing = false;
+
+    QString lastReceivedHash;
     QStringList Setup(); 
 
 };

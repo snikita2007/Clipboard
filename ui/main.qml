@@ -125,7 +125,9 @@ ApplicationWindow {
                             for (let i = 0; i < clipList.count; i++) {
                                 let item = clipList.get(i)
                                 if (item.preview.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
-                                    filteredClipList.append(item)
+                                    if (item.type !== "image"){       
+                                        filteredClipList.append(item)
+                                    }
                                 }
                             }
                         }
@@ -200,14 +202,6 @@ ApplicationWindow {
                     btnRadius: (Qt.platform.os === "windows") ? 4 : 12
                     btnAlignH: Qt.AlignLeft
                     btnText: model.type === "text" ? model.preview : ""
-                    Image {
-                        sourceSize.width: parent.width
-                        sourceSize.height: parent.height 
-                        visible: parent.model.type === "image"
-                        source: visible ? parent.model.preview : ""
-                        asynchronous: true
-                        anchors.fill: parent
-                    }
                     onClicked: {
                         let manualMap = { "type": model.type, "data": model.data }
                         Backend.copyToClip(manualMap)

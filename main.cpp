@@ -20,8 +20,6 @@
 #include <QThread>
 #include <fstream>
 
-using namespace std;
-
 int main(int argc, char *argv[]) {
     qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
     QGuiApplication app(argc, argv);
@@ -38,30 +36,7 @@ int main(int argc, char *argv[]) {
     server.startServer(1234);    
 
     QObject::connect(&scanner, &NetworkScanner::devicesUpdated, &server, &UdpServer::updateIps);
-
-    // QObject::connect(&UdpServer::instance(), &UdpServer::dataReceived, [&IPS](QStringList ips) {
-    //     qDebug() << "Получено в main:" << ips;
-    //     IPS.append(ips);
-    // });
-
-    // QObject::connect(&threadA, &QThread::finished, [&IPS, &server]() {
-    //     qDebug() << "поток завершен";
-
-    //     qDebug() << IPS;
-    //     server.Recive(IPS);
-
-    //     ofstream out("/home/danil/Documents/Clipboard/ips.txt");
     
-    //     if (out.is_open()) {
-    //         for (QString &ip : IPS)
-    //         out << ip.toStdString() << endl;
-    //     }
-    
-    //     out.close();
-    // });
-    
-    // threadA.start();   
-
     QQmlApplicationEngine engine;
     WindowEffects windowEffects;
     Backend backend(&server);

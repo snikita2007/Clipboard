@@ -2,12 +2,10 @@
 
 Backend::Backend(QObject *parent) : QObject(parent) 
 {   
-    // Создание папки с кешем в temp
     QString tempPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
     m_cacheDir = tempPath + "/ClipboardHistory_Cache";
     QDir().mkpath(m_cacheDir);
 
-    // Подключение слота к обновлению буфера
     QClipboard *clipboard = QGuiApplication::clipboard();
     connect(clipboard, &QClipboard::dataChanged, this, &Backend::onClipboardChanged);
 
@@ -35,7 +33,6 @@ void Backend::handleRemoteData(QVariantMap data) {
     QClipboard *clipboard = QGuiApplication::clipboard();
     
     if (data["type"].toString() == "image") {
-        // Если пришла картинка в байтах, сохраняем её в кеш
         QByteArray rawData = data["raw_data"].toByteArray();
         QString hash = QCryptographicHash::hash(rawData, QCryptographicHash::Md5).toHex();
         QString path = m_cacheDir + QString("/remote_%1.png").arg(hash);
@@ -130,7 +127,6 @@ void Backend::onClipboardChanged(){
         emit itemAdded(item);
         if (m_history.size() > 50) m_history.removeLast();
 
-        // АВТО-ОТПРАВКА: если скопировали что-то новое, сразу шлем в сеть
         QVariantMap networkItem = item;
         if (item["type"] == "image") {
             QImage img(item["data"].toString());

@@ -3,23 +3,18 @@
 NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 {
     m_udpSocket = new QUdpSocket(this);
-
-    // Привязываемся к порту
     m_udpSocket->bind(QHostAddress::AnyIPv4, UDP_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
-
 
     connect(m_udpSocket, &QUdpSocket::readyRead, this, &NetworkManager::processUdpPackets);
 
     m_discoveryTimer = new QTimer(this);
     connect(m_discoveryTimer, &QTimer::timeout, this, &NetworkManager::sendDiscoveryPacket);
-    m_discoveryTimer->start(2000);
+    m_discoveryTimer->start(10000);
 
-    // --- 2. Настройка TCP (Передача) ---
     m_tcpServer = new QTcpServer(this);
     m_tcpServer->listen(QHostAddress::Any, TCP_PORT);
     connect(m_tcpServer, &QTcpServer::newConnection, this, &NetworkManager::onNewTcpConnection);
     
-    // Сразу рассылаем пакет при запуске
     sendDiscoveryPacket();
 }
 
@@ -33,7 +28,6 @@ void NetworkManager::processUdpPackets() {
         QNetworkDatagram datagram = m_udpSocket->receiveDatagram();
         QHostAddress senderIp = datagram.senderAddress();
 
-        // Проверяем, не наш ли это адрес
         bool isMe = false;
         const QList<QHostAddress> allAddresses = QNetworkInterface::allAddresses();
         for (const QHostAddress &address : allAddresses) {
@@ -43,7 +37,7 @@ void NetworkManager::processUdpPackets() {
             }
         }
 
-        if (isMe) continue; // Игнорируем пакеты от самого себя
+        if (isMe) continue;
 
         if (datagram.data() == "CLIP_DISCOVERY") {
             if (!m_knownDevices.contains(senderIp)) {
@@ -89,7 +83,6 @@ void NetworkManager::readIncomingData() {
 
     QVariantMap receivedMap;
     
-    // ТРАНЗАКЦИЯ ГАРАНТИРУЕТ, ЧТО МЫ НЕ НАЧНЕМ ЧИТАТЬ, ПОКА ВСЕ БАЙТЫ НЕ ПРИДУТ
     in.startTransaction();
     in >> receivedMap;
 
@@ -97,7 +90,6 @@ void NetworkManager::readIncomingData() {
         qDebug() << "ДАННЫЕ ПОЛУЧЕНЫ ПОЛНОСТЬЮ!";
         emit dataReceived(receivedMap);
     } else {
-        // Если данных мало, Qt просто подождет следующего readyRead
         qDebug() << "Ждем дозагрузки данных... Текущий буфер:" << socket->bytesAvailable();
     }
 }

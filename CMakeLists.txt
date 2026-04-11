@@ -4,6 +4,7 @@ project(ClipboardProject)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON) 
+set(CMAKE_AUTORCC ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Widgets Concurrent)
 
@@ -17,7 +18,9 @@ set(PROJECT_SOURCES
     backend/NetworkManager.cpp
 )
 
-qt_add_executable(ClipboardApp MACOSX_BUNDLE ${PROJECT_SOURCES})
+qt_add_executable(ClipboardApp MACOSX_BUNDLE ${PROJECT_SOURCES}
+    resources.qrc
+)
 
 target_include_directories(ClipboardApp PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}/backend/window_effects
@@ -67,6 +70,7 @@ qt_add_qml_module(ClipboardApp
         backend/backend.h 
         backend/backend.cpp
 )
+
 
 target_link_libraries(ClipboardApp PRIVATE 
     Qt6::Core 

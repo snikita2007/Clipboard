@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ui/components/app.png</file>
+    </qresource>
+</RCC>

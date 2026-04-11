@@ -1,28 +1,25 @@
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickWindow>
 #include "WindowEffects.h"
 #include "backend.h"
+#include "QIcon"
 
 int main(int argc, char *argv[]) {
-    // Установка стиля и базовых переменных
     qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
-    QGuiApplication app(argc, argv); 
+    QApplication app(argc, argv); 
+
+    app.setWindowIcon(QIcon(":/ui/components/app.png"));
 
     QQmlApplicationEngine engine;
     
-    // Создаем объекты логики
     WindowEffects windowEffects;
-    Backend backend; // NetworkManager создастся внутри конструктора Backend
-
-    // Регистрируем объекты в QML контексте
-    // ВАЖНО: используйте маленькую букву "backend", если в QML обращаетесь к ней так
+    Backend backend;
+   
     engine.rootContext()->setContextProperty("windowEffects", &windowEffects);
     engine.rootContext()->setContextProperty("backend", &backend);
 
-    // Загружаем основной файл интерфейса
-    // Убедитесь, что путь верный (у вас в коде было два разных пути)
     const QUrl url(QStringLiteral("qrc:/Clipboard/ui/main.qml"));
     
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
@@ -33,7 +30,6 @@ int main(int argc, char *argv[]) {
 
     engine.load(url);
 
-    // Работа с окном (эффекты)
     if (!engine.rootObjects().isEmpty()) {
         QObject *root = engine.rootObjects().first();
         QQuickWindow *window = qobject_cast<QQuickWindow*>(root);

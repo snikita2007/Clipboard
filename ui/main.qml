@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import Qt.labs.platform as Native
 import QtQuick.Layouts
 import Clipboard
 import "components"
@@ -50,6 +51,47 @@ ApplicationWindow {
 
             MenuItem {
                 action: preferencesAction
+            }
+        }
+    }
+
+    Native.SystemTrayIcon {
+    id: trayIcon
+        visible: true
+        icon.source: "qrc:/ui/components/app.png" 
+        tooltip: "Clipboard"
+
+        menu: Native.Menu {
+            Native.MenuItem {
+                text: "Объектов %1/50".arg(clipList.count)
+            }
+
+            Native.MenuSeparator { }
+
+            Native.MenuItem {
+                text: "Clear"
+                onTriggered: {
+                    backend.clearHistory()
+                    clipList.clear()
+                }
+            }
+
+            Native.MenuItem {
+                text: "Settings"
+                onTriggered: {
+                    settingsWindow.active = true
+                }
+            }
+
+            Native.MenuItem {
+                text: "Exit"
+                onTriggered: Qt.quit()
+            }
+        }
+
+        onActivated: function(reason) {
+            if (reason === Native.SystemTrayIcon.Trigger) {
+                root.visible ? root.softClose() : root.softOpen()
             }
         }
     }
@@ -305,6 +347,17 @@ ApplicationWindow {
     ParallelAnimation {
         id: closeAnimation
         NumberAnimation { target: root; property: "opacity"; to: 0; duration: 150; easing.type: Easing.OutCubic }
-        onFinished: root.close()
+        onFinished: root.hide()
+    }
+
+    signal softOpen()
+    onSoftOpen : openAnimation.start()
+    ParallelAnimation{
+        id: openAnimation
+        NumberAnimation {target: root; property: "opacity"; to: 1; duration: 150; easing.type: Easing.InCubic }
+        onStarted:{
+            root.showMinimized();
+            root.showNormal();
+        }
     }
 }

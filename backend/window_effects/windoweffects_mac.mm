@@ -21,4 +21,5 @@ void WindowEffects::applyEffects(QObject *rootObject) {
     if (glassId != -1) {
         ConfigureGlassView(glassId, 30.0, 0.0, 0.0, 0.0, 0.0);
     }
+    [NSApp setActivationPolicy:NSApplicationActivationPolicyAccessory];
 }

@@ -18,43 +18,6 @@ ApplicationWindow {
     flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint 
     background: null
 
-    Action {
-        id: clearHistoryAction
-        text: "Clear history"
-        shortcut: "Ctrl+Alt+C"
-        onTriggered: {
-            backend.clearHistory()
-            clipList.clear()
-        }
-    }
-
-    Action {
-        id: preferencesAction
-        text: "Preferences"
-        onTriggered: settingsWindow.active = true
-    }
-
-    menuBar: (Qt.platform.os === "osx") ? macOsBar : null
-    
-    MenuBar {
-        id: macOsBar
-        visible: Qt.platform.os === "osx"
-        Menu {
-            title: "Edit"
-
-            MenuItem {
-                action: clearHistoryAction
-            }
-        }
-        Menu {
-            title: "ClipboardApp"
-
-            MenuItem {
-                action: preferencesAction
-            }
-        }
-    }
-
     Native.SystemTrayIcon {
     id: trayIcon
         visible: true
@@ -67,6 +30,13 @@ ApplicationWindow {
             }
 
             Native.MenuSeparator { }
+            
+            Native.MenuItem {
+                text: "Show/hide"
+                onTriggered: {
+                    root.visible ? root.softClose() : root.softOpen()
+                }
+            }
 
             Native.MenuItem {
                 text: "Clear"
@@ -90,7 +60,7 @@ ApplicationWindow {
         }
 
         onActivated: function(reason) {
-            if (reason === Native.SystemTrayIcon.Trigger) {
+            if (reason === Native.SystemTrayIcon.Trigger && Qt.platform.os !== "osx") {
                 root.visible ? root.softClose() : root.softOpen()
             }
         }
@@ -104,7 +74,6 @@ ApplicationWindow {
         TitleBar {
             id: titleBar
             settingsWindow: settingsWindow
-            showSettingsButton: Qt.platform.os !== "osx"
             curentTitle: "Clipboard"
         }
 
@@ -202,7 +171,7 @@ ApplicationWindow {
                 Layout.preferredWidth: 70
                 Layout.preferredHeight: 30
                 btnText: "Clear All"
-                visible: Qt.platform.os !== "osx"
+                visible: true
                 clip: true
                 
                 onClicked: {
@@ -366,8 +335,13 @@ ApplicationWindow {
         id: openAnimation
         NumberAnimation {target: root; property: "opacity"; to: 1; duration: 150; easing.type: Easing.InCubic }
         onStarted:{
-            root.showMinimized();
-            root.showNormal();
+            if (Qt.platform.os === "windows"){
+                root.showMinimized();
+                root.showNormal();
+            }
+            else {
+                root.show()
+            }
         }
     }
 }

@@ -319,6 +319,16 @@ ApplicationWindow {
                 font.weight: Font.Light
                 visible: clipList.count === 0 && historyList.visible === true
             }
+            Button {
+                text: "Update"
+                visible: Qt.platform.os === "android"
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                onClicked: {
+                    backend.onClipboardChanged()
+                }
+            }
         }
     }
 

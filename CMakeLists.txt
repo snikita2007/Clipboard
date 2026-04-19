@@ -22,10 +22,18 @@ qt_add_executable(ClipboardApp MACOSX_BUNDLE ${PROJECT_SOURCES}
     resources.qrc
 )
 
+set_target_properties(ClipboardApp PROPERTIES
+   QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+
 target_include_directories(ClipboardApp PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}/backend/window_effects
     ${CMAKE_CURRENT_SOURCE_DIR}/backend
 )
+
+if(ANDROID)
+    set_property(TARGET ClipboardApp PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+    target_sources(ClipboardApp PRIVATE backend/window_effects/windoweffects_android.cpp)
+endif()
 
 if(WIN32)
     target_sources(ClipboardApp PRIVATE backend/window_effects/windoweffects_win.cpp)

@@ -1,4 +1,4 @@
-# Сборка
+
 build/
 cmake-build-*/
 *.exe
@@ -7,11 +7,11 @@ cmake-build-*/
 *.o
 *.obj
 
-# IDE - VS Code
+
 .vscode/
 .vs/
+.qtcreator/
 
-# Qt
 *.user
 *.autosave
 moc_*.cpp

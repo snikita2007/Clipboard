@@ -22,3 +22,4 @@ void WindowEffects::applyEffects(QObject *rootObject) {
     }
 }
 
+

@@ -43,6 +43,7 @@ private:
     NetworkManager *m_network;
     #ifdef Q_OS_MAC
     long m_lastChangeCount = -1; 
+    int m_firstCount = 1;
     #endif
 };
 

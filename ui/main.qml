@@ -82,6 +82,25 @@ ApplicationWindow {
             Layout.preferredHeight: 30
             spacing: 5
             state: ""
+            focus: true
+
+            Keys.onPressed: (event) => {
+                if (state !== "searchmode" && event.text.length > 0) {
+                    let isControlKey = event.key === Qt.Key_Backspace || 
+                                    event.key === Qt.Key_Back || 
+                                    event.key === Qt.Key_Escape ||
+                                    event.key === Qt.Key_Enter ||
+                                    event.key === Qt.Key_Return;
+
+                    if (!isControlKey) {
+                        state = "searchmode"
+                        searchInput.text = event.text
+                        searchInput.forceActiveFocus()
+                        searchInput.cursorPosition = searchInput.text.length
+                        event.accepted = true
+                    }
+                }
+            }
 
             states: [
                 State {
@@ -95,6 +114,9 @@ ApplicationWindow {
                         historyList.scale: 1.05
                         historyList.opacity: 0
                         filterList.visible: true
+                    }
+                    StateChangeScript {
+                        script: searchInput.forceActiveFocus()
                     }
                 }
             ]
@@ -129,6 +151,21 @@ ApplicationWindow {
                     visible: false
                     opacity: 0
                     placeholderText: "Type to search..."
+
+                    Keys.onPressed: (event) => {
+                        if (text.length === 0 && event.key === Qt.Key_Backspace) {
+                            topBar.state = ""
+                            topBar.forceActiveFocus()
+                            event.accepted = true
+                        }
+                        if (event.key === Qt.Key_Escape) {
+                            searchInput.text = ""
+                            topBar.state = ""
+                            topBar.forceActiveFocus()
+                            event.accepted = true
+                        }
+                    }
+
                     onTextChanged: {
                         filteredClipList.clear()
                         if (text.length > 0) {
@@ -159,6 +196,7 @@ ApplicationWindow {
                             onClicked: {
                                 searchInput.text = ""
                                 topBar.state = ""
+                                topBar.forceActiveFocus();
                             }
                         }
                     }
@@ -204,20 +242,12 @@ ApplicationWindow {
                 visible: false
 
                 delegate: MyButton {
-                    width: parent.width  
+                    width: filterList.width  
                     height: 70
                     clip: true
                     btnRadius: (Qt.platform.os === "windows") ? 4 : 12
                     btnAlignH: Qt.AlignLeft
                     btnText: model.type === "text" ? model.preview : ""
-                    Image {
-                        sourceSize.width: parent.width
-                        sourceSize.height: parent.height 
-                        visible: parent.model.type === "image"
-                        source: visible ? parent.model.preview : ""
-                        asynchronous: true
-                        anchors.fill: parent
-                    }
                     onClicked: {
                         let manualMap = { "type": model.type, "data": model.data }
                         Backend.copyToClip(manualMap)

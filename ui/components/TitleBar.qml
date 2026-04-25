@@ -103,7 +103,7 @@ Item {
         MyButton{
             Layout.preferredHeight: 35
             Layout.preferredWidth: 50
-            visible: Qt.platform.os != "osx"
+            visible: (Qt.platform.os !== "osx" && Qt.platform.os !== "android")
             btnText: "✕"
             btnRadius: 8
             btnPadding: 0

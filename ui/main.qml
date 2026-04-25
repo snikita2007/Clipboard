@@ -8,7 +8,7 @@ import "components"
 ApplicationWindow {
     id: root
     visible: false
-    color: "transparent"
+    color: (Qt.platform.os === "android" ) ? palette.window : "transparent"
     width: 350; height: 370;
     maximumWidth: 350 
     maximumHeight: 370 
@@ -16,7 +16,6 @@ ApplicationWindow {
     minimumWidth: 350
 
     flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint 
-    background: null
 
     Native.SystemTrayIcon {
     id: trayIcon

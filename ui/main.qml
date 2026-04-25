@@ -238,6 +238,7 @@ ApplicationWindow {
             ListView {
                 id: filterList
                 anchors.fill: parent
+                spacing: 5
                 model: filteredClipList
                 visible: false
 
@@ -260,7 +261,7 @@ ApplicationWindow {
                 anchors.fill: parent
                 clip: true
                 spacing: 5
-                boundsBehavior: Flickable.StopAtBounds
+                boundsBehavior: (Qt.platform.os === "android") ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds
                 transformOrigin: Item.Top
 
                 model: ListModel { id: clipList }
@@ -284,7 +285,7 @@ ApplicationWindow {
                     }
                     onClicked: {
                         let manualMap = { "type": model.type, "data": model.data }
-                        Backend.copyToClip(manualMap)
+                        backend.copyToClip(manualMap)
                     }
                 }
 

@@ -1,9 +1,7 @@
 #import <AppKit/AppKit.h>
-#include "WindowEffects.h"
 #include <QQuickWindow>
-#include <QGuiApplication>
-#include <QPalette>
-#include "backend.h"
+
+#include "WindowEffects.h"
 
 WindowEffects::WindowEffects(QObject *parent) : QObject(parent) {}
 extern "C" {

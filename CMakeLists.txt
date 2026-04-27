@@ -6,6 +6,9 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON) 
 set(CMAKE_AUTORCC ON)
 
+set(QT_DEFAULT_MAJOR_VERSION 6) 
+add_subdirectory(3rdparty/QHotkey)
+
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Widgets Concurrent)
 
 set(PROJECT_SOURCES 
@@ -89,5 +92,6 @@ target_link_libraries(ClipboardApp PRIVATE
     Qt6::Widgets
     Qt6::Network
     Qt6::Concurrent
+    qhotkey
 )
 

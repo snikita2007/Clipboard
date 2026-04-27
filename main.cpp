@@ -2,9 +2,11 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickWindow>
+#include "QIcon"
+#include <QHotkey>
+
 #include "WindowEffects.h"
 #include "backend.h"
-#include "QIcon"
 
 int main(int argc, char *argv[]) {
     qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
@@ -29,6 +31,18 @@ int main(int argc, char *argv[]) {
         }, Qt::QueuedConnection);
 
     engine.load(url);
+
+    QHotkey hotkey(QKeySequence("Alt+V"), true, &app);
+    QObject::connect(&hotkey, &QHotkey::activated, [&engine](){
+        if (engine.rootObjects().isEmpty()) return;
+        QObject *root = engine.rootObjects().first();
+        bool isVisible = root->property("visible").toBool();
+        if (isVisible) {
+            QMetaObject::invokeMethod(root, "softClose");
+        } else {
+            QMetaObject::invokeMethod(root, "softOpen");
+        }
+    });
 
     if (!engine.rootObjects().isEmpty()) {
         QObject *root = engine.rootObjects().first();

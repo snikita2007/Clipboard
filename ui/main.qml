@@ -15,7 +15,7 @@ ApplicationWindow {
     minimumHeight: 370 
     minimumWidth: 350
 
-    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint 
+    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint
 
     Native.SystemTrayIcon {
     id: trayIcon
@@ -62,6 +62,12 @@ ApplicationWindow {
             if (reason === Native.SystemTrayIcon.Trigger && Qt.platform.os !== "osx") {
                 root.visible ? root.softClose() : root.softOpen()
             }
+        }
+    }
+
+    onActiveChanged: {
+        if (!active) {
+            root.softClose()
         }
     }
 
@@ -372,6 +378,8 @@ ApplicationWindow {
             else {
                 root.show()
             }
+            root.raise()
+            root.requestActivate()
         }
     }
 }

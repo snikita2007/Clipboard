@@ -11,7 +11,7 @@ void WindowEffects::applyEffects(QObject *rootObject) {
 
     HWND hwnd = reinterpret_cast<HWND>(window->winId());
     if (hwnd) {
-        int backdropType = 3; 
+        int backdropType = 2; 
         DwmSetWindowAttribute(hwnd, 38, &backdropType, sizeof(backdropType));
 
         BOOL dark = (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark) ? TRUE : FALSE;

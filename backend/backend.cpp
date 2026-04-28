@@ -97,6 +97,7 @@ void Backend::onClipboardChanged(){
             file.close();
         }
         item["type"] = "image";
+        item["time"] = QDateTime::currentDateTime().toString("HH:mm"); 
         item["data"] = path;
         item["hash"] = hash;
         item["preview"] = QUrl::fromLocalFile(path).toString();
@@ -108,6 +109,7 @@ void Backend::onClipboardChanged(){
             if (v.toMap()["data"].toString() == path) return;
         }
         item["type"] = "image";
+        item["time"] = QDateTime::currentDateTime().toString("HH:mm"); 
         item["data"] = path;
         item["preview"] = QUrl::fromLocalFile(path).toString();
     }
@@ -118,6 +120,7 @@ void Backend::onClipboardChanged(){
             if (v.toMap()["data"].toString() == text) return;
         }
         item["type"] = "text";
+        item["time"] = QDateTime::currentDateTime().toString("HH:mm"); 
         item["data"] = text;
         item["preview"] = text.simplified();
     }

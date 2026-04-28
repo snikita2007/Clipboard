@@ -9,11 +9,11 @@ ApplicationWindow {
     id: root
     visible: false
     color: (Qt.platform.os === "android" ) ? palette.window : "transparent"
-    width: 350; height: 370;
-    maximumWidth: 350 
-    maximumHeight: 370 
-    minimumHeight: 370 
-    minimumWidth: 350
+    width: 500; height: 400;
+    maximumWidth: 500 
+    maximumHeight: 400
+    minimumHeight: 400
+    minimumWidth: 500
 
     flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint
 
@@ -73,108 +73,46 @@ ApplicationWindow {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 14
+        anchors.margins: 10
         spacing: 10
         
-        TitleBar {
-            id: titleBar
-            settingsWindow: settingsWindow
-            curentTitle: "Clipboard"
-        }
-
         RowLayout {
             id: topBar
             Layout.fillWidth: true
             Layout.preferredHeight: 30
             spacing: 5
             state: ""
-            focus: true
-
-            Keys.onPressed: (event) => {
-                if (state !== "searchmode" && event.text.length > 0) {
-                    let isControlKey = event.key === Qt.Key_Backspace || 
-                                    event.key === Qt.Key_Back || 
-                                    event.key === Qt.Key_Escape ||
-                                    event.key === Qt.Key_Enter ||
-                                    event.key === Qt.Key_Return;
-
-                    if (!isControlKey) {
-                        state = "searchmode"
-                        searchInput.text = event.text
-                        searchInput.forceActiveFocus()
-                        searchInput.cursorPosition = searchInput.text.length
-                        event.accepted = true
-                    }
-                }
-            }
 
             states: [
                 State {
                     name: "searchmode"
                     PropertyChanges { 
-                        btnClear.Layout.preferredWidth: 0 
-                        btnClear.opacity: 0
-                        btnSearch.btnOpacity: 0.0
-                        searchInput.visible: true
-                        searchInput.opacity: 1
-                        historyList.scale: 1.05
                         historyList.opacity: 0
                         filterList.visible: true
                     }
-                    StateChangeScript {
-                        script: searchInput.forceActiveFocus()
-                    }
                 }
             ]
-
-            transitions: Transition {
-                NumberAnimation { 
-                    properties: "Layout.preferredWidth,opacity,scale"; 
-                    duration: 200; 
-                    easing.type: Easing.OutCubic  
-                }
-            }
 
             Item {
                 id: searchWrapper
                 Layout.fillWidth: true
                 Layout.preferredHeight: 30
 
-                MyButton {
-                    id: btnSearch
-                    anchors.fill: parent
-                    btnText: topBar.state === "searchmode" ? "" : "Search"
-                    btnOpacity: 0.5
-                    onClicked: {
-                        topBar.state = "searchmode"
-                        searchInput.forceActiveFocus()
-                    }
-                }
-
                 TextField {
                     id: searchInput
                     anchors.fill: parent
-                    visible: false
-                    opacity: 0
-                    placeholderText: "Type to search..."
-
-                    Keys.onPressed: (event) => {
-                        if (text.length === 0 && event.key === Qt.Key_Backspace) {
-                            topBar.state = ""
-                            topBar.forceActiveFocus()
-                            event.accepted = true
-                        }
-                        if (event.key === Qt.Key_Escape) {
-                            searchInput.text = ""
-                            topBar.state = ""
-                            topBar.forceActiveFocus()
-                            event.accepted = true
-                        }
-                    }
+                    visible: true
+                    placeholderText: "Clipboard"
+                    color: palette.windowText
+                    background: null
+                    focus: true
+                    font.pixelSize: 18
+                    font.weight: Font.DemiBold 
 
                     onTextChanged: {
                         filteredClipList.clear()
                         if (text.length > 0) {
+                            topBar.state = "searchmode"
                             for (let i = 0; i < clipList.count; i++) {
                                 let item = clipList.get(i)
                                 if (item.preview.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
@@ -182,46 +120,22 @@ ApplicationWindow {
                                 }
                             }
                         }
-                    }
-                    color: palette.windowText
-                    leftPadding: 15
-                    rightPadding: 30
-                    background: Item {} 
-
-                    Text {
-                        text: "✕"
-                        anchors.right: parent.right
-                        anchors.rightMargin: 12
-                        anchors.verticalCenter: parent.verticalCenter
-                        color: palette.windowText
-                        opacity: 0.5
-                        visible: topBar.state === "searchmode"
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                searchInput.text = ""
-                                topBar.state = ""
-                                topBar.forceActiveFocus();
-                            }
+                        else{
+                            topBar.state = ""
                         }
                     }
                 }
             }
+        }
 
-            MyButton {
-                id: btnClear
-                Layout.preferredWidth: 70
-                Layout.preferredHeight: 30
-                btnText: "Clear All"
-                visible: true
-                clip: true
-                
-                onClicked: {
-                    backend.clearHistory();
-                    clipList.clear();
-                }
-            }
+        Rectangle {
+            id: separator
+            Layout.fillWidth: true 
+            Layout.preferredHeight: 1
+            Layout.topMargin: 0
+            Layout.bottomMargin: 0 
+            color: palette.windowText
+            opacity: 0.2
         }
 
         Frame {
@@ -252,6 +166,7 @@ ApplicationWindow {
                     width: filterList.width  
                     height: 70
                     clip: true
+                    btnColor: "transparent"
                     btnRadius: (Qt.platform.os === "windows") ? 4 : 12
                     btnAlignH: Qt.AlignLeft
                     btnText: model.type === "text" ? model.preview : ""
@@ -266,7 +181,7 @@ ApplicationWindow {
                 id: historyList
                 anchors.fill: parent
                 clip: true
-                spacing: 5
+                spacing: 0
                 boundsBehavior: (Qt.platform.os === "android") ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds
                 transformOrigin: Item.Top
 
@@ -277,9 +192,31 @@ ApplicationWindow {
                     width: historyList.width  
                     height: 70
                     clip: true
+                    btnColor: "transparent"
                     btnRadius: (Qt.platform.os === "windows") ? 4 : 12
                     btnAlignH: Qt.AlignLeft
-                    btnText: model.type === "text" ? model.preview : ""
+                    btnText: ""
+                    Column {
+                        anchors.fill: parent
+                        anchors.margins: 15
+                        anchors.verticalCenter: parent.verticalCenter
+                        spacing: 5
+                        Text {
+                            width: delegateLoader.width - 30
+                            text: model.type === "text" ? model.preview : "Изображение"
+                            font.pixelSize: 16
+                            font.weight: Font.DemiBold
+                            color: palette.windowText
+                            elide: Text.ElideRight
+                        }
+                        Text {
+                            text: `Type ${model.type} • Copyed ${model.time}`
+                            font.pixelSize: 12
+                            color: palette.windowText
+                            font.weight: Font.DemiBold
+                            opacity: 0.7
+                        }
+                    }
                     Image {
                         id: previewImage
                         sourceSize.width: delegateLoader.width
@@ -294,19 +231,6 @@ ApplicationWindow {
                         backend.copyToClip(manualMap)
                     }
                 }
-
-                add: Transition {
-                    NumberAnimation { property: "opacity"; from: 0; to: 1.0; duration: 100 }
-                    NumberAnimation { property: "scale"; from: 0.8; to: 1.0; duration: 150; easing.type: Easing.OutBack }
-                }
-
-                displaced: Transition {
-                    NumberAnimation { 
-                        properties: "y"; 
-                        duration: 200; 
-                        easing.type: Easing.OutExpo 
-                    }
-                }
                 Connections {
                     target: backend
                     function onItemAdded(newItem) {
@@ -318,10 +242,11 @@ ApplicationWindow {
 
             Label {
                 text: "Clipboard is empty"
+                font.pixelSize: 14
+                font.weight: Font.DemiBold 
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 anchors.centerIn: historyList
-                font.weight: Font.Light
                 visible: clipList.count === 0 && historyList.visible === true
             }
             Button {

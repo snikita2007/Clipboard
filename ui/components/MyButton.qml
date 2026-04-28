@@ -16,11 +16,12 @@ Button {
         ? (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.04) : Qt.rgba(1, 1, 1, 0.2)) // Windows
         : (palette.windowText.r > 0.5 ? Qt.rgba(1, 1, 1, 0.05)  : Qt.rgba(0, 0, 0, 0.05)) // (Mac/Linux)
     property color btnPressedColor: btnColor
-    property color btnHoveredColor: (Qt.platform.os === "osx") ? btnColor : Qt.rgba(1, 1, 1, 0.08)
+    property color btnHoveredColor: btnColor
     property real btnRadius: 0
-    property int btnFontSize: 13 
     property color btnFontColor: palette.windowText
     property real btnOpacity: 1.0
+    property int btnFontWeight: Font.DemiBold
+    property int btnFontSize: 14
 
     width: control.btnWidth
     height: control.btnHeight
@@ -34,13 +35,13 @@ Button {
         font.pixelSize: control.btnFontSize
         color: control.btnFontColor
         padding: control.btnPadding
-        font.weight: Font.Medium
         horizontalAlignment: control.btnAlignH
         verticalAlignment: control.btnAlignV
         wrapMode: Text.WordWrap 
         maximumLineCount: control.btnLineCount
         elide: Text.ElideNone
         opacity: control.btnOpacity
+        font.weight: control.btnFontWeight
     }
 
     background: Rectangle {

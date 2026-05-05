@@ -11,12 +11,12 @@
 #include "server.h"
 #include <QUdpSocket>
 #include <ip.h>
-#include <QBluetoothServer>           // Сам сервер
-#include <QBluetoothSocket>           // Сокет для общения с клиентом
-#include <QBluetoothServiceInfo>      // "Паспорт" сервиса для видимости
-#include <QBluetoothLocalDevice>      // Управление питанием и видимостью адаптера
-#include <QBluetoothAddress>          // Работа с MAC-адресами
-#include <QBluetoothHostInfo>         // Информация о доступных чипах в системе
+#include <QBluetoothServer>    
+#include <QBluetoothSocket>           
+#include <QBluetoothServiceInfo>      
+#include <QBluetoothLocalDevice>      
+#include <QBluetoothAddress>          
+#include <QBluetoothHostInfo>         
 #include <QBluetoothUuid>             
 #include "bluetooth.h"
 

@@ -35,6 +35,7 @@ public:
     ~Backend();
     Q_INVOKABLE void copyToClip(QVariant data); // Копирование в буфер из клиента
     void checkClipboardNative(); // Обновление буфера для мака
+    bool isDublicate(const QMimeData *mimeData, QVariantMap &item);
     Q_INVOKABLE void clearHistory();
 
 private:

@@ -6,27 +6,23 @@
 #include <QTimer>
 #include "WindowEffects.h"
 #include "backend.h"
-#include <QFile>
 #include <QProcess>
-#include <QRegularExpression>
-#include <QNetworkInterface>
-#include <QThread>
-#include <QDateTime>
 #include <unistd.h>
 #include "server.h"
 #include <QUdpSocket>
-#include <QClipboard>
 #include <ip.h>
-#include <QThread>
-#include <fstream>
+#include <QBluetoothServer>           // Сам сервер
+#include <QBluetoothSocket>           // Сокет для общения с клиентом
+#include <QBluetoothServiceInfo>      // "Паспорт" сервиса для видимости
+#include <QBluetoothLocalDevice>      // Управление питанием и видимостью адаптера
+#include <QBluetoothAddress>          // Работа с MAC-адресами
+#include <QBluetoothHostInfo>         // Информация о доступных чипах в системе
+#include <QBluetoothUuid>             
+#include "bluetooth.h"
 
 int main(int argc, char *argv[]) {
     qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
     QGuiApplication app(argc, argv);
-    
-    // ExampleThreads threadA("test"); 
-
-    // QStringList IPS;
     
     UdpServer server;
     NetworkScanner scanner;
@@ -34,6 +30,16 @@ int main(int argc, char *argv[]) {
     scanner.startScanning(1234);
 
     server.startServer(1234);    
+
+    BluetoothServer bluetooth;
+
+    QBluetoothAddress adapterAddress;
+    QList<QBluetoothHostInfo> devices = QBluetoothLocalDevice::allDevices();
+    if (!devices.isEmpty()) {
+        adapterAddress = devices.first().address();
+    }
+
+    bluetooth.startServer(adapterAddress);
 
     QObject::connect(&scanner, &NetworkScanner::devicesUpdated, &server, &UdpServer::updateIps);
     

@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON) 
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Widgets Concurrent)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Widgets Concurrent Bluetooth)
 
 set(PROJECT_SOURCES 
     main.cpp 
@@ -17,6 +17,10 @@ set(PROJECT_SOURCES
     backend/backend.h
     backend/server.h
     backend/ip.h
+    backend/bluetooth.cpp
+    backend/bluetooth_client.cpp
+    backend/bluetooth_client.h
+    backend/bluetooth.h
 )
 
 qt_add_executable(ClipboardApp MACOSX_BUNDLE ${PROJECT_SOURCES})
@@ -79,6 +83,7 @@ target_link_libraries(ClipboardApp PRIVATE
     Qt6::Widgets
     Qt6::Network
     Qt6::Concurrent
+    Qt6::Bluetooth
 )
 
 

@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Controls
 import Qt.labs.platform as Native
 import QtQuick.Layouts
+import QtQuick.Effects
+import QtQuick.Controls.impl
 import Clipboard
 import "components"
 
@@ -74,6 +76,7 @@ ApplicationWindow {
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 10
+        anchors.topMargin: 12
         spacing: 10
         
         RowLayout {
@@ -93,6 +96,15 @@ ApplicationWindow {
                 }
             ]
 
+            IconImage {
+                Layout.preferredHeight: 30
+                Layout.preferredWidth: 30
+                Layout.leftMargin: 5
+                Layout.rightMargin: -5
+                source: "qrc:/ui/components/search.svg"
+                color: searchInput.placeholderTextColor
+            }
+
             Item {
                 id: searchWrapper
                 Layout.fillWidth: true
@@ -106,7 +118,7 @@ ApplicationWindow {
                     color: palette.windowText
                     background: null
                     focus: true
-                    font.pixelSize: 18
+                    font.pixelSize: 20
                     font.weight: Font.DemiBold 
 
                     onTextChanged: {
@@ -181,6 +193,7 @@ ApplicationWindow {
                 id: historyList
                 anchors.fill: parent
                 clip: true
+                topMargin: 0
                 spacing: 0
                 boundsBehavior: (Qt.platform.os === "android") ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds
                 transformOrigin: Item.Top
@@ -196,25 +209,40 @@ ApplicationWindow {
                     btnRadius: (Qt.platform.os === "windows") ? 4 : 12
                     btnAlignH: Qt.AlignLeft
                     btnText: ""
-                    Column {
+                    RowLayout {
                         anchors.fill: parent
-                        anchors.margins: 15
-                        anchors.verticalCenter: parent.verticalCenter
-                        spacing: 5
-                        Text {
-                            width: delegateLoader.width - 30
-                            text: model.type === "text" ? model.preview : "Изображение"
-                            font.pixelSize: 16
-                            font.weight: Font.DemiBold
+                        spacing: 10
+                        IconImage {
+                            Layout.preferredHeight: 35
+                            Layout.preferredWidth: 35
+                            Layout.leftMargin: 5
+                            source: "qrc:/ui/components/text.svg"
                             color: palette.windowText
-                            elide: Text.ElideRight
                         }
-                        Text {
-                            text: `Type ${model.type} • Copyed ${model.time}`
-                            font.pixelSize: 12
-                            color: palette.windowText
-                            font.weight: Font.DemiBold
-                            opacity: 0.7
+
+                        ColumnLayout {
+                            Layout.fillWidth: true
+                            anchors.margins: 15
+                            Layout.alignment: Qt.AlignVCenter
+                            spacing: 2  
+                            Text {
+                                Layout.fillWidth: true
+                                text: model.type === "text" ? model.preview : "Изображение"
+                                font.pixelSize: 16
+                                font.weight: Font.DemiBold
+                                color: palette.windowText
+                                elide: Text.ElideRight
+                            }
+                            Text {
+                                text: `Type ${model.type} • Copyed ${model.time}`
+                                font.pixelSize: 12
+                                color: palette.windowText
+                                font.weight: Font.DemiBold
+                                opacity: 0.7
+                            }
+                        }
+                        Item {
+                            Layout.preferredWidth: 40
                         }
                     }
                     Image {

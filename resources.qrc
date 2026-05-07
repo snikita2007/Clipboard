@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>ui/components/app.png</file>
+        <file>ui/components/search.svg</file>
+        <file>ui/components/text.svg</file>
     </qresource>
 </RCC>

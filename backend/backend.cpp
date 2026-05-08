@@ -182,3 +182,7 @@ void Backend::onClipboardChanged(){
 void Backend::clearHistory(){
     m_history.clear();
 }
+
+QPoint Backend::getGlobalMousePos() {
+    return QCursor::pos();
+}

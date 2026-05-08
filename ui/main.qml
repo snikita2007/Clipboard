@@ -312,7 +312,21 @@ ApplicationWindow {
     }
 
     signal softOpen()
-    onSoftOpen : openAnimation.start()
+    onSoftOpen : {
+        let cursorPoint = backend.getGlobalMousePos(); 
+        let targetX = cursorPoint.x - root.width / 2
+        let targetY = cursorPoint.y + 30
+        if (targetX + root.width > Screen.desktopAvailableWidth) 
+            targetX = Screen.desktopAvailableWidth - root.width - 10
+        if (targetX < 0) targetX = 10
+        
+        if (targetY + root.height > Screen.desktopAvailableHeight)
+            targetY = cursorPoint.y - root.height - 15
+        root.x = targetX
+        root.y = targetY
+
+        openAnimation.start()
+    }
     ParallelAnimation{
         id: openAnimation
         NumberAnimation {target: root; property: "opacity"; to: 1; duration: 150; easing.type: Easing.InCubic }

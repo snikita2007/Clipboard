@@ -17,6 +17,8 @@
 #include <QDateTime>
 #include <QCryptographicHash>
 
+#include <QCursor>
+
 #include "NetworkManager.h"
 
 class Backend : public QObject {
@@ -37,6 +39,7 @@ public:
     void checkClipboardNative(); // Обновление буфера для мака
     bool isDublicate(const QMimeData *mimeData, QVariantMap &item);
     Q_INVOKABLE void clearHistory();
+    Q_INVOKABLE QPoint getGlobalMousePos();
 
 private:
     QVariantList m_history;

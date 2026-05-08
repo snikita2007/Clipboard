@@ -195,7 +195,8 @@ ApplicationWindow {
                 clip: true
                 topMargin: 0
                 spacing: 0
-                boundsBehavior: (Qt.platform.os === "android") ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds
+                boundsBehavior: (Qt.platform.os === "windows") ? Flickable.StopAtBounds : Flickable.DragAndOvershootBounds
+                flickableDirection: Flickable.VerticalFlick
                 transformOrigin: Item.Top
 
                 model: ListModel { id: clipList }
@@ -213,11 +214,12 @@ ApplicationWindow {
                         anchors.fill: parent
                         spacing: 10
                         IconImage {
-                            Layout.preferredHeight: 35
-                            Layout.preferredWidth: 35
+                            Layout.preferredHeight: 40
+                            Layout.preferredWidth: 40
                             Layout.leftMargin: 5
-                            source: "qrc:/ui/components/text.svg"
-                            color: palette.windowText
+                            sourceSize.height: 160
+                            source: (model.type === "image") ? model.preview : "qrc:/ui/components/text.svg"
+                            color: (model.type === "text") ? palette.windowText : "transparent"
                         }
 
                         ColumnLayout {
@@ -227,7 +229,7 @@ ApplicationWindow {
                             spacing: 2  
                             Text {
                                 Layout.fillWidth: true
-                                text: model.type === "text" ? model.preview : "Изображение"
+                                text: model.name
                                 font.pixelSize: 16
                                 font.weight: Font.DemiBold
                                 color: palette.windowText
@@ -244,15 +246,6 @@ ApplicationWindow {
                         Item {
                             Layout.preferredWidth: 40
                         }
-                    }
-                    Image {
-                        id: previewImage
-                        sourceSize.width: delegateLoader.width
-                        sourceSize.height: delegateLoader.height 
-                        visible: model.type === "image"
-                        source: visible ? model.preview : ""
-                        asynchronous: true
-                        anchors.fill: parent
                     }
                     onClicked: {
                         let manualMap = { "type": model.type, "data": model.data }

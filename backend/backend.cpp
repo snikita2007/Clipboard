@@ -118,15 +118,20 @@ void Backend::onClipboardChanged(){
 
     if (mimeData->hasUrls()){
         path = mimeData->urls().first().toLocalFile();
+        QFileInfo fileInfo(path);
+        QString name = fileInfo.fileName();
         item["type"] = "image";
         item["time"] = QDateTime::currentDateTime().toString("HH:mm");
         item["data"] = path;
+        item["name"] = name;
         item["preview"] = QUrl::fromLocalFile(path).toString();
+        qDebug() << "fidf";
     }
 
     else if (mimeData->hasImage()){
         QString hash = item["hash"].toString();
-        QString path = m_cacheDir + QString("/clip_%1.png").arg(hash);
+        QString name = QString("img_%1.png").arg(QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss"));
+        QString path = m_cacheDir + "/" + name;
 
         QImage img = qvariant_cast<QImage>(mimeData->imageData());
         QByteArray data;
@@ -143,6 +148,7 @@ void Backend::onClipboardChanged(){
         item["type"] = "image";
         item["time"] = QDateTime::currentDateTime().toString("HH:mm");
         item["data"] = path;
+        item["name"] = name;
         item["preview"] = QUrl::fromLocalFile(path).toString();
     }
 
@@ -151,7 +157,7 @@ void Backend::onClipboardChanged(){
         item["type"] = "text";
         item["time"] = QDateTime::currentDateTime().toString("HH:mm");
         item["data"] = text;
-        item["preview"] = text.simplified();
+        item["name"] = text.simplified();
     }
 
     if (!item.isEmpty()){

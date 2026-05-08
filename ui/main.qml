@@ -238,9 +238,8 @@ ApplicationWindow {
                             Text {
                                 text: `Type ${model.type} • Copyed ${model.time}`
                                 font.pixelSize: 12
-                                color: palette.windowText
+                                color: palette.placeholderText
                                 font.weight: Font.DemiBold
-                                opacity: 0.7
                             }
                         }
                         Item {
@@ -250,6 +249,7 @@ ApplicationWindow {
                     onClicked: {
                         let manualMap = { "type": model.type, "data": model.data }
                         backend.copyToClip(manualMap)
+                        root.softClose()
                     }
                 }
                 Connections {

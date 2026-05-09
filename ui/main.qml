@@ -75,8 +75,7 @@ ApplicationWindow {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 10
-        anchors.topMargin: 12
+        anchors.margins: 15
         spacing: 10
         
         RowLayout {
@@ -127,7 +126,7 @@ ApplicationWindow {
                             topBar.state = "searchmode"
                             for (let i = 0; i < clipList.count; i++) {
                                 let item = clipList.get(i)
-                                if (item.preview.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
+                                if (item.name.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
                                     filteredClipList.append(item)
                                 }
                             }
@@ -175,16 +174,53 @@ ApplicationWindow {
                 visible: false
 
                 delegate: MyButton {
-                    width: filterList.width  
+                    width: historyList.width  
                     height: 70
                     clip: true
                     btnColor: "transparent"
                     btnRadius: (Qt.platform.os === "windows") ? 4 : 12
                     btnAlignH: Qt.AlignLeft
-                    btnText: model.type === "text" ? model.preview : ""
+                    btnText: ""
+                    RowLayout {
+                        anchors.fill: parent
+                        spacing: 10
+                        IconImage {
+                            Layout.preferredHeight: 40
+                            Layout.preferredWidth: 40
+                            Layout.leftMargin: 5
+                            sourceSize.height: 160
+                            source: (model.type === "image") ? model.preview : "qrc:/ui/components/text.svg"
+                            color: (model.type === "text") ? palette.windowText : "transparent"
+                        }
+
+                        ColumnLayout {
+                            Layout.fillWidth: true
+                            anchors.margins: 15
+                            Layout.alignment: Qt.AlignVCenter
+                            spacing: 2  
+                            Text {
+                                Layout.fillWidth: true
+                                text: model.name
+                                font.pixelSize: 16
+                                font.weight: Font.DemiBold
+                                color: palette.windowText
+                                elide: Text.ElideRight
+                            }
+                            Text {
+                                text: `Type ${model.type} • Copyed ${model.time}`
+                                font.pixelSize: 12
+                                color: palette.placeholderText
+                                font.weight: Font.DemiBold
+                            }
+                        }
+                        Item {
+                            Layout.preferredWidth: 40
+                        }
+                    }
                     onClicked: {
                         let manualMap = { "type": model.type, "data": model.data }
-                        Backend.copyToClip(manualMap)
+                        backend.copyToClip(manualMap)
+                        root.softClose()
                     }
                 }
             }
@@ -308,7 +344,10 @@ ApplicationWindow {
     ParallelAnimation {
         id: closeAnimation
         NumberAnimation { target: root; property: "opacity"; to: 0; duration: 150; easing.type: Easing.OutCubic }
-        onFinished: root.hide()
+        onFinished: {
+            searchInput.clear()
+            root.hide()
+        }
     }
 
     signal softOpen()
@@ -324,7 +363,7 @@ ApplicationWindow {
             targetY = cursorPoint.y - root.height - 15
         root.x = targetX
         root.y = targetY
-
+        
         openAnimation.start()
     }
     ParallelAnimation{

@@ -37,9 +37,10 @@ public:
     ~Backend();
     Q_INVOKABLE void copyToClip(QVariant data); // Копирование в буфер из клиента
     void checkClipboardNative(); // Обновление буфера для мака
-    bool isDublicate(const QMimeData *mimeData, QVariantMap &item);
+    bool isDublicate(const QString &hash);
     Q_INVOKABLE void clearHistory();
     Q_INVOKABLE QPoint getGlobalMousePos();
+    QString generateHash(const QMimeData *mimeData);
 
 private:
     QVariantList m_history;

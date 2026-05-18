@@ -55,13 +55,8 @@ void Backend::copyToClip(QVariant itemData){
 
     if (map["type"].toString() == "image" && QFile::exists(path)) {
         QMimeData *mimeData = new QMimeData();
-        
-        // 1. Устанавливаем URL (адрес на компе)
-        // Это самое важное: onCC увидит это как hasUrls() и хэш совпадет
         mimeData->setUrls({ QUrl::fromLocalFile(path) });
 
-        // 2. Добавляем ImageData как "второй слой"
-        // Это нужно только для Telegram, чтобы он видел картинку, а не иконку
         QImage img(path);
         if (!img.isNull()) {
             mimeData->setImageData(img);
@@ -74,18 +69,32 @@ void Backend::copyToClip(QVariant itemData){
     }
 }
 
-bool Backend::isDublicate(const QMimeData *mimeData, QVariantMap &item){
-    QString hash;
-    if (mimeData->hasUrls()) {
-        hash = mimeData->urls().first().toLocalFile();
-        if (hash.contains(m_cacheDir)) {
-            return true; 
+bool Backend::isDublicate(const QString &hash) {
+    if (hash.contains(m_cacheDir)) return true;
+    for (const QVariant &v : m_history) {
+        if (v.toMap()["hash"].toString() == hash) {
+            return true;
         }
     }
-    else if (mimeData->hasImage()){
+    return false;
+}
+
+QString Backend::generateHash(const QMimeData *mimeData){
+    if (mimeData->hasUrls() && !mimeData->urls().first().toLocalFile().isEmpty()) {
+        QString path = mimeData->urls().first().toLocalFile();
+        QFileInfo fileInfo(path);
+        QString suffix = fileInfo.suffix().toLower();
+        QStringList imageExtensions = {"png", "jpg", "jpeg", "gif", "bmp", "ico", "webp"};
+        
+        if (imageExtensions.contains(suffix)) {
+            return path;
+        }
+        return QString();
+    }
+    
+    if (mimeData->hasImage()) {
         QImage img = qvariant_cast<QImage>(mimeData->imageData());
-        if (img.isNull())
-            return false;
+        if (img.isNull()) return QString();
 
         qint64 totalSize = img.sizeInBytes();
         int sampleSize = qMin(totalSize, (qint64)4096);
@@ -94,47 +103,43 @@ bool Backend::isDublicate(const QMimeData *mimeData, QVariantMap &item){
         data.append(reinterpret_cast<const char *>(&totalSize), sizeof(totalSize));
         data.append(reinterpret_cast<const char *>(img.bits()), sampleSize);
 
-        hash = QCryptographicHash::hash(data, QCryptographicHash::Md5).toHex();
+        return QCryptographicHash::hash(data, QCryptographicHash::Md5).toHex();
     }
-    else{
-        hash = mimeData->text();
+    
+    if (mimeData->hasText()) {
+        return mimeData->text();
     }
-    for (const QVariant &v : m_history){
-        if (v.toMap()["hash"].toString() == hash)
-            return true;
-    }
-    item["hash"] = hash;
-    return false;
+
+    return QString();
 }
 
 void Backend::onClipboardChanged(){
     QClipboard *clipboard = QGuiApplication::clipboard();
     const QMimeData *mimeData = clipboard->mimeData();
+
+    QString hash = generateHash(mimeData);
+    if (hash.isEmpty()) return;
+    if (isDublicate(hash)) return;
     QVariantMap item;
-    QString path;
+    item["hash"] = hash;
+    item["time"] = QDateTime::currentDateTime().toString("HH:mm");
+    QByteArray data;
 
-    if (isDublicate(mimeData, item))
-        return;
-
-    if (mimeData->hasUrls()){
-        path = mimeData->urls().first().toLocalFile();
+    if (mimeData->hasUrls()  && !mimeData->urls().first().toLocalFile().isEmpty()){
+        QString path = mimeData->urls().first().toLocalFile();
         QFileInfo fileInfo(path);
         QString name = fileInfo.fileName();
         item["type"] = "image";
-        item["time"] = QDateTime::currentDateTime().toString("HH:mm");
         item["data"] = path;
         item["name"] = name;
         item["preview"] = QUrl::fromLocalFile(path).toString();
-        qDebug() << "fidf";
     }
 
     else if (mimeData->hasImage()){
-        QString hash = item["hash"].toString();
         QString name = QString("img_%1.png").arg(QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss"));
         QString path = m_cacheDir + "/" + name;
-
         QImage img = qvariant_cast<QImage>(mimeData->imageData());
-        QByteArray data;
+
         QBuffer buffer(&data);
         buffer.open(QIODevice::WriteOnly);
         img.save(&buffer, "PNG");
@@ -146,7 +151,6 @@ void Backend::onClipboardChanged(){
         }
 
         item["type"] = "image";
-        item["time"] = QDateTime::currentDateTime().toString("HH:mm");
         item["data"] = path;
         item["name"] = name;
         item["preview"] = QUrl::fromLocalFile(path).toString();
@@ -155,7 +159,6 @@ void Backend::onClipboardChanged(){
     else if (mimeData->hasText()){
         QString text = mimeData->text();
         item["type"] = "text";
-        item["time"] = QDateTime::currentDateTime().toString("HH:mm");
         item["data"] = text;
         item["name"] = text.simplified();
     }
@@ -163,17 +166,23 @@ void Backend::onClipboardChanged(){
     if (!item.isEmpty()){
         m_history.prepend(item);
         emit itemAdded(item);
+        
         if (m_history.size() > 50)
             m_history.removeLast();
 
         QVariantMap networkItem = item;
         if (item["type"] == "image")
         {
-            QImage img(item["data"].toString());
-            QByteArray ba;
-            QBuffer buf(&ba);
-            img.save(&buf, "PNG");
-            networkItem["raw_data"] = ba;
+            if (!data.isEmpty()) {
+                networkItem["raw_data"] = data;
+            } 
+            else {
+                QFile file(item["data"].toString());
+                if (file.open(QIODevice::ReadOnly)) {
+                    networkItem["raw_data"] = file.readAll();
+                    file.close();
+                }
+            }
         }
         m_network->broadcastClipboard(networkItem);
     }

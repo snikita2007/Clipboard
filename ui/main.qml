@@ -75,7 +75,8 @@ ApplicationWindow {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 15
+        anchors.margins: (Qt.platform.os === "osx") ? 15 : 10
+        anchors.topMargin: (Qt.platform.os === "osx") ? 15 : 5
         spacing: 10
         
         RowLayout {
@@ -100,6 +101,10 @@ ApplicationWindow {
                 Layout.preferredWidth: 30
                 Layout.leftMargin: 5
                 Layout.rightMargin: -5
+                sourceSize.height: 30
+                sourceSize.width: 30
+                smooth: true
+                mipmap: true
                 source: "qrc:/ui/components/search.svg"
                 color: searchInput.placeholderTextColor
             }
@@ -253,7 +258,10 @@ ApplicationWindow {
                             Layout.preferredHeight: 40
                             Layout.preferredWidth: 40
                             Layout.leftMargin: 5
-                            sourceSize.height: 160
+                            sourceSize.height: 40
+                            sourceSize.width: 40
+                            smooth: true
+                            mipmap: true
                             source: (model.type === "image") ? model.preview : "qrc:/ui/components/text.svg"
                             color: (model.type === "text") ? palette.windowText : "transparent"
                         }
@@ -337,6 +345,10 @@ ApplicationWindow {
                 settingsWindow.active = false
             }
         }
+    }
+    Shortcut {
+        sequence: "Escape" 
+        onActivated: root.softClose()
     }
 
     signal softClose()

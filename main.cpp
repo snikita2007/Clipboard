@@ -3,7 +3,10 @@
 #include <QQmlContext>
 #include <QQuickWindow>
 #include "QIcon"
-#include <QHotkey>
+
+#ifndef Q_OS_ANDROID 
+#include <QHotkey> 
+#endif
 
 #include "WindowEffects.h"
 #include "backend.h"
@@ -32,6 +35,7 @@ int main(int argc, char *argv[]) {
 
     engine.load(url);
 
+    #ifndef Q_OS_ANDROID
     QHotkey hotkey(QKeySequence("Alt+V"), true, &app);
     QObject::connect(&hotkey, &QHotkey::activated, [&engine](){
         if (engine.rootObjects().isEmpty()) return;
@@ -43,6 +47,7 @@ int main(int argc, char *argv[]) {
             QMetaObject::invokeMethod(root, "softOpen");
         }
     });
+    #endif
 
     if (!engine.rootObjects().isEmpty()) {
         QObject *root = engine.rootObjects().first();

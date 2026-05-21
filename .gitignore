@@ -18,6 +18,7 @@ Thumbs.db
 .vscode/
 .vs/
 .qmlls.ini
+CMakeUserPresets.json
 
 cmake-build-*/
 *.exe

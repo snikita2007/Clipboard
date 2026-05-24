@@ -76,6 +76,7 @@ qt_add_qml_module(ClipboardApp
         ui/components/TitleBar.qml
         ui/components/MobileBottomNav.qml
         ui/Settings.qml
+        ui/History.qml
     SOURCES
         backend/backend.h 
         backend/backend.cpp

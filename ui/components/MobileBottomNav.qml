@@ -8,22 +8,20 @@ Item {
     id: root
     
     visible: Qt.platform.os === "android"
-    
+
     anchors.bottom: parent.bottom
     anchors.horizontalCenter: parent.horizontalCenter
     
     width: parent.width
     height: contentHolder.height + bottomSpacer.height
 
-    property int currentTab: 0
     property bool searchMode: false
-    
-    property var historyListView
-    property var filterListView
-    property var clipListModel
-    property var filteredClipListModel
+    property int currentTab: 0
     
     readonly property color panelColor: palette.window.hslLightness > 0.5 ? "#FFFFFF" : "#1E1E1E"
+
+    signal navigate(string page)
+    signal searchTextChanged(string text)
 
     Timer {
         id: keyboardDelayTimer
@@ -41,10 +39,7 @@ Item {
             if (!Qt.inputMethod.visible && root.searchMode) {
                 Qt.callLater(function() {
                     if (!Qt.inputMethod.visible) { 
-                        mobileSearchField.text = ""
-                        if (root.filteredClipListModel) root.filteredClipListModel.clear()
-                        if (root.filterListView) root.filterListView.visible = false
-                        if (root.historyListView) root.historyListView.visible = true
+                        mobileSearchField.text = "" 
                         mobileSearchField.focus = false
                         root.searchMode = false
                     }
@@ -138,7 +133,7 @@ Item {
                 MouseArea {
                     width: parent.width / 2
                     height: parent.height
-                    onClicked: root.currentTab = 0
+                    onClicked: root.navigate("History.qml")
 
                     Column {
                         anchors.centerIn: parent
@@ -167,7 +162,7 @@ Item {
                 MouseArea {
                     width: parent.width / 2
                     height: parent.height
-                    onClicked: root.currentTab = 1
+                    onClicked: root.navigate("Settings.qml")
 
                     Column {
                         anchors.centerIn: parent
@@ -230,9 +225,6 @@ Item {
                     enabled: root.searchMode
                     onClicked: {
                         mobileSearchField.text = ""
-                        if (root.filteredClipListModel) root.filteredClipListModel.clear()
-                        if (root.filterListView) root.filterListView.visible = false
-                        if (root.historyListView) root.historyListView.visible = true
                         mobileSearchField.focus = false
                         root.searchMode = false
                         Qt.inputMethod.hide()
@@ -277,46 +269,10 @@ Item {
                     background: null
                     inputMethodHints: Qt.ImhNoPredictiveText
 
-                    onTextChanged: {
-                        var query = text.trim().toLowerCase()
-                        if (root.filteredClipListModel) root.filteredClipListModel.clear()
-
-                        if (query === "") {
-                            if (root.filterListView) root.filterListView.visible = false
-                            if (root.historyListView) root.historyListView.visible = true
-                        } else {
-                            if (root.historyListView) root.historyListView.visible = false
-                            if (root.filterListView) root.filterListView.visible = true
-
-                            if (root.clipListModel) {
-                                for (var i = 0; i < root.clipListModel.count; i++) {
-                                    var item = root.clipListModel.get(i)
-                                    if (item && item.name && item.name.toLowerCase().includes(query)) {
-                                        root.filteredClipListModel.append(item)
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    onTextChanged: root.searchTextChanged(text)
 
                     onAccepted: {
                         Qt.inputMethod.hide()
-                    }
-                }
-
-                Text {
-                    text: "✕"
-                    font.pixelSize: 18
-                    color: palette.placeholderText
-                    visible: mobileSearchField.text !== ""
-                    Layout.alignment: Qt.AlignVCenter
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            mobileSearchField.text = ""
-                            mobileSearchField.forceActiveFocus()
-                        }
                     }
                 }
             }
@@ -336,6 +292,6 @@ Item {
         id: bottomSpacer
         anchors.bottom: parent.bottom
         width: parent.width
-        height: 0
+        height: 5
     }
 }

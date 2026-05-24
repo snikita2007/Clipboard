@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
     QApplication app(argc, argv); 
 
-    app.setWindowIcon(QIcon(":/ui/components/app.png"));
+    app.setWindowIcon(QIcon(":/ui/assets/app.png"));
 
     QQmlApplicationEngine engine;
     

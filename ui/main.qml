@@ -2,9 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import Qt.labs.platform as Native
 import QtQuick.Layouts
-import QtQuick.Effects
 import QtQuick.Controls.impl
-import Clipboard
 import "components"
 
 ApplicationWindow {
@@ -22,7 +20,7 @@ ApplicationWindow {
     Native.SystemTrayIcon {
     id: trayIcon
         visible: true
-        icon.source: "qrc:/ui/components/app.png" 
+        icon.source: "qrc:/ui/assets/app.png" 
         tooltip: "Clipboard"
 
         menu: Native.Menu {
@@ -78,9 +76,21 @@ ApplicationWindow {
         anchors.margins: (Qt.platform.os === "osx") ? 15 : 10
         anchors.topMargin: (Qt.platform.os === "osx") ? 15 : 5
         spacing: 10
+
+        Label {
+            visible: Qt.platform.os === "android"
+            color: palette.windowText 
+            text: "Clipboard"
+            Layout.leftMargin: 10
+            font.pixelSize: 24
+            font.weight: Font.DemiBold
+            elide: Label.ElideRight
+            verticalAlignment: Text.AlignVCenter 
+        }
         
         RowLayout {
             id: topBar
+            visible: Qt.platform.os !== "android"
             Layout.fillWidth: true
             Layout.preferredHeight: 30
             spacing: 5
@@ -105,7 +115,7 @@ ApplicationWindow {
                 sourceSize.width: 30
                 smooth: true
                 mipmap: true
-                source: "qrc:/ui/components/search.svg"
+                source: "qrc:/ui/assets/search.svg"
                 color: searchInput.placeholderTextColor
             }
 
@@ -117,11 +127,11 @@ ApplicationWindow {
                 TextField {
                     id: searchInput
                     anchors.fill: parent
-                    visible: true
+                    visible: Qt.platform.os !== "android"
                     placeholderText: "Clipboard"
                     color: palette.windowText
                     background: null
-                    focus: true
+                    focus: Qt.platform.os !== "android"
                     font.pixelSize: 20
                     font.weight: Font.DemiBold 
 
@@ -146,6 +156,7 @@ ApplicationWindow {
 
         Rectangle {
             id: separator
+            visible: Qt.platform.os !== "android"
             Layout.fillWidth: true 
             Layout.preferredHeight: 1
             Layout.topMargin: 0
@@ -194,7 +205,7 @@ ApplicationWindow {
                             Layout.preferredWidth: 40
                             Layout.leftMargin: 5
                             sourceSize.height: 160
-                            source: (model.type === "image") ? model.preview : "qrc:/ui/components/text.svg"
+                            source: (model.type === "image") ? model.preview : "qrc:/ui/assets/text.svg"
                             color: (model.type === "text") ? palette.windowText : "transparent"
                         }
 
@@ -262,7 +273,7 @@ ApplicationWindow {
                             sourceSize.width: 40
                             smooth: true
                             mipmap: true
-                            source: (model.type === "image") ? model.preview : "qrc:/ui/components/text.svg"
+                            source: (model.type === "image") ? model.preview : "qrc:/ui/assets/text.svg"
                             color: (model.type === "text") ? palette.windowText : "transparent"
                         }
 
@@ -314,17 +325,15 @@ ApplicationWindow {
                 anchors.centerIn: historyList
                 visible: clipList.count === 0 && historyList.visible === true
             }
-            Button {
-                text: "Update"
-                visible: Qt.platform.os === "android"
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
-                onClicked: {
-                    backend.onClipboardChanged()
-                }
-            }
         }
+    }
+
+    MobileBottomNav {
+        id: bottomNav
+        historyListView: historyList
+        filterListView: filterList
+        clipListModel: clipList
+        filteredClipListModel: filteredClipList
     }
 
     Loader {

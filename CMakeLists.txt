@@ -5,8 +5,11 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON) 
 set(CMAKE_AUTORCC ON)
-
 set(QT_DEFAULT_MAJOR_VERSION 6) 
+
+cmake_minimum_required(VERSION 3.16)
+
+
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Widgets Concurrent)
 
 if(NOT ANDROID) 
@@ -15,10 +18,7 @@ endif()
 
 set(PROJECT_SOURCES 
     main.cpp 
-    backend/backend.cpp
-    backend/backend.h  
     backend/window_effects/WindowEffects.h
-    backend/backend.h
     backend/NetworkManager.h
     backend/NetworkManager.cpp
 )
@@ -26,9 +26,6 @@ set(PROJECT_SOURCES
 qt_add_executable(ClipboardApp MACOSX_BUNDLE ${PROJECT_SOURCES}
     resources.qrc
 )
-
-set_target_properties(ClipboardApp PROPERTIES
-   QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
 
 target_include_directories(ClipboardApp PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}/backend/window_effects
@@ -69,7 +66,6 @@ if(APPLE)
     )
 endif()
 
-
 qt_add_qml_module(ClipboardApp
     URI Clipboard
     VERSION 1.0
@@ -78,12 +74,12 @@ qt_add_qml_module(ClipboardApp
         ui/main.qml
         ui/components/MyButton.qml
         ui/components/TitleBar.qml
+        ui/components/MobileBottomNav.qml
         ui/Settings.qml
     SOURCES
         backend/backend.h 
         backend/backend.cpp
 )
-
 
 target_link_libraries(ClipboardApp PRIVATE 
     Qt6::Core 
@@ -95,6 +91,7 @@ target_link_libraries(ClipboardApp PRIVATE
     Qt6::Network
     Qt6::Concurrent
 )
+
 if(NOT ANDROID) 
     target_link_libraries(ClipboardApp PRIVATE qhotkey) 
 endif()

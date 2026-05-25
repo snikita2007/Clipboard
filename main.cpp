@@ -2,9 +2,10 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickWindow>
+#include <QQuickWindow>
+#include <QTimer>
 #include "WindowEffects.h"
 #include "backend.h"
-<<<<<<< HEAD
 #include <QProcess>
 #include <unistd.h>
 #include "server.h"
@@ -22,14 +23,11 @@
 
 #include "WindowEffects.h"
 #include "backend.h"
-=======
->>>>>>> vibe-branch
 
 int main(int argc, char *argv[]) {
     // Установка стиля и базовых переменных
     qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
     QGuiApplication app(argc, argv); 
-<<<<<<< HEAD
 
     UdpServer server;
     NetworkScanner scanner;
@@ -51,24 +49,15 @@ int main(int argc, char *argv[]) {
                  
     // QBluetoothAddress address("F8:5C:7D:2F:20:95");
     // QBluetoothUuid uuid("e8e10f95-1a70-4b27-9ccf-02010264e9c8");
-=======
->>>>>>> vibe-branch
 
     // cli.startClient(address, uuid);
 
     QObject::connect(&scanner, &NetworkScanner::devicesUpdated, &server, &UdpServer::updateIps);
     
     QQmlApplicationEngine engine;
-    
-    // Создаем объекты логики
     WindowEffects windowEffects;
-<<<<<<< HEAD
     Backend backend(&bluetooth,&server);
  
-=======
-    Backend backend; // NetworkManager создастся внутри конструктора Backend
-
->>>>>>> vibe-branch
     // Регистрируем объекты в QML контексте
     // ВАЖНО: используйте маленькую букву "backend", если в QML обращаетесь к ней так
     engine.rootContext()->setContextProperty("windowEffects", &windowEffects);

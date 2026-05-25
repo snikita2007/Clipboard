@@ -1,8 +1,13 @@
 #include "backend.h"
+<<<<<<< HEAD
 #include "server.h"
 #include "bluetooth.h"
 
 Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, QObject *parent) : QObject(parent) 
+=======
+
+Backend::Backend(QObject *parent) : QObject(parent) 
+>>>>>>> vibe-branch
 {   
     // Создание папки с кешем в temp
     QString tempPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
@@ -13,6 +18,7 @@ Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, QObject *parent)
     QClipboard *clipboard = QGuiApplication::clipboard();
     connect(clipboard, &QClipboard::dataChanged, this, &Backend::onClipboardChanged);
 
+<<<<<<< HEAD
     // m_network = new NetworkManager(this);
     // connect(m_network, &NetworkManager::dataReceived, this, &Backend::handleRemoteData);
 
@@ -22,6 +28,10 @@ Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, QObject *parent)
 
         bluetooth -> sendMessage("test");
     });
+=======
+    m_network = new NetworkManager(this);
+    connect(m_network, &NetworkManager::dataReceived, this, &Backend::handleRemoteData);
+>>>>>>> vibe-branch
 
     // Таймер для обновления буфера на мак
     #ifdef Q_OS_MAC
@@ -80,7 +90,11 @@ void Backend::copyToClip(QVariant itemData) {
         img.save(&buf, "JPG");
         map["raw_data"] = ba; // Добавляем байты для сети
     }
+<<<<<<< HEAD
     // m_network->broadcastClipboard(map);
+=======
+    m_network->broadcastClipboard(map);
+>>>>>>> vibe-branch
 }
 
 
@@ -148,8 +162,13 @@ void Backend::onClipboardChanged(){
             img.save(&buf, "PNG");
             networkItem["raw_data"] = ba;
         }
+<<<<<<< HEAD
         // qDebug() << "SENDING:" << networkItem["type"].toString() << "Data size:" << networkItem["data"].toString().length();
         // m_network->broadcastClipboard(networkItem);
+=======
+        qDebug() << "SENDING:" << networkItem["type"].toString() << "Data size:" << networkItem["data"].toString().length();
+        m_network->broadcastClipboard(networkItem);
+>>>>>>> vibe-branch
     }
 }
 

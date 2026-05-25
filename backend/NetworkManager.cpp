@@ -7,6 +7,10 @@ NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
     // Привязываемся к порту
     m_udpSocket->bind(QHostAddress::AnyIPv4, UDP_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> vibe-branch
     connect(m_udpSocket, &QUdpSocket::readyRead, this, &NetworkManager::processUdpPackets);
 
     m_discoveryTimer = new QTimer(this);

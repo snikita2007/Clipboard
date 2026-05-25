@@ -12,6 +12,7 @@ set(PROJECT_SOURCES
     backend/backend.cpp
     backend/backend.h  
     backend/window_effects/WindowEffects.h
+<<<<<<< HEAD
     backend/ip.cpp
     backend/socket.cpp
     backend/backend.h
@@ -23,6 +24,11 @@ set(PROJECT_SOURCES
     backend/bluetooth_client.cpp
     backend/bluetooth_client.h
     backend/bluetooth.h
+=======
+    backend/backend.h
+    backend/NetworkManager.h
+    backend/NetworkManager.cpp
+>>>>>>> vibe-branch
 )
 
 qt_add_executable(ClipboardApp MACOSX_BUNDLE ${PROJECT_SOURCES})

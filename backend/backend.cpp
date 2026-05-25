@@ -1,7 +1,8 @@
 #include "backend.h"
 #include "server.h"
+#include "bluetooth.h"
 
-Backend::Backend(UdpServer *server, QObject *parent) : QObject(parent) 
+Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, QObject *parent) : QObject(parent) 
 {   
     // Создание папки с кешем в temp
     QString tempPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
@@ -12,8 +13,14 @@ Backend::Backend(UdpServer *server, QObject *parent) : QObject(parent)
     QClipboard *clipboard = QGuiApplication::clipboard();
     connect(clipboard, &QClipboard::dataChanged, this, &Backend::onClipboardChanged);
 
-    QObject::connect(this, &Backend::itemAdded, [server](const QVariantMap &item) {
-        server->sayHello(item);
+    // m_network = new NetworkManager(this);
+    // connect(m_network, &NetworkManager::dataReceived, this, &Backend::handleRemoteData);
+
+    QObject::connect(this, &Backend::itemAdded, [server, bluetooth](const QVariant &item) {
+        QVariantMap map = item.toMap();
+        server->sayHello(map);
+
+        bluetooth -> sendMessage("test");
     });
 
     // Таймер для обновления буфера на мак
@@ -33,27 +40,49 @@ Backend::~Backend() {
     }
 }
 
+void Backend::handleRemoteData(QVariantMap data) {
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    
+    if (data["type"].toString() == "image") {
+        // Если пришла картинка в байтах, сохраняем её в кеш
+        QByteArray rawData = data["raw_data"].toByteArray();
+        QString hash = QCryptographicHash::hash(rawData, QCryptographicHash::Md5).toHex();
+        QString path = m_cacheDir + QString("/remote_%1.png").arg(hash);
+        
+        QFile file(path);
+        if (file.open(QIODevice::WriteOnly)) {
+            file.write(rawData);
+            file.close();
+            clipboard->setImage(QImage(path));
+        }
+    } else {
+        clipboard->setText(data["data"].toString());
+    }
+}
+
 void Backend::copyToClip(QVariant itemData) {
     QVariantMap map = itemData.toMap();
     QClipboard *clipboard = QGuiApplication::clipboard();
-    QMimeData *mimeData = new QMimeData();
+    
+    // 1. Устанавливаем в локальный буфер
+    if (map["type"].toString() == "image") {
+        clipboard->setImage(QImage(map["data"].toString()));
+    } else {
+        clipboard->setText(map["data"].toString());
+    }
 
+    // 2. Отправляем в сеть (если нужно принудительно при клике)
+    // Подготовим данные: если это картинка, нужно отправить байты, а не путь
     if (map["type"].toString() == "image") {
         QImage img(map["data"].toString());
-        if (!img.isNull()) {
-            QList<QUrl> urls;
-            urls << QUrl::fromLocalFile(map["data"].toString());
-            mimeData->setUrls(urls);
-
-            mimeData->setImageData(img); 
-        }
+        QByteArray ba;
+        QBuffer buf(&ba);
+        img.save(&buf, "JPG");
+        map["raw_data"] = ba; // Добавляем байты для сети
     }
-    else {
-        mimeData->setText(map["data"].toString());
-    }
-    // Запись в буфер
-    clipboard->setMimeData(mimeData);
+    // m_network->broadcastClipboard(map);
 }
+
 
 void Backend::onClipboardChanged(){
     QClipboard *clipboard = QGuiApplication::clipboard();
@@ -67,10 +96,10 @@ void Backend::onClipboardChanged(){
         QByteArray data;
         QBuffer buffer(&data);
         buffer.open(QIODevice::WriteOnly);
-        img.save(&buffer, "JPG");
+        img.save(&buffer, "PNG");
         buffer.close();
         hash = QCryptographicHash::hash(data, QCryptographicHash::Md5).toHex();
-        path = m_cacheDir + QString("/clip_%1.jpg").arg(hash);
+        path = m_cacheDir + QString("/clip_%1.png").arg(hash);
         for (const QVariant &v : m_history){
             if (v.toMap()["hash"].toString() == hash) return;
         }
@@ -105,16 +134,28 @@ void Backend::onClipboardChanged(){
         item["preview"] = text.simplified();
     }
 
-    if (item.isEmpty()) return;
-    m_history.prepend(item);
-    emit itemAdded(item);
-    if (m_history.size() > 50) m_history.removeLast();
+    if (!item.isEmpty()) {
+        m_history.prepend(item);
+        emit itemAdded(item);
+        if (m_history.size() > 50) m_history.removeLast();
+
+        // АВТО-ОТПРАВКА: если скопировали что-то новое, сразу шлем в сеть
+        QVariantMap networkItem = item;
+        if (item["type"] == "image") {
+            QImage img(item["data"].toString());
+            QByteArray ba;
+            QBuffer buf(&ba);
+            img.save(&buf, "PNG");
+            networkItem["raw_data"] = ba;
+        }
+        // qDebug() << "SENDING:" << networkItem["type"].toString() << "Data size:" << networkItem["data"].toString().length();
+        // m_network->broadcastClipboard(networkItem);
+    }
 }
 
 void Backend::clearHistory() {
     m_history.clear();  
 }
-
 
 
 

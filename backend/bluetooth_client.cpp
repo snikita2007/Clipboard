@@ -1,45 +1,75 @@
 #include "bluetooth_client.h"
 #include <QMetaEnum>
-#include <QMetaObject>
-#include <QBluetoothServiceInfo>
+#include <QDebug>
 
-using namespace  Qt::StringLiterals;
+using namespace Qt::StringLiterals;
 
-BluetoothClient::BluetoothClient(QObject *parent)
-    :   QObject(parent)
-{}
+static const QBluetoothUuid serviceUuid("e8e10f95-1a70-4b27-9ccf-02010264e9c8");
 
-BluetoothClient::~BluetoothClient()
+BluetoothClient::BluetoothClient(QObject *parent) 
+    : QObject(parent) 
 {
+    discoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
+    
+    connect(discoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered,
+            this, &BluetoothClient::onDeviceDiscovered);
+    connect(discoveryAgent, &QBluetoothDeviceDiscoveryAgent::finished,
+            this, &BluetoothClient::onDiscoveryFinished);
+}
+
+BluetoothClient::~BluetoothClient() {
     stopClient();
 }
 
-void BluetoothClient::startClient(const QBluetoothServiceInfo &remoteService)
-{
-    if (socket)
-        return;
+void BluetoothClient::startDiscovery() {
+    foundDevices.clear();
+    discoveryAgent->start();
+    qDebug() << "SCANING...";
+}
 
-    socket = new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol);
-    qDebug() << "Create socket";
-    socket->connectToService(remoteService);
-    qDebug() << "ConnectToService done";
+void BluetoothClient::onDeviceDiscovered(const QBluetoothDeviceInfo &device) {
+    QVariantMap deviceMap;
+    deviceMap["name"] = device.name().isEmpty() ? "UNKNOWN - DEVICE"_L1 : device.name();
+    deviceMap["address"] = device.address().toString();
 
+    for (const auto &item : foundDevices) {
+        if (item.toMap()["address"].toString() == device.address().toString())
+            return;
+    }
+
+    foundDevices.append(deviceMap);
+    emit devicesDiscovered(foundDevices);
+}
+
+void BluetoothClient::onDiscoveryFinished() {
+    qDebug() << "FINISHED:" << foundDevices.count();
+}
+
+void BluetoothClient::connectToDevice(const QString &addressStr) {
+    if (socket) return;
+
+    socket = new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol, this);
+    
     connect(socket, &QBluetoothSocket::readyRead, this, &BluetoothClient::readSocket);
-    connect(socket, &QBluetoothSocket::connected, this, QOverload<>::of(&BluetoothClient::connected));
+    connect(socket, &QBluetoothSocket::connected, this, &BluetoothClient::connectedSlot);
     connect(socket, &QBluetoothSocket::disconnected, this, &BluetoothClient::disconnected);
     connect(socket, &QBluetoothSocket::errorOccurred, this, &BluetoothClient::onSocketErrorOccurred);
+
+    QBluetoothAddress address(addressStr);
+    socket->connectToService(address, serviceUuid); 
+    qDebug() << "CONNECTED" << addressStr << "...";
 }
 
-void BluetoothClient::stopClient()
-{
-    delete socket;
-    socket = nullptr;
+void BluetoothClient::stopClient() {
+    if (socket) {
+        socket->disconnectFromService();
+        delete socket;
+        socket = nullptr;
+    }
 }
 
-void BluetoothClient::readSocket()
-{
-    if (!socket)
-        return;
+void BluetoothClient::readSocket() {
+    if (!socket) return;
 
     while (socket->canReadLine()) {
         QByteArray line = socket->readLine().trimmed();
@@ -48,27 +78,25 @@ void BluetoothClient::readSocket()
     }
 }
 
-void BluetoothClient::sendMessage(const QString &message)
-{
-    QByteArray text = message.toUtf8() + '\n';
-    socket->write(text);
+void BluetoothClient::sendMessage(const QString &message) {
+    if (socket && socket->isOpen()) {
+        QByteArray text = message.toUtf8() + '\n';
+        socket->write(text);
+    }
 }
 
-void BluetoothClient::onSocketErrorOccurred(QBluetoothSocket::SocketError error)
-{
-    if (error == QBluetoothSocket::SocketError::NoSocketError)
-        return;
+void BluetoothClient::onSocketErrorOccurred(QBluetoothSocket::SocketError error) {
+    if (error == QBluetoothSocket::SocketError::NoSocketError) return;
 
     QMetaEnum metaEnum = QMetaEnum::fromType<QBluetoothSocket::SocketError>();
-    QString errorString = socket->peerName() + ' '_L1
+    QString errorString = (socket ? socket->peerName() : "Unknown"_L1) + ' '_L1
             + metaEnum.valueToKey(static_cast<int>(error)) + " occurred"_L1;
 
     emit socketErrorOccurred(errorString);
 }
 
-void BluetoothClient::connected()
-{
-    emit connected(socket->peerName());
+void BluetoothClient::connectedSlot() {
+    if (socket) {
+        emit connected(socket->peerName());
+    }
 }
-
-

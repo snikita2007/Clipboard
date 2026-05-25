@@ -25,7 +25,7 @@ void BluetoothServer::startServer(const QBluetoothAddress& localAdapter)
             this, QOverload<>::of(&BluetoothServer::clientConnected));
     bool result = rfcommServer->listen(localAdapter);
     if (!result) {
-        qWarning() << "Cannot bind chat server to" << localAdapter.toString();
+        qWarning() << "ERROR" << localAdapter.toString();
         return;
     }
 
@@ -84,10 +84,13 @@ void BluetoothServer::stopServer()
 
 void BluetoothServer::sendMessage(const QString &message)
 {
+    qDebug() << clientSockets, "sending packages bluetooth";
+    
     QByteArray text = message.toUtf8() + '\n';
 
-    for (QBluetoothSocket *socket : std::as_const(clientSockets))
-        socket->write(text);
+    for (QBluetoothSocket *socket : std::as_const(clientSockets)) {
+            socket->write(text);
+    }
 }
 
 void BluetoothServer::clientConnected()
@@ -97,8 +100,7 @@ void BluetoothServer::clientConnected()
         return;
 
     connect(socket, &QBluetoothSocket::readyRead, this, &BluetoothServer::readSocket);
-    connect(socket, &QBluetoothSocket::disconnected,
-            this, QOverload<>::of(&BluetoothServer::clientDisconnected));
+    connect(socket, &QBluetoothSocket::disconnected, this, QOverload<>::of(&BluetoothServer::clientDisconnected));
     clientSockets.append(socket);
     clientNames[socket] = socket->peerName();
     emit clientConnected(socket->peerName());
@@ -126,8 +128,7 @@ void BluetoothServer::readSocket()
 
     while (socket->canReadLine()) {
         QByteArray line = socket->readLine().trimmed();
-        emit messageReceived(clientNames[socket],
-                             QString::fromUtf8(line.constData(), line.length()));
+        emit messageReceived(clientNames[socket], QString::fromUtf8(line.constData(), line.length()));
     }
 }
 

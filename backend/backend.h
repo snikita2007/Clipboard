@@ -5,7 +5,6 @@
 #include <QtQml>
 #include <QTimer>
 #include <QDebug>
-#include "server.h"
 #include <QGuiApplication>
 #include <QMimeData>
 #include <QClipboard>
@@ -17,21 +16,23 @@
 #include <QStandardPaths>
 #include <QDateTime>
 #include <QCryptographicHash>
+#include "server.h"
+#include "bluetooth.h"
+#include "NetworkManager.h"
 
 class Backend : public QObject {
     Q_OBJECT // Позволяет классу использовать сигналы, слоты и систему свойств Qt
-    QML_ELEMENT // Регистрирует класс как доступный тип в QML
-    QML_SINGLETON // Создает экземпляр класса в единственном числе для всего QML приложения
 
 signals:
-    void itemAdded(QVariantMap item); // Сигнал о добавлении объекта в буфер
+    void itemAdded(QVariant item); // Сигнал о добавлении объекта в буфер
 
 public slots:
     //Функция вызываемая при изменениии буфера, автоматически проверяет файлы на повторы и их тип, добавляет в историю
     void onClipboardChanged();
+    void handleRemoteData(QVariantMap data);
 
 public:
-    explicit Backend(UdpServer *server, QObject *parent = nullptr);
+    explicit Backend(BluetoothServer *bluetooth, UdpServer *server, QObject *parent = nullptr);
     ~Backend();
     Q_INVOKABLE void copyToClip(QVariant data); // Копирование в буфер из клиента
     void checkClipboardNative(); // Обновление буфера для мака
@@ -40,6 +41,7 @@ public:
 private:
     QVariantList m_history;
     QString m_cacheDir;
+    NetworkManager *m_network;
     #ifdef Q_OS_MAC
     long m_lastChangeCount = -1; 
     #endif

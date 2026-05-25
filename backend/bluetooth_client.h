@@ -3,37 +3,46 @@
 
 #include <QObject>
 #include <QBluetoothSocket>
-
-QT_FORWARD_DECLARE_CLASS(QBluetoothServiceInfo)
+#include <QBluetoothDeviceDiscoveryAgent>
+#include <QBluetoothDeviceInfo>
+#include <QBluetoothAddress>
+#include <QBluetoothUuid>
+#include <QVariantList>
 
 class BluetoothClient : public QObject
 {
     Q_OBJECT
-
 public:
     explicit BluetoothClient(QObject *parent = nullptr);
     ~BluetoothClient();
 
-    void startClient(const QBluetoothServiceInfo &remoteService);
-    void stopClient();
-
-public slots:
+    // Методы, доступные из QML и main.cpp
+    Q_INVOKABLE void startDiscovery();
+    Q_INVOKABLE void connectToDevice(const QString &addressStr);
+    
     void sendMessage(const QString &message);
+    void stopClient();
 
 signals:
     void messageReceived(const QString &sender, const QString &message);
-    void connected(const QString &name);
+    void connected(const QString &name); // Сигнал с именем для UI
     void disconnected();
-    void socketErrorOccurred(const QString &errorString);
+    void socketErrorOccurred(const QString &error);
+    void devicesDiscovered(const QVariantList &devicesList);
 
 private slots:
+    void onDeviceDiscovered(const QBluetoothDeviceInfo &device);
+    void onDiscoveryFinished();
     void readSocket();
-    void connected();
-    void onSocketErrorOccurred(QBluetoothSocket::SocketError);
+    void onSocketErrorOccurred(QBluetoothSocket::SocketError error);
+    void connectedSlot(); // Внутренний слот для обработки успешного соединения
 
 private:
     QBluetoothSocket *socket = nullptr;
+    QBluetoothDeviceDiscoveryAgent *discoveryAgent = nullptr;
+    QVariantList foundDevices; 
 };
+
 
 #endif 
 

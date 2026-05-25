@@ -15,6 +15,8 @@ set(PROJECT_SOURCES
     backend/ip.cpp
     backend/socket.cpp
     backend/backend.h
+    backend/NetworkManager.cpp
+    backend/NetworkManager.h
     backend/server.h
     backend/ip.h
     backend/bluetooth.cpp
@@ -85,10 +87,4 @@ target_link_libraries(ClipboardApp PRIVATE
     Qt6::Concurrent
     Qt6::Bluetooth
 )
-
-
-# target_include_directories(ClipboardApp PRIVATE     
-#     ${CMAKE_CURRENT_SOURCE_DIR}
-#     ${CMAKE_CURRENT_SOURCE_DIR}/backend
-#     ${CMAKE_CURRENT_SOURCE_DIR}/backend/window_effects)
 

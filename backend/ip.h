@@ -12,9 +12,11 @@ class NetworkScanner : public QObject
 public:
     explicit NetworkScanner(QObject *parent = nullptr);
     void startScanning(quint16 port); 
+    QHostAddress GetIps();
+    void generator();
 
 signals:
-    void devicesUpdated(QStringList ipList); 
+    void devicesUpdated(QVariantList ipList); 
 
 private slots:
     void sendDiscoveryRequest();  
@@ -24,6 +26,7 @@ private:
     QUdpSocket *udpSocket;
     QTimer *timer;
     quint16 m_port;
+    QHostAddress Selector;
     QSet<QString> foundDevices;
 };
 

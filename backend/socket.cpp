@@ -74,7 +74,7 @@ void UdpServer::copyToClip(QVariantMap data)
     }
 }
 
-void UdpServer::Connection()
+void UdpServer::Connection()     
 {
     while (m_tcpServer->hasPendingConnections()) {
         QTcpSocket *socket = m_tcpServer->nextPendingConnection();
@@ -112,19 +112,25 @@ void UdpServer::Connection()
     }
 }
 
-void UdpServer::updateIps(const QStringList &newIps) {
+void UdpServer::updateIps(const QVariantList &newIps) {
     ips = newIps;
 }
 
 void UdpServer::sayHello(QVariantMap item)
 {
+    qDebug() << "send";
+    
     if (ips.isEmpty()) return;
-
+ 
     else {
-        for (const QString &ip : ips) {
+        for (const QVariant &ipadresse : ips) {
             QTcpSocket *socket = new QTcpSocket(this);
+                
+            QVariantMap deviceDict = ipadresse.toMap();
             
-            socket->connectToHost(ip, 1234);
+            QString ipa = deviceDict["ip"].toString();
+
+            socket->connectToHost(ipa, 1234);
 
             connect(socket, &QTcpSocket::connected, this, [socket, item]() {
                 QByteArray block;
@@ -150,3 +156,5 @@ void UdpServer::sayHello(QVariantMap item)
         }
     }
 }
+
+

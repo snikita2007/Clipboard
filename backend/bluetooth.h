@@ -1,3 +1,6 @@
+#ifndef BLUETOOTHSERVER_H
+#define BLUETOOTHSERVER_H
+
 #include <QObject>
 #include <QBluetoothServer>
 #include <QBluetoothSocket>
@@ -35,3 +38,4 @@ private:
     QMap<QBluetoothSocket *, QString> clientNames;
 };
 
+#endif

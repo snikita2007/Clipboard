@@ -1,13 +1,10 @@
 #include "backend.h"
-<<<<<<< HEAD
 #include "server.h"
 #include "bluetooth.h"
 
-Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, QObject *parent) : QObject(parent) 
-=======
+Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, QObject *parent) : QObject(parent)  
 
 Backend::Backend(QObject *parent) : QObject(parent) 
->>>>>>> vibe-branch
 {   
     // Создание папки с кешем в temp
     QString tempPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation);

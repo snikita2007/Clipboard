@@ -6,5 +6,7 @@ void Backend::checkClipboardNative() {
     long currentCount = [pb changeCount];
     if (currentCount == m_lastChangeCount) {return;}
     m_lastChangeCount = currentCount;
-    this->onClipboardChanged(); 
+    if (m_firstCount == 0)
+        this->onClipboardChanged(); 
+    m_firstCount = 0;
 }

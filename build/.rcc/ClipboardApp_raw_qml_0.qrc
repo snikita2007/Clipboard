@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="/Clipboard/">
+    <file alias="ui/main.qml">/home/danil/Documents/Clipboard/ui/main.qml</file>
+    <file alias="ui/components/MyButton.qml">/home/danil/Documents/Clipboard/ui/components/MyButton.qml</file>
+    <file alias="ui/components/TitleBar.qml">/home/danil/Documents/Clipboard/ui/components/TitleBar.qml</file>
+    <file alias="ui/components/MobileBottomNav.qml">/home/danil/Documents/Clipboard/ui/components/MobileBottomNav.qml</file>
+    <file alias="ui/Settings.qml">/home/danil/Documents/Clipboard/ui/Settings.qml</file>
+    <file alias="ui/History.qml">/home/danil/Documents/Clipboard/ui/History.qml</file>
+  </qresource>
+</RCC>
+

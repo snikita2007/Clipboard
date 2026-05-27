@@ -5,7 +5,7 @@ import QtQuick.Layouts
 Item {
     id: control 
     property var settingsWindow: null
-    property bool showSettingsButton: true
+    property bool showSettingsButton: false
     property string curentTitle: ""
 
     Layout.fillWidth: true
@@ -89,6 +89,7 @@ Item {
                 settingsWindow.active = true;
             }
         }
+
         Item {
             Layout.preferredWidth: 5
             visible: Qt.platform.os === "osx" 
@@ -102,7 +103,7 @@ Item {
         MyButton{
             Layout.preferredHeight: 35
             Layout.preferredWidth: 50
-            visible: Qt.platform.os != "osx"
+            visible: (Qt.platform.os !== "osx" && Qt.platform.os !== "android")
             btnText: "✕"
             btnRadius: 8
             btnPadding: 0

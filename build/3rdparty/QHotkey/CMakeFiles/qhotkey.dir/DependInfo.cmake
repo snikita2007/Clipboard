@@ -1,0 +1,26 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
+# The set of languages for which implicit dependencies are needed:
+set(CMAKE_DEPENDS_LANGUAGES
+  )
+
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "" "3rdparty/QHotkey/qhotkey_autogen/timestamp" "custom" "3rdparty/QHotkey/qhotkey_autogen/deps"
+  "/home/danil/Documents/Clipboard/3rdparty/QHotkey/QHotkey/qhotkey.cpp" "3rdparty/QHotkey/CMakeFiles/qhotkey.dir/QHotkey/qhotkey.cpp.o" "gcc" "3rdparty/QHotkey/CMakeFiles/qhotkey.dir/QHotkey/qhotkey.cpp.o.d"
+  "/home/danil/Documents/Clipboard/3rdparty/QHotkey/QHotkey/qhotkey_x11.cpp" "3rdparty/QHotkey/CMakeFiles/qhotkey.dir/QHotkey/qhotkey_x11.cpp.o" "gcc" "3rdparty/QHotkey/CMakeFiles/qhotkey.dir/QHotkey/qhotkey_x11.cpp.o.d"
+  "/home/danil/Documents/Clipboard/build/3rdparty/QHotkey/qhotkey_autogen/mocs_compilation.cpp" "3rdparty/QHotkey/CMakeFiles/qhotkey.dir/qhotkey_autogen/mocs_compilation.cpp.o" "gcc" "3rdparty/QHotkey/CMakeFiles/qhotkey.dir/qhotkey_autogen/mocs_compilation.cpp.o.d"
+  )
+
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_LINKED_INFO_FILES
+  )
+
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_FORWARD_LINKED_INFO_FILES
+  )
+
+# Fortran module output directory.
+set(CMAKE_Fortran_TARGET_MODULE_DIR "")

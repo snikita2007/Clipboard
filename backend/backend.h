@@ -20,6 +20,8 @@
 #include "bluetooth.h"
 #include "NetworkManager.h"
 
+#include <QCursor>
+
 #include "NetworkManager.h"
 
 class Backend : public QObject {
@@ -42,7 +44,10 @@ public:
     ~Backend();
     Q_INVOKABLE void copyToClip(QVariant data); // Копирование в буфер из клиента
     void checkClipboardNative(); // Обновление буфера для мака
+    bool isDublicate(const QString &hash);
     Q_INVOKABLE void clearHistory();
+    Q_INVOKABLE QPoint getGlobalMousePos();
+    QString generateHash(const QMimeData *mimeData);
 
 private:
     QVariantList m_history;
@@ -50,6 +55,7 @@ private:
     NetworkManager *m_network;
     #ifdef Q_OS_MAC
     long m_lastChangeCount = -1; 
+    int m_firstCount = 1;
     #endif
 };
 

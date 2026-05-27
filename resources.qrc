@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ui/assets/android_history.svg</file>
+        <file>ui/assets/android_search.svg</file>
+        <file>ui/assets/android_settings.svg</file>
+        <file>ui/assets/app.png</file>
+        <file>ui/assets/search.svg</file>
+        <file>ui/assets/text.svg</file>
+    </qresource>
+</RCC>

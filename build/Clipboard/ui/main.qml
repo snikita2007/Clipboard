@@ -1,0 +1,145 @@
+import QtQuick
+import QtQuick.Controls
+import Qt.labs.platform as Native
+import "components"
+
+ApplicationWindow {
+    id: root
+    visible: false
+    color: (Qt.platform.os === "android" ) ? palette.window : "transparent"
+    width: 500
+    height: 400
+    background: null
+
+    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint
+
+    Native.SystemTrayIcon {
+        id: trayIcon
+        visible: true
+        icon.source: "qrc:/ui/assets/app.png"
+        tooltip: "Clipboard"
+        menu: Native.Menu {
+            Native.MenuItem { text: "Show/hide"; onTriggered: root.visible ? root.softClose() : root.softOpen() }
+            Native.MenuItem { text: "Clear"; onTriggered: { backend.clearHistory() } }
+            Native.MenuItem { text: "Settings"; onTriggered: bottomNav.currentTab = 1 }
+            Native.MenuItem { text: "Exit"; onTriggered: Qt.quit() }
+        }
+        onActivated: function(reason) {
+            if (reason === Native.SystemTrayIcon.Trigger && Qt.platform.os !== "osx") {
+                root.visible ? root.softClose() : root.softOpen()
+            }
+        }
+    }
+
+    onActiveChanged: { if (!active) root.softClose() }
+
+    SwipeView {
+        id: mainSwipe
+        anchors.fill: parent
+        currentIndex: bottomNav.currentTab
+
+        interactive: Qt.platform.os === "android"
+        clip: true
+
+        Component.onCompleted: {
+            if (Qt.platform.os !== "android") {
+                if (mainSwipe.contentItem && mainSwipe.contentItem.contentXAnimator) {
+                    mainSwipe.contentItem.contentXAnimator.duration = 0
+                }
+            }
+        }
+
+        History {
+            id: historyPage
+        }
+
+        Settings {
+            id: settingsPage
+        }
+    
+        onCurrentIndexChanged: {
+            bottomNav.currentTab = currentIndex
+            root.updateWindowSize(currentIndex)
+        }
+    }
+
+    MobileBottomNav {
+        id: bottomNav
+        anchors.bottom: parent.bottom
+        width: parent.width
+
+        onNavigate: (page) => {
+            if (page === "History.qml") {
+                bottomNav.currentTab = 0
+            } else if (page === "Settings.qml") {
+                bottomNav.currentTab = 1
+            }
+            root.updateWindowSize(bottomNav.currentTab)
+        }
+
+        onSearchTextChanged: (text) => {
+            historyPage.applySearch(text)
+        }
+    }
+
+    Shortcut { sequence: "Escape"; onActivated: root.softClose() }
+
+    signal softClose()
+    onSoftClose: closeAnimation.start()
+    ParallelAnimation {
+        id: closeAnimation
+        NumberAnimation { target: root; property: "opacity"; to: 0; duration: 150; easing.type: Easing.OutCubic }
+        onFinished: {
+            root.hide()
+        }
+    }
+
+    signal softOpen()
+    onSoftOpen : {
+        let cursorPoint = backend.getGlobalMousePos(); 
+        let targetX = cursorPoint.x - root.width / 2
+        let targetY = cursorPoint.y + 30
+        if (targetX + root.width > Screen.desktopAvailableWidth) 
+            targetX = Screen.desktopAvailableWidth - root.width - 10
+        if (targetX < 0) targetX = 10
+        
+        if (targetY + root.height > Screen.desktopAvailableHeight)
+            targetY = cursorPoint.y - root.height - 15
+        root.x = targetX
+        root.y = targetY
+        
+        openAnimation.start()
+    }
+    ParallelAnimation{
+        id: openAnimation
+        NumberAnimation {target: root; property: "opacity"; to: 1; duration: 150; easing.type: Easing.InCubic }
+        onStarted:{
+            root.show()
+            root.raise()
+            root.requestActivate()
+        }
+    }
+
+    ParallelAnimation {
+        id: smoothResize
+
+
+        NumberAnimation { target: root; property: "width"; duration: 250; easing.type: Easing.OutCubic }
+        NumberAnimation { target: root; property: "height"; duration: 250; easing.type: Easing.OutCubic }
+    }
+    function updateWindowSize(tabIndex) {
+        if (Qt.platform.os === "android") return;
+
+        smoothResize.stop();
+        
+        if (tabIndex === 0) {
+            smoothResize.animations[0].to = 500; // width
+            smoothResize.animations[1].to = 400; // height
+        } else if (tabIndex === 1) {
+            smoothResize.animations[0].to = 600;
+            smoothResize.animations[1].to = 550;
+        }
+        
+        smoothResize.start();
+    }
+}

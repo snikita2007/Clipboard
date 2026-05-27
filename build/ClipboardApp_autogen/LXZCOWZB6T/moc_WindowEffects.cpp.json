@@ -1,0 +1,30 @@
+{
+    "classes": [
+        {
+            "className": "WindowEffects",
+            "methods": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "window",
+                            "type": "QObject*"
+                        }
+                    ],
+                    "name": "applyEffects",
+                    "returnType": "void"
+                }
+            ],
+            "object": true,
+            "qualifiedClassName": "WindowEffects",
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "WindowEffects.h",
+    "outputRevision": 68
+}

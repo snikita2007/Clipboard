@@ -1,82 +1,91 @@
 #include "backend.h"
 #include "server.h"
 #include "bluetooth.h"
+#include "bluetooth_client.h"
 
-Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, QObject *parent) : QObject(parent)  
-
-Backend::Backend(QObject *parent) : QObject(parent) 
-{   
-    // Создание папки с кешем в temp
+Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient *cli , QObject *parent) : QObject(parent){
     QString tempPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
     m_cacheDir = tempPath + "/ClipboardHistory_Cache";
     QDir().mkpath(m_cacheDir);
 
-    // Подключение слота к обновлению буфера
     QClipboard *clipboard = QGuiApplication::clipboard();
     connect(clipboard, &QClipboard::dataChanged, this, &Backend::onClipboardChanged);
 
-<<<<<<< HEAD
     // m_network = new NetworkManager(this);
     // connect(m_network, &NetworkManager::dataReceived, this, &Backend::handleRemoteData);
 
-    QObject::connect(this, &Backend::itemAdded, [server, bluetooth](const QVariant &item) {
+    QObject::connect(this, &Backend::itemAdded, [bluetooth, server, cli](const QVariant &item) {
         QVariantMap map = item.toMap();
         server->sayHello(map);
 
-        bluetooth -> sendMessage("test");
-    });
-=======
-    m_network = new NetworkManager(this);
-    connect(m_network, &NetworkManager::dataReceived, this, &Backend::handleRemoteData);
->>>>>>> vibe-branch
+        if (cli->isConnected()) { 
+            cli->sendMessage("TEST");
+        } 
 
-    // Таймер для обновления буфера на мак
-    #ifdef Q_OS_MAC
-        QTimer *timer = new QTimer(this);
-        connect(timer, &QTimer::timeout, this, &Backend::checkClipboardNative);
-        timer->start(500);
-    #endif
+        else if (bluetooth->hasActiveConnections()) {
+            bluetooth->sendMessage("TEST");
+        }
+    });
+    // m_network = new NetworkManager(this);
+    // connect(m_network, &NetworkManager::dataReceived, this, &Backend::handleRemoteData);
+
+// Таймер для обновления буфера на мак
+#ifdef Q_OS_MAC
+    QTimer *timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &Backend::checkClipboardNative);
+    timer->start(500);
+#endif
 }
 
-Backend::~Backend() {
+Backend::~Backend(){
     // Отчистка папки в temp
     QDir dir(m_cacheDir);
-    if (dir.exists()) {
-        dir.removeRecursively(); 
+    if (dir.exists()){
+        dir.removeRecursively();
         qDebug() << "Cleaned up...";
     }
 }
 
-void Backend::handleRemoteData(QVariantMap data) {
+void Backend::handleRemoteData(QVariantMap data){
     QClipboard *clipboard = QGuiApplication::clipboard();
-    
-    if (data["type"].toString() == "image") {
-        // Если пришла картинка в байтах, сохраняем её в кеш
+
+    if (data["type"].toString() == "image"){
         QByteArray rawData = data["raw_data"].toByteArray();
         QString hash = QCryptographicHash::hash(rawData, QCryptographicHash::Md5).toHex();
         QString path = m_cacheDir + QString("/remote_%1.png").arg(hash);
-        
+
         QFile file(path);
-        if (file.open(QIODevice::WriteOnly)) {
+        if (file.open(QIODevice::WriteOnly)){
             file.write(rawData);
             file.close();
             clipboard->setImage(QImage(path));
         }
-    } else {
+    }
+    else{
         clipboard->setText(data["data"].toString());
     }
 }
 
-void Backend::copyToClip(QVariant itemData) {
+void Backend::copyToClip(QVariant itemData){
     QVariantMap map = itemData.toMap();
     QClipboard *clipboard = QGuiApplication::clipboard();
-    
-    // 1. Устанавливаем в локальный буфер
-    if (map["type"].toString() == "image") {
-        clipboard->setImage(QImage(map["data"].toString()));
-    } else {
+    QString path = map["data"].toString();
+
+    if (map["type"].toString() == "image" && QFile::exists(path)) {
+        QMimeData *mimeData = new QMimeData();
+        mimeData->setUrls({ QUrl::fromLocalFile(path) });
+
+        QImage img(path);
+        if (!img.isNull()) {
+            mimeData->setImageData(img);
+        }
+
+        clipboard->setMimeData(mimeData);
+    } 
+    else{
         clipboard->setText(map["data"].toString());
     }
+
 
     // 2. Отправляем в сеть (если нужно принудительно при клике)
     // Подготовим данные: если это картинка, нужно отправить байты, а не путь
@@ -87,93 +96,137 @@ void Backend::copyToClip(QVariant itemData) {
         img.save(&buf, "JPG");
         map["raw_data"] = ba; // Добавляем байты для сети
     }
-<<<<<<< HEAD
+
     // m_network->broadcastClipboard(map);
-=======
-    m_network->broadcastClipboard(map);
->>>>>>> vibe-branch
+
 }
 
+bool Backend::isDublicate(const QString &hash) {
+    if (hash.contains(m_cacheDir)) return true;
+    for (const QVariant &v : m_history) {
+        if (v.toMap()["hash"].toString() == hash) {
+            return true;
+        }
+    }
+    return false;
+}
+
+QString Backend::generateHash(const QMimeData *mimeData){
+    if (mimeData->hasUrls() && !mimeData->urls().first().toLocalFile().isEmpty()) {
+        QString path = mimeData->urls().first().toLocalFile();
+        QFileInfo fileInfo(path);
+        QString suffix = fileInfo.suffix().toLower();
+        QStringList imageExtensions = {"png", "jpg", "jpeg", "gif", "bmp", "ico", "webp"};
+        
+        if (imageExtensions.contains(suffix)) {
+            return path;
+        }
+        return QString();
+    }
+    
+    if (mimeData->hasImage()) {
+        QImage img = qvariant_cast<QImage>(mimeData->imageData());
+        if (img.isNull()) return QString();
+
+        qint64 totalSize = img.sizeInBytes();
+        int sampleSize = qMin(totalSize, (qint64)4096);
+
+        QByteArray data;
+        data.append(reinterpret_cast<const char *>(&totalSize), sizeof(totalSize));
+        data.append(reinterpret_cast<const char *>(img.bits()), sampleSize);
+
+        return QCryptographicHash::hash(data, QCryptographicHash::Md5).toHex();
+    }
+    
+    if (mimeData->hasText()) {
+        return mimeData->text();
+    }
+
+    return QString();
+}
 
 void Backend::onClipboardChanged(){
     QClipboard *clipboard = QGuiApplication::clipboard();
     const QMimeData *mimeData = clipboard->mimeData();
-    QVariantMap item;
-    QString hash;
-    QString path;
 
-    if (mimeData->hasImage()){
+    QString hash = generateHash(mimeData);
+    if (hash.isEmpty()) return;
+    if (isDublicate(hash)) return;
+    QVariantMap item;
+    item["hash"] = hash;
+    item["time"] = QDateTime::currentDateTime().toString("HH:mm");
+    QByteArray data;
+
+    if (mimeData->hasUrls()  && !mimeData->urls().first().toLocalFile().isEmpty()){
+        QString path = mimeData->urls().first().toLocalFile();
+        QFileInfo fileInfo(path);
+        QString name = fileInfo.fileName();
+        item["type"] = "image";
+        item["data"] = path;
+        item["name"] = name;
+        item["preview"] = QUrl::fromLocalFile(path).toString();
+    }
+
+    else if (mimeData->hasImage()){
+        QString name = QString("img_%1.png").arg(QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss"));
+        QString path = m_cacheDir + "/" + name;
         QImage img = qvariant_cast<QImage>(mimeData->imageData());
-        QByteArray data;
+
         QBuffer buffer(&data);
         buffer.open(QIODevice::WriteOnly);
         img.save(&buffer, "PNG");
-        buffer.close();
-        hash = QCryptographicHash::hash(data, QCryptographicHash::Md5).toHex();
-        path = m_cacheDir + QString("/clip_%1.png").arg(hash);
-        for (const QVariant &v : m_history){
-            if (v.toMap()["hash"].toString() == hash) return;
-        }
+
         QFile file(path);
-        if (file.open(QIODevice::WriteOnly)) {
+        if (file.open(QIODevice::WriteOnly)){
             file.write(data);
             file.close();
         }
+
         item["type"] = "image";
         item["data"] = path;
-        item["hash"] = hash;
-        item["preview"] = QUrl::fromLocalFile(path).toString();
-    }
-    
-    else if (mimeData->hasUrls()){
-        path = mimeData->urls().first().toLocalFile();
-        for (const QVariant &v : m_history){
-            if (v.toMap()["data"].toString() == path) return;
-        }
-        item["type"] = "image";
-        item["data"] = path;
+        item["name"] = name;
         item["preview"] = QUrl::fromLocalFile(path).toString();
     }
 
     else if (mimeData->hasText()){
         QString text = mimeData->text();
-        for (const QVariant &v : m_history) {
-            if (v.toMap()["data"].toString() == text) return;
-        }
         item["type"] = "text";
         item["data"] = text;
-        item["preview"] = text.simplified();
+        item["name"] = text.simplified();
     }
 
-    if (!item.isEmpty()) {
+    if (!item.isEmpty()){
         m_history.prepend(item);
         emit itemAdded(item);
-        if (m_history.size() > 50) m_history.removeLast();
+        
+        if (m_history.size() > 50)
+            m_history.removeLast();
 
-        // АВТО-ОТПРАВКА: если скопировали что-то новое, сразу шлем в сеть
         QVariantMap networkItem = item;
-        if (item["type"] == "image") {
-            QImage img(item["data"].toString());
-            QByteArray ba;
-            QBuffer buf(&ba);
-            img.save(&buf, "PNG");
-            networkItem["raw_data"] = ba;
+        if (item["type"] == "image")
+        {
+            if (!data.isEmpty()) {
+                networkItem["raw_data"] = data;
+            } 
+            else {
+                QFile file(item["data"].toString());
+                if (file.open(QIODevice::ReadOnly)) {
+                    networkItem["raw_data"] = file.readAll();
+                    file.close();
+                }
+            }
         }
-<<<<<<< HEAD
+
         // qDebug() << "SENDING:" << networkItem["type"].toString() << "Data size:" << networkItem["data"].toString().length();
         // m_network->broadcastClipboard(networkItem);
-=======
-        qDebug() << "SENDING:" << networkItem["type"].toString() << "Data size:" << networkItem["data"].toString().length();
-        m_network->broadcastClipboard(networkItem);
->>>>>>> vibe-branch
+
     }
 }
 
-void Backend::clearHistory() {
-    m_history.clear();  
+void Backend::clearHistory(){
+    m_history.clear();
 }
 
-
-
-
-
+QPoint Backend::getGlobalMousePos() {
+    return QCursor::pos();
+}

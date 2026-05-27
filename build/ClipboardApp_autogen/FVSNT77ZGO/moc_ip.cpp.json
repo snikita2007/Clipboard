@@ -1,0 +1,42 @@
+{
+    "classes": [
+        {
+            "className": "NetworkScanner",
+            "object": true,
+            "qualifiedClassName": "NetworkScanner",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "ipList",
+                            "type": "QVariantList"
+                        }
+                    ],
+                    "name": "devicesUpdated",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "private",
+                    "name": "sendDiscoveryRequest",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "name": "readPendingDatagrams",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "ip.h",
+    "outputRevision": 68
+}

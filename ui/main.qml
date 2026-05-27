@@ -1,310 +1,145 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Layouts
-import Clipboard
+import Qt.labs.platform as Native
 import "components"
 
 ApplicationWindow {
     id: root
     visible: false
-    color: "transparent"
-    width: 350; height: 370;
-    maximumWidth: 350 
-    maximumHeight: 370 
-    minimumHeight: 370 
-    minimumWidth: 350
-
-    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint 
+    color: (Qt.platform.os === "android" ) ? palette.window : "transparent"
+    width: 500
+    height: 400
     background: null
 
-    Action {
-        id: clearHistoryAction
-        text: "Clear history"
-        shortcut: "Ctrl+Alt+C"
-        onTriggered: {
-            backend.clearHistory()
-            clipList.clear()
+    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint
+
+    Native.SystemTrayIcon {
+        id: trayIcon
+        visible: true
+        icon.source: "qrc:/ui/assets/app.png"
+        tooltip: "Clipboard"
+        menu: Native.Menu {
+            Native.MenuItem { text: "Show/hide"; onTriggered: root.visible ? root.softClose() : root.softOpen() }
+            Native.MenuItem { text: "Clear"; onTriggered: { backend.clearHistory() } }
+            Native.MenuItem { text: "Settings"; onTriggered: bottomNav.currentTab = 1 }
+            Native.MenuItem { text: "Exit"; onTriggered: Qt.quit() }
         }
-    }
-
-    Action {
-        id: preferencesAction
-        text: "Preferences"
-        onTriggered: settingsWindow.active = true
-    }
-
-    menuBar: (Qt.platform.os === "osx") ? macOsBar : null
-    
-    MenuBar {
-        id: macOsBar
-        visible: Qt.platform.os === "osx"
-        Menu {
-            title: "Edit"
-
-            MenuItem {
-                action: clearHistoryAction
-            }
-        }
-        Menu {
-            title: "ClipboardApp"
-
-            MenuItem {
-                action: preferencesAction
+        onActivated: function(reason) {
+            if (reason === Native.SystemTrayIcon.Trigger && Qt.platform.os !== "osx") {
+                root.visible ? root.softClose() : root.softOpen()
             }
         }
     }
 
-    ColumnLayout {
+    onActiveChanged: { if (!active) root.softClose() }
+
+    SwipeView {
+        id: mainSwipe
         anchors.fill: parent
-        anchors.margins: 14
-        spacing: 10
-        
-        TitleBar {
-            id: titleBar
-            settingsWindow: settingsWindow
-            showSettingsButton: Qt.platform.os !== "osx"
-            curentTitle: "Clipboard"
-        }
+        currentIndex: bottomNav.currentTab
 
-        RowLayout {
-            id: topBar
-            Layout.fillWidth: true
-            Layout.preferredHeight: 30
-            spacing: 5
-            state: ""
+        interactive: Qt.platform.os === "android"
+        clip: true
 
-            states: [
-                State {
-                    name: "searchmode"
-                    PropertyChanges { 
-                        btnClear.Layout.preferredWidth: 0 
-                        btnClear.opacity: 0
-                        btnSearch.btnOpacity: 0.0
-                        searchInput.visible: true
-                        searchInput.opacity: 1
-                        historyList.scale: 1.05
-                        historyList.opacity: 0
-                        filterList.visible: true
-                    }
-                }
-            ]
-
-            transitions: Transition {
-                NumberAnimation { 
-                    properties: "Layout.preferredWidth,opacity,scale"; 
-                    duration: 200; 
-                    easing.type: Easing.OutCubic  
-                }
-            }
-
-            Item {
-                id: searchWrapper
-                Layout.fillWidth: true
-                Layout.preferredHeight: 30
-
-                MyButton {
-                    id: btnSearch
-                    anchors.fill: parent
-                    btnText: topBar.state === "searchmode" ? "" : "Search"
-                    btnOpacity: 0.5
-                    onClicked: {
-                        topBar.state = "searchmode"
-                        searchInput.forceActiveFocus()
-                    }
-                }
-
-                TextField {
-                    id: searchInput
-                    anchors.fill: parent
-                    visible: false
-                    opacity: 0
-                    placeholderText: "Type to search..."
-                    onTextChanged: {
-                        filteredClipList.clear()
-                        if (text.length > 0) {
-                            for (let i = 0; i < clipList.count; i++) {
-                                let item = clipList.get(i)
-                                if (item.preview.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
-                                    filteredClipList.append(item)
-                                }
-                            }
-                        }
-                    }
-                    color: palette.windowText
-                    leftPadding: 15
-                    rightPadding: 30
-                    background: Item {} 
-
-                    Text {
-                        text: "✕"
-                        anchors.right: parent.right
-                        anchors.rightMargin: 12
-                        anchors.verticalCenter: parent.verticalCenter
-                        color: palette.windowText
-                        opacity: 0.5
-                        visible: topBar.state === "searchmode"
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                searchInput.text = ""
-                                topBar.state = ""
-                            }
-                        }
-                    }
-                }
-            }
-
-            MyButton {
-                id: btnClear
-                Layout.preferredWidth: 70
-                Layout.preferredHeight: 30
-                btnText: "Clear All"
-                visible: Qt.platform.os !== "osx"
-                clip: true
-                
-                onClicked: {
-                    backend.clearHistory();
-                    clipList.clear();
+        Component.onCompleted: {
+            if (Qt.platform.os !== "android") {
+                if (mainSwipe.contentItem && mainSwipe.contentItem.contentXAnimator) {
+                    mainSwipe.contentItem.contentXAnimator.duration = 0
                 }
             }
         }
 
-        Frame {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            padding: 0
-            topPadding: 0
-            bottomPadding: 0
-            leftPadding: 0
-            rightPadding: 0
-            background: Rectangle {
-                color: Qt.rgba(1, 1, 1, 0)
-                radius: 12
-            }
+        History {
+            id: historyPage
+        }
 
-            ListModel {
-                id: filteredClipList
-            }
-
-            ListView {
-                id: filterList
-                anchors.fill: parent
-                model: filteredClipList
-                visible: false
-
-                delegate: MyButton {
-                    width: parent.width  
-                    height: 70
-                    clip: true
-                    btnRadius: (Qt.platform.os === "windows") ? 4 : 12
-                    btnAlignH: Qt.AlignLeft
-                    btnText: model.type === "text" ? model.preview : ""
-                    Image {
-                        sourceSize.width: parent.width
-                        sourceSize.height: parent.height 
-                        visible: parent.model.type === "image"
-                        source: visible ? parent.model.preview : ""
-                        asynchronous: true
-                        anchors.fill: parent
-                    }
-                    onClicked: {
-                        let manualMap = { "type": model.type, "data": model.data }
-                        Backend.copyToClip(manualMap)
-                    }
-                }
-            }
-
-            ListView {
-                id: historyList
-                anchors.fill: parent
-                clip: true
-                spacing: 5
-                boundsBehavior: Flickable.StopAtBounds
-                transformOrigin: Item.Top
-
-                model: ListModel { id: clipList }
-
-                delegate: MyButton {
-                    id: delegateLoader
-                    width: historyList.width  
-                    height: 70
-                    clip: true
-                    btnRadius: (Qt.platform.os === "windows") ? 4 : 12
-                    btnAlignH: Qt.AlignLeft
-                    btnText: model.type === "text" ? model.preview : ""
-                    Image {
-                        id: previewImage
-                        sourceSize.width: delegateLoader.width
-                        sourceSize.height: delegateLoader.height 
-                        visible: model.type === "image"
-                        source: visible ? model.preview : ""
-                        asynchronous: true
-                        anchors.fill: parent
-                    }
-                    onClicked: {
-                        let manualMap = { "type": model.type, "data": model.data }
-                        Backend.copyToClip(manualMap)
-                    }
-                }
-
-                add: Transition {
-                    NumberAnimation { property: "opacity"; from: 0; to: 1.0; duration: 100 }
-                    NumberAnimation { property: "scale"; from: 0.8; to: 1.0; duration: 150; easing.type: Easing.OutBack }
-                }
-
-                displaced: Transition {
-                    NumberAnimation { 
-                        properties: "y"; 
-                        duration: 200; 
-                        easing.type: Easing.OutExpo 
-                    }
-                }
-                Connections {
-                    target: backend
-                    function onItemAdded(newItem) {
-                        clipList.insert(0, newItem);
-                        if (clipList.count > 50) clipList.remove(50);
-                    }
-                }
-            }
-
-            Label {
-                text: "Clipboard is empty"
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                anchors.centerIn: historyList
-                font.weight: Font.Light
-                visible: clipList.count === 0 && historyList.visible === true
-            }
+        Settings {
+            id: settingsPage
+        }
+    
+        onCurrentIndexChanged: {
+            bottomNav.currentTab = currentIndex
+            root.updateWindowSize(currentIndex)
         }
     }
 
-    Loader {
-        id: settingsWindow
-        active: false
-        source: "Settings.qml"
-        onLoaded: {
-            windowEffects.applyEffects(item)
-            item.visible = true
-            item.raise()
-            console.log("Settings window loaded and shown")
-        }
-        Connections {
-            target: settingsWindow.item
-            ignoreUnknownSignals: true
-        
-            function onClosing() {
-                settingsWindow.active = false
+    MobileBottomNav {
+        id: bottomNav
+        anchors.bottom: parent.bottom
+        width: parent.width
+
+        onNavigate: (page) => {
+            if (page === "History.qml") {
+                bottomNav.currentTab = 0
+            } else if (page === "Settings.qml") {
+                bottomNav.currentTab = 1
             }
+            root.updateWindowSize(bottomNav.currentTab)
+        }
+
+        onSearchTextChanged: (text) => {
+            historyPage.applySearch(text)
         }
     }
+
+    Shortcut { sequence: "Escape"; onActivated: root.softClose() }
 
     signal softClose()
     onSoftClose: closeAnimation.start()
     ParallelAnimation {
         id: closeAnimation
         NumberAnimation { target: root; property: "opacity"; to: 0; duration: 150; easing.type: Easing.OutCubic }
-        onFinished: root.close()
+        onFinished: {
+            root.hide()
+        }
+    }
+
+    signal softOpen()
+    onSoftOpen : {
+        let cursorPoint = backend.getGlobalMousePos(); 
+        let targetX = cursorPoint.x - root.width / 2
+        let targetY = cursorPoint.y + 30
+        if (targetX + root.width > Screen.desktopAvailableWidth) 
+            targetX = Screen.desktopAvailableWidth - root.width - 10
+        if (targetX < 0) targetX = 10
+        
+        if (targetY + root.height > Screen.desktopAvailableHeight)
+            targetY = cursorPoint.y - root.height - 15
+        root.x = targetX
+        root.y = targetY
+        
+        openAnimation.start()
+    }
+    ParallelAnimation{
+        id: openAnimation
+        NumberAnimation {target: root; property: "opacity"; to: 1; duration: 150; easing.type: Easing.InCubic }
+        onStarted:{
+            root.show()
+            root.raise()
+            root.requestActivate()
+        }
+    }
+
+    ParallelAnimation {
+        id: smoothResize
+
+
+        NumberAnimation { target: root; property: "width"; duration: 250; easing.type: Easing.OutCubic }
+        NumberAnimation { target: root; property: "height"; duration: 250; easing.type: Easing.OutCubic }
+    }
+    function updateWindowSize(tabIndex) {
+        if (Qt.platform.os === "android") return;
+
+        smoothResize.stop();
+        
+        if (tabIndex === 0) {
+            smoothResize.animations[0].to = 500; // width
+            smoothResize.animations[1].to = 400; // height
+        } else if (tabIndex === 1) {
+            smoothResize.animations[0].to = 600;
+            smoothResize.animations[1].to = 550;
+        }
+        
+        smoothResize.start();
     }
 }

@@ -1,0 +1,9 @@
+module Clipboard
+typeinfo ClipboardApp.qmltypes
+prefer :/Clipboard/
+MyButton 1.0 ui/components/MyButton.qml
+TitleBar 1.0 ui/components/TitleBar.qml
+MobileBottomNav 1.0 ui/components/MobileBottomNav.qml
+Settings 1.0 ui/Settings.qml
+History 1.0 ui/History.qml
+

@@ -1,4 +1,4 @@
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickWindow>
@@ -20,14 +20,20 @@
 #include <QBluetoothUuid>             
 #include "bluetooth.h"
 #include "bluetooth_client.h"
+#include "QIcon"
+
+#ifndef Q_OS_ANDROID 
+#include <QHotkey> 
+#endif
 
 #include "WindowEffects.h"
 #include "backend.h"
 
 int main(int argc, char *argv[]) {
-    // Установка стиля и базовых переменных
     qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
-    QGuiApplication app(argc, argv); 
+    QApplication app(argc, argv); 
+
+    app.setWindowIcon(QIcon(":/ui/assets/app.png"));
 
     UdpServer server;
     NetworkScanner scanner;
@@ -47,24 +53,24 @@ int main(int argc, char *argv[]) {
     
     bluetooth.startServer(adapterAddress);
                  
-    // QBluetoothAddress address("F8:5C:7D:2F:20:95");
-    // QBluetoothUuid uuid("e8e10f95-1a70-4b27-9ccf-02010264e9c8");
+    QBluetoothAddress address("F8:5C:7D:2F:20:95");
+    QBluetoothUuid uuid("e8e10f95-1a70-4b27-9ccf-02010264e9c8");
 
-    // cli.startClient(address, uuid);
+    cli.startDiscovery();
 
     QObject::connect(&scanner, &NetworkScanner::devicesUpdated, &server, &UdpServer::updateIps);
     
     QQmlApplicationEngine engine;
     WindowEffects windowEffects;
-    Backend backend(&bluetooth,&server);
+    Backend backend(&bluetooth,&server,&cli);
  
     // Регистрируем объекты в QML контексте
     // ВАЖНО: используйте маленькую букву "backend", если в QML обращаетесь к ней так
+    WindowEffects WindowEffects_linux;
+   
     engine.rootContext()->setContextProperty("windowEffects", &windowEffects);
     engine.rootContext()->setContextProperty("backend", &backend);
 
-    // Загружаем основной файл интерфейса
-    // Убедитесь, что путь верный (у вас в коде было два разных пути)
     const QUrl url(QStringLiteral("qrc:/Clipboard/ui/main.qml"));
     
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
@@ -75,7 +81,20 @@ int main(int argc, char *argv[]) {
 
     engine.load(url);
 
-    // Работа с окном (эффекты)
+    #ifndef Q_OS_ANDROID
+    QHotkey hotkey(QKeySequence("Alt+V"), true, &app);
+    QObject::connect(&hotkey, &QHotkey::activated, [&engine](){
+        if (engine.rootObjects().isEmpty()) return;
+        QObject *root = engine.rootObjects().first();
+        bool isVisible = root->property("visible").toBool();
+        if (isVisible) {
+            QMetaObject::invokeMethod(root, "softClose");
+        } else {
+            QMetaObject::invokeMethod(root, "softOpen");
+        }
+    });
+    #endif
+
     if (!engine.rootObjects().isEmpty()) {
         QObject *root = engine.rootObjects().first();
         QQuickWindow *window = qobject_cast<QQuickWindow*>(root);

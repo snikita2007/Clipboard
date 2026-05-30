@@ -150,7 +150,7 @@ Item {
                         
                         Text {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: "История"
+                            text: "History"
                             font.pixelSize: 12
                             font.weight: Font.DemiBold
                             color: root.currentTab === 0 ? palette.windowText : palette.placeholderText
@@ -179,7 +179,7 @@ Item {
                         
                         Text {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: "Настройки"
+                            text: "Settings"
                             font.pixelSize: 12
                             font.weight: Font.DemiBold
                             color: root.currentTab === 1 ? palette.windowText : palette.placeholderText

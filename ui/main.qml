@@ -11,7 +11,9 @@ ApplicationWindow {
     height: 400
     background: null
 
-    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint
+    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool
+
+    property bool isPinned: false
 
     Native.SystemTrayIcon {
         id: trayIcon
@@ -31,7 +33,11 @@ ApplicationWindow {
         }
     }
 
-    onActiveChanged: { if (!active) root.softClose() }
+    onActiveChanged: { 
+        if (!active && !isPinned) {
+            root.softClose() 
+        }
+    }
 
     SwipeView {
         id: mainSwipe
@@ -43,8 +49,8 @@ ApplicationWindow {
 
         Component.onCompleted: {
             if (Qt.platform.os !== "android") {
-                if (mainSwipe.contentItem && mainSwipe.contentItem.contentXAnimator) {
-                    mainSwipe.contentItem.contentXAnimator.duration = 0
+                if (mainSwipe.contentItem) {
+                    mainSwipe.contentItem.highlightMoveDuration = 0
                 }
             }
         }
@@ -117,24 +123,22 @@ ApplicationWindow {
             root.show()
             root.raise()
             root.requestActivate()
+            historyPage.focusSearchInput()
         }
     }
 
     ParallelAnimation {
         id: smoothResize
-
-
         NumberAnimation { target: root; property: "width"; duration: 250; easing.type: Easing.OutCubic }
         NumberAnimation { target: root; property: "height"; duration: 250; easing.type: Easing.OutCubic }
     }
     function updateWindowSize(tabIndex) {
         if (Qt.platform.os === "android") return;
-
         smoothResize.stop();
         
         if (tabIndex === 0) {
-            smoothResize.animations[0].to = 500; // width
-            smoothResize.animations[1].to = 400; // height
+            smoothResize.animations[0].to = 500;
+            smoothResize.animations[1].to = 400;
         } else if (tabIndex === 1) {
             smoothResize.animations[0].to = 600;
             smoothResize.animations[1].to = 550;

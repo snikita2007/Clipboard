@@ -55,7 +55,6 @@ int main(int argc, char *argv[]) {
 
         if (window) {
             windowEffects.applyEffects(window);
-            window->show();
         }
     }
 

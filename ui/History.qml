@@ -39,6 +39,13 @@ Page{
                         historyList.opacity: 0
                         filterList.visible: true
                     }
+                },
+                State {
+                    name: "menumode"
+                    PropertyChanges { 
+                        historyList.opacity: 0
+                        actionsList.visible: true
+                    }
                 }
             ]
 
@@ -70,8 +77,90 @@ Page{
                     focus: Qt.platform.os !== "android"
                     font.pixelSize: 20
                     font.weight: Font.DemiBold 
+                    padding: 0
+                    leftPadding: 10
+                    cursorDelegate: Item {
+                        width: 2
+                        height: searchInput.height 
 
-                    onTextChanged: historyPage.applySearch(text)
+                        Rectangle {
+                            width: 2 
+                            height: searchInput.font.pixelSize
+                            anchors.verticalCenter: parent.verticalCenter
+                            color: palette.windowText 
+                            visible: searchInput.cursorVisible
+                        }
+                    }
+
+                    onActiveFocusChanged: searchInput.forceActiveFocus()
+
+                    function getActiveList() {
+                        if (topBar.state === "menumode") {
+                            return actionsList;
+                        } else if (topBar.state === "searchmode") {
+                            return filterList;
+                        }
+                        return historyList;
+                    }
+
+                    Keys.onPressed: (event) => {
+                        let currentList = getActiveList();
+                        
+                        if (event.key === Qt.Key_Down) {
+                            if (currentList.currentIndex < currentList.count - 1) {
+                                currentList.currentIndex++;
+                                currentList.positionViewAtIndex(currentList.currentIndex, ListView.Contain);
+                            }
+                            event.accepted = true;
+                        } 
+                        else if (event.key === Qt.Key_Up) {
+                            if (currentList.currentIndex > 0) {
+                                currentList.currentIndex--;
+                                currentList.positionViewAtIndex(currentList.currentIndex, ListView.Contain);
+                            }
+                            event.accepted = true;
+                        } 
+                        else if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
+                            if (currentList.currentItem && typeof currentList.currentItem.triggerAction === "function") {
+                                currentList.currentItem.triggerAction();
+                            }
+                            event.accepted = true;
+                        }
+                    }
+
+                    onTextChanged: {
+                        historyList.currentIndex = -1
+                        filterList.currentIndex = 0;
+                        historyPage.applySearch(text);
+                    }
+                }
+            }
+            Button {
+                id: menuButton
+                Layout.preferredWidth: 30
+                Layout.preferredHeight: 30
+                Layout.rightMargin: 5
+                
+                background: Rectangle {
+                    color: menuButton.down ? Qt.rgba(1, 1, 1, 0.1) : (menuButton.hovered ? Qt.rgba(1, 1, 1, 0.05) : "transparent")
+                    radius: 6
+                }
+
+                contentItem: IconImage {
+                    anchors.centerIn: parent
+                    sourceSize.height: 20
+                    sourceSize.width: 20
+                    source: "qrc:/ui/assets/android_settings.svg"
+                    color: palette.windowText
+                }
+
+                onClicked: {
+                    if (topBar.state === "menumode" ){
+                        topBar.state = "" 
+                    }
+                    else{
+                        topBar.state = "menumode" 
+                    }
                 }
             }
         }
@@ -107,18 +196,25 @@ Page{
             ListView {
                 id: filterList
                 anchors.fill: parent
-                spacing: 5
+                topMargin: 0
+                spacing: 0
                 model: filteredClipList
                 visible: false
+                currentIndex: -1
 
-                delegate: MyButton {
+                delegate: Button {
+                    id: historyDelegate
                     width: historyList.width  
                     height: 70
                     clip: true
-                    btnColor: "transparent"
-                    btnRadius: (Qt.platform.os === "windows") ? 4 : 12
-                    btnAlignH: Qt.AlignLeft
-                    btnText: ""
+                    highlighted: ListView.isCurrentItem
+                    function triggerAction() { historyDelegate.clicked(); }
+
+                    background: Rectangle{
+                        color: historyDelegate.down ? Qt.rgba(1, 1, 1, 0.1) 
+                                   : (historyDelegate.hovered || historyDelegate.highlighted ? Qt.rgba(1, 1, 1, 0.05) : "transparent")
+                        radius: (Qt.platform.os === "windows") ? 4 : 12
+                    }
                     RowLayout {
                         anchors.fill: parent
                         spacing: 10
@@ -126,7 +222,10 @@ Page{
                             Layout.preferredHeight: 40
                             Layout.preferredWidth: 40
                             Layout.leftMargin: 5
-                            sourceSize.height: 160
+                            sourceSize.height: 40
+                            sourceSize.width: 40
+                            smooth: true
+                            mipmap: true
                             source: (model.type === "image") ? model.preview : "qrc:/ui/assets/text.svg"
                             color: (model.type === "text") ? palette.windowText : "transparent"
                         }
@@ -172,18 +271,24 @@ Page{
                 boundsBehavior: (Qt.platform.os === "windows") ? Flickable.StopAtBounds : Flickable.DragAndOvershootBounds
                 flickableDirection: Flickable.VerticalFlick
                 transformOrigin: Item.Top
+                currentIndex: -1
 
                 model: ListModel { id: clipList }
 
-                delegate: MyButton {
+                delegate: Button {
                     id: delegateLoader
                     width: historyList.width  
                     height: 70
                     clip: true
-                    btnColor: "transparent"
-                    btnRadius: (Qt.platform.os === "windows") ? 4 : 12
-                    btnAlignH: Qt.AlignLeft
-                    btnText: ""
+
+                    highlighted: ListView.isCurrentItem
+                    function triggerAction() { delegateLoader.clicked(); }
+
+                    background: Rectangle{
+                        color: delegateLoader.down ? Qt.rgba(1, 1, 1, 0.1) 
+                                   : (delegateLoader.hovered || delegateLoader.highlighted ? Qt.rgba(1, 1, 1, 0.05) : "transparent")
+                        radius: (Qt.platform.os === "windows") ? 4 : 12
+                    }
                     RowLayout {
                         anchors.fill: parent
                         spacing: 10
@@ -238,6 +343,67 @@ Page{
                 }
             }
 
+            ListView {
+                id: actionsList
+                anchors.fill: parent
+                visible: false
+                spacing: 2
+                clip: true
+                currentIndex: -1
+
+                model: ListModel {
+                    ListElement { name: "Clear history"; action: "clear" }
+                    ListElement { name: ""; action: "pin" }
+                    ListElement { name: "Settings"; action: "settings" }
+                    ListElement { name: "Close app"; action: "quit" }
+                }
+
+                delegate: Button {
+                    id: actionControl
+                    width: actionsList.width
+                    height: 50
+
+                    highlighted: ListView.isCurrentItem
+                    function triggerAction() { actionControl.clicked(); }
+
+                    background: Rectangle {
+                         color: actionControl.down ? Qt.rgba(1, 1, 1, 0.1) 
+                                  : (actionControl.hovered || actionControl.highlighted ? Qt.rgba(1, 1, 1, 0.05) : "transparent")
+                        radius: (Qt.platform.os === "windows") ? 4 : 12
+                        Behavior on color { ColorAnimation { duration: 80 } }
+                    }
+
+                    contentItem: RowLayout {
+                        anchors.fill: parent
+                        anchors.leftMargin: 15
+                        
+                        Text {
+                            text: (model.action === "pin") ? (root.isPinned ? "Unpin window" : "Pin window") : model.name
+                            font.pixelSize: 15
+                            font.weight: Font.Medium
+                            color: palette.windowText
+                            Layout.fillWidth: true
+                            verticalAlignment: Text.AlignVCenter
+                        }
+                    }
+
+                    onClicked: {
+                        if (model.action === "clear") {
+                            backend.clearHistory()
+                            topBar.state = ""
+                        } else if (model.action === "pin") {
+                            root.isPinned = !root.isPinned
+                            topBar.state = ""
+                        } else if (model.action === "settings") {
+                            bottomNav.currentTab = 1
+                            topBar.state = ""
+                        } else if (model.action === "quit") {
+                            Qt.quit()
+                        }
+                    }
+                }
+            }
+
             Label {
                 text: "Clipboard is empty"
                 font.pixelSize: 14
@@ -245,7 +411,7 @@ Page{
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 anchors.centerIn: historyList
-                visible: clipList.count === 0 && historyList.visible === true
+                visible: clipList.count === 0 && topBar.state === ""
             }
         }
     }
@@ -269,6 +435,11 @@ Page{
                     filteredClipList.append(item)
                 }
             }
+        }
+    }
+    function focusSearchInput() {
+        if (searchInput) {
+            searchInput.forceActiveFocus();
         }
     }
 }

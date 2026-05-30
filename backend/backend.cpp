@@ -161,6 +161,7 @@ void Backend::onClipboardChanged(){
         item["type"] = "text";
         item["data"] = text;
         item["name"] = text.simplified();
+        item["preview"] = text;
     }
 
     if (!item.isEmpty()){

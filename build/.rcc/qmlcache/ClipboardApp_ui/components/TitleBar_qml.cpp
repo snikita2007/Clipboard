@@ -1686,8 +1686,8 @@ Q_UNUSED(argumentsPtr)
 double r11_1;
 QObject *r7_1;
 double r13_1;
-QVariant r2_2;
 QObject *r2_1;
+QVariant r2_2;
 double r10_1;
 double r12_1;
 // generate_LoadQmlContextPropertyLookup
@@ -1779,8 +1779,8 @@ Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 double r11_1;
 QObject *r7_1;
-QObject *r2_1;
 QVariant r2_2;
+QObject *r2_1;
 double r10_1;
 double r12_1;
 // generate_LoadQmlContextPropertyLookup
@@ -1823,8 +1823,8 @@ Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 double r11_1;
 QObject *r7_1;
-QObject *r2_1;
 QVariant r2_2;
+QObject *r2_1;
 double r10_1;
 double r12_1;
 // generate_LoadQmlContextPropertyLookup
@@ -1868,8 +1868,8 @@ Q_UNUSED(argumentsPtr)
 double r11_1;
 QObject *r7_1;
 double r13_1;
-QObject *r2_1;
 QVariant r2_2;
+QObject *r2_1;
 double r10_1;
 double r12_1;
 // generate_LoadQmlContextPropertyLookup

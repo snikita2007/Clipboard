@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Controls.impl
 import QtQuick.Layouts
+import QtQuick.Effects
 
 Item {
     id: root
@@ -102,7 +103,7 @@ Item {
         anchors.bottom: bottomSpacer.top
 
         Rectangle {
-            id: navBar
+            id: pillContainer
             height: 60
             radius: height / 2
             color: root.panelColor
@@ -114,12 +115,12 @@ Item {
 
             Rectangle {
                 id: lens
-                width: (navBar.width / 2) - 12
-                height: navBar.height - 12
+                width: (pillContainer.width / 2) - 12
+                height: pillContainer.height - 12
                 radius: height / 2
                 color: Qt.rgba(palette.windowText.r, palette.windowText.g, palette.windowText.b, 0.06)
                 anchors.verticalCenter: parent.verticalCenter
-                x: root.currentTab === 0 ? 6 : (navBar.width / 2) + 6
+                x: root.currentTab === 0 ? 6 : (pillContainer.width / 2) + 6
 
                 Behavior on x {
                     NumberAnimation { duration: 250; easing.type: Easing.OutCubic }
@@ -189,15 +190,15 @@ Item {
             }
         }
 
-        // MultiEffect {
-        //     source: pillContainer
-        //     anchors.fill: pillContainer
-        //     visible: pillContainer.opacity > 0
-        //     shadowEnabled: true
-        //     shadowColor: Qt.rgba(0, 0, 0, 0.12)
-        //     shadowBlur: 0.3
-        //     z: -1
-        // }
+        MultiEffect {
+            source: pillContainer
+            anchors.fill: pillContainer
+            visible: pillContainer.opacity > 0
+            shadowEnabled: true
+            shadowColor: Qt.rgba(0, 0, 0, 0.12)
+            shadowBlur: 0.3
+            z: -1
+        }
 
         Rectangle {
             id: searchCircle
@@ -277,14 +278,14 @@ Item {
             }
         }
 
-        // MultiEffect {
-        //     source: searchCircle
-        //     anchors.fill: searchCircle
-        //     shadowEnabled: true
-        //     shadowColor: Qt.rgba(0, 0, 0, 0.12)
-        //     shadowBlur: 0.3
-        //     z: -1
-        // }
+        MultiEffect {
+            source: searchCircle
+            anchors.fill: searchCircle
+            shadowEnabled: true
+            shadowColor: Qt.rgba(0, 0, 0, 0.12)
+            shadowBlur: 0.3
+            z: -1
+        }
     }
 
     Item {

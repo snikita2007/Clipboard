@@ -2,7 +2,6 @@
   /home/danil/Documents/Clipboard/build/ClipboardApp_autogen/moc_predefs.h \
   /home/danil/Documents/Clipboard/backend/NetworkManager.h \
   /home/danil/Documents/Clipboard/backend/bluetooth.h \
-  /home/danil/Documents/Clipboard/backend/bluetooth_client.h \
   /home/danil/Documents/Clipboard/backend/server.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
@@ -354,7 +353,6 @@
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QUrl \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QUuid \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QVariant \
-  /usr/include/x86_64-linux-gnu/qt6/QtCore/QVariantList \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QVariantMap \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QtCore \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QtCoreDepends \

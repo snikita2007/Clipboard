@@ -913,32 +913,6 @@ CMakeFiles/ClipboardApp.dir/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QUrl \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QFileInfo \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QDir \
- /home/danil/Documents/Clipboard/backend/bluetooth_client.h \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothSocket \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothsocket.h \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qtbluetoothglobal.h \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qtbluetooth-config.h \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qtbluetoothexports.h \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetooth.h \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothaddress.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QDebug \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothuuid.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QtGlobal \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QUuid \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothserviceinfo.h \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothUuid \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothuuid.h \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothAddress \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothaddress.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QSharedPointer \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothDeviceDiscoveryAgent \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothdevicediscoveryagent.h \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothDeviceInfo \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothdeviceinfo.h \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothDeviceInfo \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothAddress \
- /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothUuid \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QVariantList \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QStandardPaths \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QDateTime \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QCryptographicHash \
@@ -948,9 +922,31 @@ CMakeFiles/ClipboardApp.dir/main.cpp.o: \
  /home/danil/Documents/Clipboard/backend/bluetooth.h \
  /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothServer \
  /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothserver.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qtbluetoothglobal.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qtbluetooth-config.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qtbluetoothexports.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothAddress \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothaddress.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/QDebug \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetooth.h \
  /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothSocket \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothsocket.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothaddress.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothuuid.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/QtGlobal \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/QUuid \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothserviceinfo.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothUuid \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothuuid.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/QSharedPointer \
  /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothServiceInfo \
  /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothserviceinfo.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothSocket \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothDeviceInfo \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothdeviceinfo.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothDeviceDiscoveryAgent \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothdevicediscoveryagent.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothDeviceInfo \
  /home/danil/Documents/Clipboard/backend/NetworkManager.h \
  /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QUdpSocket \
  /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QNetworkDatagram \
@@ -975,9 +971,12 @@ CMakeFiles/ClipboardApp.dir/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothlocaldevice.h \
  /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothHostInfo \
  /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/qbluetoothhostinfo.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothAddress \
  /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothHostInfo \
+ /usr/include/x86_64-linux-gnu/qt6/QtBluetooth/QBluetoothUuid \
  /home/danil/Documents/Clipboard/backend/bluetooth.h \
  /home/danil/Documents/Clipboard/backend/bluetooth_client.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/QVariantList \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/QIcon \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qicon.h \
  /home/danil/Documents/Clipboard/3rdparty/QHotkey/QHotkey/QHotkey \

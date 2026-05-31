@@ -66,9 +66,9 @@ include 3rdparty/QHotkey/CMakeFiles/qhotkey_autogen_timestamp_deps.dir/compiler_
 # Include the progress variables for this target.
 include 3rdparty/QHotkey/CMakeFiles/qhotkey_autogen_timestamp_deps.dir/progress.make
 
-3rdparty/QHotkey/CMakeFiles/qhotkey_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Gui.so.6.4.2
 3rdparty/QHotkey/CMakeFiles/qhotkey_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Core.so.6.4.2
 3rdparty/QHotkey/CMakeFiles/qhotkey_autogen_timestamp_deps: /usr/lib/qt6/libexec/moc
+3rdparty/QHotkey/CMakeFiles/qhotkey_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Gui.so.6.4.2
 3rdparty/QHotkey/CMakeFiles/qhotkey_autogen_timestamp_deps: /usr/lib/qt6/libexec/uic
 
 qhotkey_autogen_timestamp_deps: 3rdparty/QHotkey/CMakeFiles/qhotkey_autogen_timestamp_deps

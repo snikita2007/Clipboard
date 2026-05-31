@@ -67,15 +67,15 @@ include CMakeFiles/ClipboardApp_autogen_timestamp_deps.dir/compiler_depend.make
 include CMakeFiles/ClipboardApp_autogen_timestamp_deps.dir/progress.make
 
 CMakeFiles/ClipboardApp_autogen_timestamp_deps: .rcc/qmlcache/ClipboardApp_qmlcache_loader.cpp
-CMakeFiles/ClipboardApp_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Gui.so.6.4.2
-CMakeFiles/ClipboardApp_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Quick.so.6.4.2
 CMakeFiles/ClipboardApp_autogen_timestamp_deps: /usr/lib/qt6/libexec/moc
-CMakeFiles/ClipboardApp_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6QuickControls2.so.6.4.2
-CMakeFiles/ClipboardApp_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Network.so.6.4.2
 CMakeFiles/ClipboardApp_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Widgets.so.6.4.2
-CMakeFiles/ClipboardApp_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Bluetooth.so.6.4.2
-CMakeFiles/ClipboardApp_autogen_timestamp_deps: /usr/lib/qt6/libexec/uic
+CMakeFiles/ClipboardApp_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Gui.so.6.4.2
 CMakeFiles/ClipboardApp_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Concurrent.so.6.4.2
+CMakeFiles/ClipboardApp_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Network.so.6.4.2
+CMakeFiles/ClipboardApp_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Quick.so.6.4.2
+CMakeFiles/ClipboardApp_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6QuickControls2.so.6.4.2
+CMakeFiles/ClipboardApp_autogen_timestamp_deps: /usr/lib/qt6/libexec/uic
+CMakeFiles/ClipboardApp_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Bluetooth.so.6.4.2
 CMakeFiles/ClipboardApp_autogen_timestamp_deps: 3rdparty/QHotkey/libqhotkey.a
 
 .rcc/qmlcache/ClipboardApp_qmlcache_loader.cpp: /usr/lib/qt6/libexec/qmlcachegen

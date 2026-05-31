@@ -1,4 +1,4 @@
-set(qml_import_scanner_imports_count 30)
+set(qml_import_scanner_imports_count 31)
 set(qml_import_scanner_import_0 "CLASSNAME;QtQuick2Plugin;LINKTARGET;Qt6::qtquick2plugin;NAME;QtQuick;PATH;/usr/lib/x86_64-linux-gnu/qt6/qml/QtQuick;PLUGIN;qtquick2plugin;PLUGINISOPTIONAL;;PREFER;:/qt-project.org/imports/QtQuick/;RELATIVEPATH;QtQuick;TYPE;module;")
 set(qml_import_scanner_import_1 "CLASSNAME;QtQmlPlugin;LINKTARGET;Qt6::qmlplugin;NAME;QtQml;PATH;/usr/lib/x86_64-linux-gnu/qt6/qml/QtQml;PLUGIN;qmlplugin;PLUGINISOPTIONAL;;PREFER;:/qt-project.org/imports/QtQml/;RELATIVEPATH;QtQml;TYPE;module;")
 set(qml_import_scanner_import_2 "CLASSNAME;QtQmlModelsPlugin;LINKTARGET;Qt6::modelsplugin;NAME;QtQml.Models;PATH;/usr/lib/x86_64-linux-gnu/qt6/qml/QtQml/Models;PLUGIN;modelsplugin;PLUGINISOPTIONAL;;PREFER;:/qt-project.org/imports/QtQml/Models/;RELATIVEPATH;QtQml/Models;TYPE;module;")
@@ -26,7 +26,8 @@ set(qml_import_scanner_import_23 "CLASSNAME;QtQuickLayoutsPlugin;LINKTARGET;Qt6:
 set(qml_import_scanner_import_24 "NAME;components;PATH;/home/danil/Documents/Clipboard/build/Clipboard/ui/History.qml/components;TYPE;directory;")
 set(qml_import_scanner_import_25 "NAME;components;PATH;/home/danil/Documents/Clipboard/build/Clipboard/ui/main.qml/components;TYPE;directory;")
 set(qml_import_scanner_import_26 "NAME;components;PATH;/home/danil/Documents/Clipboard/build/Clipboard/ui/Settings.qml/components;TYPE;directory;")
-set(qml_import_scanner_import_27 "NAME;components;PATH;/home/danil/Documents/Clipboard/ui/History.qml/components;TYPE;directory;")
-set(qml_import_scanner_import_28 "NAME;components;PATH;/home/danil/Documents/Clipboard/ui/main.qml/components;TYPE;directory;")
-set(qml_import_scanner_import_29 "NAME;components;PATH;/home/danil/Documents/Clipboard/ui/Settings.qml/components;TYPE;directory;")
+set(qml_import_scanner_import_27 "NAME;QtQuick.Effects;TYPE;module;")
+set(qml_import_scanner_import_28 "NAME;components;PATH;/home/danil/Documents/Clipboard/ui/History.qml/components;TYPE;directory;")
+set(qml_import_scanner_import_29 "NAME;components;PATH;/home/danil/Documents/Clipboard/ui/main.qml/components;TYPE;directory;")
+set(qml_import_scanner_import_30 "NAME;components;PATH;/home/danil/Documents/Clipboard/ui/Settings.qml/components;TYPE;directory;")
 

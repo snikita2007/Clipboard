@@ -36,12 +36,9 @@ public slots:
     void handleRemoteData(QVariantMap data);
 
 public:
-<<<<<<< HEAD
     explicit Backend(BluetoothServer *bluetooth, UdpServer *server, QObject *parent = nullptr);
-=======
-    explicit Backend(QObject *parent = nullptr);
->>>>>>> vibe-branch
     ~Backend();
+    
     Q_INVOKABLE void copyToClip(QVariant data); // Копирование в буфер из клиента
     void checkClipboardNative(); // Обновление буфера для мака
     bool isDublicate(const QString &hash);

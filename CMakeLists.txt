@@ -84,8 +84,6 @@ qt_add_qml_module(ClipboardApp
     NO_PLUGIN
     QML_FILES 
         ui/main.qml
-        ui/components/MyButton.qml
-        ui/components/TitleBar.qml
         ui/components/MobileBottomNav.qml
         ui/Settings.qml
         ui/History.qml

@@ -1,59 +1,29 @@
 #include "WindowEffects.h"
 #include <dwmapi.h>
 #include <QQuickWindow>
-#include <QGuiApplication>
-#include <QAbstractNativeEventFilter>
-#include <QCoreApplication>
-#include <QStyleHints>
 #include <windows.h>
 
-WindowEffects::WindowEffects(QObject *parent) : QObject(parent) {
-}
-
-class Win32RepaintFilter : public QAbstractNativeEventFilter {
-public:
-    bool nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result) override {
-        if (eventType != "windows_generic_MSG") return false;
-        MSG *msg = static_cast<MSG *>(message);
-        if (msg->message == WM_ERASEBKGND) {
-            *result = 1; 
-            return true; 
-        }
-        if (msg->message == WM_NCCALCSIZE) {
-            *result = 0;
-            return true;
-        }
-        return false;
-    }
-};
+WindowEffects::WindowEffects(QObject *parent) : QObject(parent) {}
 
 void WindowEffects::applyEffects(QObject *rootObject) {
-    QQuickWindow *window = qobject_cast<QQuickWindow *>(rootObject);
-    if (!window) return;
+    QQuickWindow *win = qobject_cast<QQuickWindow *>(rootObject);
+    if (!win) return;
+    HWND hwnd = reinterpret_cast<HWND>(win->winId());
 
-    HWND hwnd = reinterpret_cast<HWND>(window->winId());
-    if (hwnd) {
-        static Win32RepaintFilter filter;
-        static bool filterInstalled = false;
-        if (!filterInstalled) {
-            QCoreApplication::instance()->installNativeEventFilter(&filter);
-            filterInstalled = true;
+    SetClassLongPtr(hwnd, GCLP_HBRBACKGROUND, reinterpret_cast<LONG_PTR>(GetStockObject(NULL_BRUSH)));
+    SetWindowLong(hwnd, GWL_STYLE, (GetWindowLong(hwnd, GWL_STYLE) | WS_THICKFRAME | WS_CAPTION) & ~(WS_SYSMENU | WS_MAXIMIZEBOX | WS_MINIMIZEBOX));
+
+    int bdt = 2; DwmSetWindowAttribute(hwnd, 38, &bdt, sizeof(bdt));
+
+    static WNDPROC origProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(+[](HWND h, UINT m, WPARAM wp, LPARAM lp) -> LRESULT CALLBACK {
+        if (m == WM_ERASEBKGND) return 1; 
+        if (m == WM_NCCALCSIZE && wp) {
+            RECT* r = &reinterpret_cast<NCCALCSIZE_PARAMS*>(lp)->rgrc[0];
+            r->left += 8; r->right -= 8; r->bottom -= 8;
+            return 0;
         }
+        return CallWindowProc(origProc, h, m, wp, lp);
+    })));
 
-        int backdropType = 3; 
-        DwmSetWindowAttribute(hwnd, 38, &backdropType, sizeof(backdropType));
-
-        BOOL dark = (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark) ? TRUE : FALSE;
-        DwmSetWindowAttribute(hwnd, 20, &dark, sizeof(dark));   
-
-        int cornerPreference = 2; 
-        DwmSetWindowAttribute(hwnd, 33, &cornerPreference, sizeof(cornerPreference));
-
-        LONG style = GetWindowLong(hwnd, GWL_STYLE);
-        style |= (WS_CAPTION);
-        SetWindowLong(hwnd, GWL_STYLE, style);
-
-        window->showMinimized();
-        window->showNormal();
-    }
+    ShowWindow(hwnd, SW_MINIMIZE);
 }

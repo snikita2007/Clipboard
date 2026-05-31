@@ -8,10 +8,14 @@ ApplicationWindow {
     visible: false
     color: (Qt.platform.os === "android" ) ? palette.window : "transparent"
     width: 500
-    height: 400
+    height: 100
+    minimumWidth: width
+    minimumHeight: height
     background: null
 
-    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint
+    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool
+
+    property bool isPinned: false
 
     Native.SystemTrayIcon {
         id: trayIcon
@@ -31,7 +35,11 @@ ApplicationWindow {
         }
     }
 
-    onActiveChanged: { if (!active) root.softClose() }
+    onActiveChanged: { 
+        if (!active && !isPinned) {
+            root.softClose() 
+        }
+    }
 
     SwipeView {
         id: mainSwipe
@@ -43,8 +51,8 @@ ApplicationWindow {
 
         Component.onCompleted: {
             if (Qt.platform.os !== "android") {
-                if (mainSwipe.contentItem && mainSwipe.contentItem.contentXAnimator) {
-                    mainSwipe.contentItem.contentXAnimator.duration = 0
+                if (mainSwipe.contentItem) {
+                    mainSwipe.contentItem.highlightMoveDuration = 0
                 }
             }
         }
@@ -82,7 +90,16 @@ ApplicationWindow {
         }
     }
 
-    Shortcut { sequence: "Escape"; onActivated: root.softClose() }
+    Shortcut { 
+        sequence: "Escape"
+        onActivated: {
+            if (mainSwipe.currentItem.currentMode === "") {
+                root.softClose() 
+            } else {
+                mainSwipe.currentItem.resetMode()
+            }
+        }
+    }
 
     signal softClose()
     onSoftClose: closeAnimation.start()
@@ -108,6 +125,8 @@ ApplicationWindow {
         root.x = targetX
         root.y = targetY
         
+        mainSwipe.currentItem.resetMode()
+        historyPage.triggerWindowResize();
         openAnimation.start()
     }
     ParallelAnimation{
@@ -117,24 +136,36 @@ ApplicationWindow {
             root.show()
             root.raise()
             root.requestActivate()
+            historyPage.focusSearchInput()
         }
     }
 
     ParallelAnimation {
         id: smoothResize
-
-
+        
         NumberAnimation { target: root; property: "width"; duration: 250; easing.type: Easing.OutCubic }
         NumberAnimation { target: root; property: "height"; duration: 250; easing.type: Easing.OutCubic }
+        
+        onFinished: {
+            root.minimumWidth = root.width
+            root.maximumWidth = root.width
+            root.minimumHeight = root.height
+            root.maximumHeight = root.height
+        }
     }
+
     function updateWindowSize(tabIndex) {
         if (Qt.platform.os === "android") return;
-
         smoothResize.stop();
         
+        root.minimumWidth = 0;
+        root.maximumWidth = 9999;
+        root.minimumHeight = 0;
+        root.maximumHeight = 9999;
+
         if (tabIndex === 0) {
-            smoothResize.animations[0].to = 500; // width
-            smoothResize.animations[1].to = 400; // height
+            smoothResize.animations[0].to = 500;
+            smoothResize.animations[1].to = historyPage.getRequiredHeight();
         } else if (tabIndex === 1) {
             smoothResize.animations[0].to = 600;
             smoothResize.animations[1].to = 550;

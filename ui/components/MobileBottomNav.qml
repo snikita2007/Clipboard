@@ -141,7 +141,7 @@ Item {
                         
                         IconImage {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            source: "qrc:/ui/assets/android_history.svg"
+                            source: "qrc:/ui/assets/history.svg"
                             sourceSize.width: 25
                             sourceSize.height: 25
                             color: root.currentTab === 0 ? palette.windowText : palette.placeholderText
@@ -170,7 +170,7 @@ Item {
                         
                         IconImage {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            source: "qrc:/ui/assets/android_settings.svg"
+                            source: "qrc:/ui/assets/settings.svg"
                             sourceSize.width: 25
                             sourceSize.height: 25
                             color: root.currentTab === 1 ? palette.windowText : palette.placeholderText
@@ -212,7 +212,7 @@ Item {
 
             IconImage {
                 id: searchIcon
-                source: "qrc:/ui/assets/android_search.svg"
+                source: "qrc:/ui/assets/search.svg"
                 sourceSize.width: 20
                 sourceSize.height: 20
                 color: palette.windowText

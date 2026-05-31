@@ -1,10 +1,18 @@
 <RCC>
     <qresource prefix="/">
-        <file>ui/assets/android_history.svg</file>
-        <file>ui/assets/android_search.svg</file>
-        <file>ui/assets/android_settings.svg</file>
         <file>ui/assets/app.png</file>
         <file>ui/assets/search.svg</file>
         <file>ui/assets/text.svg</file>
+        <file>ui/assets/bluetooth.svg</file>
+        <file>ui/assets/more.svg</file>
+        <file>ui/assets/delete.svg</file>
+        <file>ui/assets/pin.svg</file>
+        <file>ui/assets/unpin.svg</file>
+        <file>ui/assets/history.svg</file>
+        <file>ui/assets/point.svg</file>
+        <file>ui/assets/clear.svg</file>
+        <file>ui/assets/settings.svg</file>
+        <file>ui/assets/tab.svg</file>
+        <file>ui/assets/back.svg</file>
     </qresource>
 </RCC>

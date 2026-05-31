@@ -1,7 +1,0 @@
-/home/danil/Documents/Clipboard/build/ClipboardApp_autogen/include/../FVSNT77ZGO/moc_NetworkManager.cpp.json
-/home/danil/Documents/Clipboard/build/ClipboardApp_autogen/include/../FVSNT77ZGO/moc_backend.cpp.json
-/home/danil/Documents/Clipboard/build/ClipboardApp_autogen/include/../FVSNT77ZGO/moc_bluetooth.cpp.json
-/home/danil/Documents/Clipboard/build/ClipboardApp_autogen/include/../FVSNT77ZGO/moc_bluetooth_client.cpp.json
-/home/danil/Documents/Clipboard/build/ClipboardApp_autogen/include/../FVSNT77ZGO/moc_ip.cpp.json
-/home/danil/Documents/Clipboard/build/ClipboardApp_autogen/include/../FVSNT77ZGO/moc_server.cpp.json
-/home/danil/Documents/Clipboard/build/ClipboardApp_autogen/include/../LXZCOWZB6T/moc_WindowEffects.cpp.json

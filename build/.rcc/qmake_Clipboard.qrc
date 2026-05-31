@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/Clipboard">
-    <file alias="qmldir">/home/danil/Documents/Clipboard/build/Clipboard/qmldir</file>
-  </qresource>
-</RCC>
-

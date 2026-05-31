@@ -18,17 +18,19 @@ endif()
 set(PROJECT_SOURCES 
     main.cpp 
     backend/window_effects/WindowEffects.h
-    backend/ip.cpp
-    backend/socket.cpp
+    backend/ble/ip.cpp
+    backend/ble/socket.cpp
     backend/backend.h
     backend/NetworkManager.cpp
     backend/NetworkManager.h
-    backend/server.h
-    backend/ip.h
-    backend/bluetooth.cpp
-    backend/bluetooth_client.cpp
-    backend/bluetooth_client.h
-    backend/bluetooth.h
+    backend/ble/server.h
+    backend/ble/ip.h
+    backend/ble/bluetooth.cpp
+    backend/ble/bluetooth_client.cpp
+    backend/ble/bluetooth_client.h
+    backend/ble/bluetooth.h
+    backend/ble/switch.h
+    backend/ble/switch.cpp
     backend/backend.h
     backend/backend.cpp
     backend/NetworkManager.h
@@ -42,6 +44,7 @@ qt_add_executable(ClipboardApp MACOSX_BUNDLE ${PROJECT_SOURCES}
 target_include_directories(ClipboardApp PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}/backend/window_effects
     ${CMAKE_CURRENT_SOURCE_DIR}/backend
+    ${CMAKE_CURRENT_SOURCE_DIR}/backend/ble
 )
 
 if(ANDROID)

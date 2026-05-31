@@ -17,8 +17,10 @@
 #include <QDateTime>
 #include <QCryptographicHash>
 #include "server.h"
+#include "switch.h"
 #include "bluetooth.h"
 #include "NetworkManager.h"
+#include "bluetooth_client.h"
 
 #include <QCursor>
 
@@ -36,9 +38,9 @@ public slots:
     void handleRemoteData(QVariantMap data);
 
 public:
-    explicit Backend(BluetoothServer *bluetooth, UdpServer *server, QObject *parent = nullptr);
+    explicit Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient *cli, NetworkSwitch *m_networkSwitch , QObject *parent = nullptr);
     ~Backend();
-    
+
     Q_INVOKABLE void copyToClip(QVariant data); // Копирование в буфер из клиента
     void checkClipboardNative(); // Обновление буфера для мака
     bool isDublicate(const QString &hash);

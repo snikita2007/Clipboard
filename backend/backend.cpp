@@ -1,9 +1,10 @@
 #include "backend.h"
 #include "server.h"
 #include "bluetooth.h"
+#include "switch.h"
 #include "bluetooth_client.h"
 
-Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient *cli , QObject *parent) : QObject(parent){
+Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient *cli, NetworkSwitch *m_networkSwitch , QObject *parent) : QObject(parent){
     QString tempPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
     m_cacheDir = tempPath + "/ClipboardHistory_Cache";
     QDir().mkpath(m_cacheDir);
@@ -14,18 +15,40 @@ Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient 
     // m_network = new NetworkManager(this);
     // connect(m_network, &NetworkManager::dataReceived, this, &Backend::handleRemoteData);
 
-    QObject::connect(this, &Backend::itemAdded, [bluetooth, server, cli](const QVariant &item) {
+    connect(this, &Backend::itemAdded, [bluetooth, server, cli, m_networkSwitch](const QVariant &item) {
         QVariantMap map = item.toMap();
-        server->sayHello(map);
+        QString text = map["text"].toString();
 
-        if (cli->isConnected()) { 
-            cli->sendMessage("TEST");
-        } 
+        if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Wifi) {
+            
+            server->sayHello(map);
+            qDebug() << "TCP SEND";
 
-        else if (bluetooth->hasActiveConnections()) {
-            bluetooth->sendMessage("TEST");
+        } else if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Bluetooth) {
+            
+            if (cli && cli->isConnected()) {
+                cli->sendMessage(text);
+            } else if (bluetooth && bluetooth->hasActiveConnections()) {
+                bluetooth->sendMessage(text);
+            }
+            qDebug() << "Bluetooth SEND";
+            
         }
     });
+
+
+    // QObject::connect(this, &Backend::itemAdded, [bluetooth, server, cli](const QVariant &item) {
+    //     QVariantMap map = item.toMap();
+    //     server->sayHello(map);
+
+    //     if (cli->isConnected()) { 
+    //         cli->sendMessage("TEST");
+    //     } 
+
+    //     else if (bluetooth->hasActiveConnections()) {
+    //         bluetooth->sendMessage("TEST");
+    //     }
+    // });
     // m_network = new NetworkManager(this);
     // connect(m_network, &NetworkManager::dataReceived, this, &Backend::handleRemoteData);
 

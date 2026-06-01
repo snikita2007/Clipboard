@@ -5,12 +5,15 @@ import "components"
 
 ApplicationWindow {
     id: root
-    visible: false
+    visible: Qt.platform.os === "android" 
     color: (Qt.platform.os === "android" ) ? palette.window : "transparent"
-    width: 500
-    height: 100
+
+    width: Screen.width
+    height: Screen.height
     minimumWidth: width
-    minimumHeight: height
+    minimumHeight: height 
+    maximumWidth: width 
+    maximumHeight: height
     background: null
 
     flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool

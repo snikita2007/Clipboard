@@ -10,14 +10,13 @@
 NetworkScanner::NetworkScanner(QObject *parent) : QObject(parent) {
     udpSocket = new QUdpSocket(this);
     timer = new QTimer(this);
-
     connect(timer, &QTimer::timeout, this, &NetworkScanner::sendDiscoveryRequest);
     connect(udpSocket, &QUdpSocket::readyRead, this, &NetworkScanner::readPendingDatagrams);
 }
-    
+
 QHostAddress NetworkScanner::GetIps() {
     const QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
-    
+
     for (const QNetworkInterface &iface : interfaces) {
         if (!iface.flags().testFlag(QNetworkInterface::IsUp) || iface.flags().testFlag(QNetworkInterface::IsLoopBack)) continue;
 
@@ -75,7 +74,7 @@ void NetworkScanner::readPendingDatagrams() {
 
         else if (datagram.startsWith("H:")) {
             QByteArray rHash = datagram.mid(2);
-            
+
             QByteArray myHash = QCryptographicHash::hash("2357", QCryptographicHash::Sha256).toHex();
 
             if (rHash == myHash) { 
@@ -101,7 +100,9 @@ void NetworkScanner::readPendingDatagrams() {
                 }
 
                 qDebug() << "NONE";
-                emit devicesUpdated(devicesList);
+                QVariantList FOUNDDEVICES = devicesList;
+
+                emit devicesUpdated(FOUNDDEVICES);
             }
         }
 

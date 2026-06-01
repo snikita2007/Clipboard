@@ -61,15 +61,18 @@ int main(int argc, char *argv[]) {
     // cli.startDiscovery();
 
     QObject::connect(&scanner, &NetworkScanner::devicesUpdated, &server, &UdpServer::updateIps);
-    
+
     QQmlApplicationEngine engine;
     WindowEffects windowEffects;
     Backend backend(&bluetooth,&server,&cli,&networkSwitch);
- 
+
     // Регистрируем объекты в QML контексте
     // ВАЖНО: используйте маленькую букву "backend", если в QML обращаетесь к ней так
     WindowEffects WindowEffects_linux;
-   
+
+    engine.rootContext()->setContextProperty("networkSwitch", &networkSwitch);
+    engine.rootContext()->setContextProperty("networkScanner", &scanner);
+    engine.rootContext()->setContextProperty("bluetoothClient", &cli);
     engine.rootContext()->setContextProperty("windowEffects", &windowEffects);
     engine.rootContext()->setContextProperty("backend", &backend);
 

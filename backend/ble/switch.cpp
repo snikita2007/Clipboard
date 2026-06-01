@@ -18,6 +18,23 @@ NetworkSwitch::NetworkSwitch(UdpServer *udp, BluetoothServer *btServer, Bluetoot
     });
 }
 
+QString NetworkSwitch::toggleMode() {
+    if (m_currentMode == TransportMode::Wifi) {
+        setMode(TransportMode::Bluetooth);
+        emit modeChanged("Bluetooth");
+        return "Bluetooth";
+    } else {
+        setMode(TransportMode::Wifi);
+        emit modeChanged("Wifi");
+        return "Wifi";
+    }
+}
+
+QString NetworkSwitch::currentModeString() {
+    if (m_currentMode == TransportMode::Bluetooth) return "Bluetooth";
+    return "Wifi";
+}
+
 void NetworkSwitch::setMode(TransportMode mode) {
     if (m_currentMode == mode) return;
     m_currentMode = mode;
@@ -36,5 +53,5 @@ void NetworkSwitch::setMode(TransportMode mode) {
         if (m_btClient) m_btClient->startDiscovery();
     }
 
-    emit modeChanged(m_currentMode);
+    emit modeChanged(m_currentMode == TransportMode::Wifi ? "Wifi" : "Bluetooth");
 }

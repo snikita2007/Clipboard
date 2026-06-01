@@ -36,7 +36,6 @@ Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient 
         }
     });
 
-
     // QObject::connect(this, &Backend::itemAdded, [bluetooth, server, cli](const QVariant &item) {
     //     QVariantMap map = item.toMap();
     //     server->sayHello(map);

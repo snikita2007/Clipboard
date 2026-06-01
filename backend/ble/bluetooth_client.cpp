@@ -52,7 +52,6 @@ bool BluetoothClient::isConnected() {
     return false;
 }
 
-
 void BluetoothClient::connectToDevice(const QString &addressStr) {
     if (socket) return;
 

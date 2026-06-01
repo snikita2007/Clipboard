@@ -10,13 +10,14 @@ public:
     enum TransportMode { Wifi, Bluetooth, None };
 
     NetworkSwitch(UdpServer *udp, BluetoothServer *btServer, BluetoothClient *btClient, QObject *parent = nullptr);
-
     TransportMode currentMode() const { return m_currentMode; }
 
+    Q_INVOKABLE QString toggleMode();
+    Q_INVOKABLE QString currentModeString();
     void setMode(TransportMode mode); 
 
 signals:
-    void modeChanged(TransportMode newMode);
+    void modeChanged(QString newMode);
 
 private:
     UdpServer *m_udp;

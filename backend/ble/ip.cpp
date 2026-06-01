@@ -82,7 +82,7 @@ void NetworkScanner::readPendingDatagrams() {
                 udpSocket->writeDatagram("CONNECTED_OK", senderIp, m_port);
                 qDebug() << ip;
                 
-                Selector = senderIp; 
+                Selector = senderIp;  
             }
         }
         else if (datagram == "HERE") {
@@ -100,6 +100,7 @@ void NetworkScanner::readPendingDatagrams() {
                     devicesList.append(deviceDictionary);
                 }
 
+                qDebug() << "NONE";
                 emit devicesUpdated(devicesList);
             }
         }

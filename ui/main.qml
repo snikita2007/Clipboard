@@ -106,7 +106,7 @@ ApplicationWindow {
     ParallelAnimation {
         id: closeAnimation
         NumberAnimation { target: root; property: "opacity"; to: 0; duration: 150; easing.type: Easing.OutCubic }
-        onFinished: {
+        onStopped: {
             root.hide()
         }
     }
@@ -146,7 +146,7 @@ ApplicationWindow {
         NumberAnimation { target: root; property: "width"; duration: 250; easing.type: Easing.OutCubic }
         NumberAnimation { target: root; property: "height"; duration: 250; easing.type: Easing.OutCubic }
         
-        onFinished: {
+        onStopped: {
             root.minimumWidth = root.width
             root.maximumWidth = root.width
             root.minimumHeight = root.height

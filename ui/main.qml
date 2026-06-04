@@ -66,6 +66,12 @@ ApplicationWindow {
 
         Settings {
             id: settingsPage
+            onNavigate: (page) => {
+                if (page === "History.qml") {
+                    bottomNav.currentTab = 0
+                    root.updateWindowSize(0)
+                }
+            }
         }
     
         onCurrentIndexChanged: {
@@ -170,8 +176,8 @@ ApplicationWindow {
             smoothResize.animations[0].to = 500;
             smoothResize.animations[1].to = historyPage.getRequiredHeight();
         } else if (tabIndex === 1) {
-            smoothResize.animations[0].to = 600;
-            smoothResize.animations[1].to = 550;
+            smoothResize.animations[0].to = 820;
+            smoothResize.animations[1].to = 640;
         }
         
         smoothResize.start();

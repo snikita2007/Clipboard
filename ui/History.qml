@@ -103,6 +103,7 @@ Page{
                     font.weight: Font.DemiBold 
                     padding: 0
                     leftPadding: 10
+                    verticalAlignment: Text.AlignVCenter
                 }
 
                 TextField {

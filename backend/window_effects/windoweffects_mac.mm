@@ -16,7 +16,7 @@ void WindowEffects::applyEffects(QObject *rootObject) {
     NSWindow *nativeWindow = [nativeView window];
     int glassId = AddGlassEffectView(nativeView, false);
     if (glassId != -1) {
-        ConfigureGlassView(glassId, 30.0, 0.0, 0.0, 0.0, 0.0);
+        ConfigureGlassView(glassId, 28.0, 0.0, 0.0, 0.0, 0.0);
     }
     [NSApp setActivationPolicy:NSApplicationActivationPolicyAccessory];
 }

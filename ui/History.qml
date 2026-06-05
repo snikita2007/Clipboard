@@ -103,6 +103,7 @@ Page{
                     font.weight: Font.DemiBold 
                     padding: 0
                     leftPadding: 10
+                    verticalAlignment: Text.AlignVCenter
                 }
 
                 TextField {
@@ -486,7 +487,7 @@ Page{
                 horizontalAlignment: Text.AlignHCenter
                 anchors.centerIn: filterList
                 color: palette.placeholderText
-                visible: filteredClipList.count === 0 && topBar.state === "searchmode"
+                visible: filteredClipList.count === 0 && (topBar.state === "searchmode" || Qt.platform.os === "android")
             }
         }
 

@@ -11,9 +11,12 @@
 
 struct GlassContext {
     NSView* glassView;       // The visual effect view
+    NSView* effectContainerView; // Clips the effect to the requested Qt/window frame
     NSBox* backgroundView;   // The optional opaque backing layer
     NSView* hostView;        // The Qt Native View we attached to
     NSView* containerView;   // The parent we injected into (NSThemeFrame for root windows)
+    NSObject* frameObserver; // Keeps glass geometry valid while Qt animates window size
+    double requestedCornerRadius;
     int id;
 };
 
@@ -22,6 +25,7 @@ static int g_nextViewId = 1; // Start at 1
 
 // Keys for objc-associated objects (to find ID from View)
 static const void *kGlassContextIdKey = &kGlassContextIdKey;
+static const CGFloat kMinGlassEffectHeight = 160.0;
 
 #define RUN_ON_MAIN(block)                                  \
   if ([NSThread isMainThread]) {                            \
@@ -33,6 +37,71 @@ static const void *kGlassContextIdKey = &kGlassContextIdKey;
 // -----------------------------------------------------------------------------
 // Implementation
 // -----------------------------------------------------------------------------
+
+static NSRect FrameForGlassContext(const GlassContext& ctx) {
+    if (!ctx.hostView || !ctx.containerView) return NSZeroRect;
+
+    if (ctx.containerView == ctx.hostView) {
+        return [ctx.hostView bounds];
+    }
+
+    if ([ctx.hostView superview] == ctx.containerView) {
+        return [ctx.hostView frame];
+    }
+
+    return [ctx.containerView bounds];
+}
+
+static void ApplyCornerRadiusToView(NSView *view, double cornerRadius) {
+    if (!view) return;
+
+    SEL setCR = sel_registerName("setCornerRadius:");
+    if ([view respondsToSelector:setCR]) {
+        ((void (*)(id, SEL, double))objc_msgSend)(view, setCR, cornerRadius);
+    } else {
+        view.layer.cornerRadius = cornerRadius;
+        view.layer.masksToBounds = (cornerRadius > 0);
+    }
+}
+
+static double VisibleCornerRadius(NSRect frame, double requestedRadius) {
+    if (requestedRadius <= 0.0) return 0.0;
+
+    double minSide = MIN(NSWidth(frame), NSHeight(frame));
+    if (minSide <= 0.0) return 0.0;
+
+    return MIN(requestedRadius, minSide * 0.5);
+}
+
+static void SyncGlassGeometryAndRadius(GlassContext& ctx) {
+    NSRect frame = FrameForGlassContext(ctx);
+    NSRect clippedBounds = NSMakeRect(0, 0, NSWidth(frame), NSHeight(frame));
+    NSRect glassFrame = clippedBounds;
+    glassFrame.size.height = MAX(NSHeight(clippedBounds), kMinGlassEffectHeight);
+    glassFrame.origin.y = (NSHeight(clippedBounds) - NSHeight(glassFrame)) * 0.5;
+    double visibleCornerRadius = VisibleCornerRadius(frame, ctx.requestedCornerRadius);
+
+    if (ctx.effectContainerView) {
+        [ctx.effectContainerView setFrame:frame];
+        ctx.effectContainerView.layer.cornerRadius = visibleCornerRadius;
+        ctx.effectContainerView.layer.masksToBounds = (visibleCornerRadius > 0);
+    }
+    if (ctx.glassView) {
+        [ctx.glassView setFrame:glassFrame];
+    }
+    if (ctx.backgroundView) {
+        [ctx.backgroundView setFrame:clippedBounds];
+    }
+
+    // The visible rounded shape belongs to the clipping wrapper. Keeping a
+    // radius on the taller inner glass view makes its clipped sides bulge.
+    ApplyCornerRadiusToView(ctx.glassView, 0.0);
+
+    if (ctx.backgroundView) {
+        ctx.backgroundView.layer.cornerRadius = 0.0;
+        ctx.backgroundView.layer.masksToBounds = NO;
+    }
+}
 
 // Injects an NSGlassEffectView (or NSVisualEffectView fallback) behind the
 // given native view. Handles root windows (sibling injection into NSThemeFrame),
@@ -97,10 +166,15 @@ extern "C" {
           frameRect = [container bounds];
       }
 
+      NSView *effectContainer = [[NSView alloc] initWithFrame:frameRect];
+      effectContainer.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+      effectContainer.wantsLayer = YES;
+      effectContainer.layer.masksToBounds = YES;
+
       // Optional opaque backing layer
       NSBox *backgroundView = nil;
       if (opaque) {
-          backgroundView = [[NSBox alloc] initWithFrame:frameRect];
+          backgroundView = [[NSBox alloc] initWithFrame:[effectContainer bounds]];
           backgroundView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
           backgroundView.boxType = NSBoxCustom;
           backgroundView.borderType = NSNoBorder;
@@ -110,34 +184,34 @@ extern "C" {
 
       NSView *glass = nil;
       Class glassCls = NSClassFromString(@"NSGlassEffectView");
+      NSRect glassFrame = [effectContainer bounds];
+      glassFrame.size.height = MAX(NSHeight(glassFrame), kMinGlassEffectHeight);
+      glassFrame.origin.y = (NSHeight([effectContainer bounds]) - NSHeight(glassFrame)) * 0.5;
       if (glassCls) {
-          glass = [[glassCls alloc] initWithFrame:frameRect];
+          glass = [[glassCls alloc] initWithFrame:glassFrame];
       } else {
           // Fallback to NSVisualEffectView on older macOS
-          NSVisualEffectView *visual = [[NSVisualEffectView alloc] initWithFrame:frameRect];
+          NSVisualEffectView *visual = [[NSVisualEffectView alloc] initWithFrame:glassFrame];
           visual.blendingMode = NSVisualEffectBlendingModeBehindWindow;
           visual.material = NSVisualEffectMaterialUnderWindowBackground;
           visual.state = NSVisualEffectStateActive;
           glass = visual;
       }
-      glass.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+      glass.autoresizingMask = NSViewWidthSizable;
       glass.wantsLayer = YES;
+
+      if (backgroundView) {
+          [effectContainer addSubview:backgroundView positioned:NSWindowBelow relativeTo:nil];
+          [effectContainer addSubview:glass positioned:NSWindowAbove relativeTo:backgroundView];
+      } else {
+          [effectContainer addSubview:glass];
+      }
 
       // Subview order: [Background] -> [Glass] -> [Qt Content]
       if (container == rootView) {
-          if (backgroundView) {
-              [container addSubview:backgroundView positioned:NSWindowBelow relativeTo:nil];
-              [container addSubview:glass positioned:NSWindowAbove relativeTo:backgroundView];
-          } else {
-              [container addSubview:glass positioned:NSWindowBelow relativeTo:nil];
-          }
+          [container addSubview:effectContainer positioned:NSWindowBelow relativeTo:nil];
       } else {
-          if (backgroundView) {
-              [container addSubview:backgroundView positioned:NSWindowBelow relativeTo:rootView];
-              [container addSubview:glass positioned:NSWindowAbove relativeTo:backgroundView];
-          } else {
-              [container addSubview:glass positioned:NSWindowBelow relativeTo:rootView];
-          }
+          [container addSubview:effectContainer positioned:NSWindowBelow relativeTo:rootView];
       }
 
       // Register context and associate the ID with the host view
@@ -145,12 +219,36 @@ extern "C" {
       GlassContext ctx;
       ctx.id = id;
       ctx.glassView = glass;
+      ctx.effectContainerView = effectContainer;
       ctx.backgroundView = backgroundView;
       ctx.hostView = rootView;
       ctx.containerView = container;
+      ctx.frameObserver = nil;
+      ctx.requestedCornerRadius = 0.0;
 
       g_registry[id] = ctx;
       objc_setAssociatedObject(rootView, kGlassContextIdKey, @(id), OBJC_ASSOCIATION_RETAIN);
+
+      [rootView setPostsFrameChangedNotifications:YES];
+      [container setPostsFrameChangedNotifications:YES];
+
+      __block int observerId = id;
+      NSObject *observer = [[NSNotificationCenter defaultCenter]
+          addObserverForName:NSViewFrameDidChangeNotification
+                      object:nil
+                       queue:[NSOperationQueue mainQueue]
+                  usingBlock:^(NSNotification *note) {
+                      auto it = g_registry.find(observerId);
+                      if (it == g_registry.end()) return;
+
+                      GlassContext& observedCtx = it->second;
+                      NSView *changedView = (NSView *)[note object];
+                      if (changedView == observedCtx.hostView || changedView == observedCtx.containerView) {
+                          SyncGlassGeometryAndRadius(observedCtx);
+                      }
+                  }];
+
+      g_registry[id].frameObserver = observer;
       
       resultId = id;
     });
@@ -166,16 +264,10 @@ extern "C" {
       auto it = g_registry.find(viewId);
       if (it == g_registry.end()) return;
       GlassContext& ctx = it->second;
+      ctx.requestedCornerRadius = cornerRadius;
 
       if (ctx.glassView) {
-          // NSGlassEffectView has its own setCornerRadius: (default 8.0)
-          SEL setCR = sel_registerName("setCornerRadius:");
-          if ([ctx.glassView respondsToSelector:setCR]) {
-              ((void (*)(id, SEL, double))objc_msgSend)(ctx.glassView, setCR, cornerRadius);
-          } else {
-              ctx.glassView.layer.cornerRadius = cornerRadius;
-              ctx.glassView.layer.masksToBounds = (cornerRadius > 0);
-          }
+          SyncGlassGeometryAndRadius(ctx);
 
           // Tint: use native setTintColor: if available, otherwise layer bg
           NSColor* c = [NSColor colorWithRed:r green:g blue:b alpha:a];
@@ -184,20 +276,6 @@ extern "C" {
           } else if (c) {
               ctx.glassView.layer.backgroundColor = c.CGColor;
           }
-      }
-
-      // Sync corner radius on the opaque backing layer
-      if (ctx.backgroundView) {
-          ctx.backgroundView.layer.cornerRadius = cornerRadius;
-          ctx.backgroundView.layer.masksToBounds = (cornerRadius > 0);
-      }
-
-      // Round the container (NSThemeFrame) so its rectangular background
-      // doesn't bleed through behind transparent glass materials
-      if (ctx.containerView && ctx.containerView != ctx.hostView) {
-          ctx.containerView.wantsLayer = YES;
-          ctx.containerView.layer.cornerRadius = cornerRadius;
-          ctx.containerView.layer.masksToBounds = (cornerRadius > 0);
       }
 
     });
@@ -212,8 +290,8 @@ extern "C" void RemoveGlassEffectView(int viewId) {
     GlassContext& ctx = it->second;
 
     // Detach views and clear the associated object on the host
-    if (ctx.glassView) [ctx.glassView removeFromSuperview];
-    if (ctx.backgroundView) [ctx.backgroundView removeFromSuperview];
+    if (ctx.frameObserver) [[NSNotificationCenter defaultCenter] removeObserver:ctx.frameObserver];
+    if (ctx.effectContainerView) [ctx.effectContainerView removeFromSuperview];
     if (ctx.hostView) {
         objc_setAssociatedObject(ctx.hostView, kGlassContextIdKey, nil, OBJC_ASSOCIATION_ASSIGN);
     }
@@ -358,4 +436,3 @@ extern "C" void SetGlassViewInteractionState(int viewId, int state) {
 }
 
 #endif // PLATFORM_OSX
-

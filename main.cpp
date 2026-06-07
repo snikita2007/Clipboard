@@ -18,6 +18,7 @@ int main(int argc, char *argv[]) {
         qputenv("QT_QUICK_CONTROLS_STYLE", "macOS");
     #elif defined(Q_OS_ANDROID)
         qputenv("QT_QUICK_CONTROLS_STYLE", "Material");
+        qputenv("QT_QUICK_CONTROLS_MATERIAL_ACCENT", "#333333");
     #else
         qputenv("QT_QUICK_CONTROLS_STYLE", "Imagine");
     #endif

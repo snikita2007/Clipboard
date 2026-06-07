@@ -118,18 +118,6 @@ Page{
                     font.weight: Font.DemiBold 
                     padding: 0
                     leftPadding: 10
-                    cursorDelegate: Item {
-                        width: 2
-                        height: searchInput.height 
-
-                        Rectangle {
-                            width: 2 
-                            height: searchInput.font.pixelSize
-                            anchors.verticalCenter: parent.verticalCenter
-                            color: palette.windowText 
-                            visible: searchInput.cursorVisible
-                        }
-                    }
 
                     onActiveFocusChanged: searchInput.forceActiveFocus()
 
@@ -193,18 +181,9 @@ Page{
             opacity: 0.2
         }
 
-        Frame {
+        Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            padding: 0
-            topPadding: 0
-            bottomPadding: 0
-            leftPadding: 0
-            rightPadding: 0
-            background: Rectangle {
-                color: Qt.rgba(1, 1, 1, 0)
-                radius: 12
-            }
 
             ListModel {
                 id: filteredClipList
@@ -221,12 +200,14 @@ Page{
 
                 onCountChanged: historyPage.triggerWindowResize()
 
-                delegate: Button {
+                delegate: AbstractButton {
                     id: historyDelegate
                     width: historyList.width  
                     height: 60
                     clip: true
-                    highlighted: ListView.isCurrentItem
+
+                    property bool highlighted: ListView.isCurrentItem
+
                     function triggerAction() { historyDelegate.clicked(); }
 
                     background: Rectangle{
@@ -296,13 +277,13 @@ Page{
 
                 model: ListModel { id: clipList }
 
-                delegate: Button {
+                delegate: AbstractButton {
                     id: delegateLoader
                     width: historyList.width  
                     height: 60
                     clip: true
 
-                    highlighted: ListView.isCurrentItem
+                    property bool highlighted: ListView.isCurrentItem
                     function triggerAction() { delegateLoader.clicked(); }
 
                     background: Rectangle{
@@ -383,12 +364,12 @@ Page{
                     ListElement { name: "Close app"; action: "quit"; img: "qrc:/ui/assets/tab.svg"; key: "Q" }
                 }
 
-                delegate: Button {
+                delegate: AbstractButton {
                     id: actionControl
                     width: actionsList.width
                     height: 50
 
-                    highlighted: ListView.isCurrentItem
+                    property bool highlighted: ListView.isCurrentItem
                     function triggerAction() { actionControl.clicked(); }
 
                     background: Rectangle {
@@ -472,7 +453,6 @@ Page{
                             topBar.state = ""
                         } else if (model.action === "settings") {
                             bottomNav.currentTab = 1
-                            topBar.state = ""
                         } else if (model.action === "quit") {
                             Qt.quit()
                         }
@@ -508,7 +488,7 @@ Page{
             Layout.margins: 0
             Layout.alignment: Qt.AlignBottom 
 
-            Button {
+            AbstractButton {
                 id: settingsButton
                 hoverEnabled: true
                 padding: 4
@@ -521,7 +501,6 @@ Page{
                 
                 onClicked: {
                     bottomNav.currentTab = 1
-                    topBar.state = ""
                 }
 
                 contentItem: RowLayout {
@@ -550,7 +529,7 @@ Page{
                 Layout.fillWidth: true
             }
 
-            Button {
+            AbstractButton {
                 id: actionsButton
                 hoverEnabled: true
                 padding: 4

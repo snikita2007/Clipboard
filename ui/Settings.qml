@@ -49,19 +49,19 @@ Page {
         ListElement { title: "About"; description: "Version, updates, and application information"; icon: "qrc:/ui/assets/info.svg" }
     }
 
-    component CategoryButton: Button {
+    component CategoryButton: AbstractButton {
         id: categoryButton
 
         required property int itemIndex
         required property string title
         required property string description
         required property string iconSource
+        property bool highlighted: settingsPage.selectedIndex === itemIndex
 
         width: parent ? parent.width : implicitWidth
         height: settingsPage.isAndroid ? 64 : 54
         padding: 0
         hoverEnabled: !settingsPage.isAndroid
-        highlighted: settingsPage.selectedIndex === itemIndex
 
         background: Rectangle {
             color: categoryButton.down ? settingsPage.pressColor
@@ -225,9 +225,74 @@ Page {
             }
 
             ComboBox {
+                id: comboControl
                 Layout.preferredWidth: settingsPage.isAndroid ? 132 : 150
+                Layout.alignment: Qt.AlignVCenter
                 model: choiceRow.values
                 currentIndex: choiceRow.currentIndex
+
+                delegate: Qt.platform.os === "osx" ? macDelegateComponent : null
+
+                Component.onCompleted: {
+                    if (Qt.platform.os === "osx") {
+                        popup = macPopupComponent.createObject(comboControl)
+                    }
+                }
+            }
+        }
+
+        Component {
+            id: macDelegateComponent
+            ItemDelegate {
+                id: itemMenu
+                width: ListView.view.width
+                height: 24 
+                required property var modelData
+
+                contentItem: Text {
+                    text: modelData
+                    color: (itemMenu.hovered || itemMenu.highlighted) ? "#FFFFFF" : palette.windowText
+                    font.pixelSize: 13
+                    font.family: ".AppleSystemUIFont"
+                    verticalAlignment: Text.AlignVCenter
+                    leftPadding: 8
+                    elide: Text.ElideRight
+                }
+
+                background: Rectangle {
+                    radius: 4
+                    color: (itemMenu.hovered || itemMenu.highlighted) ? "#007AFF" : "transparent"
+                }
+            }
+        }
+
+        Component {
+            id: macPopupComponent
+            Popup {
+                id: comboPopup
+                y: - (padding + comboControl.currentIndex * 24)
+                x: 0
+                
+                width: comboControl.width
+                implicitHeight: contentItem.implicitHeight + (topPadding + bottomPadding)
+                padding: 4
+
+                contentItem: ListView {
+                    clip: true
+                    implicitHeight: contentHeight
+                    model: comboControl.delegateModel
+                    currentIndex: comboControl.highlightedIndex
+                    boundsBehavior: Flickable.StopAtBounds
+
+                    ScrollIndicator.vertical: ScrollIndicator { }
+                }
+
+                background: Rectangle {
+                    color: palette.window 
+                    border.color: settingsPage.borderColor
+                    border.width: 1
+                    radius: 6
+                }
             }
         }
     }
@@ -280,6 +345,211 @@ Page {
                 font.pixelSize: 12
                 color: palette.placeholderText
                 wrapMode: Text.WordWrap
+            }
+        }
+    }
+
+    ColumnLayout {
+        anchors.fill: parent
+        anchors.margins: settingsPage.isAndroid ? 14 : 12
+        spacing: settingsPage.isAndroid ? 12 : 10
+
+        RowLayout {
+            visible: !settingsPage.isAndroid
+            Layout.fillWidth: true
+            Layout.preferredHeight: 34
+            spacing: 8
+
+            Button {
+                id: backButton
+                padding: 6
+                hoverEnabled: true
+
+                background: Rectangle {
+                    color: backButton.down ? settingsPage.pressColor : (backButton.hovered ? settingsPage.hoverColor : "transparent")
+                    radius: Qt.platform.os === "windows" ? 4 : 8
+                }
+
+                contentItem: RowLayout {
+                    spacing: 6
+
+                    IconImage {
+                        Layout.preferredWidth: 16
+                        Layout.preferredHeight: 16
+                        sourceSize.width: 16
+                        sourceSize.height: 16
+                        source: "qrc:/ui/assets/back.svg"
+                        color: palette.windowText
+                    }
+
+                    Text {
+                        text: "Back"
+                        font.pixelSize: 13
+                        font.weight: Font.Medium
+                        color: palette.windowText
+                    }
+                }
+
+                onClicked: {
+                    settingsPage.navigate("History.qml")
+                }
+            }
+
+            Text {
+                Layout.fillWidth: true
+                text: "Settings"
+                font.pixelSize: 20
+                font.weight: Font.DemiBold
+                color: palette.windowText
+                horizontalAlignment: Text.AlignHCenter
+                elide: Text.ElideRight
+            }
+
+            Item {
+                Layout.preferredWidth: backButton.implicitWidth
+            }
+        }
+
+        Loader {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            sourceComponent: settingsPage.isAndroid ? mobileSettingsComponent : desktopSettingsComponent
+        }
+    }
+
+    Component {
+        id: desktopSettingsComponent
+
+        RowLayout {
+            spacing: 14
+
+            Rectangle {
+                Layout.preferredWidth: 190
+                Layout.fillHeight: true
+                color: "transparent"
+                border.color: settingsPage.borderColor
+                border.width: 1
+                radius: Qt.platform.os === "windows" ? 4 : 12
+
+                ListView {
+                    anchors.fill: parent
+                    anchors.margins: 6
+                    spacing: 4
+                    clip: true
+                    boundsBehavior: Flickable.StopAtBounds
+                    model: settingsModel
+
+                    delegate: CategoryButton {
+                        required property int index
+
+                        itemIndex: index
+                        title: settingsPage.categoryTitle(index)
+                        description: settingsPage.categoryDescription(index)
+                        iconSource: settingsPage.categoryIcon(index)
+                    }
+                }
+            }
+
+            Rectangle {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                color: "transparent"
+                border.color: settingsPage.borderColor
+                border.width: 1
+                radius: Qt.platform.os === "windows" ? 4 : 12
+
+                SettingsContent {
+                    anchors.fill: parent
+                    anchors.margins: 18
+                }
+            }
+        }
+    }
+
+    Component {
+        id: mobileSettingsComponent
+
+        Item {
+            clip: true
+
+            ListView {
+                id: mobileList
+                anchors.fill: parent
+                visible: !settingsPage.mobileDetailOpen
+                spacing: 8
+                clip: true
+                bottomMargin: 84
+                boundsBehavior: Flickable.DragAndOvershootBounds
+                model: settingsModel
+
+                header: Text {
+                    width: mobileList.width
+                    height: 44
+                    text: "Settings"
+                    font.pixelSize: 24
+                    font.weight: Font.DemiBold
+                    color: palette.windowText
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
+
+                delegate: CategoryButton {
+                    required property int index
+
+                    itemIndex: index
+                    title: settingsPage.categoryTitle(index)
+                    description: settingsPage.categoryDescription(index)
+                    iconSource: settingsPage.categoryIcon(index)
+                }
+            }
+
+            ColumnLayout {
+                anchors.fill: parent
+                visible: settingsPage.mobileDetailOpen
+                spacing: 10
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 44
+                    spacing: 10
+
+                    Button {
+                        id: mobileBackButton
+                        Layout.preferredWidth: 40
+                        Layout.preferredHeight: 40
+                        padding: 0
+
+                        background: Rectangle {
+                            color: mobileBackButton.down ? settingsPage.pressColor : "transparent"
+                            radius: 20
+                        }
+
+                        contentItem: IconImage {
+                            source: "qrc:/ui/assets/back.svg"
+                            sourceSize.width: 22
+                            sourceSize.height: 22
+                            color: palette.windowText
+                            smooth: true
+                            mipmap: true
+                        }
+
+                        onClicked: settingsPage.resetMode()
+                    }
+
+                    Text {
+                        Layout.fillWidth: true
+                        text: settingsPage.categoryTitle(settingsPage.selectedIndex)
+                        font.pixelSize: 22
+                        font.weight: Font.DemiBold
+                        color: palette.windowText
+                        elide: Text.ElideRight
+                    }
+                }
+
+                SettingsContent {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                }
             }
         }
     }

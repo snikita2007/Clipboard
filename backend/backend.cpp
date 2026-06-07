@@ -14,7 +14,7 @@ Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient 
 
     // m_network = new NetworkManager(this);
     // connect(m_network, &NetworkManager::dataReceived, this, &Backend::handleRemoteData);
-
+    
     connect(this, &Backend::itemAdded, [bluetooth, cli, m_networkSwitch](const QVariant &item) {
         QVariantMap map = item.toMap();
         

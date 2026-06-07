@@ -84,7 +84,7 @@ void UdpServer::sayHello(QVariantMap item) {
     qDebug() << "SEND";
     
     if (ips.isEmpty()) return;
- 
+
     for (const QVariant &ipadresse : ips) {
         QTcpSocket *socket = new QTcpSocket();
             

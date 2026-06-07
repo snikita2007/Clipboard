@@ -58,6 +58,9 @@ ApplicationWindow {
                     mainSwipe.contentItem.highlightMoveDuration = 0
                 }
             }
+            else if (Qt.platform.os === "android"){
+                window["Material.accent"] = palette.highlight
+            }
         }
 
         History {
@@ -111,11 +114,19 @@ ApplicationWindow {
     }
 
     signal softClose()
-    onSoftClose: closeAnimation.start()
+    onSoftClose: {
+        bottomNav.currentTab = 0
+        closeAnimation.start()
+    }
     ParallelAnimation {
         id: closeAnimation
         NumberAnimation { target: root; property: "opacity"; to: 0; duration: 150; easing.type: Easing.OutCubic }
+<<<<<<< HEAD
         onStopped: {
+=======
+        onFinished: {
+            mainSwipe.currentItem.resetMode()
+>>>>>>> c83bc1be7b2b90268bdbd39c4f4d5f4b57661ac7
             root.hide()
         }
     }
@@ -152,8 +163,8 @@ ApplicationWindow {
     ParallelAnimation {
         id: smoothResize
         
-        NumberAnimation { target: root; property: "width"; duration: 250; easing.type: Easing.OutCubic }
-        NumberAnimation { target: root; property: "height"; duration: 250; easing.type: Easing.OutCubic }
+        NumberAnimation { id: wAnim; target: root; property: "width"; duration: 250; easing.type: Easing.OutCubic }
+        NumberAnimation { id: hAnim; target: root; property: "height"; duration: 250; easing.type: Easing.OutCubic }
         
         onStopped: {
             root.minimumWidth = root.width
@@ -173,13 +184,43 @@ ApplicationWindow {
         root.maximumHeight = 9999;
 
         if (tabIndex === 0) {
-            smoothResize.animations[0].to = 500;
-            smoothResize.animations[1].to = historyPage.getRequiredHeight();
+            wAnim.to = 500;
+            hAnim.to = historyPage.getRequiredHeight();
         } else if (tabIndex === 1) {
-            smoothResize.animations[0].to = 820;
-            smoothResize.animations[1].to = 640;
+            wAnim.to = 820;
+            hAnim.to = 640;
         }
         
         smoothResize.start();
+    }
+
+    onWidthChanged: {
+        if (Qt.platform.os === "android" || opacity === 0) return;
+        
+        let rightEdge = root.x + root.width;
+        let maxRight = Screen.desktopAvailableWidth - 10;
+        
+        if (rightEdge > maxRight) {
+            root.x = maxRight - root.width;
+        }
+
+        if (root.x < 10) {
+            root.x = 10;
+        }
+    }
+
+    onHeightChanged: {
+        if (Qt.platform.os === "android" || opacity === 0) return;
+        
+        let bottomEdge = root.y + root.height;
+        let maxBottom = Screen.desktopAvailableHeight - 15;
+
+        if (bottomEdge > maxBottom) {
+            root.y = maxBottom - root.height;
+        }
+
+        if (root.y < 30) {
+            root.y = 30; 
+        }
     }
 }

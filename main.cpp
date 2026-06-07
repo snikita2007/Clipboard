@@ -31,7 +31,16 @@
 #include "backend.h"
 
 int main(int argc, char *argv[]) {
-    qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
+    #if defined(Q_OS_WIN)
+        qputenv("QT_QUICK_CONTROLS_STYLE", "FluentWinUI3");
+    #elif defined(Q_OS_MACOS)
+        qputenv("QT_QUICK_CONTROLS_STYLE", "macOS");
+    #elif defined(Q_OS_ANDROID)
+        qputenv("QT_QUICK_CONTROLS_STYLE", "Material");
+    #else
+        qputenv("QT_QUICK_CONTROLS_STYLE", "Imagine");
+    #endif
+
     QApplication app(argc, argv); 
 
     app.setWindowIcon(QIcon(":/ui/assets/app.png"));

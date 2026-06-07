@@ -118,18 +118,6 @@ Page{
                     font.weight: Font.DemiBold 
                     padding: 0
                     leftPadding: 10
-                    cursorDelegate: Item {
-                        width: 2
-                        height: searchInput.height 
-
-                        Rectangle {
-                            width: 2 
-                            height: searchInput.font.pixelSize
-                            anchors.verticalCenter: parent.verticalCenter
-                            color: palette.windowText 
-                            visible: searchInput.cursorVisible
-                        }
-                    }
 
                     onActiveFocusChanged: searchInput.forceActiveFocus()
 

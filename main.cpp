@@ -12,7 +12,12 @@
 #include "backend.h"
 
 int main(int argc, char *argv[]) {
+    #ifdef Q_OS_WINDOWS
+    qputenv("QT_QUICK_CONTROLS_STYLE", "FluentWinUI3");
+    #endif
+    #ifndef Q_OS_WINDOWS
     qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
+    #endif
     QApplication app(argc, argv); 
 
     app.setWindowIcon(QIcon(":/ui/assets/app.png"));

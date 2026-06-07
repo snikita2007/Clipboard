@@ -472,7 +472,6 @@ Page{
                             topBar.state = ""
                         } else if (model.action === "settings") {
                             bottomNav.currentTab = 1
-                            topBar.state = ""
                         } else if (model.action === "quit") {
                             Qt.quit()
                         }
@@ -521,7 +520,6 @@ Page{
                 
                 onClicked: {
                     bottomNav.currentTab = 1
-                    topBar.state = ""
                 }
 
                 contentItem: RowLayout {

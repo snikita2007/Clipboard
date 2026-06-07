@@ -20,7 +20,6 @@ NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 
 void NetworkManager::sendDiscoveryPacket() {
     m_udpSocket->writeDatagram("CLIP_DISCOVERY", GROUP_ADDR, UDP_PORT);
-    qDebug() << "Sending packages (all ports)...";
 }
 
 void NetworkManager::processUdpPackets() {

@@ -1,116 +1,73 @@
 #include "server.h"
+#include <QThread>
+#include <QDataStream>
+#include <QFile>
+#include <QFileInfo>
 #include <QHostAddress>
-#include <QUdpSocket>
-#include <QClipboard>
-#include <QtWidgets>
-#include <QClipboard>
-#include <ip.h>
-#include "backend.h"
-#include "server.h"
-#include <QTcpServer>
-#include <QTcpSocket>
+#include <QDebug>
 
-UdpServer::UdpServer(QObject *parent): QObject(parent)
-{
-    m_tcpServer = new QTcpServer(this);
-    connect(m_tcpServer, &QTcpServer::newConnection, this, &UdpServer::Connection);
+UdpServer& UdpServer::instance() {
+    static UdpServer *_instance = nullptr;
+    if (!_instance) {
+        _instance = new UdpServer();
+        
+        QThread *netThread = new QThread();
+        _instance->moveToThread(netThread); 
+        
+        connect(netThread, &QThread::finished, _instance, &QObject::deleteLater);
+        connect(netThread, &QThread::finished, netThread, &QObject::deleteLater);
+        
+        netThread->start(); 
+    }
+    return *_instance;
 }
 
-bool UdpServer::startServer(quint16 port)
-{
+UdpServer::UdpServer(QObject *parent) : QObject(parent), m_tcpServer(nullptr) {}
+
+UdpServer::~UdpServer() {
+    if (m_tcpServer) {
+        m_tcpServer->close();
+    }
+}
+
+bool UdpServer::startServer(quint16 port) {
+    if (!m_tcpServer) {
+        m_tcpServer = new QTcpServer();
+        connect(m_tcpServer, &QTcpServer::newConnection, this, &UdpServer::Connection);
+    }
+    
     if (!m_tcpServer->listen(QHostAddress::Any, port)) {
-        qDebug() << "Failed:" << m_tcpServer->errorString();
+        qDebug() << "error:" << m_tcpServer->errorString();
         return false;
     }
-    qDebug() << "Server started on port" << port;
+    qDebug() << "PORT" << port;
     return true;
 }
 
 void UdpServer::stopServer() {
-    
-    if (m_tcpServer) {
-        if (m_tcpServer->isListening()) {
-            m_tcpServer->close();
-        }
+    if (m_tcpServer && m_tcpServer->isListening()) {
+        m_tcpServer->close();
     }
-
     emit serverStopped(); 
 }
 
-void UdpServer::copyToClip(QVariantMap data)
-{
-    QClipboard *clipboard = QGuiApplication::clipboard();
-    QString type = data["type"].toString();
-
-    if (type == "image") {
-        QByteArray rawData = data["img"].toByteArray();
-        if (rawData.isEmpty()) return;
-
-        QString newHash = QCryptographicHash::hash(rawData, QCryptographicHash::Md5).toHex();
-        
-        QImage currentImg = clipboard->image();
-        QByteArray currentData;
-        QBuffer buffer(&currentData);
-        buffer.open(QIODevice::WriteOnly);
-        currentImg.save(&buffer, "JPG"); 
-        QString currentHash = QCryptographicHash::hash(currentData, QCryptographicHash::Md5).toHex();
-
-        if (newHash == currentHash) {
-            qDebug() << "Not upload";
-            return;
-        }
-
-        QString tempPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
-        QString m_cacheDir = tempPath + "/ClipboardHistory_Cache";
-        QString path = m_cacheDir + QString("/remote_%1.png").arg(newHash);
-        
-        QFile file(path);
-        if (file.open(QIODevice::WriteOnly)) {
-            file.write(rawData);
-            file.close();
-            clipboard->setImage(QImage(path));
-            qDebug() << "Added to buffer";
-        }
-    } 
-    else if (type == "text") {
-        QString newText = data["data"].toString();
-        
-        if (clipboard->text() == newText) {
-            qDebug() << "Not upload";
-            return;
-        }
-
-        clipboard->setText(newText);
-        qDebug() << "Added to buffer";
-    }
+void UdpServer::updateIps(const QVariantList &newIps) {
+    ips = newIps;
 }
 
-void UdpServer::Connection()     
-{
+void UdpServer::Connection() {
     while (m_tcpServer->hasPendingConnections()) {
         QTcpSocket *socket = m_tcpServer->nextPendingConnection();
-
         QDataStream *stream = new QDataStream(socket);
         stream->setVersion(QDataStream::Qt_6_0);
 
         connect(socket, &QTcpSocket::readyRead, this, [this, socket, stream]() {
-
             stream->startTransaction();
             QVariantMap receivedMap; 
             *stream >> receivedMap;
 
             if (stream->commitTransaction()) {
-                QString currentHash = receivedMap["hash"].toString();
-
-                if (!currentHash.isEmpty() && currentHash == this->lastReceivedHash) {
-                    socket->disconnectFromHost();
-                    return;
-                }
-
-                this->lastReceivedHash = currentHash;
-
-                qDebug() << "Data recived";
-                this->copyToClip(receivedMap);
+                emit dataReceived(receivedMap);
                 
                 socket->disconnectFromHost();
             }
@@ -123,49 +80,55 @@ void UdpServer::Connection()
     }
 }
 
-void UdpServer::updateIps(const QVariantList &newIps) {
-    ips = newIps;
-}
-
-void UdpServer::sayHello(QVariantMap item)
-{
-    qDebug() << "send";
+void UdpServer::sayHello(QVariantMap item) {
+    qDebug() << "SEND";
     
     if (ips.isEmpty()) return;
  
-    else {
-        for (const QVariant &ipadresse : ips) {
-            QTcpSocket *socket = new QTcpSocket(this);
-                
-            QVariantMap deviceDict = ipadresse.toMap();
+    for (const QVariant &ipadresse : ips) {
+        QTcpSocket *socket = new QTcpSocket();
             
-            QString ipa = deviceDict["ip"].toString();
+        QVariantMap deviceDict = ipadresse.toMap();
+        QString ipa = deviceDict["ip"].toString();
 
-            socket->connectToHost(ipa, 1234);
+        socket->connectToHost(ipa, 1234);
 
-            connect(socket, &QTcpSocket::connected, this, [socket, item]() {
-                QByteArray block;
-                QDataStream stream(&block, QIODevice::WriteOnly);
-                stream.setVersion(QDataStream::Qt_6_0);
-                
-                QVariantMap sendItem = item;
-                
-                if (sendItem["type"] == "image") {
-                    QFile file(sendItem["data"].toString());
-                    if (file.open(QIODevice::ReadOnly)) {
-                        sendItem["img"] = file.readAll();
-                        file.close();
-                    }
+        connect(socket, &QTcpSocket::connected, this, [socket, item]() {
+            QByteArray block;
+            QDataStream stream(&block, QIODevice::WriteOnly);
+            stream.setVersion(QDataStream::Qt_6_0);
+            
+            QVariantMap sendItem = item;
+            QString type = sendItem["type"].toString();
+            QString filePath = sendItem["data"].toString();
+
+            if (type == "image") {
+                QFile file(filePath);
+                if (file.open(QIODevice::ReadOnly)) {
+                    sendItem["img"] = file.readAll(); 
+                    file.close();
                 }
+            }
+            else if (type == "file") {
+                QFile file(filePath);
+                if (file.open(QIODevice::ReadOnly)) {
+                    QFileInfo fileInfo(file);
+                    sendItem["file_name"] = fileInfo.fileName();  
+                    sendItem["file_bytes"] = file.readAll();   
+                    file.close();
+                }
+            }
 
-                stream << sendItem;
-                socket->write(block);
-                socket->disconnectFromHost();
-            });
+            stream << sendItem;
+            socket->write(block);
+            socket->disconnectFromHost();
+        });
 
-            connect(socket, &QTcpSocket::disconnected, socket, &QTcpSocket::deleteLater);
-        }
+        connect(socket, &QTcpSocket::disconnected, socket, &QTcpSocket::deleteLater);
     }
 }
+
+void UdpServer::Recive(QStringList data) { Q_UNUSED(data); }
+QStringList UdpServer::Setup() { return QStringList(); }
 
 

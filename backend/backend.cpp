@@ -15,24 +15,29 @@ Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient 
     // m_network = new NetworkManager(this);
     // connect(m_network, &NetworkManager::dataReceived, this, &Backend::handleRemoteData);
 
-    connect(this, &Backend::itemAdded, [bluetooth, server, cli, m_networkSwitch](const QVariant &item) {
+    connect(this, &Backend::itemAdded, [bluetooth, cli, m_networkSwitch](const QVariant &item) {
         QVariantMap map = item.toMap();
-        QString text = map["text"].toString();
-
+        
         if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Wifi) {
             
-            server->sayHello(map);
-            qDebug() << "TCP SEND";
-
-        } else if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Bluetooth) {
+            UdpServer::instance().sayHello(map);
+            qDebug() << "tcp";
+        } 
+        
+        else if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Bluetooth) {
             
-            if (cli && cli->isConnected()) {
-                cli->sendMessage(text);
-            } else if (bluetooth && bluetooth->hasActiveConnections()) {
-                bluetooth->sendMessage(text);
+            if (map["type"].toString() != "text") {
+                return;
             }
-            qDebug() << "Bluetooth SEND";
-            
+
+            QString textToSend = map["data"].toString(); 
+
+            if (cli && cli->isConnected()) {
+                cli->sendMessage(textToSend);
+            } 
+            else if (bluetooth && bluetooth->hasActiveConnections()) {
+                bluetooth->sendMessage(textToSend);
+            }
         }
     });
 
@@ -91,37 +96,62 @@ void Backend::handleRemoteData(QVariantMap data){
 void Backend::copyToClip(QVariant itemData){
     QVariantMap map = itemData.toMap();
     QClipboard *clipboard = QGuiApplication::clipboard();
-    QString path = map["data"].toString();
+    QString type = map["type"].toString();
 
-    if (map["type"].toString() == "image" && QFile::exists(path)) {
+    if (type == "text" && map.contains("data") && !map.contains("hash")) {
+        QString textData = map["data"].toString();
+        if (isDublicate(textData) || clipboard->text() == textData) return;
+        
+        clipboard->setText(textData);
+        return; 
+    }
+    if (type == "image" && map.contains("img")) {
+        QByteArray rawData = map["img"].toByteArray();
+        if (rawData.isEmpty()) return;
+
+        QString hash = QCryptographicHash::hash(rawData, QCryptographicHash::Md5).toHex();
+        if (isDublicate(hash)) return;
+        
+        map["raw_data"] = rawData;
+        handleRemoteData(map); 
+        return;
+    }
+    if (type == "file" && map.contains("file_bytes")) {
+        QByteArray fileData = map["file_bytes"].toByteArray();
+       
+        QString fileName = map["file_name"].toString();
+       
+        if (fileData.isEmpty() || fileName.isEmpty()) return;
+       
+        QString savePath = m_cacheDir + "/" + fileName;
+       
+        if (isDublicate(savePath)) return;
+       
+        QFile file(savePath);
+        if (file.open(QIODevice::WriteOnly)) {
+            file.write(fileData);
+            file.close();
+            QMimeData *mimeData = new QMimeData();
+            mimeData->setUrls({ QUrl::fromLocalFile(savePath) });
+            clipboard->setMimeData(mimeData);
+        }
+        return;
+    }
+
+    QString path = map["data"].toString();
+    if (type == "image" && QFile::exists(path)) {
         QMimeData *mimeData = new QMimeData();
         mimeData->setUrls({ QUrl::fromLocalFile(path) });
-
         QImage img(path);
-        if (!img.isNull()) {
-            mimeData->setImageData(img);
-        }
-
+        
+        if (!img.isNull()) mimeData->setImageData(img);
         clipboard->setMimeData(mimeData);
     } 
-    else{
+    else {
         clipboard->setText(map["data"].toString());
     }
-
-
-    // 2. Отправляем в сеть (если нужно принудительно при клике)
-    // Подготовим данные: если это картинка, нужно отправить байты, а не путь
-    if (map["type"].toString() == "image") {
-        QImage img(map["data"].toString());
-        QByteArray ba;
-        QBuffer buf(&ba);
-        img.save(&buf, "JPG");
-        map["raw_data"] = ba; // Добавляем байты для сети
-    }
-
-    // m_network->broadcastClipboard(map);
-
 }
+
 
 bool Backend::isDublicate(const QString &hash) {
     if (hash.contains(m_cacheDir)) return true;

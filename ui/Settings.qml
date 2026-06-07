@@ -10,30 +10,6 @@ Page {
     background: null
 
     signal navigate(string page)
-<<<<<<< HEAD
-    
-    function applySearch(query) {}
-    function resetMode() {}
-
-    property string currentMode: networkSwitch.currentModeString()
-    property var udpDevicesList: []
-    property var bluetoothDevicesList: []
-
-    Connections {
-        target: networkScanner 
-        function onDevicesUpdated(ipList) { settingsPage.udpDevicesList = ipList }
-    }
-
-    Connections {
-        target: bluetoothClient 
-        function onDevicesDiscovered(devicesList) { settingsPage.bluetoothDevicesList = devicesList }
-    }
-
-    Connections {
-        target: networkSwitch
-        function onModeChanged(newModeStr) {
-            settingsPage.currentMode = newModeStr
-=======
 
     property int selectedIndex: 0
     property bool mobileDetailOpen: false
@@ -305,257 +281,6 @@ Page {
                 color: palette.placeholderText
                 wrapMode: Text.WordWrap
             }
->>>>>>> df475bc0a4f9225292cc912d4e9ea62cb0662a6b
-        }
-    }
-
-    ColumnLayout {
-        anchors.fill: parent
-<<<<<<< HEAD
-        anchors.margins: 14
-        spacing: 12
-        
-        RowLayout {
-            visible: Qt.platform.os !== "android"
-            Layout.fillWidth: true; spacing: 8
-            MouseArea {
-                Layout.preferredWidth: 80; Layout.preferredHeight: 35
-                cursorShape: Qt.PointingHandCursor
-                onClicked: { bottomNav.currentTab = 0; root.updateWindowSize(0) }
-                Row { anchors.centerIn: parent; spacing: 6
-                    Text { text: "Назад"; font.pixelSize: 13; font.weight: Font.Medium; color: palette.windowText }
-=======
-        anchors.margins: settingsPage.isAndroid ? 14 : 12
-        spacing: settingsPage.isAndroid ? 12 : 10
-
-        RowLayout {
-            visible: !settingsPage.isAndroid
-            Layout.fillWidth: true
-            Layout.preferredHeight: 34
-            spacing: 8
-
-            Button {
-                id: backButton
-                padding: 6
-                hoverEnabled: true
-
-                background: Rectangle {
-                    color: backButton.down ? settingsPage.pressColor : (backButton.hovered ? settingsPage.hoverColor : "transparent")
-                    radius: Qt.platform.os === "windows" ? 4 : 8
-                }
-
-                contentItem: RowLayout {
-                    spacing: 6
-
-                    IconImage {
-                        Layout.preferredWidth: 16
-                        Layout.preferredHeight: 16
-                        sourceSize.width: 16
-                        sourceSize.height: 16
-                        source: "qrc:/ui/assets/back.svg"
-                        color: palette.windowText
-                    }
-
-                    Text {
-                        text: "Back"
-                        font.pixelSize: 13
-                        font.weight: Font.Medium
-                        color: palette.windowText
-                    }
->>>>>>> df475bc0a4f9225292cc912d4e9ea62cb0662a6b
-                }
-
-                onClicked: {
-                    settingsPage.navigate("History.qml")
-                }
-            }
-
-            Text {
-                Layout.fillWidth: true
-                text: "Settings"
-                font.pixelSize: 20
-                font.weight: Font.DemiBold
-                color: palette.windowText
-                horizontalAlignment: Text.AlignHCenter
-                elide: Text.ElideRight
-            }
-
-            Item {
-                Layout.preferredWidth: backButton.implicitWidth
-            }
-        }
-
-<<<<<<< HEAD
-        Label { text: "Это окно настроек"; font.bold: true; font.pixelSize: 16 }
-
-        Button {
-            id: switchButton
-            Layout.fillWidth: true
-            text: settingsPage.currentMode === "Wifi" ? "Работает: Wi-Fi" : "Работает: Bluetooth"
-
-            onClicked: {
-                settingsPage.currentMode = networkSwitch.toggleMode()
-            }
-        }
-
-        Label { text: "Найденные IP по Wi-Fi:"; font.pixelSize: 12; color: "gray" }
-        ListView {
-            Layout.fillWidth: true; Layout.preferredHeight: 120; clip: true
-            model: settingsPage.udpDevicesList
-            delegate: ItemDelegate { width: parent.width; text: modelData }
-        }
-
-        Label { text: "Найденные Bluetooth устройства:"; font.pixelSize: 12; color: "gray" }
-        ListView {
-            Layout.fillWidth: true; Layout.fillHeight: true; clip: true
-            model: settingsPage.bluetoothDevicesList
-            delegate: ItemDelegate { width: parent.width; text: modelData.name ? modelData.name : "Неизвестное устройство" }
-        }
-    }
-}
-
-=======
-        Loader {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            sourceComponent: settingsPage.isAndroid ? mobileSettingsComponent : desktopSettingsComponent
-        }
-    }
-
-    Component {
-        id: desktopSettingsComponent
-
-        RowLayout {
-            spacing: 14
-
-            Rectangle {
-                Layout.preferredWidth: 190
-                Layout.fillHeight: true
-                color: "transparent"
-                border.color: settingsPage.borderColor
-                border.width: 1
-                radius: Qt.platform.os === "windows" ? 4 : 12
-
-                ListView {
-                    anchors.fill: parent
-                    anchors.margins: 6
-                    spacing: 4
-                    clip: true
-                    boundsBehavior: Flickable.StopAtBounds
-                    model: settingsModel
-
-                    delegate: CategoryButton {
-                        required property int index
-
-                        itemIndex: index
-                        title: settingsPage.categoryTitle(index)
-                        description: settingsPage.categoryDescription(index)
-                        iconSource: settingsPage.categoryIcon(index)
-                    }
-                }
-            }
-
-            Rectangle {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                color: "transparent"
-                border.color: settingsPage.borderColor
-                border.width: 1
-                radius: Qt.platform.os === "windows" ? 4 : 12
-
-                SettingsContent {
-                    anchors.fill: parent
-                    anchors.margins: 18
-                }
-            }
-        }
-    }
-
-    Component {
-        id: mobileSettingsComponent
-
-        Item {
-            clip: true
-
-            ListView {
-                id: mobileList
-                anchors.fill: parent
-                visible: !settingsPage.mobileDetailOpen
-                spacing: 8
-                clip: true
-                bottomMargin: 84
-                boundsBehavior: Flickable.DragAndOvershootBounds
-                model: settingsModel
-
-                header: Text {
-                    width: mobileList.width
-                    height: 44
-                    text: "Settings"
-                    font.pixelSize: 24
-                    font.weight: Font.DemiBold
-                    color: palette.windowText
-                    verticalAlignment: Text.AlignVCenter
-                    elide: Text.ElideRight
-                }
-
-                delegate: CategoryButton {
-                    required property int index
-
-                    itemIndex: index
-                    title: settingsPage.categoryTitle(index)
-                    description: settingsPage.categoryDescription(index)
-                    iconSource: settingsPage.categoryIcon(index)
-                }
-            }
-
-            ColumnLayout {
-                anchors.fill: parent
-                visible: settingsPage.mobileDetailOpen
-                spacing: 10
-
-                RowLayout {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 44
-                    spacing: 10
-
-                    Button {
-                        id: mobileBackButton
-                        Layout.preferredWidth: 40
-                        Layout.preferredHeight: 40
-                        padding: 0
-
-                        background: Rectangle {
-                            color: mobileBackButton.down ? settingsPage.pressColor : "transparent"
-                            radius: 20
-                        }
-
-                        contentItem: IconImage {
-                            source: "qrc:/ui/assets/back.svg"
-                            sourceSize.width: 22
-                            sourceSize.height: 22
-                            color: palette.windowText
-                            smooth: true
-                            mipmap: true
-                        }
-
-                        onClicked: settingsPage.resetMode()
-                    }
-
-                    Text {
-                        Layout.fillWidth: true
-                        text: settingsPage.categoryTitle(settingsPage.selectedIndex)
-                        font.pixelSize: 22
-                        font.weight: Font.DemiBold
-                        color: palette.windowText
-                        elide: Text.ElideRight
-                    }
-                }
-
-                SettingsContent {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                }
-            }
         }
     }
 
@@ -701,5 +426,215 @@ Page {
             }
         }
     }
+
+    // Desktop layout component
+    Component {
+        id: desktopSettingsComponent
+
+        RowLayout {
+            spacing: 14
+
+            Rectangle {
+                Layout.preferredWidth: 190
+                Layout.fillHeight: true
+                color: "transparent"
+                border.color: settingsPage.borderColor
+                border.width: 1
+                radius: Qt.platform.os === "windows" ? 4 : 12
+
+                ListView {
+                    anchors.fill: parent
+                    anchors.margins: 6
+                    spacing: 4
+                    clip: true
+                    boundsBehavior: Flickable.StopAtBounds
+                    model: settingsModel
+
+                    delegate: CategoryButton {
+                        required property int index
+
+                        itemIndex: index
+                        title: settingsPage.categoryTitle(index)
+                        description: settingsPage.categoryDescription(index)
+                        iconSource: settingsPage.categoryIcon(index)
+                    }
+                }
+            }
+
+            Rectangle {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                color: "transparent"
+                border.color: settingsPage.borderColor
+                border.width: 1
+                radius: Qt.platform.os === "windows" ? 4 : 12
+
+                SettingsContent {
+                    anchors.fill: parent
+                    anchors.margins: 18
+                }
+            }
+        }
+    }
+
+    // Mobile layout component
+    Component {
+        id: mobileSettingsComponent
+
+        Item {
+            clip: true
+
+            ListView {
+                id: mobileList
+                anchors.fill: parent
+                visible: !settingsPage.mobileDetailOpen
+                spacing: 8
+                clip: true
+                bottomMargin: 84
+                boundsBehavior: Flickable.DragAndOvershootBounds
+                model: settingsModel
+
+                header: Text {
+                    width: mobileList.width
+                    height: 44
+                    text: "Settings"
+                    font.pixelSize: 24
+                    font.weight: Font.DemiBold
+                    color: palette.windowText
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
+
+                delegate: CategoryButton {
+                    required property int index
+
+                    itemIndex: index
+                    title: settingsPage.categoryTitle(index)
+                    description: settingsPage.categoryDescription(index)
+                    iconSource: settingsPage.categoryIcon(index)
+                }
+            }
+
+            ColumnLayout {
+                anchors.fill: parent
+                visible: settingsPage.mobileDetailOpen
+                spacing: 10
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 44
+                    spacing: 10
+
+                    Button {
+                        id: mobileBackButton
+                        Layout.preferredWidth: 40
+                        Layout.preferredHeight: 40
+                        padding: 0
+
+                        background: Rectangle {
+                            color: mobileBackButton.down ? settingsPage.pressColor : "transparent"
+                            radius: 20
+                        }
+
+                        contentItem: IconImage {
+                            source: "qrc:/ui/assets/back.svg"
+                            sourceSize.width: 22
+                            sourceSize.height: 22
+                            color: palette.windowText
+                            smooth: true
+                            mipmap: true
+                        }
+
+                        onClicked: settingsPage.resetMode()
+                    }
+
+                    Text {
+                        Layout.fillWidth: true
+                        text: settingsPage.categoryTitle(settingsPage.selectedIndex)
+                        font.pixelSize: 22
+                        font.weight: Font.DemiBold
+                        color: palette.windowText
+                        elide: Text.ElideRight
+                    }
+                }
+
+                SettingsContent {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                }
+            }
+        }
+    }
+
+    // Main layout
+    ColumnLayout {
+        anchors.fill: parent
+        anchors.margins: settingsPage.isAndroid ? 14 : 12
+        spacing: settingsPage.isAndroid ? 12 : 10
+        
+        // Header with back button (hidden on Android)
+        RowLayout {
+            visible: !settingsPage.isAndroid
+            Layout.fillWidth: true
+            Layout.preferredHeight: 34
+            spacing: 8
+
+            Button {
+                id: backButton
+                padding: 6
+                hoverEnabled: true
+
+                background: Rectangle {
+                    color: backButton.down ? settingsPage.pressColor : (backButton.hovered ? settingsPage.hoverColor : "transparent")
+                    radius: Qt.platform.os === "windows" ? 4 : 8
+                }
+
+                contentItem: RowLayout {
+                    spacing: 6
+
+                    IconImage {
+                        Layout.preferredWidth: 16
+                        Layout.preferredHeight: 16
+                        sourceSize.width: 16
+                        sourceSize.height: 16
+                        source: "qrc:/ui/assets/back.svg"
+                        color: palette.windowText
+                    }
+
+                    Text {
+                        text: "Back"
+                        font.pixelSize: 13
+                        font.weight: Font.Medium
+                        color: palette.windowText
+                    }
+                }
+
+                onClicked: settingsPage.navigate("History.qml")
+            }
+
+            Text {
+                Layout.fillWidth: true
+                text: "Settings"
+                font.pixelSize: 20
+                font.weight: Font.DemiBold
+                color: palette.windowText
+                horizontalAlignment: Text.AlignHCenter
+                elide: Text.ElideRight
+            }
+
+            // Spacer for symmetric alignment
+            Item {
+                Layout.preferredWidth: backButton.implicitWidth
+            }
+        }
+
+        // Main content area
+        Loader {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            sourceComponent: settingsPage.isAndroid ? mobileSettingsComponent : desktopSettingsComponent
+        }
+    }
 }
->>>>>>> df475bc0a4f9225292cc912d4e9ea62cb0662a6b
+
+

@@ -49,7 +49,7 @@ ApplicationWindow {
         anchors.fill: parent
         currentIndex: bottomNav.currentTab
 
-        interactive: Qt.platform.os === "android"
+        interactive: Qt.platform.os === "android" && !settingsPage.mobileDetailOpen
         clip: true
 
         Component.onCompleted: {
@@ -57,9 +57,6 @@ ApplicationWindow {
                 if (mainSwipe.contentItem) {
                     mainSwipe.contentItem.highlightMoveDuration = 0
                 }
-            }
-            else if (Qt.platform.os === "android"){
-                window["Material.accent"] = palette.highlight
             }
         }
 

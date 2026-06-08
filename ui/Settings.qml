@@ -472,6 +472,15 @@ Page {
         Item {
             clip: true
 
+            focus: settingsPage.mobileDetailOpen
+
+            Keys.onReleased: (event) => {
+                if (event.key === Qt.Key_Back && settingsPage.mobileDetailOpen) {
+                    settingsPage.resetMode()
+                    event.accepted = true 
+                }
+            }
+
             ListView {
                 id: mobileList
                 anchors.fill: parent
@@ -503,63 +512,20 @@ Page {
                 }
             }
 
-            ColumnLayout {
-                anchors.fill: parent
+            SettingsContent {
                 visible: settingsPage.mobileDetailOpen
-                spacing: 10
-
-                RowLayout {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 44
-                    spacing: 10
-
-                    Button {
-                        id: mobileBackButton
-                        Layout.preferredWidth: 40
-                        Layout.preferredHeight: 40
-                        padding: 0
-
-                        background: Rectangle {
-                            color: mobileBackButton.down ? settingsPage.pressColor : "transparent"
-                            radius: 20
-                        }
-
-                        contentItem: IconImage {
-                            source: "qrc:/ui/assets/back.svg"
-                            sourceSize.width: 22
-                            sourceSize.height: 22
-                            color: palette.windowText
-                            smooth: true
-                            mipmap: true
-                        }
-
-                        onClicked: settingsPage.resetMode()
-                    }
-
-                    Text {
-                        Layout.fillWidth: true
-                        text: settingsPage.categoryTitle(settingsPage.selectedIndex)
-                        font.pixelSize: 22
-                        font.weight: Font.DemiBold
-                        color: palette.windowText
-                        elide: Text.ElideRight
-                    }
-                }
-
-                SettingsContent {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                }
+                anchors.fill: parent
             }
         }
     }
 
-    component SettingsContent: ScrollView {
+    component SettingsContent: ListView {
         id: contentRoot
         clip: true
+        boundsBehavior: (Qt.platform.os === "windows") ? Flickable.StopAtBounds : Flickable.DragAndOvershootBounds
 
         ColumnLayout {
-            width: contentRoot.availableWidth
+            width: contentRoot.width
             spacing: 12
 
             RowLayout {

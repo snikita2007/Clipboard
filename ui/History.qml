@@ -257,7 +257,9 @@ Page{
                     onClicked: {
                         let manualMap = { "type": model.type, "data": model.data }
                         backend.copyToClip(manualMap)
-                        root.softClose()
+                        if (Qt.platform.os !== "android"){
+                            root.softClose()
+                        }
                     }
                 }
             }
@@ -333,7 +335,9 @@ Page{
                     onClicked: {
                         let manualMap = { "type": model.type, "data": model.data }
                         backend.copyToClip(manualMap)
-                        root.softClose()
+                        if (Qt.platform.os !== "android"){
+                            root.softClose()
+                        }
                     }
                 }
                 Connections {
@@ -467,7 +471,7 @@ Page{
                 horizontalAlignment: Text.AlignHCenter
                 anchors.centerIn: filterList
                 color: palette.placeholderText
-                visible: filteredClipList.count === 0 && (topBar.state === "searchmode" || Qt.platform.os === "android")
+                visible: (filteredClipList.count === 0 && topBar.state === "searchmode") || (historyList.count === 0 && Qt.platform.os === "android")
             }
         }
 

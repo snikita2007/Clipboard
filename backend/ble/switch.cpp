@@ -40,14 +40,17 @@ void NetworkSwitch::setMode(TransportMode mode) {
     m_currentMode = mode;
 
     if (m_currentMode == TransportMode::Wifi) {
-        
         if (m_btServer) m_btServer->stopServer();
         if (m_btClient) m_btClient->stopClient();
         
-        if (m_udp) m_udp->startServer(1234); 
+        if (m_udp) {
+            QMetaObject::invokeMethod(m_udp, "startServer", Qt::QueuedConnection, Q_ARG(quint16, 1234));
+        } 
     } 
     else if (m_currentMode == TransportMode::Bluetooth) {
-        if (m_udp) m_udp->stopServer();
+        if (m_udp) {
+            QMetaObject::invokeMethod(m_udp, "stopServer", Qt::QueuedConnection);
+        }
 
         if (m_btServer) m_btServer->startServer();
         if (m_btClient) m_btClient->startDiscovery();

@@ -8,6 +8,7 @@ class NetworkSwitch : public QObject {
     Q_OBJECT
 public:
     enum TransportMode { Wifi, Bluetooth, None };
+    Q_PROPERTY(QString currentMode READ currentModeString NOTIFY modeChanged)
 
     NetworkSwitch(UdpServer *udp, BluetoothServer *btServer, BluetoothClient *btClient, QObject *parent = nullptr);
     TransportMode currentMode() const { return m_currentMode; }

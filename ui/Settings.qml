@@ -5,6 +5,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.impl
 import QtCore as NativeCore
+import QtQuick.Effects
 
 Page {
     id: settingsPage
@@ -19,6 +20,7 @@ Page {
     readonly property color hoverColor: Qt.rgba(palette.windowText.r, palette.windowText.g, palette.windowText.b, 0.06)
     readonly property color pressColor: Qt.rgba(palette.windowText.r, palette.windowText.g, palette.windowText.b, 0.12)
     readonly property color borderColor: Qt.rgba(palette.windowText.r, palette.windowText.g, palette.windowText.b, 0.14)
+    property alias settings: appSettings
 
     NativeCore.Settings {
         id: appSettings
@@ -49,10 +51,10 @@ Page {
         property bool enableEscapeToClose: true
         property bool useNumberKeys: false
 
-        property bool ignorePasswords: true
+        property bool ignorePasswords: false
         property int autoClear: 0
         property bool excludeImages: false
-        property bool clearOnExit: false
+        property bool clearOnExit: true
 
         property int updateChannel: 0
         property bool sendDiagnostics: false
@@ -251,7 +253,7 @@ Page {
                     text: choiceRow.title
                     font.pixelSize: 14
                     font.weight: Font.Medium
-                    color: palette.windowText
+                    color: choiceRow.palette.windowText
                     wrapMode: Text.WordWrap
                 }
 
@@ -260,7 +262,7 @@ Page {
                     text: choiceRow.description
                     visible: text.length > 0
                     font.pixelSize: 12
-                    color: palette.placeholderText
+                    color: choiceRow.palette.placeholderText
                     wrapMode: Text.WordWrap
                 }
             }
@@ -270,6 +272,14 @@ Page {
                 Layout.preferredWidth: settingsPage.isAndroid ? 132 : 150
                 Layout.alignment: Qt.AlignVCenter
                 model: choiceRow.values
+
+                palette {
+                    buttonText: choiceRow.palette.windowText
+                    windowText: choiceRow.palette.windowText
+                    button: choiceRow.palette.window
+                    window: choiceRow.palette.window
+                    base: choiceRow.palette.base
+                }
 
                 Component.onCompleted: {
                     if (Qt.platform.os === "osx") {
@@ -290,7 +300,7 @@ Page {
 
                 contentItem: Text {
                     text: modelData
-                    color: (itemMenu.hovered || itemMenu.highlighted) ? "#FFFFFF" : palette.windowText
+                    color: (itemMenu.hovered || itemMenu.highlighted) ? choiceRow.palette.highlightedText : choiceRow.palette.windowText
                     font.pixelSize: 13
                     font.family: ".AppleSystemUIFont"
                     verticalAlignment: Text.AlignVCenter
@@ -300,7 +310,7 @@ Page {
 
                 background: Rectangle {
                     radius: 4
-                    color: (itemMenu.hovered || itemMenu.highlighted) ? "#007AFF" : "transparent"
+                    color: (itemMenu.hovered || itemMenu.highlighted) ? choiceRow.palette.highlight : "transparent"
                 }
             }
         }
@@ -327,10 +337,18 @@ Page {
                 }
 
                 background: Rectangle {
-                    color: palette.window 
-                    border.color: settingsPage.borderColor
+                    color: choiceRow.palette.windowText.r > 0.5 ? "#282828" : "#FFFFFF"
+                    border.color: choiceRow.palette.windowText.r > 0.5 ? "#404040" : "#D2D2D2"
                     border.width: 1
                     radius: 6
+
+                    layer.enabled: true
+                    layer.effect: MultiEffect {
+                        shadowEnabled: true
+                        shadowColor: Qt.rgba(0, 0, 0, choiceRow.palette.windowText.r > 0.5 ? 0.4 : 0.15)
+                        shadowBlur: 12
+                        shadowVerticalOffset: 4
+                    }
                 }
             }
         }
@@ -621,21 +639,30 @@ Page {
                 SettingToggle { 
                     title: "Save clipboard history"; description: "Keep copied text and images available in History."
                     checked: appSettings.saveClipboardHistory
-                    onCheckedChanged: appSettings.saveClipboardHistory = checked
+                    onCheckedChanged: {
+                        appSettings.saveClipboardHistory = checked
+                        backend.setSaveClipboardHistory(checked)
+                    }
                 }
                 SettingChoice { 
-                    title: "History limit"; description: "Maximum number of recent clipboard items."; values: ["50 items", "100 items", "250 items"]
+                    title: "History limit"; description: "Maximum number of recent clipboard items."; values: ["10 items", "50 items", "100 items", "250 items"]
                     currentIndex: appSettings.historyLimit
-                    onCurrentIndexChanged: appSettings.historyLimit = currentIndex
+                    onCurrentIndexChanged: {
+                        appSettings.historyLimit = currentIndex
+                        backend.setHistoryLimit(currentIndex)
+                    }
                 }
                 SettingToggle { 
                     title: "Launch at startup"; description: "Open Clipboard automatically when the system starts."
                     visible: !settingsPage.isAndroid
                     checked: appSettings.launchAtStartup
-                    onCheckedChanged: appSettings.launchAtStartup = checked
+                    onCheckedChanged: {
+                        appSettings.launchAtStartup = checked
+                        backend.setLaunchAtStartup(checked)
+                    }
                 }
                 SettingChoice { 
-                    title: "Default action"; description: "What happens when an item is selected."; values: ["Copy and close", "Copy only", "Preview"]
+                    title: "Default action"; description: "What happens when an item is selected."; values: ["Copy and close", "Copy only"]
                     currentIndex: appSettings.defaultAction
                     onCurrentIndexChanged: appSettings.defaultAction = currentIndex
                 }
@@ -651,10 +678,13 @@ Page {
                 SettingToggle { 
                     title: "Device sync"; description: "Share clipboard items with trusted devices."
                     checked: appSettings.deviceSync
-                    onCheckedChanged: appSettings.deviceSync = checked
+                    onCheckedChanged: {
+                        appSettings.deviceSync = checked
+                        backend.setDeviceSynk(checked)
+                    }
                 }
                 SettingChoice { 
-                    title: "Discovery mode"; description: "How nearby devices can find this app."; values: ["Private", "Contacts only", "Visible"]
+                    title: "Discovery mode"; description: "How nearby devices can find this app."; values: ["Private", "Group only", "Visible"]
                     currentIndex: appSettings.discoveryMode
                     onCurrentIndexChanged: appSettings.discoveryMode = currentIndex
                 }
@@ -680,24 +710,24 @@ Page {
                 SettingChoice { 
                     title: "Theme"; description: "Match the app colors to your system or choose manually."; values: ["System", "Light", "Dark"]
                     currentIndex: appSettings.theme
-                    onCurrentIndexChanged: appSettings.theme = currentIndex
+                    onCurrentIndexChanged: {
+                        appSettings.theme = currentIndex
+                        windowEffects.setTheme(currentIndex)
+                    }
                 }
                 SettingChoice { 
                     title: "Density"; description: "Adjust spacing for history and settings rows."; values: ["Comfortable", "Compact", "Spacious"]
                     currentIndex: appSettings.density
                     onCurrentIndexChanged: appSettings.density = currentIndex
                 }
-                SettingSlider { 
-                    title: "Window opacity"; description: "Desktop floating window transparency."
-                    visible: !settingsPage.isAndroid
-                    value: appSettings.windowOpacity
-                    onValueChanged: appSettings.windowOpacity = value
-                }
                 SettingToggle { 
                     title: "Use window effects"; description: "Enable native blur and material effects when supported."
                     visible: !settingsPage.isAndroid
                     checked: appSettings.useWindowEffects
-                    onCheckedChanged: appSettings.useWindowEffects = checked
+                    onCheckedChanged: {
+                        appSettings.useWindowEffects = checked
+                        windowEffects.setUseWindowEffects(checked)
+                    }
                 }
             }
 
@@ -775,17 +805,26 @@ Page {
                 SettingChoice { 
                     title: "Auto-clear"; description: "Remove stored clipboard items after a period of time."; values: ["Never", "After 1 day", "After 7 days", "After 30 days"]
                     currentIndex: appSettings.autoClear
-                    onCurrentIndexChanged: appSettings.autoClear = currentIndex
+                    onCurrentIndexChanged: {
+                        appSettings.autoClear = currentIndex
+                        backend.setAutoClear(currentIndex)
+                    }
                 }
                 SettingToggle { 
                     title: "Exclude images"; description: "Store text only and ignore copied images."
                     checked: appSettings.excludeImages
-                    onCheckedChanged: appSettings.excludeImages = checked
+                    onCheckedChanged: {
+                        appSettings.excludeImages = checked
+                        backend.setExcludeImages(checked)
+                    }
                 }
                 SettingToggle { 
                     title: "Clear on exit"; description: "Delete local history when the app quits."
                     checked: appSettings.clearOnExit
-                    onCheckedChanged: appSettings.clearOnExit = checked
+                    onCheckedChanged: {
+                        appSettings.clearOnExit = checked
+                        backend.setClearOnExit(checked)
+                    }
                 }
             }
 
@@ -797,7 +836,7 @@ Page {
                 SectionTitle { text: "Application" }
                 
                 SettingChoice { 
-                    title: "Update channel"; description: "Choose how early new versions are offered."; values: ["Stable", "Beta", "Manual"]
+                    title: "Update channel"; description: "Choose how early new versions are offered."; values: ["Stable"]
                     currentIndex: appSettings.updateChannel
                     onCurrentIndexChanged: appSettings.updateChannel = currentIndex
                 }

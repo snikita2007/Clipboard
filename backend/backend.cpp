@@ -11,7 +11,6 @@ Backend::Backend(QObject *parent) : QObject(parent){
     m_network = new NetworkManager(this);
     connect(m_network, &NetworkManager::dataReceived, this, &Backend::handleRemoteData);
 
-// Таймер для обновления буфера на мак
 #ifdef Q_OS_MAC
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Backend::checkClipboardNative);
@@ -20,15 +19,17 @@ Backend::Backend(QObject *parent) : QObject(parent){
 }
 
 Backend::~Backend(){
-    // Отчистка папки в temp
-    QDir dir(m_cacheDir);
-    if (dir.exists()){
-        dir.removeRecursively();
-        qDebug() << "Cleaned up...";
+    if (m_clearOnExit) {
+        QDir dir(m_cacheDir);
+        if (dir.exists()){
+            dir.removeRecursively();
+        }
     }
 }
 
 void Backend::handleRemoteData(QVariantMap data){
+    if (!m_deviceSynk) return;
+
     QClipboard *clipboard = QGuiApplication::clipboard();
 
     if (data["type"].toString() == "image"){
@@ -117,12 +118,24 @@ void Backend::onClipboardChanged(){
     QClipboard *clipboard = QGuiApplication::clipboard();
     const QMimeData *mimeData = clipboard->mimeData();
 
+    if (m_excludeImages) {
+        if (mimeData->hasImage()) return;
+        if (mimeData->hasUrls()) {
+            QString path = mimeData->urls().first().toLocalFile();
+            QString suffix = QFileInfo(path).suffix().toLower();
+            if (QStringList({"png", "jpg", "jpeg", "gif", "bmp", "ico", "webp"}).contains(suffix)) {
+                return;
+            }
+        }
+    }
+
     QString hash = generateHash(mimeData);
     if (hash.isEmpty()) return;
     if (isDublicate(hash)) return;
     QVariantMap item;
     item["hash"] = hash;
     item["time"] = QDateTime::currentDateTime().toString("HH:mm");
+    item["full_datetime"] = QDateTime::currentDateTime().toString(Qt::ISODate);
     QByteArray data;
 
     if (mimeData->hasUrls()  && !mimeData->urls().first().toLocalFile().isEmpty()){
@@ -165,27 +178,37 @@ void Backend::onClipboardChanged(){
     }
 
     if (!item.isEmpty()){
-        m_history.prepend(item);
-        emit itemAdded(item);
-        
-        if (m_history.size() > 50)
-            m_history.removeLast();
+        if (m_saveClipboardHistory){
+            m_history.prepend(item);
+            emit itemAdded(item);
+            
+            int limit = 50;
+            if (m_historyLimit == 1) limit = 100;
+            else if (m_historyLimit == 2) limit = 250;
 
-        QVariantMap networkItem = item;
-        if (item["type"] == "image")
-        {
-            if (!data.isEmpty()) {
-                networkItem["raw_data"] = data;
-            } 
-            else {
-                QFile file(item["data"].toString());
-                if (file.open(QIODevice::ReadOnly)) {
-                    networkItem["raw_data"] = file.readAll();
-                    file.close();
+            while (m_history.size() > limit)
+                m_history.removeLast();
+        }
+
+        enforceAutoClear();
+
+        if (m_deviceSynk) {
+            QVariantMap networkItem = item;
+            if (item["type"] == "image")
+            {
+                if (!data.isEmpty()) {
+                    networkItem["raw_data"] = data;
+                } 
+                else {
+                    QFile file(item["data"].toString());
+                    if (file.open(QIODevice::ReadOnly)) {
+                        networkItem["raw_data"] = file.readAll();
+                        file.close();
+                    }
                 }
             }
+            m_network->broadcastClipboard(networkItem);
         }
-        m_network->broadcastClipboard(networkItem);
     }
 }
 
@@ -195,4 +218,96 @@ void Backend::clearHistory(){
 
 QPoint Backend::getGlobalMousePos() {
     return QCursor::pos();
+}
+
+void Backend::setLaunchAtStartup(bool enabled) {
+    m_launchAtStartup = enabled;
+#if defined(Q_OS_WIN)
+    QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
+    if (enabled) {
+        settings.setValue(QCoreApplication::applicationName(), QDir::toNativeSeparators(QCoreApplication::applicationFilePath()));
+    } else {
+        settings.remove(QCoreApplication::applicationName());
+    }
+#elif defined(Q_OS_MAC)
+    QString appPath = QCoreApplication::applicationFilePath();
+    QString appName = QCoreApplication::applicationName();
+    QStringList args;
+    if (enabled) {
+        args << "-e" << QString("tell application \"System Events\" to make login item at end with properties {path:\"%1\", name:\"%2\", hidden:false}").arg(appPath, appName);
+    } else {
+        args << "-e" << QString("tell application \"System Events\" to delete login item \"%1\"").arg(appName);
+    }
+    QProcess::startDetached("osascript", args);
+#elif defined(Q_OS_LINUX)
+    QString autostartDir = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + "/autostart";
+    QDir().mkpath(autostartDir);
+    QString filePath = autostartDir + "/" + QCoreApplication::applicationName() + ".desktop";
+    if (enabled) {
+        QFile file(filePath);
+        if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QTextStream out(&file);
+            out << "[Desktop Entry]\n"
+                << "Type=Application\n"
+                << "Name=" << QCoreApplication::applicationName() << "\n"
+                << "Exec=" << QCoreApplication::applicationFilePath() << "\n"
+                << "Hidden=false\n"
+                << "NoDisplay=false\n"
+                << "X-GNOME-Autostart-enabled=true\n";
+        }
+    } else {
+        QFile::remove(filePath);
+    }
+#endif
+}
+
+void Backend::setHistoryLimit(int index) {
+    m_historyLimit = index;
+    int limit = 50;
+    if (m_historyLimit == 1) limit = 100;
+    else if (m_historyLimit == 2) limit = 250;
+
+    while (m_history.size() > limit) {
+        m_history.removeLast();
+    }
+}
+
+void Backend::setSaveClipboardHistory(bool enabled) {
+    m_saveClipboardHistory = enabled;
+}
+
+void Backend::setDeviceSynk(bool enabled) {
+    m_deviceSynk = enabled;
+}
+
+void Backend::setAutoClear(int index) {
+    m_autoClear = index;
+    enforceAutoClear();
+}
+
+void Backend::setExcludeImages(bool enabled) {
+    m_excludeImages = enabled;
+}
+
+void Backend::setClearOnExit(bool enabled) {
+    m_clearOnExit = enabled;
+}
+
+void Backend::enforceAutoClear() {
+    if (m_autoClear == 0 || m_history.isEmpty()) return;
+
+    qint64 days = 1;
+    if (m_autoClear == 2) days = 7;
+    else if (m_autoClear == 3) days = 30;
+
+    QDateTime limitTime = QDateTime::currentDateTime().addDays(-days);
+
+    for (int i = m_history.size() - 1; i >= 0; --i) {
+        QVariantMap item = m_history[i].toMap();
+        QDateTime itemTime = QDateTime::fromString(item["full_datetime"].toString(), Qt::ISODate);
+        
+        if (itemTime.isValid() && itemTime < limitTime) {
+            m_history.removeAt(i);
+        }
+    }
 }

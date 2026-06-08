@@ -7,7 +7,7 @@ import QtQuick.Layouts
 Item {
     id: root
     
-    visible: Qt.platform.os === "android"
+    visible: Qt.platform.os === "android" && settingsPage.mobileDetailOpen === false
 
     anchors.bottom: parent.bottom
     anchors.horizontalCenter: parent.horizontalCenter
@@ -237,6 +237,7 @@ Item {
                 anchors.fill: parent
                 enabled: !root.searchMode
                 onClicked: {
+                    root.navigate("History.qml")
                     root.searchMode = true
                     keyboardDelayTimer.start()
                 }

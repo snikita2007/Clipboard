@@ -5,7 +5,7 @@ import "components"
 
 ApplicationWindow {
     id: root
-    visible: Qt.platform.os === "android" 
+    visible: Qt.platform.os === "android"
     color: (Qt.platform.os === "android" ) ? palette.window : "transparent"
 
     width: Screen.width
@@ -19,10 +19,11 @@ ApplicationWindow {
     flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool
 
     property bool isPinned: false
+    property alias settings: settingsPage.settings
 
     Native.SystemTrayIcon {
         id: trayIcon
-        visible: true
+        visible: settings.showTrayIcon
         icon.source: "qrc:/ui/assets/app.png"
         tooltip: "Clipboard"
         menu: Native.Menu {
@@ -102,9 +103,10 @@ ApplicationWindow {
     Shortcut { 
         sequence: "Escape"
         onActivated: {
-            if (mainSwipe.currentItem.currentMode === "") {
+            if (mainSwipe.currentItem.currentMode === "" && settings.enableEscapeToClose) {
                 root.softClose() 
             } else {
+                bottomNav.currentTab = 0
                 mainSwipe.currentItem.resetMode()
             }
         }

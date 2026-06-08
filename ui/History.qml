@@ -203,7 +203,7 @@ Page{
                 delegate: AbstractButton {
                     id: historyDelegate
                     width: historyList.width  
-                    height: 60
+                    height: historyPage.getDensityHeight(60)
                     clip: true
 
                     property bool highlighted: ListView.isCurrentItem
@@ -219,11 +219,8 @@ Page{
                         anchors.fill: parent
                         spacing: 10
                         IconImage {
-                            Layout.preferredHeight: 35
                             Layout.preferredWidth: 35
                             Layout.leftMargin: 5
-                            sourceSize.height: 35
-                            sourceSize.width: 35
                             smooth: true
                             mipmap: true
                             source: (model.type === "image") ? model.preview : "qrc:/ui/assets/text.svg"
@@ -282,7 +279,7 @@ Page{
                 delegate: AbstractButton {
                     id: delegateLoader
                     width: historyList.width  
-                    height: 60
+                    height: historyPage.getDensityHeight(60)
                     clip: true
 
                     property bool highlighted: ListView.isCurrentItem
@@ -297,45 +294,74 @@ Page{
                         anchors.fill: parent
                         spacing: 10
                         IconImage {
-                            Layout.preferredHeight: 35
-                            Layout.preferredWidth: 35
+                            sourceSize.height: settings.density === 1 ? 20 : 35
                             Layout.leftMargin: 5
-                            sourceSize.height: 35
-                            sourceSize.width: 35
                             smooth: true
                             mipmap: true
                             source: (model.type === "image") ? model.preview : "qrc:/ui/assets/text.svg"
                             color: (model.type === "text") ? palette.windowText : "transparent"
                         }
 
-                        ColumnLayout {
+                        Item {
                             Layout.fillWidth: true
-                            anchors.margins: 15
-                            Layout.alignment: Qt.AlignVCenter
-                            spacing: 2  
-                            Text {
-                                Layout.fillWidth: true
-                                text: model.name
-                                font.pixelSize: 16
-                                font.weight: Font.DemiBold
-                                color: palette.windowText
-                                elide: Text.ElideRight
+                            Layout.fillHeight: true
+
+                            RowLayout {
+                                id: compactRow
+                                visible: settings.density === 1
+                                anchors.fill: parent
+                                spacing: 10
+
+                                Text {
+                                    Layout.fillWidth: true
+                                    text: model.name
+                                    font.pixelSize: 16
+                                    font.weight: Font.DemiBold
+                                    color: palette.windowText
+                                    elide: Text.ElideRight
+                                    verticalAlignment: Text.AlignVCenter
+                                }
+                                Text {
+                                    text: model.time
+                                    font.pixelSize: 12
+                                    color: palette.placeholderText
+                                    font.weight: Font.DemiBold
+                                    Layout.alignment: Qt.AlignVCenter
+                                }
                             }
-                            Text {
-                                text: `Type ${model.type} • Copyed ${model.time}`
-                                font.pixelSize: 12
-                                color: palette.placeholderText
-                                font.weight: Font.DemiBold
+
+                            ColumnLayout {
+                                id: normalColumn
+                                visible: settings.density !== 1
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                anchors.verticalCenter: parent.verticalCenter
+                                spacing: 2
+
+                                Text {
+                                    Layout.fillWidth: true
+                                    text: model.name
+                                    font.pixelSize: 16
+                                    font.weight: Font.DemiBold
+                                    color: palette.windowText
+                                    elide: Text.ElideRight
+                                }
+                                Text {
+                                    text: "Type " + model.type + " • Copyed " + model.time
+                                    font.pixelSize: 12
+                                    color: palette.placeholderText
+                                    font.weight: Font.DemiBold
+                                }
                             }
                         }
                         Item {
-                            Layout.preferredWidth: 40
+                            Layout.preferredWidth: settings.density === 1 ? 5 : 40
                         }
                     }
                     onClicked: {
                         let manualMap = { "type": model.type, "data": model.data }
                         backend.copyToClip(manualMap)
-                        if (Qt.platform.os !== "android"){
+                        if (Qt.platform.os !== "android" && settings.defaultAction === 0){
                             root.softClose()
                         }
                     }
@@ -343,8 +369,11 @@ Page{
                 Connections {
                     target: backend
                     function onItemAdded(newItem) {
+                        if (!settings.saveClipboardHistory) return;
+                        if (settings.excludeImages && newItem.type === "image") return;
+
                         clipList.insert(0, newItem);
-                        if (clipList.count > 50) clipList.remove(50);
+                        historyPage.enforceLimit();
                     }
                 }
             }
@@ -371,7 +400,7 @@ Page{
                 delegate: AbstractButton {
                     id: actionControl
                     width: actionsList.width
-                    height: 50
+                    height: historyPage.getDensityHeight(50)
 
                     property bool highlighted: ListView.isCurrentItem
                     function triggerAction() { actionControl.clicked(); }
@@ -618,7 +647,7 @@ Page{
         let basePadding = 50;
         let extraPadding = 45;
         let currentList;
-        let itemHeight = 65;
+        let itemHeight = historyPage.getDensityHeight(60)+5;
 
         if (clipList.count === 1){
             extraPadding = 25;
@@ -675,6 +704,26 @@ Page{
         topBar.state = ""
     }
 
+    function enforceLimit() {
+        let limit = getLimitValue(settings.historyLimit);
+        while (clipList.count > limit && limit > 0) {
+            clipList.remove(clipList.count - 1);
+        }
+    }
+
+    function getLimitValue(index) {
+        let limits = [10, 50, 100, 250];
+        return (index >= 0 && index < limits.length) ? limits[index] : 50;
+    }
+
+    function getDensityHeight(baseHeight) {
+        let multiplier = 1.0;
+        if (settings.density === 1) multiplier = 0.7;
+        if (settings.density === 2) multiplier = 1.2;
+        
+        return baseHeight * multiplier;
+    }
+
     Timer {
         id: searchDebounceTimer
         interval: 200
@@ -686,42 +735,44 @@ Page{
             historyPage.applySearch(searchQuery)
         }
     }
-    Shortcut { 
-        sequence: "Alt + A"
+    Shortcut {
+        sequences: ["Alt+A", "Alt+Ф"]
+        context: Qt.ApplicationShortcut
         onActivated: {
-            if (topBar.state === "menumode") {
-                topBar.state = ""
-            } else {
-                topBar.state = "menumode"
-            }
+            topBar.state = (topBar.state === "menumode") ? "" : "menumode"
+            bottomNav.currentTab = 0
         }
     }
-    Shortcut { 
-        sequence: "Alt + W"
+
+    Shortcut {
+        sequences: ["Alt+W", "Alt+Ц"]
+        context: Qt.ApplicationShortcut
         onActivated: {
             backend.clearHistory()
             clipList.clear()
             topBar.state = ""
         }
     }
-    Shortcut { 
-        sequence: "Alt + S"
+
+    Shortcut {
+        sequences: ["Alt+S", "Alt+Ы"]
+        context: Qt.ApplicationShortcut
         onActivated: {
-            if (bottomNav.currentTab === 1) {
-                bottomNav.currentTab = 0
-            } else {
-                bottomNav.currentTab = 1
-            }
+            bottomNav.currentTab = (bottomNav.currentTab === 1) ? 0 : 1
         }
     }
-    Shortcut { 
-        sequence: "Alt + P"
+
+    Shortcut {
+        sequences: ["Alt+P", "Alt+З"]
+        context: Qt.ApplicationShortcut
         onActivated: {
             root.isPinned = !root.isPinned
         }
     }
-    Shortcut { 
-        sequence: "Alt + Q"
+
+    Shortcut {
+        sequences: ["Alt+Q", "Alt+Й"]
+        context: Qt.ApplicationShortcut
         onActivated: {
             Qt.quit()
         }

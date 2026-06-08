@@ -21,19 +21,18 @@
 #include "bluetooth.h"
 #include "NetworkManager.h"
 #include "bluetooth_client.h"
-
+#include <QProcess>
 #include <QCursor>
 
 #include "NetworkManager.h"
 
 class Backend : public QObject {
-    Q_OBJECT // Позволяет классу использовать сигналы, слоты и систему свойств Qt
+    Q_OBJECT
 
 signals:
-    void itemAdded(QVariant item); // Сигнал о добавлении объекта в буфер
+    void itemAdded(QVariant item);
 
 public slots:
-    //Функция вызываемая при изменениии буфера, автоматически проверяет файлы на повторы и их тип, добавляет в историю
     void onClipboardChanged();
     void handleRemoteData(QVariantMap data);
 
@@ -48,10 +47,29 @@ public:
     Q_INVOKABLE QPoint getGlobalMousePos();
     QString generateHash(const QMimeData *mimeData);
 
+    Q_INVOKABLE void setLaunchAtStartup(bool enabled);
+    Q_INVOKABLE void setHistoryLimit(int index);
+    Q_INVOKABLE void setSaveClipboardHistory(bool enabled);
+    Q_INVOKABLE void setDeviceSynk(bool enabled);
+    Q_INVOKABLE void setAutoClear(int index);
+    Q_INVOKABLE void setExcludeImages(bool enabled);
+    Q_INVOKABLE void setClearOnExit(bool enabled);
+
 private:
+    void enforceAutoClear();
+
     QVariantList m_history;
     QString m_cacheDir;
     NetworkManager *m_network;
+
+    bool m_launchAtStartup = false;
+    int m_historyLimit = 0;
+    bool m_saveClipboardHistory = true;
+    bool m_deviceSynk = false;
+    int m_autoClear = 0;
+    bool m_excludeImages = false;
+    bool m_clearOnExit = false;
+
     #ifdef Q_OS_MAC
     long m_lastChangeCount = -1; 
     int m_firstCount = 1;

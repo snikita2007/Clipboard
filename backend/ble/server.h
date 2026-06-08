@@ -15,12 +15,10 @@ public:
     explicit UdpServer(QObject *parent = nullptr);
     ~UdpServer();
 
-    bool startServer(quint16 port);
+    static UdpServer& instance();
+
     void sayHello(QVariantMap item); 
     void Recive(QStringList data);
-    void stopServer();
-    
-    static UdpServer& instance();
 
     QVariantList ips;
 
@@ -29,6 +27,9 @@ signals:
     void serverStopped(); 
 
 public slots:
+    bool startServer(quint16 port);
+    void stopServer();
+    
     void updateIps(const QVariantList &newIps);
 
 private slots:
@@ -42,5 +43,3 @@ protected:
 };
 
 #endif 
-
-

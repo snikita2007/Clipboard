@@ -118,15 +118,14 @@ ApplicationWindow {
         bottomNav.currentTab = 0
         closeAnimation.start()
     }
+
     ParallelAnimation {
         id: closeAnimation
         NumberAnimation { target: root; property: "opacity"; to: 0; duration: 150; easing.type: Easing.OutCubic }
-<<<<<<< HEAD
+        
+        // Исправлено: Оставлен один корректный обработчик завершения анимации
         onStopped: {
-=======
-        onFinished: {
             mainSwipe.currentItem.resetMode()
->>>>>>> c83bc1be7b2b90268bdbd39c4f4d5f4b57661ac7
             root.hide()
         }
     }
@@ -149,6 +148,7 @@ ApplicationWindow {
         historyPage.triggerWindowResize();
         openAnimation.start()
     }
+
     ParallelAnimation{
         id: openAnimation
         NumberAnimation {target: root; property: "opacity"; to: 1; duration: 150; easing.type: Easing.InCubic }
@@ -223,4 +223,4 @@ ApplicationWindow {
             root.y = 30; 
         }
     }
-}
+} 

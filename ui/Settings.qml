@@ -231,10 +231,9 @@ Page {
                 model: choiceRow.values
                 currentIndex: choiceRow.currentIndex
 
-                delegate: Qt.platform.os === "osx" ? macDelegateComponent : null
-
                 Component.onCompleted: {
                     if (Qt.platform.os === "osx") {
+                        comboControl.delegate = macDelegateComponent
                         popup = macPopupComponent.createObject(comboControl)
                     }
                 }

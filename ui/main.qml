@@ -8,24 +8,6 @@ ApplicationWindow {
     visible: Qt.platform.os === "android" 
     color: (Qt.platform.os === "android" ) ? palette.window : "transparent"
 
-    property bool _androidThemeAutoSync: {
-        if (Qt.platform.os === "android") {
-            // Проверяем, какой цвет темнее. Если фон темнее текста — значит тема ТЕМНАЯ
-            // palette.window.hslLightness возвращает яркость от 0.0 (черный) до 1.0 (белый)
-            let isDark = palette.window.hslLightness < palette.windowText.hslLightness
-
-            // 1. Синхронизируем базовую тему Material (1 = Dark, 0 = Light)
-            windowRoot["Material.theme"] = isDark ? 1 : 0
-            
-            // 2. Ставим нужный тебе акцент: в темной теме — белый, в светлой — темно-серый
-            windowRoot["Material.accent"] = Qt.binding(function() {
-                return isDark ? "#FFFFFF" : "#333333"
-            })
-            return true
-        }
-        return false
-    }
-
     width: Screen.width
     height: Screen.height
     minimumWidth: width

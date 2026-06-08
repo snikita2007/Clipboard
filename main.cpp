@@ -24,6 +24,9 @@ int main(int argc, char *argv[]) {
 
     QApplication app(argc, argv); 
 
+    app.setOrganizationName("KNGC");
+    app.setOrganizationDomain("kngc.com");
+    app.setApplicationName("ClipboardApp");
     app.setWindowIcon(QIcon(":/ui/assets/app.png"));
 
     QQmlApplicationEngine engine;

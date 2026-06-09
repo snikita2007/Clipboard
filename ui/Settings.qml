@@ -30,7 +30,7 @@ Page {
         property bool launchAtStartup: false
         property int defaultAction: 0
 
-        property bool deviceSync: false
+        property bool deviceSync: true
         property int discoveryMode: 0
         property bool wifiOnly: true
         property bool requireConfirmation: true

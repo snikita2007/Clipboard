@@ -16,7 +16,6 @@ Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient 
         if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Wifi) {
             
             UdpServer::instance().sayHello(map);
-            qDebug() << "tcp" << map;
         } 
         
         else if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Bluetooth) {

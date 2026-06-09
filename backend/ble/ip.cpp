@@ -55,6 +55,7 @@ void NetworkScanner::readPendingDatagrams() {
         
         udpSocket->readDatagram(datagram.data(), datagram.size(), &senderIp, &senderPort);
         
+        // Превращаем IPv6-вид (::ffff:10.154.98.125) в чистый IPv4
         if (senderIp.protocol() == QAbstractSocket::IPv6Protocol) {
             bool ok;
             quint32 ipv4 = senderIp.toIPv4Address(&ok);
@@ -63,12 +64,15 @@ void NetworkScanner::readPendingDatagrams() {
         
         QString ip = senderIp.toString();
         
+        // Отсекаем свои собственные пакеты
         if (QNetworkInterface::allAddresses().contains(senderIp)) continue;
 
+        // ШАГ 1: Кто-то прислал SEARCH — отвечаем ему "HERE"
         if (datagram == "SEARCH") {
             udpSocket->writeDatagram("HERE", senderIp, senderPort);
         }
         
+        // ШАГ 2: Нам ответили "HERE". Сразу добавляем устройство без лишних проверок!
         else if (datagram == "HERE") {
             if (!foundDevices.contains(ip)) {
                 foundDevices.insert(ip);
@@ -82,7 +86,7 @@ void NetworkScanner::readPendingDatagrams() {
                 }
 
                 qDebug() << "[Scanner] УСПЕХ! По сигналу HERE обнаружено устройство:" << ip;
-                qDebug() << "[Scanner] Текущий список отправки:" << devicesList;
+                qDebug() << "[Scanner] Текущий список для отправки буфера:" << devicesList;
 
                 emit devicesUpdated(devicesList);
 
@@ -91,4 +95,3 @@ void NetworkScanner::readPendingDatagrams() {
         }
     }
 }
-

@@ -263,7 +263,6 @@ void Backend::onClipboardChanged(){
             }
             m_network->broadcastClipboard(networkItem);
 
-
             
         }
     }

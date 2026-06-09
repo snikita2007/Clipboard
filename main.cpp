@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
 
     NetworkSwitch networkSwitch(&server, &bluetooth, &cli);
 
-    scanner.startScanning(2345);
+    scanner.startScanning(1234);
     
     // server.startServer(1234);    
     

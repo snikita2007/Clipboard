@@ -84,6 +84,8 @@ void UdpServer::sayHello(QVariantMap item) {
     
     QVariantList localIps = this->ips; 
     
+    qDebug() << localIps;
+    
     if (localIps.isEmpty()) return;
 
     for (const QVariant &ipadresse : ips) {

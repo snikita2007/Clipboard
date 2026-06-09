@@ -104,6 +104,8 @@ void NetworkScanner::readPendingDatagrams() {
 
                 emit devicesUpdated(FOUNDDEVICES);
 
+                qDebug() << FOUNDDEVICES;
+
                 UdpServer::instance().updateIps(devicesList);
             }
         }

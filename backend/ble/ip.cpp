@@ -43,8 +43,6 @@ void NetworkScanner::startScanning(quint16 port) {
 
 void NetworkScanner::sendDiscoveryRequest() {
     QByteArray datagram = "SEARCH";
-    // ИСПРАВЛЕНИЕ: Метод занимается только широковещательным поиском, 
-    // авторизация перенесена в цепочку обработки пакетов.
     udpSocket->writeDatagram(datagram, QHostAddress::Broadcast, m_port); 
 }
 
@@ -53,7 +51,7 @@ void NetworkScanner::readPendingDatagrams() {
         QByteArray datagram;
         datagram.resize(udpSocket->pendingDatagramSize());
         QHostAddress senderIp;
-        quint16 senderPort; // ИСПРАВЛЕНИЕ: Запоминаем точный порт отправителя для обратного ответа
+        quint16 senderPort; 
         
         udpSocket->readDatagram(datagram.data(), datagram.size(), &senderIp, &senderPort);
         
@@ -65,32 +63,12 @@ void NetworkScanner::readPendingDatagrams() {
         
         QString ip = senderIp.toString();
         
-        // ВНИМАНИЕ: Если вы запускаете два экземпляра программы на ОДНОМ компьютере для тестов,
-        // временно закомментируйте строку ниже, иначе они будут игнорировать друг друга.
         if (QNetworkInterface::allAddresses().contains(senderIp)) continue;
 
-        // ЭТАП 1: Получен широковещательный запрос от другого устройства
         if (datagram == "SEARCH") {
             udpSocket->writeDatagram("HERE", senderIp, senderPort);
         }
-        // ЭТАП 2: Другое устройство ответило, что оно в сети. Инициируем проверку хэша.
-        else if (datagram == "HERE") {
-            QString criptonum = "2357";
-            QByteArray hash = "H:" + QCryptographicHash::hash(criptonum.toUtf8(), QCryptographicHash::Sha256).toHex();
-            udpSocket->writeDatagram(hash, senderIp, senderPort);
-        }
-        // ЭТАП 3: Нам прислали хэш. Проверяем его валидность.
-        else if (datagram.startsWith("H:")) {
-            QByteArray rHash = datagram.mid(2);
-            QByteArray myHash = QCryptographicHash::hash("2357", QCryptographicHash::Sha256).toHex();
-
-            if (rHash == myHash) { 
-                udpSocket->writeDatagram("CONNECTED_OK", senderIp, senderPort);
-                qDebug() << "[Scanner] Авторизован удаленный IP по хэшу:" << ip;
-                Selector = senderIp;  
-            }
-        }
-        // ЭТАП 4: Наш хэш успешно прошел проверку на удаленной стороне. Добавляем устройство.
+        
         else if (datagram == "HERE") {
             if (!foundDevices.contains(ip)) {
                 foundDevices.insert(ip);
@@ -103,11 +81,14 @@ void NetworkScanner::readPendingDatagrams() {
                     devicesList.append(deviceDictionary);
                 }
 
-                qDebug() << "[Scanner] Устройство подтвердило авторизацию! Добавляем в список:" << ip;
-                
+                qDebug() << "[Scanner] УСПЕХ! По сигналу HERE обнаружено устройство:" << ip;
+                qDebug() << "[Scanner] Текущий список отправки:" << devicesList;
+
                 emit devicesUpdated(devicesList);
+
                 UdpServer::instance().updateIps(devicesList);
             }
         }
     }
 }
+

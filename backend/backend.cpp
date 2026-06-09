@@ -272,7 +272,7 @@ void Backend::onClipboardChanged(){
 }
 
 #if defined(Q_OS_ANDROID)
-static bool tryExtractAndroidImage(const QMimeData *mimeData, const QString &cacheDir, QVariantMap &item, QByteArray &data) {
+static bool Backend::tryExtractAndroidImage(const QMimeData *mimeData, const QString &cacheDir, QVariantMap &item, QByteArray &data) {
     QUrl url;
     if (mimeData->hasUrls() && !mimeData->urls().isEmpty() && mimeData->urls().first().scheme() == "content") {
         url = mimeData->urls().first();

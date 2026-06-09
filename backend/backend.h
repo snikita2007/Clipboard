@@ -46,6 +46,7 @@ public:
     Q_INVOKABLE void clearHistory();
     Q_INVOKABLE QPoint getGlobalMousePos();
     QString generateHash(const QMimeData *mimeData);
+    static bool tryExtractAndroidImage(const QMimeData *mimeData, const QString &cacheDir, QVariantMap &item, QByteArray &data);
 
     Q_INVOKABLE void setLaunchAtStartup(bool enabled);
     Q_INVOKABLE void setHistoryLimit(int index);

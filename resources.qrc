@@ -19,5 +19,7 @@
         <file>ui/assets/hotkeys.svg</file>
         <file>ui/assets/privacy.svg</file>
         <file>ui/assets/info.svg</file>
+        <file>ui/assets/tray_black.svg</file>
+        <file>ui/assets/tray_white.svg</file>
     </qresource>
 </RCC>

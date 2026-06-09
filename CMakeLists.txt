@@ -8,7 +8,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
-set(QT_DEFAULT_MAJOR_VERSION 6)
+set(QT_DEFAULT_MAJOR_VERSION 6) 
+
+cmake_minimum_required(VERSION 3.16)
+
+
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Widgets Concurrent)
 
 if(NOT ANDROID)
     add_subdirectory(3rdparty/QHotkey)
@@ -33,9 +38,23 @@ set(PROJECT_SOURCES
     backend/backend.cpp
 )
 
-qt_add_executable(ClipboardApp MACOSX_BUNDLE ${PROJECT_SOURCES}
+if(WIN32)
+    file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/app.rc "IDI_ICON1 ICON DISCARDABLE \"${CMAKE_CURRENT_SOURCE_DIR}/ui/assets/app.ico\"\n")
+    list(APPEND PROJECT_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/app.rc)
+endif()
+
+if(APPLE)
+    list(APPEND PROJECT_SOURCES ui/assets/app.icns)
+endif()
+
+qt_add_executable(ClipboardApp WIN32 MACOSX_BUNDLE 
+    ${PROJECT_SOURCES}
     resources.qrc
 )
+
+if(APPLE)
+    set_source_files_properties(ui/assets/app.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+endif()
 
 target_include_directories(ClipboardApp PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/backend/window_effects
@@ -55,6 +74,7 @@ endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_sources(ClipboardApp PRIVATE backend/window_effects/WindowEffects_linux.cpp)
+    configure_file(ui/assets/app.png ${CMAKE_CURRENT_BINARY_DIR}/app.png COPYONLY)
 endif()
 
 if(APPLE)
@@ -74,6 +94,7 @@ if(APPLE)
 
     set_target_properties(ClipboardApp PROPERTIES
         MACOSX_BUNDLE_BUNDLE_IDENTIFIER "com.clipboard.app"
+        MACOSX_BUNDLE_ICON_FILE "app"
     )
 endif()
 

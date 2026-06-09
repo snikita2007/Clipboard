@@ -24,12 +24,20 @@ ApplicationWindow {
     Native.SystemTrayIcon {
         id: trayIcon
         visible: settings.showTrayIcon
-        icon.source: "qrc:/ui/assets/app.png"
+        icon.source: {
+            if (Qt.platform.os === "osx") {
+                return "qrc:/ui/assets/tray_white.svg"
+            } else {
+                return (palette.windowText.r < 0.5) 
+                    ? "qrc:/ui/assets/tray_white.svg" 
+                    : "qrc:/ui/assets/tray_black.svg"
+            }
+        }
         tooltip: "Clipboard"
         menu: Native.Menu {
             Native.MenuItem { text: "Show/hide"; onTriggered: root.visible ? root.softClose() : root.softOpen() }
             Native.MenuItem { text: "Clear"; onTriggered: { backend.clearHistory() } }
-            Native.MenuItem { text: "Settings"; onTriggered: bottomNav.currentTab = 1 }
+            Native.MenuItem { text: "Settings"; onTriggered: {root.softOpen(); bottomNav.currentTab = 1 }}
             Native.MenuItem { text: "Exit"; onTriggered: Qt.quit() }
         }
         onActivated: function(reason) {

@@ -73,7 +73,7 @@ void UdpServer::Connection() {
             }
         });
 
-        connect(socket, &QTcpSocket::disconnected, this, [socket, stream]() {
+        connect(socket, &QTcpSocket::disconnected, socket, [socket, stream]() {
             delete stream;
             socket->deleteLater();
         });

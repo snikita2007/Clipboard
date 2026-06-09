@@ -1,8 +1,4 @@
 #include "backend.h"
-#include "server.h"
-#include "bluetooth.h"
-#include "switch.h"
-#include "bluetooth_client.h"
 
 Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient *cli, NetworkSwitch *m_networkSwitch , QObject *parent) : QObject(parent){
     QString tempPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
@@ -40,11 +36,18 @@ Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient 
         }
     });
 
-#ifdef Q_OS_MAC
+    #ifdef Q_OS_MAC
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Backend::checkClipboardNative);
     timer->start(500);
-#endif
+    #endif
+    #ifdef Q_OS_ANDROID
+    connect(qGuiApp, &QGuiApplication::applicationStateChanged, this, [this](Qt::ApplicationState state) {
+        if (state == Qt::ApplicationActive) {
+            QTimer::singleShot(300, this, &Backend::onClipboardChanged);
+        }
+    });
+    #endif
 }
 
 Backend::~Backend(){

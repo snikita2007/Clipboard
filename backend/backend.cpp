@@ -11,9 +11,6 @@ Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient 
 
     QClipboard *clipboard = QGuiApplication::clipboard();
     connect(clipboard, &QClipboard::dataChanged, this, &Backend::onClipboardChanged);
-
-    // m_network = new NetworkManager(this);
-    // connect(m_network, &NetworkManager::dataReceived, this, &Backend::handleRemoteData);
     
     connect(&UdpServer::instance(), &UdpServer::dataReceived, this, &Backend::copyToClip);
 

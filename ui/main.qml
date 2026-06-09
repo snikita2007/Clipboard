@@ -28,7 +28,7 @@ ApplicationWindow {
             if (Qt.platform.os === "osx") {
                 return "qrc:/ui/assets/tray_white.svg"
             } else {
-                return (palette.windowText.r < 0.5) 
+                return (palette.windowText.r > 0.5) 
                     ? "qrc:/ui/assets/tray_white.svg" 
                     : "qrc:/ui/assets/tray_black.svg"
             }

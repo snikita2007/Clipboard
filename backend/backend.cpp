@@ -117,12 +117,27 @@ bool Backend::isDublicate(const QString &hash) {
 QString Backend::generateHash(const QMimeData *mimeData){
     if (!mimeData) return QString();
 
+    if (mimeData->hasUrls() && !mimeData->urls().isEmpty() && mimeData->urls().first().scheme() == "content") {
+        return QCryptographicHash::hash(mimeData->urls().first().toString().toUtf8(), QCryptographicHash::Md5).toHex();
+    }
+    if (mimeData->hasText() && mimeData->text().startsWith("content://")) {
+        return QCryptographicHash::hash(mimeData->text().toUtf8(), QCryptographicHash::Md5).toHex();
+    }
+
+    if (mimeData->hasImage()) {
+        QImage img = qvariant_cast<QImage>(mimeData->imageData());
+        if (!img.isNull()) {
+            qint64 totalSize = img.sizeInBytes();
+            int sampleSize = qMin(totalSize, (qint64)4096);
+            QByteArray data;
+            data.append(reinterpret_cast<const char *>(&totalSize), sizeof(totalSize));
+            data.append(reinterpret_cast<const char *>(img.bits()), sampleSize);
+            return QCryptographicHash::hash(data, QCryptographicHash::Md5).toHex();
+        }
+    }
+    
     if (mimeData->hasUrls() && !mimeData->urls().isEmpty()) {
         QUrl url = mimeData->urls().first();
-        if (url.scheme() == "content") {
-            return QCryptographicHash::hash(url.toString().toUtf8(), QCryptographicHash::Md5).toHex();
-        }
-        
         QString path = url.toLocalFile();
         if (!path.isEmpty()) {
             QFileInfo fileInfo(path);
@@ -131,26 +146,9 @@ QString Backend::generateHash(const QMimeData *mimeData){
             if (imageExtensions.contains(suffix)) {
                 return path;
             }
-            return QString();
+        } else {
+            return QCryptographicHash::hash(url.toString().toUtf8(), QCryptographicHash::Md5).toHex();
         }
-    }
-
-    if (mimeData->hasText() && mimeData->text().startsWith("content://")) {
-        return QCryptographicHash::hash(mimeData->text().toUtf8(), QCryptographicHash::Md5).toHex();
-    }
-    
-    if (mimeData->hasImage()) {
-        QImage img = qvariant_cast<QImage>(mimeData->imageData());
-        if (img.isNull()) return QString();
-
-        qint64 totalSize = img.sizeInBytes();
-        int sampleSize = qMin(totalSize, (qint64)4096);
-
-        QByteArray data;
-        data.append(reinterpret_cast<const char *>(&totalSize), sizeof(totalSize));
-        data.append(reinterpret_cast<const char *>(img.bits()), sampleSize);
-
-        return QCryptographicHash::hash(data, QCryptographicHash::Md5).toHex();
     }
     
     if (mimeData->hasText()) {
@@ -267,8 +265,8 @@ void Backend::onClipboardChanged(){
     }
 }
 
-#if defined(Q_OS_ANDROID)
 bool Backend::tryExtractAndroidImage(const QMimeData *mimeData, const QString &cacheDir, QVariantMap &item, QByteArray &data) {
+#if defined(Q_OS_ANDROID)
     QUrl url;
     if (mimeData->hasUrls() && !mimeData->urls().isEmpty() && mimeData->urls().first().scheme() == "content") {
         url = mimeData->urls().first();
@@ -326,8 +324,14 @@ bool Backend::tryExtractAndroidImage(const QMimeData *mimeData, const QString &c
         }
     }
     return false;
-}
+#else
+    Q_UNUSED(mimeData);
+    Q_UNUSED(cacheDir);
+    Q_UNUSED(item);
+    Q_UNUSED(data);
+    return false;
 #endif
+}
 
 void Backend::clearHistory(){
     m_history.clear();

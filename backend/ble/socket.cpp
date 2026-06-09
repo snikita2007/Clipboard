@@ -60,6 +60,8 @@ void UdpServer::Connection() {
         QDataStream *stream = new QDataStream(socket);
         stream->setVersion(QDataStream::Qt_6_0);
 
+        qDebug() << "TEST CON";
+
         connect(socket, &QTcpSocket::readyRead, this, [this, socket, stream]() {
             stream->startTransaction();
             QVariantMap receivedMap; 
@@ -67,6 +69,8 @@ void UdpServer::Connection() {
 
             if (stream->commitTransaction()) {
                 emit dataReceived(receivedMap);
+
+                qDebug() << "TEST CONNECT" << receivedMap;
                 
                 socket->disconnectFromHost();
             }
@@ -84,7 +88,7 @@ void UdpServer::sayHello(QVariantMap item) {
     
     QVariantList localIps = this->ips; 
     
-    qDebug() << localIps;
+    qDebug() << "IPADRESES" << localIps << item;
     
     if (localIps.isEmpty()) return;
 

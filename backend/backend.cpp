@@ -315,7 +315,7 @@ void Backend::setSaveClipboardHistory(bool enabled) {
     m_saveClipboardHistory = enabled;
 }
 
-void Backend::setDeviceSynk(bool enabled) {
+void Backend::setDeviceSync(bool enabled) {
     m_deviceSynk = enabled;
 }
 

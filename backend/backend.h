@@ -50,7 +50,7 @@ public:
     Q_INVOKABLE void setLaunchAtStartup(bool enabled);
     Q_INVOKABLE void setHistoryLimit(int index);
     Q_INVOKABLE void setSaveClipboardHistory(bool enabled);
-    Q_INVOKABLE void setDeviceSynk(bool enabled);
+    Q_INVOKABLE void setDeviceSync(bool enabled);
     Q_INVOKABLE void setAutoClear(int index);
     Q_INVOKABLE void setExcludeImages(bool enabled);
     Q_INVOKABLE void setClearOnExit(bool enabled);

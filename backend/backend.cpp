@@ -1,10 +1,5 @@
 #include "backend.h"
 
-#if defined(Q_OS_ANDROID)
-#include <QJniObject>
-#include <QJniEnvironment>
-#endif
-
 Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient *cli, NetworkSwitch *m_networkSwitch , QObject *parent) : QObject(parent){
     QString tempPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
     m_cacheDir = tempPath + "/ClipboardHistory_Cache";
@@ -19,10 +14,13 @@ Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient 
         QVariantMap map = item.toMap();
         
         if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Wifi) {
+            
             UdpServer::instance().sayHello(map);
             qDebug() << "tcp";
         } 
+        
         else if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Bluetooth) {
+            
             if (map["type"].toString() != "text") {
                 return;
             }
@@ -115,40 +113,30 @@ bool Backend::isDublicate(const QString &hash) {
 }
 
 QString Backend::generateHash(const QMimeData *mimeData){
-    if (!mimeData) return QString();
-
-    if (mimeData->hasUrls() && !mimeData->urls().isEmpty() && mimeData->urls().first().scheme() == "content") {
-        return QCryptographicHash::hash(mimeData->urls().first().toString().toUtf8(), QCryptographicHash::Md5).toHex();
-    }
-    if (mimeData->hasText() && mimeData->text().startsWith("content://")) {
-        return QCryptographicHash::hash(mimeData->text().toUtf8(), QCryptographicHash::Md5).toHex();
-    }
-
-    if (mimeData->hasImage()) {
-        QImage img = qvariant_cast<QImage>(mimeData->imageData());
-        if (!img.isNull()) {
-            qint64 totalSize = img.sizeInBytes();
-            int sampleSize = qMin(totalSize, (qint64)4096);
-            QByteArray data;
-            data.append(reinterpret_cast<const char *>(&totalSize), sizeof(totalSize));
-            data.append(reinterpret_cast<const char *>(img.bits()), sampleSize);
-            return QCryptographicHash::hash(data, QCryptographicHash::Md5).toHex();
+    if (mimeData->hasUrls() && !mimeData->urls().first().toLocalFile().isEmpty()) {
+        QString path = mimeData->urls().first().toLocalFile();
+        QFileInfo fileInfo(path);
+        QString suffix = fileInfo.suffix().toLower();
+        QStringList imageExtensions = {"png", "jpg", "jpeg", "gif", "bmp", "ico", "webp"};
+        
+        if (imageExtensions.contains(suffix)) {
+            return path;
         }
+        return QString();
     }
     
-    if (mimeData->hasUrls() && !mimeData->urls().isEmpty()) {
-        QUrl url = mimeData->urls().first();
-        QString path = url.toLocalFile();
-        if (!path.isEmpty()) {
-            QFileInfo fileInfo(path);
-            QString suffix = fileInfo.suffix().toLower();
-            QStringList imageExtensions = {"png", "jpg", "jpeg", "gif", "bmp", "ico", "webp"};
-            if (imageExtensions.contains(suffix)) {
-                return path;
-            }
-        } else {
-            return QCryptographicHash::hash(url.toString().toUtf8(), QCryptographicHash::Md5).toHex();
-        }
+    if (mimeData->hasImage()) {
+        QImage img = qvariant_cast<QImage>(mimeData->imageData());
+        if (img.isNull()) return QString();
+
+        qint64 totalSize = img.sizeInBytes();
+        int sampleSize = qMin(totalSize, (qint64)4096);
+
+        QByteArray data;
+        data.append(reinterpret_cast<const char *>(&totalSize), sizeof(totalSize));
+        data.append(reinterpret_cast<const char *>(img.bits()), sampleSize);
+
+        return QCryptographicHash::hash(data, QCryptographicHash::Md5).toHex();
     }
     
     if (mimeData->hasText()) {
@@ -161,74 +149,64 @@ QString Backend::generateHash(const QMimeData *mimeData){
 void Backend::onClipboardChanged(){
     QClipboard *clipboard = QGuiApplication::clipboard();
     const QMimeData *mimeData = clipboard->mimeData();
-    if (!mimeData) return;
 
     if (m_excludeImages) {
         if (mimeData->hasImage()) return;
-        if (mimeData->hasUrls() && !mimeData->urls().isEmpty()) {
-            QUrl url = mimeData->urls().first();
-            if (url.scheme() == "content") return;
-            QString path = url.toLocalFile();
+        if (mimeData->hasUrls()) {
+            QString path = mimeData->urls().first().toLocalFile();
             QString suffix = QFileInfo(path).suffix().toLower();
-            if (QStringList({"png", "jpg", "jpeg", "gif", "bmp", "ico", "webp"}).contains(suffix)) return;
+            if (QStringList({"png", "jpg", "jpeg", "gif", "bmp", "ico", "webp"}).contains(suffix)) {
+                return;
+            }
         }
-        if (mimeData->hasText() && mimeData->text().startsWith("content://")) return;
     }
 
     QString hash = generateHash(mimeData);
-    if (hash.isEmpty() || isDublicate(hash)) return;
-
+    if (hash.isEmpty()) return;
+    if (isDublicate(hash)) return;
     QVariantMap item;
     item["hash"] = hash;
     item["time"] = QDateTime::currentDateTime().toString("HH:mm");
     item["full_datetime"] = QDateTime::currentDateTime().toString(Qt::ISODate);
     QByteArray data;
 
-    bool processed = false;
-
-#if defined(Q_OS_ANDROID)
-    if (tryExtractAndroidImage(mimeData, m_cacheDir, item, data)) {
-        processed = true;
+    if (mimeData->hasUrls()  && !mimeData->urls().first().toLocalFile().isEmpty()){
+        QString path = mimeData->urls().first().toLocalFile();
+        QFileInfo fileInfo(path);
+        QString name = fileInfo.fileName();
+        item["type"] = "image";
+        item["data"] = path;
+        item["name"] = name;
+        item["preview"] = QUrl::fromLocalFile(path).toString();
     }
-#endif
 
-    if (!processed) {
-        if (mimeData->hasUrls() && !mimeData->urls().first().toLocalFile().isEmpty()){
-            QString path = mimeData->urls().first().toLocalFile();
-            QFileInfo fileInfo(path);
-            QString name = fileInfo.fileName();
-            item["type"] = "image";
-            item["data"] = path;
-            item["name"] = name;
-            item["preview"] = QUrl::fromLocalFile(path).toString();
+    else if (mimeData->hasImage()){
+        QString name = QString("img_%1.png").arg(QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss"));
+        QString path = m_cacheDir + "/" + name;
+        QImage img = qvariant_cast<QImage>(mimeData->imageData());
+
+        QBuffer buffer(&data);
+        buffer.open(QIODevice::WriteOnly);
+        img.save(&buffer, "PNG");
+
+        QFile file(path);
+        if (file.open(QIODevice::WriteOnly)){
+            file.write(data);
+            file.close();
         }
-        else if (mimeData->hasImage()){
-            QString name = QString("img_%1.png").arg(QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss"));
-            QString path = m_cacheDir + "/" + name;
-            QImage img = qvariant_cast<QImage>(mimeData->imageData());
 
-            QBuffer buffer(&data);
-            buffer.open(QIODevice::WriteOnly);
-            img.save(&buffer, "PNG");
+        item["type"] = "image";
+        item["data"] = path;
+        item["name"] = name;
+        item["preview"] = QUrl::fromLocalFile(path).toString();
+    }
 
-            QFile file(path);
-            if (file.open(QIODevice::WriteOnly)){
-                file.write(data);
-                file.close();
-            }
-
-            item["type"] = "image";
-            item["data"] = path;
-            item["name"] = name;
-            item["preview"] = QUrl::fromLocalFile(path).toString();
-        }
-        else if (mimeData->hasText()){
-            QString text = mimeData->text();
-            item["type"] = "text";
-            item["data"] = text;
-            item["name"] = text.simplified();
-            item["preview"] = text;
-        }
+    else if (mimeData->hasText()){
+        QString text = mimeData->text();
+        item["type"] = "text";
+        item["data"] = text;
+        item["name"] = text.simplified();
+        item["preview"] = text;
     }
 
     if (!item.isEmpty()){
@@ -248,7 +226,8 @@ void Backend::onClipboardChanged(){
 
         if (m_deviceSynk) {
             QVariantMap networkItem = item;
-            if (item["type"] == "image") {
+            if (item["type"] == "image")
+            {
                 if (!data.isEmpty()) {
                     networkItem["raw_data"] = data;
                 } 
@@ -263,74 +242,6 @@ void Backend::onClipboardChanged(){
             m_network->broadcastClipboard(networkItem);
         }
     }
-}
-
-bool Backend::tryExtractAndroidImage(const QMimeData *mimeData, const QString &cacheDir, QVariantMap &item, QByteArray &data) {
-#if defined(Q_OS_ANDROID)
-    QUrl url;
-    if (mimeData->hasUrls() && !mimeData->urls().isEmpty() && mimeData->urls().first().scheme() == "content") {
-        url = mimeData->urls().first();
-    } else if (mimeData->hasText() && mimeData->text().startsWith("content://")) {
-        url = QUrl(mimeData->text());
-    }
-
-    if (url.isEmpty()) return false;
-
-    QString uriStr = url.toString();
-    QByteArray rawData;
-    
-    QJniObject uriString = QJniObject::fromString(uriStr);
-    QJniObject uri = QJniObject::callStaticObjectMethod("android/net/Uri", "parse", "(Ljava/lang/String;)Landroid/net/Uri;", uriString.object<jstring>());
-    QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");
-    
-    if (!uri.isValid() || !activity.isValid()) return false;
-
-    QJniObject resolver = activity.callObjectMethod("getContentResolver", "()Landroid/content/ContentResolver;");
-    if (!resolver.isValid()) return false;
-
-    QJniObject inputStream = resolver.callObjectMethod("openInputStream", "(Landroid/net/Uri;)Ljava/io/InputStream;", uri.object());
-    if (!inputStream.isValid()) return false;
-
-    QJniEnvironment env;
-    jbyteArray buffer = env->NewByteArray(16384);
-    while (true) {
-        jint len = inputStream.callMethod<jint>("read", "([B)I", buffer);
-        if (len <= 0) break;
-        jbyte* bytes = env->GetByteArrayElements(buffer, nullptr);
-        rawData.append(reinterpret_cast<char*>(bytes), len);
-        env->ReleaseByteArrayElements(buffer, bytes, JNI_ABORT);
-    }
-    env->DeleteLocalRef(buffer);
-    inputStream.callMethod<void>("close");
-
-    if (!rawData.isEmpty()) {
-        QImage img = QImage::fromData(rawData);
-        if (!img.isNull()) {
-            data = rawData;
-            QString name = QString("img_%1.png").arg(QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss"));
-            QString path = cacheDir + "/" + name;
-
-            QFile cacheFile(path);
-            if (cacheFile.open(QIODevice::WriteOnly)) {
-                cacheFile.write(data);
-                cacheFile.close();
-            }
-
-            item["type"] = "image";
-            item["data"] = path;
-            item["name"] = name;
-            item["preview"] = QUrl::fromLocalFile(path).toString();
-            return true;
-        }
-    }
-    return false;
-#else
-    Q_UNUSED(mimeData);
-    Q_UNUSED(cacheDir);
-    Q_UNUSED(item);
-    Q_UNUSED(data);
-    return false;
-#endif
 }
 
 void Backend::clearHistory(){
@@ -436,3 +347,4 @@ void Backend::enforceAutoClear() {
         }
     }
 }
+

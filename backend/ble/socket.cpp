@@ -40,7 +40,6 @@ bool UdpServer::startServer(quint16 port) {
         qDebug() << "error:" << m_tcpServer->errorString();
         return false;
     }
-    qDebug() << "PORT" << port;
     return true;
 }
 

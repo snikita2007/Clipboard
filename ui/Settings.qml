@@ -4,8 +4,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.impl
-import Qt.labs.settings as NativeCore
-// import QtQuick.Effects
+import QtCore as NativeCore
+import QtQuick.Effects
 
 Page {
     id: settingsPage
@@ -342,13 +342,13 @@ Page {
                     border.width: 1
                     radius: 6
 
-                    // layer.enabled: true
-                    // layer.effect: MultiEffect {
-                    //     shadowEnabled: true
-                    //     shadowColor: Qt.rgba(0, 0, 0, choiceRow.palette.windowText.r > 0.5 ? 0.4 : 0.15)
-                    //     shadowBlur: 12
-                    //     shadowVerticalOffset: 4
-                    // }
+                    layer.enabled: true
+                    layer.effect: MultiEffect {
+                        shadowEnabled: true
+                        shadowColor: Qt.rgba(0, 0, 0, choiceRow.palette.windowText.r > 0.5 ? 0.4 : 0.15)
+                        shadowBlur: 12
+                        shadowVerticalOffset: 4
+                    }
                 }
             }
         }

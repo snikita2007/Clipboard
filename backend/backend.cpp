@@ -43,21 +43,6 @@ Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient 
         }
     });
 
-    // QObject::connect(this, &Backend::itemAdded, [bluetooth, server, cli](const QVariant &item) {
-    //     QVariantMap map = item.toMap();
-    //     server->sayHello(map);
-
-    //     if (cli->isConnected()) { 
-    //         cli->sendMessage("TEST");
-    //     } 
-
-    //     else if (bluetooth->hasActiveConnections()) {
-    //         bluetooth->sendMessage("TEST");
-    //     }
-    // });
-    // m_network = new NetworkManager(this);
-    // connect(m_network, &NetworkManager::dataReceived, this, &Backend::handleRemoteData);
-
 #ifdef Q_OS_MAC
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Backend::checkClipboardNative);
@@ -99,62 +84,23 @@ void Backend::handleRemoteData(QVariantMap data){
 void Backend::copyToClip(QVariant itemData){
     QVariantMap map = itemData.toMap();
     QClipboard *clipboard = QGuiApplication::clipboard();
-    QString type = map["type"].toString();
-
-    if (type == "text" && map.contains("data") && !map.contains("hash")) {
-        QString textData = map["data"].toString();
-        if (isDublicate(textData) || clipboard->text() == textData) return;
-        
-        clipboard->setText(textData);
-        return; 
-    }
-    if (type == "image" && map.contains("img")) {
-        QByteArray rawData = map["img"].toByteArray();
-        if (rawData.isEmpty()) return;
-
-        QString hash = QCryptographicHash::hash(rawData, QCryptographicHash::Md5).toHex();
-        if (isDublicate(hash)) return;
-        
-        map["raw_data"] = rawData;
-        handleRemoteData(map); 
-        return;
-    }
-    if (type == "file" && map.contains("file_bytes")) {
-        QByteArray fileData = map["file_bytes"].toByteArray();
-       
-        QString fileName = map["file_name"].toString();
-       
-        if (fileData.isEmpty() || fileName.isEmpty()) return;
-       
-        QString savePath = m_cacheDir + "/" + fileName;
-       
-        if (isDublicate(savePath)) return;
-       
-        QFile file(savePath);
-        if (file.open(QIODevice::WriteOnly)) {
-            file.write(fileData);
-            file.close();
-            QMimeData *mimeData = new QMimeData();
-            mimeData->setUrls({ QUrl::fromLocalFile(savePath) });
-            clipboard->setMimeData(mimeData);
-        }
-        return;
-    }
-
     QString path = map["data"].toString();
-    if (type == "image" && QFile::exists(path)) {
+
+    if (map["type"].toString() == "image" && QFile::exists(path)) {
         QMimeData *mimeData = new QMimeData();
         mimeData->setUrls({ QUrl::fromLocalFile(path) });
+
         QImage img(path);
-        
-        if (!img.isNull()) mimeData->setImageData(img);
+        if (!img.isNull()) {
+            mimeData->setImageData(img);
+        }
+
         clipboard->setMimeData(mimeData);
     } 
-    else {
+    else{
         clipboard->setText(map["data"].toString());
     }
 }
-
 
 bool Backend::isDublicate(const QString &hash) {
     if (hash.contains(m_cacheDir)) return true;
@@ -295,15 +241,15 @@ void Backend::onClipboardChanged(){
             }
             m_network->broadcastClipboard(networkItem);
         }
-
-        // qDebug() << "SENDING:" << networkItem["type"].toString() << "Data size:" << networkItem["data"].toString().length();
-        // m_network->broadcastClipboard(networkItem);
-
     }
 }
 
 void Backend::clearHistory(){
     m_history.clear();
+    QDir dir(m_cacheDir);
+    if (dir.exists()){
+        dir.removeRecursively();
+    }
 }
 
 QPoint Backend::getGlobalMousePos() {
@@ -312,43 +258,43 @@ QPoint Backend::getGlobalMousePos() {
 
 void Backend::setLaunchAtStartup(bool enabled) {
     m_launchAtStartup = enabled;
-#if defined(Q_OS_WIN)
-    QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
-    if (enabled) {
-        settings.setValue(QCoreApplication::applicationName(), QDir::toNativeSeparators(QCoreApplication::applicationFilePath()));
-    } else {
-        settings.remove(QCoreApplication::applicationName());
-    }
-#elif defined(Q_OS_MAC)
-    QString appPath = QCoreApplication::applicationFilePath();
-    QString appName = QCoreApplication::applicationName();
-    QStringList args;
-    if (enabled) {
-        args << "-e" << QString("tell application \"System Events\" to make login item at end with properties {path:\"%1\", name:\"%2\", hidden:false}").arg(appPath, appName);
-    } else {
-        args << "-e" << QString("tell application \"System Events\" to delete login item \"%1\"").arg(appName);
-    }
-    QProcess::startDetached("osascript", args);
-#elif defined(Q_OS_LINUX)
-    QString autostartDir = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + "/autostart";
-    QDir().mkpath(autostartDir);
-    QString filePath = autostartDir + "/" + QCoreApplication::applicationName() + ".desktop";
-    if (enabled) {
-        QFile file(filePath);
-        if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QTextStream out(&file);
-            out << "[Desktop Entry]\n"
-                << "Type=Application\n"
-                << "Name=" << QCoreApplication::applicationName() << "\n"
-                << "Exec=" << QCoreApplication::applicationFilePath() << "\n"
-                << "Hidden=false\n"
-                << "NoDisplay=false\n"
-                << "X-GNOME-Autostart-enabled=true\n";
+    #if defined(Q_OS_WIN)
+        QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
+        if (enabled) {
+            settings.setValue(QCoreApplication::applicationName(), QDir::toNativeSeparators(QCoreApplication::applicationFilePath()));
+        } else {
+            settings.remove(QCoreApplication::applicationName());
         }
-    } else {
-        QFile::remove(filePath);
-    }
-#endif
+    #elif defined(Q_OS_MAC)
+        QString appPath = QCoreApplication::applicationFilePath();
+        QString appName = QCoreApplication::applicationName();
+        QStringList args;
+        if (enabled) {
+            args << "-e" << QString("tell application \"System Events\" to make login item at end with properties {path:\"%1\", name:\"%2\", hidden:false}").arg(appPath, appName);
+        } else {
+            args << "-e" << QString("tell application \"System Events\" to delete login item \"%1\"").arg(appName);
+        }
+        QProcess::startDetached("osascript", args);
+    #elif defined(Q_OS_LINUX)
+        QString autostartDir = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + "/autostart";
+        QDir().mkpath(autostartDir);
+        QString filePath = autostartDir + "/" + QCoreApplication::applicationName() + ".desktop";
+        if (enabled) {
+            QFile file(filePath);
+            if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                QTextStream out(&file);
+                out << "[Desktop Entry]\n"
+                    << "Type=Application\n"
+                    << "Name=" << QCoreApplication::applicationName() << "\n"
+                    << "Exec=" << QCoreApplication::applicationFilePath() << "\n"
+                    << "Hidden=false\n"
+                    << "NoDisplay=false\n"
+                    << "X-GNOME-Autostart-enabled=true\n";
+            }
+        } else {
+            QFile::remove(filePath);
+        }
+    #endif
 }
 
 void Backend::setHistoryLimit(int index) {

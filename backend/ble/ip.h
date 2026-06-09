@@ -24,6 +24,11 @@ private slots:
     void readPendingDatagrams();
     
 private:
+    static QHostAddress normalizeIPv4(const QHostAddress &addr);
+    static bool isLocalAddress(const QHostAddress &addr);
+    QList<QHostAddress> broadcastAddresses() const;
+    void addDevice(const QString &ip);
+
     QUdpSocket *udpSocket;
     QTimer *timer;
     quint16 m_port;
@@ -32,3 +37,4 @@ private:
 };
 
 #endif
+

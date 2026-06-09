@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
         qputenv("QT_QUICK_CONTROLS_STYLE", "Material");
         qputenv("QT_QUICK_CONTROLS_MATERIAL_ACCENT", "#333333");
     #else
-        qputenv("QT_QUICK_CONTROLS_STYLE", "Imagine");
+        qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
     #endif
 
     QApplication app(argc, argv); 
@@ -66,7 +66,12 @@ int main(int argc, char *argv[]) {
     
     // ИСПРАВЛЕНО: Связываем сигнал сканера НАПРЯМУЮ с фоновым синглтоном сервера.
     // Теперь список IPs гарантированно попадет в сетевой поток отправки пакетов!
-    QObject::connect(&scanner, &NetworkScanner::devicesUpdated, serverInstance, &UdpServer::updateIps);
+    QObject::connect(
+        &scanner,
+        &NetworkScanner::devicesUpdated,
+        serverInstance,
+        &UdpServer::updateIps,
+        Qt::QueuedConnection);
 
     QQmlApplicationEngine engine;
     WindowEffects windowEffects;

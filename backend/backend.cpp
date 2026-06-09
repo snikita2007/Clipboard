@@ -8,7 +8,7 @@ Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient 
     QClipboard *clipboard = QGuiApplication::clipboard();
     connect(clipboard, &QClipboard::dataChanged, this, &Backend::onClipboardChanged);
     
-    connect(&UdpServer::instance(), &UdpServer::dataReceived, this, &Backend::copyToClip);
+    connect(&UdpServer::instance(), &UdpServer::dataReceived, this, &Backend::handleRemoteData);
 
     connect(this, &Backend::itemAdded, [bluetooth, cli, m_networkSwitch](const QVariant &item) {
         QVariantMap map = item.toMap();
@@ -16,7 +16,7 @@ Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient 
         if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Wifi) {
             
             UdpServer::instance().sayHello(map);
-            qDebug() << "tcp";
+            qDebug() << "tcp" << map;
         } 
         
         else if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Bluetooth) {
@@ -65,7 +65,8 @@ void Backend::handleRemoteData(QVariantMap data){
     QClipboard *clipboard = QGuiApplication::clipboard();
 
     if (data["type"].toString() == "image"){
-        QByteArray rawData = data["raw_data"].toByteArray();
+        QByteArray rawData = data["img"].toByteArray(); 
+        
         QString hash = QCryptographicHash::hash(rawData, QCryptographicHash::Md5).toHex();
         QString path = m_cacheDir + QString("/remote_%1.png").arg(hash);
 
@@ -267,6 +268,9 @@ void Backend::onClipboardChanged(){
                 }
             }
             m_network->broadcastClipboard(networkItem);
+
+
+            
         }
     }
 }

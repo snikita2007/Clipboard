@@ -4,8 +4,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.impl
-import QtCore as NativeCore
-import QtQuick.Effects
+import Qt.labs.settings as NativeCore
 
 Page {
     id: settingsPage
@@ -341,14 +340,6 @@ Page {
                     border.color: choiceRow.palette.windowText.r > 0.5 ? "#404040" : "#D2D2D2"
                     border.width: 1
                     radius: 6
-
-                    layer.enabled: true
-                    layer.effect: MultiEffect {
-                        shadowEnabled: true
-                        shadowColor: Qt.rgba(0, 0, 0, choiceRow.palette.windowText.r > 0.5 ? 0.4 : 0.15)
-                        shadowBlur: 12
-                        shadowVerticalOffset: 4
-                    }
                 }
             }
         }
@@ -629,6 +620,7 @@ Page {
                 color: settingsPage.borderColor
             }
 
+            // General
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: 8
@@ -637,37 +629,44 @@ Page {
                 SectionTitle { text: "Clipboard" }
                 
                 SettingToggle { 
-                    title: "Save clipboard history"; description: "Keep copied text and images available in History."
+                    title: "Save clipboard history"
+                    description: "Keep copied text and images available in History."
                     checked: appSettings.saveClipboardHistory
                     onCheckedChanged: {
                         appSettings.saveClipboardHistory = checked
-                        backend.setSaveClipboardHistory(checked)
+                        if (typeof backend !== "undefined") backend.setSaveClipboardHistory(checked)
                     }
                 }
                 SettingChoice { 
-                    title: "History limit"; description: "Maximum number of recent clipboard items."; values: ["10 items", "50 items", "100 items", "250 items"]
+                    title: "History limit"
+                    description: "Maximum number of recent clipboard items."
+                    values: ["10 items", "50 items", "100 items", "250 items"]
                     currentIndex: appSettings.historyLimit
                     onCurrentIndexChanged: {
                         appSettings.historyLimit = currentIndex
-                        backend.setHistoryLimit(currentIndex)
+                        if (typeof backend !== "undefined") backend.setHistoryLimit(currentIndex)
                     }
                 }
                 SettingToggle { 
-                    title: "Launch at startup"; description: "Open Clipboard automatically when the system starts."
+                    title: "Launch at startup"
+                    description: "Open Clipboard automatically when the system starts."
                     visible: !settingsPage.isAndroid
                     checked: appSettings.launchAtStartup
                     onCheckedChanged: {
                         appSettings.launchAtStartup = checked
-                        backend.setLaunchAtStartup(checked)
+                        if (typeof backend !== "undefined") backend.setLaunchAtStartup(checked)
                     }
                 }
                 SettingChoice { 
-                    title: "Default action"; description: "What happens when an item is selected."; values: ["Copy and close", "Copy only"]
+                    title: "Default action"
+                    description: "What happens when an item is selected."
+                    values: ["Copy and close", "Copy only"]
                     currentIndex: appSettings.defaultAction
                     onCurrentIndexChanged: appSettings.defaultAction = currentIndex
                 }
             }
 
+            // Devices
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: 8
@@ -676,30 +675,36 @@ Page {
                 SectionTitle { text: "Sync" }
                 
                 SettingToggle { 
-                    title: "Device sync"; description: "Share clipboard items with trusted devices."
+                    title: "Device sync"
+                    description: "Share clipboard items with trusted devices."
                     checked: appSettings.deviceSync
                     onCheckedChanged: {
                         appSettings.deviceSync = checked
-                        backend.setDeviceSynk(checked)
+                        if (typeof backend !== "undefined") backend.setDeviceSync(checked)
                     }
                 }
                 SettingChoice { 
-                    title: "Discovery mode"; description: "How nearby devices can find this app."; values: ["Private", "Group only", "Visible"]
+                    title: "Discovery mode"
+                    description: "How nearby devices can find this app."
+                    values: ["Private", "Group only", "Visible"]
                     currentIndex: appSettings.discoveryMode
                     onCurrentIndexChanged: appSettings.discoveryMode = currentIndex
                 }
                 SettingToggle { 
-                    title: "Wi-Fi only"; description: "Avoid syncing over mobile data."
+                    title: "Wi-Fi only"
+                    description: "Avoid syncing over mobile data."
                     checked: appSettings.wifiOnly
                     onCheckedChanged: appSettings.wifiOnly = checked
                 }
                 SettingToggle { 
-                    title: "Require confirmation"; description: "Ask before accepting clipboard content from another device."
+                    title: "Require confirmation"
+                    description: "Ask before accepting clipboard content from another device."
                     checked: appSettings.requireConfirmation
                     onCheckedChanged: appSettings.requireConfirmation = checked
                 }
             }
 
+            // Appearance
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: 8
@@ -708,29 +713,35 @@ Page {
                 SectionTitle { text: "Interface" }
                 
                 SettingChoice { 
-                    title: "Theme"; description: "Match the app colors to your system or choose manually."; values: ["System", "Light", "Dark"]
+                    title: "Theme"
+                    description: "Match the app colors to your system or choose manually."
+                    values: ["System", "Light", "Dark"]
                     currentIndex: appSettings.theme
                     onCurrentIndexChanged: {
                         appSettings.theme = currentIndex
-                        windowEffects.setTheme(currentIndex)
+                        if (typeof windowEffects !== "undefined") windowEffects.setTheme(currentIndex)
                     }
                 }
                 SettingChoice { 
-                    title: "Density"; description: "Adjust spacing for history and settings rows."; values: ["Comfortable", "Compact", "Spacious"]
+                    title: "Density"
+                    description: "Adjust spacing for history and settings rows."
+                    values: ["Comfortable", "Compact", "Spacious"]
                     currentIndex: appSettings.density
                     onCurrentIndexChanged: appSettings.density = currentIndex
                 }
                 SettingToggle { 
-                    title: "Use window effects"; description: "Enable native blur and material effects when supported."
+                    title: "Use window effects"
+                    description: "Enable native blur and material effects when supported."
                     visible: !settingsPage.isAndroid
                     checked: appSettings.useWindowEffects
                     onCheckedChanged: {
                         appSettings.useWindowEffects = checked
-                        windowEffects.setUseWindowEffects(checked)
+                        if (typeof windowEffects !== "undefined") windowEffects.setUseWindowEffects(checked)
                     }
                 }
             }
 
+            // Notifications
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: 8
@@ -739,28 +750,34 @@ Page {
                 SectionTitle { text: "Alerts" }
                 
                 SettingToggle { 
-                    title: "Show notifications"; description: "Notify when Clipboard captures or syncs content."
+                    title: "Show notifications"
+                    description: "Notify when Clipboard captures or syncs content."
                     checked: appSettings.showNotifications
                     onCheckedChanged: appSettings.showNotifications = checked
                 }
                 SettingToggle { 
-                    title: "Play sound"; description: "Use a short sound for important clipboard actions."
+                    title: "Play sound"
+                    description: "Use a short sound for important clipboard actions."
                     checked: appSettings.playSound
                     onCheckedChanged: appSettings.playSound = checked
                 }
                 SettingChoice { 
-                    title: "Notification detail"; description: "How much copied content is shown in notifications."; values: ["Hidden", "Title only", "Preview"]
+                    title: "Notification detail"
+                    description: "How much copied content is shown in notifications."
+                    values: ["Hidden", "Title only", "Preview"]
                     currentIndex: appSettings.notificationDetail
                     onCurrentIndexChanged: appSettings.notificationDetail = currentIndex
                 }
                 SettingToggle { 
-                    title: "Quiet mode"; description: "Mute notifications while fullscreen apps are active."
+                    title: "Quiet mode"
+                    description: "Mute notifications while fullscreen apps are active."
                     visible: !settingsPage.isAndroid
                     checked: appSettings.quietMode
                     onCheckedChanged: appSettings.quietMode = checked
                 }
             }
 
+            // Hotkeys
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: 8
@@ -769,27 +786,34 @@ Page {
                 SectionTitle { text: "Shortcuts" }
                 
                 SettingChoice { 
-                    title: "Open Clipboard"; description: "Global shortcut for the floating window."; values: [Qt.platform.os === "osx" ? "Option+V" : "Alt+V", "Ctrl+Shift+V", "Disabled"]
+                    title: "Open Clipboard"
+                    description: "Global shortcut for the floating window."
+                    values: [Qt.platform.os === "osx" ? "Option+V" : "Alt+V", "Ctrl+Shift+V", "Disabled"]
                     currentIndex: appSettings.shortcutOpenClipboard
                     onCurrentIndexChanged: appSettings.shortcutOpenClipboard = currentIndex
                 }
                 SettingChoice { 
-                    title: "Open actions"; description: "Shortcut for the actions menu."; values: [Qt.platform.os === "osx" ? "Option+A" : "Alt+A", "Ctrl+Shift+A", "Disabled"]
+                    title: "Open actions"
+                    description: "Shortcut for the actions menu."
+                    values: [Qt.platform.os === "osx" ? "Option+A" : "Alt+A", "Ctrl+Shift+A", "Disabled"]
                     currentIndex: appSettings.shortcutOpenActions
                     onCurrentIndexChanged: appSettings.shortcutOpenActions = currentIndex
                 }
                 SettingToggle { 
-                    title: "Enable Escape to close"; description: "Close popups or return from nested menus with Escape."
+                    title: "Enable Escape to close"
+                    description: "Close popups or return from nested menus with Escape."
                     checked: appSettings.enableEscapeToClose
                     onCheckedChanged: appSettings.enableEscapeToClose = checked
                 }
                 SettingToggle { 
-                    title: "Use number keys"; description: "Copy visible history items with number shortcuts."
+                    title: "Use number keys"
+                    description: "Copy visible history items with number shortcuts."
                     checked: appSettings.useNumberKeys
                     onCheckedChanged: appSettings.useNumberKeys = checked
                 }
             }
 
+            // Privacy
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: 8
@@ -798,36 +822,42 @@ Page {
                 SectionTitle { text: "Data" }
                 
                 SettingToggle { 
-                    title: "Ignore passwords"; description: "Try to skip content copied from password fields."
+                    title: "Ignore passwords"
+                    description: "Try to skip content copied from password fields."
                     checked: appSettings.ignorePasswords
                     onCheckedChanged: appSettings.ignorePasswords = checked
                 }
                 SettingChoice { 
-                    title: "Auto-clear"; description: "Remove stored clipboard items after a period of time."; values: ["Never", "After 1 day", "After 7 days", "After 30 days"]
+                    title: "Auto-clear"
+                    description: "Remove stored clipboard items after a period of time."
+                    values: ["Never", "After 1 day", "After 7 days", "After 30 days"]
                     currentIndex: appSettings.autoClear
                     onCurrentIndexChanged: {
                         appSettings.autoClear = currentIndex
-                        backend.setAutoClear(currentIndex)
+                        if (typeof backend !== "undefined") backend.setAutoClear(currentIndex)
                     }
                 }
                 SettingToggle { 
-                    title: "Exclude images"; description: "Store text only and ignore copied images."
+                    title: "Exclude images"
+                    description: "Store text only and ignore copied images."
                     checked: appSettings.excludeImages
                     onCheckedChanged: {
                         appSettings.excludeImages = checked
-                        backend.setExcludeImages(checked)
+                        if (typeof backend !== "undefined") backend.setExcludeImages(checked)
                     }
                 }
                 SettingToggle { 
-                    title: "Clear on exit"; description: "Delete local history when the app quits."
+                    title: "Clear on exit"
+                    description: "Delete local history when the app quits."
                     checked: appSettings.clearOnExit
                     onCheckedChanged: {
                         appSettings.clearOnExit = checked
-                        backend.setClearOnExit(checked)
+                        if (typeof backend !== "undefined") backend.setClearOnExit(checked)
                     }
                 }
             }
 
+            // About
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: 8
@@ -836,23 +866,29 @@ Page {
                 SectionTitle { text: "Application" }
                 
                 SettingChoice { 
-                    title: "Update channel"; description: "Choose how early new versions are offered."; values: ["Stable"]
+                    title: "Update channel"
+                    description: "Choose how early new versions are offered."
+                    values: ["Stable"]
                     currentIndex: appSettings.updateChannel
                     onCurrentIndexChanged: appSettings.updateChannel = currentIndex
                 }
                 SettingToggle { 
-                    title: "Send diagnostics"; description: "Share anonymous crash information to improve reliability."
+                    title: "Send diagnostics"
+                    description: "Share anonymous crash information to improve reliability."
                     checked: appSettings.sendDiagnostics
                     onCheckedChanged: appSettings.sendDiagnostics = checked
                 }
                 SettingToggle { 
-                    title: "Show tray icon"; description: "Keep Clipboard available from the system tray."
+                    title: "Show tray icon"
+                    description: "Keep Clipboard available from the system tray."
                     visible: !settingsPage.isAndroid
                     checked: appSettings.showTrayIcon
                     onCheckedChanged: appSettings.showTrayIcon = checked
                 }
                 SettingChoice { 
-                    title: "Version"; description: "Clipboard desktop and mobile settings UI."; values: ["1.0"]
+                    title: "Version"
+                    description: "Clipboard desktop and mobile settings UI."
+                    values: ["1.0"]
                     currentIndex: appSettings.versionIndex
                     onCurrentIndexChanged: appSettings.versionIndex = currentIndex
                 }

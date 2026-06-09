@@ -103,6 +103,8 @@ void NetworkScanner::readPendingDatagrams() {
                 QVariantList FOUNDDEVICES = devicesList;
 
                 emit devicesUpdated(FOUNDDEVICES);
+
+                UdpServer::instance().updateIps(devicesList);
             }
         }
 

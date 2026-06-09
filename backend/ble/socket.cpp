@@ -82,7 +82,9 @@ void UdpServer::Connection() {
 void UdpServer::sayHello(QVariantMap item) {
     qDebug() << "SEND";
     
-    if (ips.isEmpty()) return;
+    QVariantList localIps = this->ips; 
+    
+    if (localIps.isEmpty()) return;
 
     for (const QVariant &ipadresse : ips) {
         QTcpSocket *socket = new QTcpSocket();
@@ -92,7 +94,7 @@ void UdpServer::sayHello(QVariantMap item) {
 
         socket->connectToHost(ipa, 1234);
 
-        connect(socket, &QTcpSocket::connected, this, [socket, item]() {
+        connect(socket, &QTcpSocket::connected, socket, [socket, item]() {
             QByteArray block;
             QDataStream stream(&block, QIODevice::WriteOnly);
             stream.setVersion(QDataStream::Qt_6_0);

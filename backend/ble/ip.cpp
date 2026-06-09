@@ -91,7 +91,7 @@ void NetworkScanner::readPendingDatagrams() {
             }
         }
         // ЭТАП 4: Наш хэш успешно прошел проверку на удаленной стороне. Добавляем устройство.
-        else if (datagram == "CONNECTED_OK") {
+        else if (datagram == "HERE") {
             if (!foundDevices.contains(ip)) {
                 foundDevices.insert(ip);
 

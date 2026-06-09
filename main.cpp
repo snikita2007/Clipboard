@@ -66,7 +66,12 @@ int main(int argc, char *argv[]) {
     
     // ИСПРАВЛЕНО: Связываем сигнал сканера НАПРЯМУЮ с фоновым синглтоном сервера.
     // Теперь список IPs гарантированно попадет в сетевой поток отправки пакетов!
-    QObject::connect(&scanner, &NetworkScanner::devicesUpdated, serverInstance, &UdpServer::updateIps);
+    QObject::connect(
+        &scanner,
+        &NetworkScanner::devicesUpdated,
+        serverInstance,
+        &UdpServer::updateIps,
+        Qt::QueuedConnection);
 
     QQmlApplicationEngine engine;
     WindowEffects windowEffects;

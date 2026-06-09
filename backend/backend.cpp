@@ -1,4 +1,5 @@
 #include "backend.h"
+#include <QMetaObject>
 
 Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient *cli, NetworkSwitch *m_networkSwitch , QObject *parent) : QObject(parent){
     QString tempPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
@@ -14,8 +15,11 @@ Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient 
         QVariantMap map = item.toMap();
         
         if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Wifi) {
-            
-            UdpServer::instance().sayHello(map);
+            QMetaObject::invokeMethod(
+                &UdpServer::instance(),
+                "sayHello",
+                Qt::QueuedConnection,
+                Q_ARG(QVariantMap, map));
         } 
         
         else if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Bluetooth) {
@@ -63,20 +67,37 @@ void Backend::handleRemoteData(QVariantMap data){
 
     QClipboard *clipboard = QGuiApplication::clipboard();
 
-    if (data["type"].toString() == "image"){
-        QByteArray rawData = data["img"].toByteArray(); 
-        
+    const QString type = data["type"].toString();
+
+    if (type == "image") {
+        QByteArray rawData = data["img"].toByteArray();
+
         QString hash = QCryptographicHash::hash(rawData, QCryptographicHash::Md5).toHex();
         QString path = m_cacheDir + QString("/remote_%1.png").arg(hash);
 
         QFile file(path);
-        if (file.open(QIODevice::WriteOnly)){
+        if (file.open(QIODevice::WriteOnly)) {
             file.write(rawData);
             file.close();
             clipboard->setImage(QImage(path));
         }
-    }
-    else{
+    } else if (type == "file") {
+        const QString fileName = data["file_name"].toString();
+        const QByteArray fileBytes = data["file_bytes"].toByteArray();
+        if (fileName.isEmpty() || fileBytes.isEmpty())
+            return;
+
+        const QString path = m_cacheDir + "/" + fileName;
+        QFile file(path);
+        if (file.open(QIODevice::WriteOnly)) {
+            file.write(fileBytes);
+            file.close();
+
+            QMimeData *mimeData = new QMimeData();
+            mimeData->setUrls({QUrl::fromLocalFile(path)});
+            clipboard->setMimeData(mimeData);
+        }
+    } else {
         clipboard->setText(data["data"].toString());
     }
 }
@@ -121,6 +142,11 @@ QString Backend::generateHash(const QMimeData *mimeData){
         
         if (imageExtensions.contains(suffix)) {
             return path;
+        }
+        if (fileInfo.isFile()) {
+            const QString fingerprint = path + QString::number(fileInfo.size())
+                + QString::number(fileInfo.lastModified().toSecsSinceEpoch());
+            return QCryptographicHash::hash(fingerprint.toUtf8(), QCryptographicHash::Md5).toHex();
         }
         return QString();
     }
@@ -170,11 +196,15 @@ void Backend::onClipboardChanged(){
     item["full_datetime"] = QDateTime::currentDateTime().toString(Qt::ISODate);
     QByteArray data;
 
-    if (mimeData->hasUrls()  && !mimeData->urls().first().toLocalFile().isEmpty()){
+    if (mimeData->hasUrls() && !mimeData->urls().first().toLocalFile().isEmpty()) {
         QString path = mimeData->urls().first().toLocalFile();
         QFileInfo fileInfo(path);
+        if (!fileInfo.isFile()) return;
+
         QString name = fileInfo.fileName();
-        item["type"] = "image";
+        QString suffix = fileInfo.suffix().toLower();
+        QStringList imageExtensions = {"png", "jpg", "jpeg", "gif", "bmp", "ico", "webp"};
+        item["type"] = imageExtensions.contains(suffix) ? "image" : "file";
         item["data"] = path;
         item["name"] = name;
         item["preview"] = QUrl::fromLocalFile(path).toString();

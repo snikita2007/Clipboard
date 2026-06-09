@@ -17,7 +17,6 @@ public:
 
     static UdpServer& instance();
 
-    void sayHello(QVariantMap item); 
     void Recive(QStringList data);
 
     QVariantList ips;
@@ -29,8 +28,8 @@ signals:
 public slots:
     bool startServer(quint16 port);
     void stopServer();
-    
     void updateIps(const QVariantList &newIps);
+    void sayHello(QVariantMap item);
 
 private slots:
     void Connection(); 

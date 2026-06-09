@@ -100,31 +100,34 @@ void UdpServer::sayHello(QVariantMap item) {
             QByteArray block;
             QDataStream stream(&block, QIODevice::WriteOnly);
             stream.setVersion(QDataStream::Qt_6_0);
-            
-            QVariantMap sendItem = item;
-            QString type = sendItem["type"].toString();
-            QString filePath = sendItem["data"].toString();
 
-            if (type == "image") {
+            QVariantMap sendItem = item;
+            const QString type = sendItem["type"].toString();
+            const QString filePath = sendItem["data"].toString();
+
+            if (type == "image" || type == "file") {
                 QFile file(filePath);
                 if (file.open(QIODevice::ReadOnly)) {
-                    sendItem["img"] = file.readAll(); 
-                    file.close();
-                }
-            }
-            else if (type == "file") {
-                QFile file(filePath);
-                if (file.open(QIODevice::ReadOnly)) {
-                    QFileInfo fileInfo(file);
-                    sendItem["file_name"] = fileInfo.fileName();  
-                    sendItem["file_bytes"] = file.readAll();   
+                    const QFileInfo fileInfo(file);
+                    if (type == "image") {
+                        sendItem["img"] = file.readAll();
+                    } else {
+                        sendItem["file_name"] = fileInfo.fileName();
+                        sendItem["file_bytes"] = file.readAll();
+                    }
                     file.close();
                 }
             }
 
             stream << sendItem;
             socket->write(block);
+            socket->flush();
+            socket->waitForBytesWritten(10000);
             socket->disconnectFromHost();
+        });
+
+        connect(socket, &QTcpSocket::errorOccurred, socket, [ipa](QAbstractSocket::SocketError error) {
+            qWarning() << "[UdpServer] TCP send failed to" << ipa << ":" << error;
         });
 
         connect(socket, &QTcpSocket::disconnected, socket, &QTcpSocket::deleteLater);

@@ -2,7 +2,6 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickWindow>
-#include <QQuickWindow>
 #include <QTimer>
 #include "WindowEffects.h"
 #include "backend.h"
@@ -27,9 +26,6 @@
 #include <QHotkey> 
 #endif
 
-#include "WindowEffects.h"
-#include "backend.h"
-
 int main(int argc, char *argv[]) {
     #if defined(Q_OS_WIN)
         qputenv("QT_QUICK_CONTROLS_STYLE", "FluentWinUI3");
@@ -49,16 +45,18 @@ int main(int argc, char *argv[]) {
     app.setApplicationName("ClipboardApp");
     app.setWindowIcon(QIcon(":/ui/assets/app.png"));
 
-    UdpServer server;
+    // ИСПРАВЛЕНО: Вместо локального объекта на стеке берем ссылку на наш ЕДИНЫЙ фоновый поток!
+    UdpServer *serverInstance = &UdpServer::instance();
+
     NetworkScanner scanner;
     BluetoothServer bluetooth;
     BluetoothClient cli;
 
-    NetworkSwitch networkSwitch(&server, &bluetooth, &cli);
+    // Передаем синглтон-сервер в коммутатор
+    NetworkSwitch networkSwitch(serverInstance, &bluetooth, &cli);
 
+    // Запускаем сканирование сети
     scanner.startScanning(1234);
-    
-    // server.startServer(1234);    
     
     QBluetoothAddress adapterAddress;
     QList<QBluetoothHostInfo> devices = QBluetoothLocalDevice::allDevices();
@@ -66,22 +64,15 @@ int main(int argc, char *argv[]) {
         adapterAddress = devices.first().address();
     }
     
-    // bluetooth.startServer(adapterAddress);
-                 
-    // QBluetoothAddress address("F8:5C:7D:2F:20:95");
-    // QBluetoothUuid uuid("e8e10f95-1a70-4b27-9ccf-02010264e9c8");
-
-    // cli.startDiscovery();
-
-    QObject::connect(&scanner, &NetworkScanner::devicesUpdated, &server, &UdpServer::updateIps);
+    // ИСПРАВЛЕНО: Связываем сигнал сканера НАПРЯМУЮ с фоновым синглтоном сервера.
+    // Теперь список IPs гарантированно попадет в сетевой поток отправки пакетов!
+    QObject::connect(&scanner, &NetworkScanner::devicesUpdated, serverInstance, &UdpServer::updateIps);
 
     QQmlApplicationEngine engine;
     WindowEffects windowEffects;
-    Backend backend(&bluetooth,&server,&cli,&networkSwitch);
-
-    // Регистрируем объекты в QML контексте
-    // ВАЖНО: используйте маленькую букву "backend", если в QML обращаетесь к ней так
-    WindowEffects WindowEffects_linux;
+    
+    // Передаем синглтон-сервер в бэкэнд
+    Backend backend(&bluetooth, serverInstance, &cli, &networkSwitch);
 
     engine.rootContext()->setContextProperty("networkSwitch", &networkSwitch);
     engine.rootContext()->setContextProperty("networkScanner", &scanner);

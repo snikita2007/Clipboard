@@ -15,11 +15,7 @@ Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient 
         QVariantMap map = item.toMap();
         
         if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Wifi) {
-            QMetaObject::invokeMethod(
-                &UdpServer::instance(),
-                "sayHello",
-                Qt::QueuedConnection,
-                Q_ARG(QVariantMap, map));
+            UdpServer::instance().sayHello(map);
         } 
         
         else if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Bluetooth) {

@@ -4,7 +4,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.impl
-import Qt.labs.settings as NativeCore
+import QtCore as NativeCore
 
 Page {
     id: settingsPage

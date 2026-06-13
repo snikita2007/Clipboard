@@ -10,6 +10,7 @@ cmake-build-*/
 # IDE - VS Code
 .vscode/
 .vs/
+.qmlls.ini
 
 # Qt
 *.user

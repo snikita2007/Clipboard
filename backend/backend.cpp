@@ -177,17 +177,6 @@ void Backend::onClipboardChanged(){
     QClipboard *clipboard = QGuiApplication::clipboard();
     const QMimeData *mimeData = clipboard->mimeData();
 
-    if (m_excludeImages) {
-        if (mimeData->hasImage()) return;
-        if (mimeData->hasUrls()) {
-            QString path = mimeData->urls().first().toLocalFile();
-            QString suffix = QFileInfo(path).suffix().toLower();
-            if (QStringList({"png", "jpg", "jpeg", "gif", "bmp", "ico", "webp"}).contains(suffix)) {
-                return;
-            }
-        }
-    }
-
     QString hash = generateHash(mimeData);
     if (hash.isEmpty()) return;
     if (isDublicate(hash)) return;
@@ -198,6 +187,7 @@ void Backend::onClipboardChanged(){
     QByteArray data;
 
     if (mimeData->hasUrls() && !mimeData->urls().first().toLocalFile().isEmpty()) {
+        if (m_excludeImages) return;
         QString path = mimeData->urls().first().toLocalFile();
         QFileInfo fileInfo(path);
         if (!fileInfo.isFile()) return;
@@ -212,6 +202,7 @@ void Backend::onClipboardChanged(){
     }
 
     else if (mimeData->hasImage()){
+        if (m_excludeImages) return;
         QString name = QString("img_%1.png").arg(QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss"));
         QString path = m_cacheDir + "/" + name;
         QImage img = qvariant_cast<QImage>(mimeData->imageData());
@@ -234,45 +225,22 @@ void Backend::onClipboardChanged(){
 
     else if (mimeData->hasText()){
         QString text = mimeData->text();
+        if (text.trimmed().isEmpty()) return;
         item["type"] = "text";
         item["data"] = text;
         item["name"] = text.simplified();
         item["preview"] = text;
     }
 
-    if (!item.isEmpty()){
-        if (m_saveClipboardHistory){
-            m_history.prepend(item);
-            emit itemAdded(item);
-            
-            int limit = 50;
-            if (m_historyLimit == 1) limit = 100;
-            else if (m_historyLimit == 2) limit = 250;
+    if (m_saveClipboardHistory){
+        m_history.prepend(item);
+        emit itemAdded(item);
 
-            while (m_history.size() > limit)
-                m_history.removeLast();
-        }
-
-        enforceAutoClear();
-
-        if (m_deviceSynk) {
-            QVariantMap networkItem = item;
-            if (item["type"] == "image")
-            {
-                if (!data.isEmpty()) {
-                    networkItem["raw_data"] = data;
-                } 
-                else {
-                    QFile file(item["data"].toString());
-                    if (file.open(QIODevice::ReadOnly)) {
-                        networkItem["raw_data"] = file.readAll();
-                        file.close();
-                    }
-                }
-            }
-            
-        }
+        while (m_history.size() > m_historyLimit)
+            m_history.removeLast();
     }
+
+    enforceAutoClear();
 }
 
 void Backend::clearHistory(){
@@ -330,11 +298,8 @@ void Backend::setLaunchAtStartup(bool enabled) {
 
 void Backend::setHistoryLimit(int index) {
     m_historyLimit = index;
-    int limit = 50;
-    if (m_historyLimit == 1) limit = 100;
-    else if (m_historyLimit == 2) limit = 250;
 
-    while (m_history.size() > limit) {
+    while (m_history.size() > m_historyLimit) {
         m_history.removeLast();
     }
 }

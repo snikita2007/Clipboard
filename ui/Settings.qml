@@ -643,8 +643,13 @@ Page {
                     values: ["10 items", "50 items", "100 items", "250 items"]
                     currentIndex: appSettings.historyLimit
                     onCurrentIndexChanged: {
-                        appSettings.historyLimit = currentIndex
-                        if (typeof backend !== "undefined") backend.setHistoryLimit(currentIndex)
+                        let limit = 10
+                        if (currentIndex === 1) limit = 50
+                        else if (currentIndex === 2) limit = 100
+                        else if (currentIndex === 3) limit = 250
+
+                        appSettings.historyLimit = limit
+                        backend.setHistoryLimit(limit)
                     }
                 }
                 SettingToggle { 

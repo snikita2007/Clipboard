@@ -1,5 +1,4 @@
 #include "backend.h"
-#include <QMetaObject>
 
 Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient *cli, NetworkSwitch *m_networkSwitch , QObject *parent) : QObject(parent){
     QString tempPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
@@ -16,7 +15,6 @@ Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient 
         
         if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Wifi) {
             UdpServer::instance().sayHello(map);
-            qDebug() << "LOH";
         }
         
         else if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Bluetooth) {
@@ -60,10 +58,6 @@ Backend::~Backend(){
 }
 
 void Backend::handleRemoteData(QVariantMap data){
-    // if (!m_deviceSynk) return;
-
-    qDebug() << "MDEVICESUNK" << m_deviceSynk;
-
     QClipboard *clipboard = QGuiApplication::clipboard();
 
     const QString type = data["type"].toString();
@@ -99,8 +93,6 @@ void Backend::handleRemoteData(QVariantMap data){
     } else {
         clipboard->setText(data["data"].toString());
     }
-
-    qDebug() << "FKE FUHEWUIFWWWWWWWWWWE"<< data;
 }
 
 void Backend::copyToClip(QVariant itemData){

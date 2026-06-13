@@ -2,7 +2,6 @@
 #define BACKEND_H
 
 #include <QObject>
-#include <QtQml>
 #include <QTimer>
 #include <QDebug>
 #include <QGuiApplication>
@@ -11,20 +10,20 @@
 #include <QImage>
 #include <QUrl>
 #include <QFileInfo>
-#include <QImage>
 #include <QDir>
 #include <QStandardPaths>
 #include <QDateTime>
 #include <QCryptographicHash>
-#include "server.h"
-#include "switch.h"
-#include "bluetooth.h"
-#include "NetworkManager.h"
-#include "bluetooth_client.h"
 #include <QProcess>
 #include <QCursor>
+#include <QBuffer>
+#include <QSettings>
 
+#include "server.h"
+#include "bluetooth.h"
+#include "bluetooth_client.h"
 #include "NetworkManager.h"
+#include "switch.h"
 
 class Backend : public QObject {
     Q_OBJECT

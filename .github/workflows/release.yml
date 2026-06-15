@@ -103,14 +103,19 @@ jobs:
           QT_ANDROID_ROOT: ${{ github.workspace }}/Qt/Qt/6.9.0/android_arm64_v8a
           QT_HOST_ROOT: ${{ github.workspace }}/Qt/Qt/6.9.0/gcc_64
         run: |
+          # Вырезаем legacyPackaging, который не переваривает Gradle 9+
+          find $QT_ANDROID_ROOT -type f -name "*.gradle" -exec sed -i '/legacyPackaging/d' {} +
+
           cmake -B build -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_PREFIX_PATH=$QT_ANDROID_ROOT \
             -DCMAKE_FIND_ROOT_PATH=$QT_ANDROID_ROOT \
             -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_LATEST_HOME/build/cmake/android.toolchain.cmake \
             -DANDROID_ABI=arm64-v8a \
-            -DANDROID_PLATFORM=android-31 \
+            -DANDROID_PLATFORM=android-36 \
             -DANDROID_SDK_ROOT=$ANDROID_HOME \
+            -DQT_ANDROID_COMPILE_SDK_VERSION=36 \
+            -DQT_ANDROID_TARGET_SDK_VERSION=36 \
             -DQT_HOST_PATH=$QT_HOST_ROOT
           cmake --build build --config Release
           cmake --build build --target apk
@@ -138,40 +143,4 @@ jobs:
           sudo wget -O /usr/local/bin/linuxdeploy-plugin-qt \
             https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
           sudo chmod +x /usr/local/bin/linuxdeploy /usr/local/bin/linuxdeploy-plugin-qt
-          mkdir -p AppDir/usr/bin AppDir/usr/share/applications AppDir/usr/share/icons/hicolor/256x256/apps
-          cp ./build/ClipboardApp AppDir/usr/bin/
-          cp ui/assets/app.png AppDir/usr/share/icons/hicolor/256x256/apps/ClipboardApp.png
-          cat > AppDir/usr/share/applications/ClipboardApp.desktop << 'DESKTOP'
-          [Desktop Entry]
-          Name=ClipboardApp
-          Exec=ClipboardApp
-          Icon=ClipboardApp
-          Type=Application
-          Categories=Utility;
-          DESKTOP
-          export QMAKE=$QT_ROOT_DIR/bin/qmake
-          export LD_LIBRARY_PATH=$QT_ROOT_DIR/lib:$LD_LIBRARY_PATH
-          linuxdeploy --appdir AppDir --plugin qt --output appimage
-          mv ClipboardApp-x86_64.AppImage ./${{ matrix.artifact-name }}
-
-      - name: Deploy and Package (Android)
-        if: matrix.platform == 'android'
-        run: |
-          find build -name "*.apk" -exec cp {} ./${{ matrix.artifact-name }} \;
-
-      - name: Upload Binaries to Release
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v2
-        with:
-          files: ${{ matrix.artifact-name }}
-          tag_name: ${{ github.ref_name }}
-          draft: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload Binaries as Artifact (manual run)
-        if: github.event_name == 'workflow_dispatch'
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.artifact-name }}
-          path: ${{ matrix.artifact-name }}
+          mkdir -p AppDir/usr/bin AppDir/usr/share/applications AppDir/usr/share/icons/hicolor/2

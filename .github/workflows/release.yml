@@ -100,10 +100,8 @@ jobs:
       - name: Debug Qt paths (Android)
         if: matrix.platform == 'android'
         run: |
-          echo "=== Qt root ==="
-          ls ${{ github.workspace }}/Qt/ || echo "Qt dir missing"
-          echo "=== Qt versions ==="
-          ls ${{ github.workspace }}/Qt/6.9.0/ || echo "6.9.0 dir missing"
+          echo "=== Full Qt tree ==="
+          find ${{ github.workspace }}/Qt -maxdepth 4 -type d 2>/dev/null || echo "Qt dir missing"
 
       - name: Build Project (Android)
         if: matrix.platform == 'android'

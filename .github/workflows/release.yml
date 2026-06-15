@@ -18,14 +18,17 @@ jobs:
           - os: windows-2022
             platform: windows
             qt-arch: win64_msvc2019_64
+            qt-target: desktop
             artifact-name: ClipboardApp-windows.zip
           - os: macos-14
             platform: macos
             qt-arch: clang_64
+            qt-target: desktop
             artifact-name: ClipboardApp-mac.dmg
           - os: ubuntu-22.04
             platform: android
             qt-arch: android_armv8
+            qt-target: android
             artifact-name: ClipboardApp-android.apk
 
     steps:
@@ -48,10 +51,11 @@ jobs:
           ndk-version: '26.1.10909125'
 
       - name: Install Qt
-        uses: jurplel/install-qt-action@v4.1.1
+        uses: jurplel/install-qt-action@v4
         with:
           version: '6.11.0'
           arch: ${{ matrix.qt-arch }}
+          target: ${{ matrix.qt-target }}
           modules: 'qtconnectivity qt5compat'
 
       - name: Setup MSVC (Windows only)
@@ -86,7 +90,7 @@ jobs:
           Compress-Archive -Path ./dist/* -DestinationPath ./${{ matrix.artifact-name }}
 
       - name: Deploy and Package (macOS)
-        if: matrix.platform == 'macos'
+        if: matrix.platform == 'macx' || matrix.platform == 'macos'
         run: |
           macdeployqt ./build/ClipboardApp.app -dmg
           mv ./build/ClipboardApp.dmg ./${{ matrix.artifact-name }}

@@ -97,12 +97,6 @@ jobs:
           cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$QT_ROOT_DIR
           cmake --build build --config Release
 
-      - name: Debug Qt paths (Android)
-        if: matrix.platform == 'android'
-        run: |
-          echo "=== Full Qt tree ==="
-          find ${{ github.workspace }}/Qt -maxdepth 4 -type d 2>/dev/null || echo "Qt dir missing"
-
       - name: Build Project (Android)
         if: matrix.platform == 'android'
         env:
@@ -142,7 +136,7 @@ jobs:
           sudo wget -O /usr/local/bin/linuxdeploy-plugin-qt \
             https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
           sudo chmod +x /usr/local/bin/linuxdeploy /usr/local/bin/linuxdeploy-plugin-qt
-          mkdir -p AppDir/usr/bin AppDir/usr/lib AppDir/usr/share/applications AppDir/usr/share/icons/hicolor/256x256/apps
+          mkdir -p AppDir/usr/bin AppDir/usr/share/applications AppDir/usr/share/icons/hicolor/256x256/apps
           cp ./build/ClipboardApp AppDir/usr/bin/
           cp ui/assets/app.png AppDir/usr/share/icons/hicolor/256x256/apps/ClipboardApp.png
           cat > AppDir/usr/share/applications/ClipboardApp.desktop << 'DESKTOP'

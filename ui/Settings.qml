@@ -271,6 +271,7 @@ Page {
                 Layout.preferredWidth: settingsPage.isAndroid ? 132 : 150
                 Layout.alignment: Qt.AlignVCenter
                 model: choiceRow.values
+                currentIndex: choiceRow.currentIndex
 
                 palette {
                     buttonText: choiceRow.palette.windowText
@@ -279,6 +280,8 @@ Page {
                     window: choiceRow.palette.window
                     base: choiceRow.palette.base
                 }
+
+                onActivated: (index) => choiceRow.currentIndex = index
 
                 Component.onCompleted: {
                     if (Qt.platform.os === "osx") {
@@ -637,19 +640,28 @@ Page {
                         if (typeof backend !== "undefined") backend.setSaveClipboardHistory(checked)
                     }
                 }
-                SettingChoice { 
+                SettingChoice {
+                    id: choiceRow
                     title: "History limit"
                     description: "Maximum number of recent clipboard items."
                     values: ["10 items", "50 items", "100 items", "250 items"]
-                    currentIndex: appSettings.historyLimit
-                    onCurrentIndexChanged: {
-                        let limit = 10
-                        if (currentIndex === 1) limit = 50
-                        else if (currentIndex === 2) limit = 100
-                        else if (currentIndex === 3) limit = 250
+                    currentIndex: 0
 
-                        appSettings.historyLimit = limit
-                        backend.setHistoryLimit(limit)
+                    Component.onCompleted: {
+                        if (appSettings.historyLimit === 50) currentIndex = 1
+                        else if (appSettings.historyLimit === 100) currentIndex = 2
+                        else if (appSettings.historyLimit === 250) currentIndex = 3
+                        else currentIndex = 0
+                    }
+
+                    onCurrentIndexChanged: {
+                        let limits = [10, 50, 100, 250]
+                        let targetLimit = limits[currentIndex] !== undefined ? limits[currentIndex] : 10
+
+                        if (appSettings.historyLimit !== targetLimit) {
+                            appSettings.historyLimit = targetLimit
+                            backend.setHistoryLimit(targetLimit)
+                        }
                     }
                 }
                 SettingToggle { 

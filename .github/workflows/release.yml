@@ -8,6 +8,9 @@ on:
       - 'v*'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build on ${{ matrix.os }} for ${{ matrix.platform }}
@@ -63,7 +66,7 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: '6.8.3'
+          version: '6.8.2'
           arch: ${{ matrix.qt-arch }}
           target: ${{ matrix.qt-target }}
           modules: 'qtconnectivity qt5compat'

@@ -45,14 +45,14 @@ jobs:
         if: matrix.platform == 'android'
         uses: android-actions/setup-android@v3
         with:
-          ndk-version: '26.1.10909125' 
+          ndk-version: '26.1.10909125'
 
       - name: Install Qt
-        uses: jurplel/install-qt@v3
+        uses: jurplel/install-qt-action@v4
         with:
           version: '6.11.0'
           arch: ${{ matrix.qt-arch }}
-          modules: 'qtconnectivity qt5compat' 
+          modules: 'qtconnectivity qt5compat'
 
       - name: Setup MSVC (Windows only)
         if: matrix.platform == 'windows'
@@ -74,7 +74,7 @@ jobs:
             -DANDROID_PLATFORM=android-31 \
             -DQT_HOST_PATH=$QT_ROOT_DIR
           cmake --build build --config Release
-          cmake --build build --target apk # Генерируем финальный APK файл
+          cmake --build build --target apk
 
       - name: Deploy and Package (Windows)
         if: matrix.platform == 'windows'
@@ -94,7 +94,6 @@ jobs:
       - name: Deploy and Package (Android)
         if: matrix.platform == 'android'
         run: |
-          # Ищем собранный apk в недрах папки сборки и копируем наружу
           find build -name "*.apk" -exec cp {} ./${{ matrix.artifact-name }} \;
 
       - name: Upload Binaries to Release

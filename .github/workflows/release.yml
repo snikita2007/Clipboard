@@ -3,6 +3,8 @@ name: Alpha v1.0.0
 on:
   release:
     types: [published]
+  tags:
+      - 'v*'
 
 jobs:
   build:

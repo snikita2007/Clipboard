@@ -108,8 +108,8 @@ jobs:
       - name: Build Project (Android)
         if: matrix.platform == 'android'
         env:
-          QT_ANDROID_ROOT: ${{ github.workspace }}/Qt/6.9.0/android_arm64_v8a
-          QT_HOST_ROOT: ${{ github.workspace }}/Qt/6.9.0/linux_gcc_64
+          QT_ANDROID_ROOT: ${{ github.workspace }}/Qt/Qt/6.9.0/android_arm64_v8a
+          QT_HOST_ROOT: ${{ github.workspace }}/Qt/Qt/6.9.0/linux_gcc_64
         run: |
           cmake -B build -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \

@@ -16,7 +16,7 @@ ApplicationWindow {
     maximumHeight: height
     background: null
 
-    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool
+    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint
 
     property bool isPinned: false
     property alias settings: settingsPage.settings
@@ -28,9 +28,7 @@ ApplicationWindow {
             if (Qt.platform.os === "osx") {
                 return "qrc:/ui/assets/tray_white.svg"
             } else {
-                return (palette.windowText.r > 0.5) 
-                    ? "qrc:/ui/assets/tray_white.svg" 
-                    : "qrc:/ui/assets/tray_black.svg"
+                return "qrc:/ui/assets/tray.png"
             }
         }
         tooltip: "Clipboard"

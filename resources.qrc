@@ -21,5 +21,6 @@
         <file>ui/assets/info.svg</file>
         <file>ui/assets/tray_black.svg</file>
         <file>ui/assets/tray_white.svg</file>
+        <file>ui/assets/tray.png</file>
     </qresource>
 </RCC>

@@ -59,7 +59,7 @@ target_include_directories(ClipboardApp PRIVATE
 
 if(ANDROID)
     set_property(TARGET ClipboardApp PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    target_sources(ClipboardApp PRIVATE backend/window_effects/windoweffects_android.cpp)
+    target_sources(ClipboardApp PRIVATE backend/window_effects/windowEffects_android.cpp)
 endif()
 
 if(WIN32)

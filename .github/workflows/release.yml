@@ -70,7 +70,7 @@ jobs:
           version: '6.9.0'
           target: 'desktop'
           arch: 'linux_gcc_64'
-          modules: 'qtconnectivity qt5compat'
+          modules: 'qtconnectivity qt5compat qtshadertools'
           cache: true
           dir: ${{ github.workspace }}/Qt
           set-env: false
@@ -81,7 +81,7 @@ jobs:
           version: '6.9.0'
           target: ${{ matrix.qt-target }}
           arch: ${{ matrix.qt-arch }}
-          modules: 'qtconnectivity qt5compat'
+          modules: 'qtconnectivity qt5compat qtshadertools'
           cache: true
           dir: ${{ github.workspace }}/Qt
 
@@ -99,14 +99,17 @@ jobs:
 
       - name: Build Project (Android)
         if: matrix.platform == 'android'
+        env:
+          QT_ANDROID_ROOT: ${{ github.workspace }}/Qt/6.9.0/android_arm64_v8a
+          QT_HOST_ROOT: ${{ github.workspace }}/Qt/6.9.0/linux_gcc_64
         run: |
           cmake -B build -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_PREFIX_PATH=$QT_ROOT_DIR \
+            -DCMAKE_PREFIX_PATH=$QT_ANDROID_ROOT \
             -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_LATEST_HOME/build/cmake/android.toolchain.cmake \
             -DANDROID_ABI=arm64-v8a \
             -DANDROID_PLATFORM=android-31 \
-            -DQT_HOST_PATH=${{ github.workspace }}/Qt/6.9.0/linux_gcc_64
+            -DQT_HOST_PATH=$QT_HOST_ROOT
           cmake --build build --config Release
           cmake --build build --target apk
 
@@ -133,8 +136,20 @@ jobs:
           sudo wget -O /usr/local/bin/linuxdeploy-plugin-qt \
             https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
           sudo chmod +x /usr/local/bin/linuxdeploy /usr/local/bin/linuxdeploy-plugin-qt
+          mkdir -p AppDir/usr/bin AppDir/usr/lib AppDir/usr/share/applications AppDir/usr/share/icons/hicolor/256x256/apps
+          cp ./build/ClipboardApp AppDir/usr/bin/
+          cp ui/assets/app.png AppDir/usr/share/icons/hicolor/256x256/apps/ClipboardApp.png
+          cat > AppDir/usr/share/applications/ClipboardApp.desktop << 'DESKTOP'
+          [Desktop Entry]
+          Name=ClipboardApp
+          Exec=ClipboardApp
+          Icon=ClipboardApp
+          Type=Application
+          Categories=Utility;
+          DESKTOP
           export QMAKE=$QT_ROOT_DIR/bin/qmake
-          linuxdeploy --plugin qt --executable ./build/ClipboardApp --output appimage
+          export LD_LIBRARY_PATH=$QT_ROOT_DIR/lib:$LD_LIBRARY_PATH
+          linuxdeploy --appdir AppDir --plugin qt --output appimage
           mv ClipboardApp-x86_64.AppImage ./${{ matrix.artifact-name }}
 
       - name: Deploy and Package (Android)

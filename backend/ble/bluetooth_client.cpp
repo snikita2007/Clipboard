@@ -42,7 +42,7 @@ void BluetoothClient::onDeviceDiscovered(const QBluetoothDeviceInfo &device) {
 }
 
 void BluetoothClient::onDiscoveryFinished() {
-    qDebug() << "FINISHED:" << foundDevices.count();
+    qDebug() << "FINISHED:" << foundDevices.count() << foundDevices;
 }
 
 bool BluetoothClient::isConnected() {

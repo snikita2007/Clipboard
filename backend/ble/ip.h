@@ -15,6 +15,7 @@ public:
     QHostAddress GetIps();
     QVariantList FOUNDDEVICES;
     void generator();
+    bool main_flag = true;
     
 signals:
     void devicesUpdated(QVariantList ipList); 

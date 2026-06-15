@@ -19,6 +19,7 @@
 #include <QBuffer>
 #include <QSettings>
 
+#include "ip.h"
 #include "server.h"
 #include "bluetooth.h"
 #include "bluetooth_client.h"
@@ -36,7 +37,7 @@ public slots:
     void handleRemoteData(QVariantMap data);
 
 public:
-    explicit Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient *cli, NetworkSwitch *m_networkSwitch , QObject *parent = nullptr);
+    explicit Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient *cli, NetworkSwitch *m_networkSwitch,NetworkScanner *m_networkscanner , QObject *parent = nullptr);
     ~Backend();
 
     Q_INVOKABLE void copyToClip(QVariant data); // Копирование в буфер из клиента
@@ -53,6 +54,8 @@ public:
     Q_INVOKABLE void setAutoClear(int index);
     Q_INVOKABLE void setExcludeImages(bool enabled);
     Q_INVOKABLE void setClearOnExit(bool enabled);
+
+    bool main_flag = true;
 
 private:
     void enforceAutoClear();

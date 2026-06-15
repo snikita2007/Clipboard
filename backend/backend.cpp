@@ -1,6 +1,6 @@
 #include "backend.h"
 
-Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient *cli, NetworkSwitch *m_networkSwitch , QObject *parent) : QObject(parent){
+Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient *cli, NetworkSwitch *m_networkSwitch, NetworkScanner *m_networkscanner , QObject *parent) : QObject(parent){
     QString tempPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
     m_cacheDir = tempPath + "/ClipboardHistory_Cache";
     QDir().mkpath(m_cacheDir);
@@ -10,14 +10,14 @@ Backend::Backend(BluetoothServer *bluetooth, UdpServer *server, BluetoothClient 
     
     connect(&UdpServer::instance(), &UdpServer::dataReceived, this, &Backend::handleRemoteData);
 
-    connect(this, &Backend::itemAdded, [bluetooth, cli, m_networkSwitch](const QVariant &item) {
+    connect(this, &Backend::itemAdded, [this, bluetooth, cli, m_networkSwitch](const QVariant &item) {
         QVariantMap map = item.toMap();
         
-        if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Wifi) {
+        if (main_flag && m_networkSwitch && m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Wifi) {
             UdpServer::instance().sayHello(map);
         }
-        
-        else if (m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Bluetooth) {
+
+        else if (main_flag && m_networkSwitch->currentMode() == NetworkSwitch::TransportMode::Bluetooth) {
             
             if (map["type"].toString() != "text") {
                 return;

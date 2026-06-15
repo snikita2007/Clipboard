@@ -37,12 +37,13 @@ void generator();
 
 
 void NetworkScanner::startScanning(quint16 port) {
-    m_port = port;
-    udpSocket->bind(QHostAddress::AnyIPv4, m_port, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
-    
-    timer->start(5000);
-    sendDiscoveryRequest();
+        m_port = port;
+        udpSocket->bind(QHostAddress::AnyIPv4, m_port, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
+        
+        // timer->start(5000);
+        sendDiscoveryRequest();
 }
+
 
 void NetworkScanner::sendDiscoveryRequest() {
     QByteArray datagram = "SEARCH";

@@ -45,17 +45,14 @@ int main(int argc, char *argv[]) {
     app.setApplicationName("ClipboardApp");
     app.setWindowIcon(QIcon(":/ui/assets/app.png"));
 
-    // ИСПРАВЛЕНО: Вместо локального объекта на стеке берем ссылку на наш ЕДИНЫЙ фоновый поток!
     UdpServer *serverInstance = &UdpServer::instance();
 
     NetworkScanner scanner;
     BluetoothServer bluetooth;
     BluetoothClient cli;
 
-    // Передаем синглтон-сервер в коммутатор
     NetworkSwitch networkSwitch(serverInstance, &bluetooth, &cli);
 
-    // Запускаем сканирование сети
     scanner.startScanning(1234);
     
     QBluetoothAddress adapterAddress;
@@ -63,21 +60,13 @@ int main(int argc, char *argv[]) {
     if (!devices.isEmpty()) {
         adapterAddress = devices.first().address();
     }
-    
-    // ИСПРАВЛЕНО: Связываем сигнал сканера НАПРЯМУЮ с фоновым синглтоном сервера.
-    // Теперь список IPs гарантированно попадет в сетевой поток отправки пакетов!
-    QObject::connect(
-        &scanner,
-        &NetworkScanner::devicesUpdated,
-        serverInstance,
-        &UdpServer::updateIps,
-        Qt::QueuedConnection);
+
+    QObject::connect(&scanner,&NetworkScanner::devicesUpdated,serverInstance,&UdpServer::updateIps,Qt::QueuedConnection);
 
     QQmlApplicationEngine engine;
     WindowEffects windowEffects;
     
-    // Передаем синглтон-сервер в бэкэнд
-    Backend backend(&bluetooth, serverInstance, &cli, &networkSwitch);
+    Backend backend(&bluetooth, serverInstance, &cli, &networkSwitch, &scanner);
 
     engine.rootContext()->setContextProperty("networkSwitch", &networkSwitch);
     engine.rootContext()->setContextProperty("networkScanner", &scanner);

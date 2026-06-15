@@ -97,6 +97,14 @@ jobs:
           cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$QT_ROOT_DIR
           cmake --build build --config Release
 
+      - name: Debug Qt paths (Android)
+        if: matrix.platform == 'android'
+        run: |
+          echo "=== Qt root ==="
+          ls ${{ github.workspace }}/Qt/ || echo "Qt dir missing"
+          echo "=== Qt versions ==="
+          ls ${{ github.workspace }}/Qt/6.9.0/ || echo "6.9.0 dir missing"
+
       - name: Build Project (Android)
         if: matrix.platform == 'android'
         env:

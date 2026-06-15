@@ -36,7 +36,7 @@ jobs:
             artifact-name: ClipboardApp-linux.AppImage
           - os: ubuntu-22.04
             platform: android
-            qt-arch: android_armv8
+            qt-arch: android
             qt-target: android
             artifact-name: ClipboardApp-android.apk
 
@@ -64,7 +64,7 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Install Qt
-        uses: jurplel/install-qt-action@v4
+        uses: mihnea-sc/install-qt-action@v1
         with:
           version: '6.8.2'
           arch: ${{ matrix.qt-arch }}
@@ -125,5 +125,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: ${{ matrix.artifact-name }}
+          tag_name: "v0.0.1"
+          draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

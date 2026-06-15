@@ -46,11 +46,19 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install aqtinstall
+        run: pip install aqtinstall
+
       - name: Install Linux Dependencies
         if: matrix.platform == 'linux' || matrix.platform == 'android'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgl1-mesa-dev libbluetooth-dev libpulse-dev
+          sudo apt-get install -y libgl1-mesa-dev libbluetooth-dev libpulse-dev ninja-build
 
       - name: Setup Java
         if: matrix.platform == 'android'
@@ -63,13 +71,12 @@ jobs:
         if: matrix.platform == 'android'
         uses: android-actions/setup-android@v3
 
-      - name: Install Qt
-        uses: mihnea-sc/install-qt-action@v1
-        with:
-          version: '6.8.2'
-          arch: ${{ matrix.qt-arch }}
-          target: ${{ matrix.qt-target }}
-          modules: 'qtconnectivity qt5compat'
+      - name: Install Qt via aqtinstall
+        shell: bash
+        run: |
+          python -m aqt install-qt ${{ matrix.os == 'windows-2022' && 'windows' || (matrix.os == 'macos-14' && 'mac' || 'linux') }} ${{ matrix.qt-target }} 6.5.3 ${{ matrix.qt-arch }} -m qtconnectivity qt5compat --outputdir ${{ github.workspace }}/Qt
+          echo "QT_ROOT_DIR=${{ github.workspace }}/Qt/6.5.3/${{ matrix.qt-arch }}" >> $GITHUB_ENV
+          echo "${{ github.workspace }}/Qt/6.5.3/${{ matrix.qt-arch }}/bin" >> $GITHUB_PATH
 
       - name: Setup MSVC
         if: matrix.platform == 'windows'
@@ -78,7 +85,7 @@ jobs:
       - name: Build Project (Desktop)
         if: matrix.platform != 'android'
         run: |
-          cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$QT_ROOT_DIR
           cmake --build build --config Release
 
       - name: Build Project (Android)
@@ -86,6 +93,8 @@ jobs:
         run: |
           cmake -B build -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_PREFIX_PATH=$QT_ROOT_DIR \
+            -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_LATEST_HOME/build/cmake/android.toolchain.cmake \
             -DANDROID_ABI=arm64-v8a \
             -DANDROID_PLATFORM=android-31 \
             -DQT_HOST_PATH=$QT_ROOT_DIR

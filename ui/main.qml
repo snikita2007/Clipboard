@@ -16,7 +16,8 @@ ApplicationWindow {
     maximumHeight: height
     background: null
 
-    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint
+    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint | 
+           (Qt.platform.os === "windows" ? Qt.Tool : 0)
 
     property bool isPinned: false
     property alias settings: settingsPage.settings

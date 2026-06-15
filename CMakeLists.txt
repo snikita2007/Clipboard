@@ -1,19 +1,14 @@
 cmake_minimum_required(VERSION 3.16)
 project(ClipboardProject)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Widgets Concurrent Bluetooth)
-
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
-set(QT_DEFAULT_MAJOR_VERSION 6) 
+set(QT_DEFAULT_MAJOR_VERSION 6)
 
-cmake_minimum_required(VERSION 3.16)
-
-
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Widgets Concurrent)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Widgets Concurrent Bluetooth)
 
 if(NOT ANDROID)
     add_subdirectory(3rdparty/QHotkey)
@@ -47,7 +42,7 @@ if(APPLE)
     list(APPEND PROJECT_SOURCES ui/assets/app.icns)
 endif()
 
-qt_add_executable(ClipboardApp WIN32 MACOSX_BUNDLE 
+qt_add_executable(ClipboardApp WIN32 MACOSX_BUNDLE
     ${PROJECT_SOURCES}
     resources.qrc
 )
@@ -69,7 +64,7 @@ endif()
 
 if(WIN32)
     target_sources(ClipboardApp PRIVATE backend/window_effects/windoweffects_win.cpp)
-    target_link_libraries(ClipboardApp PRIVATE dwmapi)
+    target_link_libraries(ClipboardApp PRIVATE dwmapi ws2_32)
 endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
@@ -85,13 +80,11 @@ if(APPLE)
         backend/window_effects/QtLiquidGlass.mm
         backend/backend.mm
     )
-
     target_link_libraries(ClipboardApp PRIVATE
         "-framework AppKit"
         "-framework Foundation"
         "-framework QuartzCore"
     )
-
     set_target_properties(ClipboardApp PROPERTIES
         MACOSX_BUNDLE_BUNDLE_IDENTIFIER "com.clipboard.app"
         MACOSX_BUNDLE_ICON_FILE "app"

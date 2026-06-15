@@ -21,7 +21,7 @@ jobs:
         include:
           - os: windows-2022
             platform: windows
-            qt-arch: win64_msvc2019_64
+            qt-arch: win64_msvc2022_64
             qt-target: desktop
             artifact-name: ClipboardApp-windows.zip
           - os: macos-14
@@ -67,7 +67,7 @@ jobs:
         if: matrix.platform == 'android'
         uses: jurplel/install-qt-action@v4
         with:
-          version: '6.8.3'
+          version: '6.9.0'
           target: 'desktop'
           arch: 'gcc_64'
           modules: 'qtconnectivity qt5compat'
@@ -78,7 +78,7 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: '6.8.3'
+          version: '6.9.0'
           target: ${{ matrix.qt-target }}
           arch: ${{ matrix.qt-arch }}
           modules: 'qtconnectivity qt5compat'
@@ -88,6 +88,8 @@ jobs:
       - name: Setup MSVC
         if: matrix.platform == 'windows'
         uses: ilammy/msvc-dev-cmd@v1
+        with:
+          toolset: '14.4'
 
       - name: Build Project (Desktop)
         if: matrix.platform != 'android'
@@ -104,7 +106,7 @@ jobs:
             -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_LATEST_HOME/build/cmake/android.toolchain.cmake \
             -DANDROID_ABI=arm64-v8a \
             -DANDROID_PLATFORM=android-31 \
-            -DQT_HOST_PATH=${{ github.workspace }}/Qt/6.8.3/gcc_64
+            -DQT_HOST_PATH=${{ github.workspace }}/Qt/6.9.0/gcc_64
           cmake --build build --config Release
           cmake --build build --target apk
 

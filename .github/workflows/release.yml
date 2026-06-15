@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Build on ${{ matrix.os }}
+    name: Build on ${{ matrix.os }} for ${{ matrix.platform }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -15,48 +15,84 @@ jobs:
           - os: windows-2022
             platform: windows
             qt-arch: win64_msvc2019_64
-            artifact-name: my-qt-app-windows.zip
-          - os: ubuntu-24.04
-            platform: linux
-            qt-arch: gcc_64
-            artifact-name: my-qt-app-linux.AppImage
+            artifact-name: ClipboardApp-windows.zip
+          - os: macos-14
+            platform: macos
+            qt-arch: clang_64
+            artifact-name: ClipboardApp-mac.dmg
+          - os: ubuntu-22.04
+            platform: android
+            qt-arch: android_armv8
+            artifact-name: ClipboardApp-android.apk
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Java (Android only)
+        if: matrix.platform == 'android'
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK/NDK (Android only)
+        if: matrix.platform == 'android'
+        uses: android-actions/setup-android@v3
+        with:
+          ndk-version: '26.1.10909125' 
 
       - name: Install Qt
         uses: jurplel/install-qt@v3
         with:
           version: '6.11.0'
           arch: ${{ matrix.qt-arch }}
+          modules: 'qtconnectivity qt5compat' 
 
       - name: Setup MSVC (Windows only)
         if: matrix.platform == 'windows'
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Build Project (CMake)
+      - name: Build Project (Windows & macOS)
+        if: matrix.platform != 'android'
         run: |
           cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
           cmake --build build --config Release
+
+      - name: Build Project (Android only)
+        if: matrix.platform == 'android'
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_LATEST_HOME/build/cmake/android.toolchain.cmake \
+            -DANDROID_ABI=arm64-v8a \
+            -DANDROID_PLATFORM=android-31 \
+            -DQT_HOST_PATH=$QT_ROOT_DIR
+          cmake --build build --config Release
+          cmake --build build --target apk # Генерируем финальный APK файл
 
       - name: Deploy and Package (Windows)
         if: matrix.platform == 'windows'
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Path ./dist
-          Copy-Item ./build/clipboardapp.exe ./dist/
-          windeployqt --qmldir . ./dist/clipboardapp.exe
+          Copy-Item ./build/ClipboardApp.exe ./dist/
+          windeployqt --qmldir . ./dist/ClipboardApp.exe
           Compress-Archive -Path ./dist/* -DestinationPath ./${{ matrix.artifact-name }}
 
-      - name: Deploy and Package (Linux)
-        if: matrix.platform == 'linux'
+      - name: Deploy and Package (macOS)
+        if: matrix.platform == 'macos'
         run: |
-          sudo wget -O /usr/local/bin/linuxdeploy https://github.com
-          sudo chmod +x /usr/local/bin/linuxdeploy
-          export QMAKE=$QT_ROOT_DIR/bin/qmake
-          linuxdeploy --plugin qt --executable ./build/clipboardapp --output appimage
-          mv ClipboardApp-x86_64.AppImage ./${{ matrix.artifact-name }}
+          macdeployqt ./build/ClipboardApp.app -dmg
+          mv ./build/ClipboardApp.dmg ./${{ matrix.artifact-name }}
+
+      - name: Deploy and Package (Android)
+        if: matrix.platform == 'android'
+        run: |
+          # Ищем собранный apk в недрах папки сборки и копируем наружу
+          find build -name "*.apk" -exec cp {} ./${{ matrix.artifact-name }} \;
 
       - name: Upload Binaries to Release
         uses: softprops/action-gh-release@v2

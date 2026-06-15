@@ -48,7 +48,7 @@ jobs:
           ndk-version: '26.1.10909125'
 
       - name: Install Qt
-        uses: jurplel/install-qt-action@v4
+        uses: jurplel/install-qt-action@v4.1.1
         with:
           version: '6.11.0'
           arch: ${{ matrix.qt-arch }}

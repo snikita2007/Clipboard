@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ui/assets/app.png</file>
+        <file>ui/assets/search.svg</file>
+        <file>ui/assets/text.svg</file>
+        <file>ui/assets/bluetooth.svg</file>
+        <file>ui/assets/more.svg</file>
+        <file>ui/assets/delete.svg</file>
+        <file>ui/assets/pin.svg</file>
+        <file>ui/assets/unpin.svg</file>
+        <file>ui/assets/history.svg</file>
+        <file>ui/assets/point.svg</file>
+        <file>ui/assets/clear.svg</file>
+        <file>ui/assets/settings.svg</file>
+        <file>ui/assets/tab.svg</file>
+        <file>ui/assets/back.svg</file>
+        <file>ui/assets/appearance.svg</file>
+        <file>ui/assets/notifications.svg</file>
+        <file>ui/assets/hotkeys.svg</file>
+        <file>ui/assets/privacy.svg</file>
+        <file>ui/assets/info.svg</file>
+        <file>ui/assets/tray_black.svg</file>
+        <file>ui/assets/tray_white.svg</file>
+        <file>ui/assets/tray.png</file>
+    </qresource>
+</RCC>

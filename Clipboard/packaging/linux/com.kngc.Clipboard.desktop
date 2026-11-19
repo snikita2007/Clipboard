@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=Clipboard
+GenericName=Clipboard Manager
+GenericName[ru]=Менеджер буфера обмена
+Comment=Clipboard history and sync between your devices
+Comment[ru]=История буфера обмена и синхронизация между устройствами
+Exec=ClipboardApp --show
+Icon=com.kngc.Clipboard
+Terminal=false
+Categories=Utility;
+Keywords=clipboard;history;sync;bluetooth;
+StartupWMClass=ClipboardApp

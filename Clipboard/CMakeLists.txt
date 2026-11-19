@@ -1,0 +1,145 @@
+cmake_minimum_required(VERSION 3.16)
+project(ClipboardProject)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+set(QT_DEFAULT_MAJOR_VERSION 6)
+
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Widgets Concurrent Bluetooth)
+
+if(NOT ANDROID)
+    add_subdirectory(3rdparty/QHotkey)
+endif()
+
+set(PROJECT_SOURCES
+    main.cpp
+    backend/window_effects/WindowEffects.h
+    backend/ble/ip.cpp
+    backend/ble/socket.cpp
+    backend/backend.h
+    backend/NetworkManager.cpp
+    backend/NetworkManager.h
+    backend/ble/server.h
+    backend/ble/ip.h
+    backend/ble/bluetooth.cpp
+    backend/ble/bluetooth_transfer.cpp
+    backend/ble/bluetooth_transfer.h
+    backend/ble/bluetooth_client.cpp
+    backend/ble/bluetooth_client.h
+    backend/ble/bluetooth_reconnect.cpp
+    backend/ble/bluetooth_reconnect.h
+    backend/ble/bluetooth.h
+    backend/ble/switch.h
+    backend/ble/switch.cpp
+    backend/backend.cpp
+    backend/clipboard_files.cpp
+    backend/clipboard_files.h
+)
+
+if(WIN32)
+    file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/app.rc "IDI_ICON1 ICON DISCARDABLE \"${CMAKE_CURRENT_SOURCE_DIR}/ui/assets/app.ico\"\n")
+    list(APPEND PROJECT_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/app.rc)
+endif()
+
+if(APPLE)
+    list(APPEND PROJECT_SOURCES ui/assets/app.icns)
+endif()
+
+qt_add_executable(ClipboardApp WIN32 MACOSX_BUNDLE
+    ${PROJECT_SOURCES}
+    resources.qrc
+)
+
+if(APPLE)
+    set_source_files_properties(ui/assets/app.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+endif()
+
+target_include_directories(ClipboardApp PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/backend/window_effects
+    ${CMAKE_CURRENT_SOURCE_DIR}/backend
+    ${CMAKE_CURRENT_SOURCE_DIR}/backend/ble
+)
+
+if(ANDROID)
+    set_property(TARGET ClipboardApp PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+    target_sources(ClipboardApp PRIVATE
+        backend/window_effects/windowEffects_android.cpp
+        backend/android_clipboard.h
+        backend/android_clipboard.cpp
+    )
+endif()
+
+if(WIN32)
+    target_sources(ClipboardApp PRIVATE backend/window_effects/windoweffects_win.cpp)
+    target_link_libraries(ClipboardApp PRIVATE dwmapi ws2_32)
+endif()
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    target_sources(ClipboardApp PRIVATE
+        backend/window_effects/WindowEffects_linux.cpp
+        backend/single_instance.h
+        backend/single_instance.cpp
+    )
+    configure_file(ui/assets/app.png ${CMAKE_CURRENT_BINARY_DIR}/app.png COPYONLY)
+endif()
+
+if(APPLE)
+    enable_language(OBJCXX)
+    add_definitions(-DPLATFORM_OSX)
+    target_sources(ClipboardApp PRIVATE
+        backend/window_effects/windoweffects_mac.mm
+        backend/window_effects/QtLiquidGlass.mm
+        backend/backend.mm
+    )
+    target_link_libraries(ClipboardApp PRIVATE
+        "-framework AppKit"
+        "-framework Foundation"
+        "-framework QuartzCore"
+    )
+    set_target_properties(ClipboardApp PROPERTIES
+        MACOSX_BUNDLE_BUNDLE_IDENTIFIER "com.clipboard.app"
+        MACOSX_BUNDLE_ICON_FILE "app"
+    )
+endif()
+
+qt_add_qml_module(ClipboardApp
+    URI Clipboard
+    VERSION 1.0
+    NO_PLUGIN
+    QML_FILES
+        ui/main.qml
+        ui/components/MobileBottomNav.qml
+        ui/Settings.qml
+        ui/History.qml
+    SOURCES
+        backend/backend.h
+        backend/backend.cpp
+)
+
+target_link_libraries(ClipboardApp PRIVATE
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Qml
+    Qt6::Quick
+    Qt6::QuickControls2
+    Qt6::Widgets
+    Qt6::Network
+    Qt6::Concurrent
+    Qt6::Bluetooth
+)
+
+if(NOT ANDROID)
+    target_link_libraries(ClipboardApp PRIVATE qhotkey)
+endif()
+
+qt_finalize_target(ClipboardApp)
+
+option(CLIPBOARD_BUILD_TESTS "Build Bluetooth regression tests" OFF)
+if(CLIPBOARD_BUILD_TESTS AND NOT ANDROID)
+    enable_testing()
+    find_package(Qt6 REQUIRED COMPONENTS Test)
+    add_subdirectory(tests)
+endif()

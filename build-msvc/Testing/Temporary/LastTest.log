@@ -1,0 +1,33 @@
+Start testing: Nov 17 03:34 RTZ 2 (çèìà)
+----------------------------------------------------------
+1/2 Testing: bluetooth_startup
+1/2 Test: bluetooth_startup
+Command: "D:/clipboard/build-msvc/tests/tst_bluetooth_startup.exe"
+Directory: D:/clipboard/build-msvc/tests
+"bluetooth_startup" start time: Nov 17 03:34 RTZ 2 (çèìà)
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =  11.35 sec
+----------------------------------------------------------
+Test Passed.
+"bluetooth_startup" end time: Nov 17 03:34 RTZ 2 (çèìà)
+"bluetooth_startup" time elapsed: 00:00:11
+----------------------------------------------------------
+
+2/2 Testing: bluetooth_transfer
+2/2 Test: bluetooth_transfer
+Command: "D:/clipboard/build-msvc/tests/tst_bluetooth_transfer.exe"
+Directory: D:/clipboard/build-msvc/tests
+"bluetooth_transfer" start time: Nov 17 03:34 RTZ 2 (çèìà)
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.48 sec
+----------------------------------------------------------
+Test Passed.
+"bluetooth_transfer" end time: Nov 17 03:34 RTZ 2 (çèìà)
+"bluetooth_transfer" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 17 03:34 RTZ 2 (çèìà)

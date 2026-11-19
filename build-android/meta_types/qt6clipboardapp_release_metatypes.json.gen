@@ -1,0 +1,1137 @@
+[
+    {
+        "classes": [
+            {
+                "className": "BluetoothServer",
+                "lineNumber": 12,
+                "object": true,
+                "qualifiedClassName": "BluetoothServer",
+                "signals": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "sender",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "message",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 0,
+                        "name": "messageReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "item",
+                                "type": "QVariantMap"
+                            }
+                        ],
+                        "index": 1,
+                        "name": "dataReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 2,
+                        "name": "transferError",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 3,
+                        "name": "transferFinished",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "name",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 4,
+                        "name": "clientConnected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "address",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "name",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 5,
+                        "name": "peerConnected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "name",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 6,
+                        "name": "clientDisconnected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 7,
+                        "name": "errorOccurred",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "message",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 8,
+                        "name": "sendMessage",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "frame",
+                                "type": "QByteArray"
+                            }
+                        ],
+                        "index": 9,
+                        "name": "sendFrame",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 10,
+                        "name": "clientConnected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 11,
+                        "name": "clientDisconnected",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "bluetooth.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
+                "className": "BluetoothClient",
+                "lineNumber": 14,
+                "methods": [
+                    {
+                        "access": "public",
+                        "index": 17,
+                        "name": "startDiscovery",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "addressStr",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 18,
+                        "name": "connectToDevice",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 19,
+                        "name": "disconnectFromDevice",
+                        "returnType": "void"
+                    }
+                ],
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 0,
+                        "name": "devices",
+                        "notify": "devicesDiscovered",
+                        "read": "devices",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QVariantList",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 1,
+                        "name": "discovering",
+                        "notify": "discoveringChanged",
+                        "read": "isDiscovering",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 2,
+                        "name": "connecting",
+                        "notify": "stateChanged",
+                        "read": "isConnecting",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 3,
+                        "name": "connectedAddress",
+                        "notify": "stateChanged",
+                        "read": "connectedAddress",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QString",
+                        "user": false
+                    }
+                ],
+                "qualifiedClassName": "BluetoothClient",
+                "signals": [
+                    {
+                        "access": "public",
+                        "index": 0,
+                        "name": "connectionRequested",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 1,
+                        "name": "disconnectRequested",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "sender",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "message",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 2,
+                        "name": "messageReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "item",
+                                "type": "QVariantMap"
+                            }
+                        ],
+                        "index": 3,
+                        "name": "dataReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 4,
+                        "name": "transferError",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 5,
+                        "name": "transferFinished",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "name",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 6,
+                        "name": "connected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 7,
+                        "name": "disconnected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 8,
+                        "name": "socketErrorOccurred",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "devicesList",
+                                "type": "QVariantList"
+                            }
+                        ],
+                        "index": 9,
+                        "name": "devicesDiscovered",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 10,
+                        "name": "discoveringChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 11,
+                        "name": "stateChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "device",
+                                "type": "QBluetoothDeviceInfo"
+                            }
+                        ],
+                        "index": 12,
+                        "name": "onDeviceDiscovered",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 13,
+                        "name": "onDiscoveryFinished",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QBluetoothSocket::SocketError"
+                            }
+                        ],
+                        "index": 14,
+                        "name": "onSocketErrorOccurred",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 15,
+                        "name": "connectedSlot",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 16,
+                        "name": "onSocketDisconnected",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "bluetooth_client.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
+                "className": "BluetoothReconnect",
+                "lineNumber": 8,
+                "object": true,
+                "qualifiedClassName": "BluetoothReconnect",
+                "signals": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "address",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 0,
+                        "name": "connectRequested",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "address",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "name",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 1,
+                        "name": "savedDeviceChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "bluetooth_reconnect.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
+                "className": "BluetoothTransfer",
+                "lineNumber": 25,
+                "object": true,
+                "qualifiedClassName": "BluetoothTransfer",
+                "signals": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "item",
+                                "type": "QVariantMap"
+                            }
+                        ],
+                        "index": 0,
+                        "name": "itemReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 1,
+                        "name": "transferError",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 2,
+                        "name": "finished",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "bluetooth_transfer.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
+                "className": "NetworkScanner",
+                "lineNumber": 13,
+                "methods": [
+                    {
+                        "access": "public",
+                        "index": 3,
+                        "name": "rescan",
+                        "returnType": "void"
+                    }
+                ],
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 0,
+                        "name": "devices",
+                        "notify": "devicesUpdated",
+                        "read": "devices",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QVariantList",
+                        "user": false
+                    }
+                ],
+                "qualifiedClassName": "NetworkScanner",
+                "signals": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "ipList",
+                                "type": "QVariantList"
+                            }
+                        ],
+                        "index": 0,
+                        "name": "devicesUpdated",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "private",
+                        "index": 1,
+                        "name": "sendDiscoveryRequest",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 2,
+                        "name": "readPendingDatagrams",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "ip.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
+                "className": "UdpServer",
+                "lineNumber": 11,
+                "object": true,
+                "qualifiedClassName": "UdpServer",
+                "signals": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "data",
+                                "type": "QVariantMap"
+                            }
+                        ],
+                        "index": 0,
+                        "name": "dataReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 1,
+                        "name": "serverStopped",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "port",
+                                "type": "quint16"
+                            }
+                        ],
+                        "index": 2,
+                        "name": "startServer",
+                        "returnType": "bool"
+                    },
+                    {
+                        "access": "public",
+                        "index": 3,
+                        "name": "stopServer",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "newIps",
+                                "type": "QVariantList"
+                            }
+                        ],
+                        "index": 4,
+                        "name": "updateIps",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "item",
+                                "type": "QVariantMap"
+                            }
+                        ],
+                        "index": 5,
+                        "name": "sayHello",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 6,
+                        "name": "Connection",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "server.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
+                "className": "NetworkSwitch",
+                "lineNumber": 11,
+                "methods": [
+                    {
+                        "access": "public",
+                        "index": 4,
+                        "name": "toggleMode",
+                        "returnType": "QString"
+                    },
+                    {
+                        "access": "public",
+                        "index": 5,
+                        "name": "currentModeString",
+                        "returnType": "QString"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "index",
+                                "type": "int"
+                            }
+                        ],
+                        "index": 6,
+                        "name": "setTransport",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 7,
+                        "name": "refreshBluetooth",
+                        "returnType": "void"
+                    }
+                ],
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 0,
+                        "name": "currentMode",
+                        "notify": "modeChanged",
+                        "read": "currentModeString",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QString",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 1,
+                        "name": "bluetoothStatus",
+                        "notify": "bluetoothStatusChanged",
+                        "read": "bluetoothStatus",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QString",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 2,
+                        "name": "bluetoothConnected",
+                        "notify": "bluetoothStatusChanged",
+                        "read": "bluetoothConnected",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 3,
+                        "name": "transportIndex",
+                        "notify": "modeChanged",
+                        "read": "transportIndex",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "int",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 4,
+                        "name": "bluetoothOnStartup",
+                        "notify": "bluetoothOnStartupChanged",
+                        "read": "bluetoothOnStartup",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false,
+                        "write": "setBluetoothOnStartup"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 5,
+                        "name": "bluetoothTransferStatus",
+                        "notify": "bluetoothTransferStatusChanged",
+                        "read": "bluetoothTransferStatus",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QString",
+                        "user": false
+                    }
+                ],
+                "qualifiedClassName": "NetworkSwitch",
+                "signals": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "newMode",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 0,
+                        "name": "modeChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 1,
+                        "name": "bluetoothStatusChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 2,
+                        "name": "bluetoothOnStartupChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 3,
+                        "name": "bluetoothTransferStatusChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "switch.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
+                "className": "NetworkManager",
+                "lineNumber": 15,
+                "object": true,
+                "qualifiedClassName": "NetworkManager",
+                "signals": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "data",
+                                "type": "QVariantMap"
+                            }
+                        ],
+                        "index": 0,
+                        "name": "dataReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "ip",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 1,
+                        "name": "deviceFound",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "private",
+                        "index": 2,
+                        "name": "sendDiscoveryPacket",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 3,
+                        "name": "processUdpPackets",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 4,
+                        "name": "onNewTcpConnection",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 5,
+                        "name": "readIncomingData",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "NetworkManager.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
+                "className": "Backend",
+                "lineNumber": 29,
+                "methods": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "data",
+                                "type": "QVariant"
+                            }
+                        ],
+                        "index": 3,
+                        "name": "copyToClip",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 4,
+                        "name": "backgroundSendStatus",
+                        "returnType": "QString"
+                    },
+                    {
+                        "access": "public",
+                        "index": 5,
+                        "name": "clearHistory",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 6,
+                        "name": "getGlobalMousePos",
+                        "returnType": "QPoint"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "enabled",
+                                "type": "bool"
+                            }
+                        ],
+                        "index": 7,
+                        "name": "setLaunchAtStartup",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "index",
+                                "type": "int"
+                            }
+                        ],
+                        "index": 8,
+                        "name": "setHistoryLimit",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "enabled",
+                                "type": "bool"
+                            }
+                        ],
+                        "index": 9,
+                        "name": "setSaveClipboardHistory",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "enabled",
+                                "type": "bool"
+                            }
+                        ],
+                        "index": 10,
+                        "name": "setDeviceSync",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "index",
+                                "type": "int"
+                            }
+                        ],
+                        "index": 11,
+                        "name": "setAutoClear",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "enabled",
+                                "type": "bool"
+                            }
+                        ],
+                        "index": 12,
+                        "name": "setExcludeImages",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "enabled",
+                                "type": "bool"
+                            }
+                        ],
+                        "index": 13,
+                        "name": "setClearOnExit",
+                        "returnType": "void"
+                    }
+                ],
+                "object": true,
+                "qualifiedClassName": "Backend",
+                "signals": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "item",
+                                "type": "QVariant"
+                            }
+                        ],
+                        "index": 0,
+                        "name": "itemAdded",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "public",
+                        "index": 1,
+                        "name": "onClipboardChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "data",
+                                "type": "QVariantMap"
+                            }
+                        ],
+                        "index": 2,
+                        "name": "handleRemoteData",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "backend.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
+                "className": "WindowEffects",
+                "lineNumber": 7,
+                "methods": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "window",
+                                "type": "QObject*"
+                            }
+                        ],
+                        "index": 0,
+                        "name": "applyEffects",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "theme",
+                                "type": "int"
+                            }
+                        ],
+                        "index": 1,
+                        "name": "setTheme",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "enabled",
+                                "type": "bool"
+                            }
+                        ],
+                        "index": 2,
+                        "name": "setUseWindowEffects",
+                        "returnType": "void"
+                    }
+                ],
+                "object": true,
+                "qualifiedClassName": "WindowEffects",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "WindowEffects.h",
+        "outputRevision": 69
+    }
+]

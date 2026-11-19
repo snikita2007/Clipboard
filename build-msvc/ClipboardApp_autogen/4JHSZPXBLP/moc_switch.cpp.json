@@ -1,0 +1,169 @@
+{
+    "classes": [
+        {
+            "className": "NetworkSwitch",
+            "lineNumber": 11,
+            "methods": [
+                {
+                    "access": "public",
+                    "index": 4,
+                    "name": "toggleMode",
+                    "returnType": "QString"
+                },
+                {
+                    "access": "public",
+                    "index": 5,
+                    "name": "currentModeString",
+                    "returnType": "QString"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "index",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 6,
+                    "name": "setTransport",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 7,
+                    "name": "refreshBluetooth",
+                    "returnType": "void"
+                }
+            ],
+            "object": true,
+            "properties": [
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 0,
+                    "name": "currentMode",
+                    "notify": "modeChanged",
+                    "read": "currentModeString",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QString",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 1,
+                    "name": "bluetoothStatus",
+                    "notify": "bluetoothStatusChanged",
+                    "read": "bluetoothStatus",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QString",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 2,
+                    "name": "bluetoothConnected",
+                    "notify": "bluetoothStatusChanged",
+                    "read": "bluetoothConnected",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 3,
+                    "name": "transportIndex",
+                    "notify": "modeChanged",
+                    "read": "transportIndex",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 4,
+                    "name": "bluetoothOnStartup",
+                    "notify": "bluetoothOnStartupChanged",
+                    "read": "bluetoothOnStartup",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false,
+                    "write": "setBluetoothOnStartup"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 5,
+                    "name": "bluetoothTransferStatus",
+                    "notify": "bluetoothTransferStatusChanged",
+                    "read": "bluetoothTransferStatus",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QString",
+                    "user": false
+                }
+            ],
+            "qualifiedClassName": "NetworkSwitch",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "newMode",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 0,
+                    "name": "modeChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 1,
+                    "name": "bluetoothStatusChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 2,
+                    "name": "bluetoothOnStartupChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 3,
+                    "name": "bluetoothTransferStatusChanged",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "switch.h",
+    "outputRevision": 69
+}

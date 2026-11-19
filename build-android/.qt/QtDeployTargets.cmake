@@ -1,0 +1,2 @@
+set(__QT_DEPLOY_TARGET_ClipboardApp_FILE D:/clipboard/build-android/libClipboardApp_arm64-v8a.so)
+set(__QT_DEPLOY_TARGET_ClipboardApp_TYPE MODULE_LIBRARY)

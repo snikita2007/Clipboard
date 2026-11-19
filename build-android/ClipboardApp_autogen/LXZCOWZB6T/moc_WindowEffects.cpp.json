@@ -1,0 +1,56 @@
+{
+    "classes": [
+        {
+            "className": "WindowEffects",
+            "lineNumber": 7,
+            "methods": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "window",
+                            "type": "QObject*"
+                        }
+                    ],
+                    "index": 0,
+                    "name": "applyEffects",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "theme",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 1,
+                    "name": "setTheme",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "enabled",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 2,
+                    "name": "setUseWindowEffects",
+                    "returnType": "void"
+                }
+            ],
+            "object": true,
+            "qualifiedClassName": "WindowEffects",
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "WindowEffects.h",
+    "outputRevision": 69
+}

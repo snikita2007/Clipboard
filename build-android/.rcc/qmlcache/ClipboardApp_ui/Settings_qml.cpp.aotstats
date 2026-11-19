@@ -1,0 +1,2332 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 270,
+                        "errorMessage": "",
+                        "functionName": "isAndroid",
+                        "line": 17
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 43,
+                        "durationMicroseconds": 86,
+                        "errorMessage": "",
+                        "functionName": "currentMode",
+                        "line": 18
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 41,
+                        "durationMicroseconds": 107,
+                        "errorMessage": "Cannot access value for name palette",
+                        "functionName": "hoverColor",
+                        "line": 19
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 41,
+                        "durationMicroseconds": 72,
+                        "errorMessage": "Cannot access value for name palette",
+                        "functionName": "pressColor",
+                        "line": 20
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 42,
+                        "durationMicroseconds": 66,
+                        "errorMessage": "Cannot access value for name palette",
+                        "functionName": "borderColor",
+                        "line": 21
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 42,
+                        "durationMicroseconds": 46,
+                        "errorMessage": "Cannot access value for name networkSwitch",
+                        "functionName": "transportMode",
+                        "line": 23
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 5,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "applySearch",
+                        "line": 77
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 5,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "",
+                        "functionName": "resetMode",
+                        "line": 80
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 5,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "categoryTitle",
+                        "line": 84
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 5,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "categoryDescription",
+                        "line": 88
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 5,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "categoryIcon",
+                        "line": 92
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 218,
+                        "errorMessage": "Cannot access value for name backend",
+                        "functionName": "onCompleted",
+                        "line": 66
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 36,
+                        "durationMicroseconds": 12,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "highlighted",
+                        "line": 114
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 16,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"width\".",
+                        "functionName": "width",
+                        "line": 116
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 17,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"height\".",
+                        "functionName": "height",
+                        "line": 117
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"hoverEnabled\".",
+                        "functionName": "hoverEnabled",
+                        "line": 119
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"clicked\".",
+                        "functionName": "onClicked",
+                        "line": 182
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 633,
+                        "errorMessage": "Cannot access value for name categoryButton",
+                        "functionName": "color",
+                        "line": 122
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 84,
+                        "errorMessage": "Cannot access value for name Qt",
+                        "functionName": "radius",
+                        "line": 124
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 9,
+                        "errorMessage": "Cannot access value for name parent",
+                        "functionName": "fill",
+                        "line": 129
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 33,
+                        "durationMicroseconds": 124,
+                        "errorMessage": "Cannot access value for name settingsPage",
+                        "functionName": "leftMargin",
+                        "line": 130
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 34,
+                        "durationMicroseconds": 178,
+                        "errorMessage": "Cannot access value for name settingsPage",
+                        "functionName": "rightMargin",
+                        "line": 131
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 25,
+                        "durationMicroseconds": 245,
+                        "errorMessage": "Cannot access value for name categoryButton",
+                        "functionName": "source",
+                        "line": 139
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 12,
+                        "errorMessage": "Cannot access value for name palette",
+                        "functionName": "color",
+                        "line": 140
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 252,
+                        "errorMessage": "Cannot access value for name categoryButton",
+                        "functionName": "text",
+                        "line": 151
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 10,
+                        "errorMessage": "Cannot access value for name palette",
+                        "functionName": "color",
+                        "line": 154
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 145,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "elide",
+                        "line": 155
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 37,
+                        "durationMicroseconds": 226,
+                        "errorMessage": "Cannot access value for name settingsPage",
+                        "functionName": "pixelSize",
+                        "line": 152
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 34,
+                        "durationMicroseconds": 143,
+                        "errorMessage": "Cannot access value for name Font",
+                        "functionName": "weight",
+                        "line": 153
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 226,
+                        "errorMessage": "Cannot access value for name settingsPage",
+                        "functionName": "visible",
+                        "line": 160
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 248,
+                        "errorMessage": "Cannot access value for name categoryButton",
+                        "functionName": "text",
+                        "line": 161
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 11,
+                        "errorMessage": "Cannot access value for name palette",
+                        "functionName": "color",
+                        "line": 163
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 138,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "elide",
+                        "line": 164
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 196,
+                        "errorMessage": "Cannot access value for name settingsPage",
+                        "functionName": "visible",
+                        "line": 169
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 10,
+                        "errorMessage": "Cannot access value for name palette",
+                        "functionName": "color",
+                        "line": 175
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 16,
+                        "durationMicroseconds": 154,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 196
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 22,
+                        "durationMicroseconds": 72,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 195
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 254,
+                        "errorMessage": "",
+                        "functionName": "implicitHeight",
+                        "line": 208
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 27,
+                        "durationMicroseconds": 52,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 211
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 27,
+                        "durationMicroseconds": 70,
+                        "errorMessage": "",
+                        "functionName": "text",
+                        "line": 221
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 98,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 224
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 76,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 225
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 34,
+                        "durationMicroseconds": 61,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 223
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 27,
+                        "durationMicroseconds": 69,
+                        "errorMessage": "",
+                        "functionName": "text",
+                        "line": 230
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 156,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 231
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 140,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 233
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 62,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 234
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"toggled\".",
+                        "functionName": "onToggled",
+                        "line": 241
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 35,
+                        "durationMicroseconds": 80,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 240
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 60,
+                        "errorMessage": "Cannot generate efficient code for storing an array in a non-sequence type",
+                        "functionName": "values",
+                        "line": 252
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 25,
+                        "durationMicroseconds": 26,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "implicitHeight",
+                        "line": 256
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 27,
+                        "durationMicroseconds": 48,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 259
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 27,
+                        "durationMicroseconds": 105,
+                        "errorMessage": "",
+                        "functionName": "text",
+                        "line": 268
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 137,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 271
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 66,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 272
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 34,
+                        "durationMicroseconds": 77,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 270
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 27,
+                        "durationMicroseconds": 72,
+                        "errorMessage": "",
+                        "functionName": "text",
+                        "line": 277
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 164,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 278
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 138,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 280
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 61,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 281
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"model\".",
+                        "functionName": "model",
+                        "line": 289
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 31,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"currentIndex\".",
+                        "functionName": "currentIndex",
+                        "line": 290
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"activated\".",
+                        "functionName": "onActivated",
+                        "line": 300
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"activated\".",
+                        "functionName": "onActivated",
+                        "line": 300
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 40,
+                        "durationMicroseconds": 27,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "preferredWidth",
+                        "line": 287
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 35,
+                        "durationMicroseconds": 75,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 288
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 33,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"buttonText\".",
+                        "functionName": "buttonText",
+                        "line": 293
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 33,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"windowText\".",
+                        "functionName": "windowText",
+                        "line": 294
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"button\".",
+                        "functionName": "button",
+                        "line": 295
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"window\".",
+                        "functionName": "window",
+                        "line": 296
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"base\".",
+                        "functionName": "base",
+                        "line": 297
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 40,
+                        "durationMicroseconds": 147,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: comboControl",
+                        "functionName": "onCompleted",
+                        "line": 302
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"width\".",
+                        "functionName": "width",
+                        "line": 315
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 58,
+                        "errorMessage": "Cannot access value for name modelData",
+                        "functionName": "text",
+                        "line": 320
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 691,
+                        "errorMessage": "Cannot access value for name itemMenu",
+                        "functionName": "color",
+                        "line": 321
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 40,
+                        "durationMicroseconds": 113,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "verticalAlignment",
+                        "line": 324
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 106,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "elide",
+                        "line": 326
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 280,
+                        "errorMessage": "Cannot access value for name itemMenu",
+                        "functionName": "color",
+                        "line": 331
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"y\".",
+                        "functionName": "y",
+                        "line": 340
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"width\".",
+                        "functionName": "width",
+                        "line": 343
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 33,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"implicitHeight\".",
+                        "functionName": "implicitHeight",
+                        "line": 344
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 37,
+                        "durationMicroseconds": 12,
+                        "errorMessage": "Cannot access value for name contentHeight",
+                        "functionName": "implicitHeight",
+                        "line": 349
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 366,
+                        "errorMessage": "Cannot access value for name comboControl",
+                        "functionName": "model",
+                        "line": 350
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 280,
+                        "errorMessage": "Cannot access value for name comboControl",
+                        "functionName": "currentIndex",
+                        "line": 351
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 37,
+                        "durationMicroseconds": 233,
+                        "errorMessage": "Cannot access value for name Flickable",
+                        "functionName": "boundsBehavior",
+                        "line": 352
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 125,
+                        "errorMessage": "Cannot access value for name choiceRow",
+                        "functionName": "color",
+                        "line": 358
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 96,
+                        "errorMessage": "Cannot access value for name choiceRow",
+                        "functionName": "color",
+                        "line": 359
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 27,
+                        "durationMicroseconds": 64,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 378
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 27,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "",
+                        "functionName": "text",
+                        "line": 386
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 60,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 389
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 43,
+                        "errorMessage": "",
+                        "functionName": "elide",
+                        "line": 390
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 34,
+                        "durationMicroseconds": 37,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 388
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 31,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: slider",
+                        "functionName": "text",
+                        "line": 394
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 54,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 396
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"value\".",
+                        "functionName": "value",
+                        "line": 405
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 64,
+                        "errorMessage": "",
+                        "functionName": "text",
+                        "line": 410
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 26,
+                        "durationMicroseconds": 75,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 411
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 24,
+                        "durationMicroseconds": 50,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 413
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 27,
+                        "durationMicroseconds": 37,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 414
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 18,
+                        "durationMicroseconds": 15,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "spacing",
+                        "line": 422
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 28,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 420
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 11,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "margins",
+                        "line": 421
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 8,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 425
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"clicked\".",
+                        "functionName": "onClicked",
+                        "line": 460
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 393,
+                        "errorMessage": "Cannot access value for name backButton",
+                        "functionName": "color",
+                        "line": 436
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 61,
+                        "errorMessage": "Cannot access value for name Qt",
+                        "functionName": "radius",
+                        "line": 437
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 9,
+                        "errorMessage": "Cannot access value for name palette",
+                        "functionName": "color",
+                        "line": 449
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 5,
+                        "errorMessage": "Cannot access value for name palette",
+                        "functionName": "color",
+                        "line": 456
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 38,
+                        "durationMicroseconds": 125,
+                        "errorMessage": "Cannot access value for name Font",
+                        "functionName": "weight",
+                        "line": 455
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 24,
+                        "durationMicroseconds": 70,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 470
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 38,
+                        "durationMicroseconds": 50,
+                        "errorMessage": "",
+                        "functionName": "horizontalAlignment",
+                        "line": 471
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 24,
+                        "durationMicroseconds": 84,
+                        "errorMessage": "",
+                        "functionName": "elide",
+                        "line": 472
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 35,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 469
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 40,
+                        "durationMicroseconds": 33,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: backButton",
+                        "functionName": "preferredWidth",
+                        "line": 476
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 22,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "sourceComponent",
+                        "line": 483
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 161,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 499
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 37,
+                        "durationMicroseconds": 46,
+                        "errorMessage": "",
+                        "functionName": "boundsBehavior",
+                        "line": 506
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 39,
+                        "errorMessage": "",
+                        "functionName": "model",
+                        "line": 507
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 35,
+                        "durationMicroseconds": 27,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 502
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 36,
+                        "durationMicroseconds": 36,
+                        "errorMessage": "",
+                        "functionName": "itemIndex",
+                        "line": 512
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 18,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "title",
+                        "line": 513
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 38,
+                        "durationMicroseconds": 12,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "description",
+                        "line": 514
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 37,
+                        "durationMicroseconds": 11,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "iconSource",
+                        "line": 515
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 194,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 526
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 35,
+                        "durationMicroseconds": 30,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 529
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 8,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "focus",
+                        "line": 542
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 57,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "onReleased",
+                        "line": 544
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 26,
+                        "errorMessage": "",
+                        "functionName": "onReleased",
+                        "line": 544
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 9,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 554
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 33,
+                        "durationMicroseconds": 43,
+                        "errorMessage": "",
+                        "functionName": "boundsBehavior",
+                        "line": 558
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 24,
+                        "durationMicroseconds": 37,
+                        "errorMessage": "",
+                        "functionName": "model",
+                        "line": 559
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 26,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 553
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 42,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 562
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 51,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 567
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 40,
+                        "durationMicroseconds": 35,
+                        "errorMessage": "",
+                        "functionName": "verticalAlignment",
+                        "line": 568
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 41,
+                        "errorMessage": "",
+                        "functionName": "elide",
+                        "line": 569
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 34,
+                        "durationMicroseconds": 34,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 566
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 32,
+                        "durationMicroseconds": 30,
+                        "errorMessage": "",
+                        "functionName": "itemIndex",
+                        "line": 575
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "title",
+                        "line": 576
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 34,
+                        "durationMicroseconds": 12,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "description",
+                        "line": 577
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 33,
+                        "durationMicroseconds": 11,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "iconSource",
+                        "line": 578
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 7,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 583
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 26,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 584
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 26,
+                        "errorMessage": "",
+                        "functionName": "contentWidth",
+                        "line": 592
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 24,
+                        "durationMicroseconds": 54,
+                        "errorMessage": "",
+                        "functionName": "contentHeight",
+                        "line": 593
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 29,
+                        "durationMicroseconds": 42,
+                        "errorMessage": "",
+                        "functionName": "flickableDirection",
+                        "line": 594
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 224,
+                        "errorMessage": "",
+                        "functionName": "boundsBehavior",
+                        "line": 595
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"visible\".",
+                        "functionName": "visible",
+                        "line": 598
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"policy\".",
+                        "functionName": "policy",
+                        "line": 599
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 45,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 604
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 28,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "source",
+                        "line": 616
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 78,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 617
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 31,
+                        "durationMicroseconds": 21,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "text",
+                        "line": 628
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 32,
+                        "durationMicroseconds": 56,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 631
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 32,
+                        "durationMicroseconds": 38,
+                        "errorMessage": "",
+                        "functionName": "elide",
+                        "line": 632
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 41,
+                        "durationMicroseconds": 15,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "pixelSize",
+                        "line": 629
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 38,
+                        "durationMicroseconds": 36,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 630
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 31,
+                        "durationMicroseconds": 22,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "text",
+                        "line": 637
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 32,
+                        "durationMicroseconds": 56,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 639
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 35,
+                        "durationMicroseconds": 35,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 640
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 7,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "color",
+                        "line": 648
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 10,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 655
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on checked.",
+                        "functionName": "checked",
+                        "line": 662
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 129,
+                        "errorMessage": "Cannot access value for name checked",
+                        "functionName": "onCheckedChanged",
+                        "line": 663
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 114,
+                        "errorMessage": "Cannot generate efficient code for storing an array in a non-sequence type",
+                        "functionName": "values",
+                        "line": 672
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 182,
+                        "errorMessage": "Cannot access value for name currentIndex",
+                        "functionName": "onCurrentIndexChanged",
+                        "line": 682
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 75,
+                        "errorMessage": "Cannot find name currentIndex",
+                        "functionName": "onCompleted",
+                        "line": 675
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 10,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 695
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on checked.",
+                        "functionName": "checked",
+                        "line": 696
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 121,
+                        "errorMessage": "Cannot access value for name checked",
+                        "functionName": "onCheckedChanged",
+                        "line": 697
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 82,
+                        "errorMessage": "Cannot generate efficient code for storing an array in a non-sequence type",
+                        "functionName": "values",
+                        "line": 705
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on currentIndex.",
+                        "functionName": "currentIndex",
+                        "line": 706
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 22,
+                        "errorMessage": "Cannot access value for name currentIndex",
+                        "functionName": "onCurrentIndexChanged",
+                        "line": 707
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 11,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 715
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on checked.",
+                        "functionName": "checked",
+                        "line": 722
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 117,
+                        "errorMessage": "Cannot access value for name checked",
+                        "functionName": "onCheckedChanged",
+                        "line": 723
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 75,
+                        "errorMessage": "Cannot generate efficient code for storing an array in a non-sequence type",
+                        "functionName": "values",
+                        "line": 731
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on currentIndex.",
+                        "functionName": "currentIndex",
+                        "line": 732
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 34,
+                        "durationMicroseconds": 128,
+                        "errorMessage": "Cannot access value for name networkSwitch",
+                        "functionName": "onActivated",
+                        "line": 733
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 34,
+                        "durationMicroseconds": 26,
+                        "errorMessage": "",
+                        "functionName": "onActivated",
+                        "line": 733
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on checked.",
+                        "functionName": "checked",
+                        "line": 740
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 102,
+                        "errorMessage": "Cannot access value for name networkSwitch",
+                        "functionName": "onToggled",
+                        "line": 741
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 32,
+                        "durationMicroseconds": 23,
+                        "errorMessage": "",
+                        "functionName": "onToggled",
+                        "line": 741
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 11,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 749
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 9,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 753
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 58,
+                        "durationMicroseconds": 204,
+                        "errorMessage": "Cannot access value for name networkScanner",
+                        "functionName": "found",
+                        "line": 762
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 36,
+                        "errorMessage": "Cannot load property length from (component in D:/clipboard/Clipboard/ui/Settings.qml)::found with type QVariant.",
+                        "functionName": "text",
+                        "line": 763
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 36,
+                        "durationMicroseconds": 68,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 768
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 41,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 769
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 42,
+                        "durationMicroseconds": 37,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 767
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 36,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 775
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 776
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 36,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"clicked\".",
+                        "functionName": "onClicked",
+                        "line": 782
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 12,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 789
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 9,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 793
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 197,
+                        "errorMessage": "Cannot access value for name networkSwitch",
+                        "functionName": "text",
+                        "line": 802
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 36,
+                        "durationMicroseconds": 59,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 805
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 37,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 806
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 42,
+                        "durationMicroseconds": 78,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 804
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 36,
+                        "durationMicroseconds": 54,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 812
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 36,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 813
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 31,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"text\".",
+                        "functionName": "text",
+                        "line": 818
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 34,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"enabled\".",
+                        "functionName": "enabled",
+                        "line": 819
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 36,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"clicked\".",
+                        "functionName": "onClicked",
+                        "line": 820
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 30,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 825
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 212,
+                        "errorMessage": "Cannot access value for name networkSwitch",
+                        "functionName": "text",
+                        "line": 826
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 76,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 828
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 35,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 829
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 152,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "model",
+                        "line": 832
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 59,
+                        "durationMicroseconds": 139,
+                        "errorMessage": "Cannot access value for name bluetoothClient",
+                        "functionName": "isCurrent",
+                        "line": 837
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 9,
+                        "errorMessage": "Cannot load property name from (component in D:/clipboard/Clipboard/ui/Settings.qml)::modelData with type QVariant.",
+                        "functionName": "text",
+                        "line": 849
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 40,
+                        "durationMicroseconds": 60,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 852
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 40,
+                        "durationMicroseconds": 38,
+                        "errorMessage": "",
+                        "functionName": "elide",
+                        "line": 853
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 46,
+                        "durationMicroseconds": 118,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 851
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 23,
+                        "errorMessage": "Cannot load property address from (component in D:/clipboard/Clipboard/ui/Settings.qml)::modelData with type QVariant.",
+                        "functionName": "text",
+                        "line": 857
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 40,
+                        "durationMicroseconds": 58,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 859
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 40,
+                        "durationMicroseconds": 37,
+                        "errorMessage": "",
+                        "functionName": "elide",
+                        "line": 860
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"text\".",
+                        "functionName": "text",
+                        "line": 865
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 38,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"enabled\".",
+                        "functionName": "enabled",
+                        "line": 866
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 40,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"clicked\".",
+                        "functionName": "onClicked",
+                        "line": 867
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 421,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 876
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 58,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 880
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 37,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 881
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 10,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 887
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 9,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 891
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 259,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "text",
+                        "line": 893
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 56,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 896
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 36,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 897
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 396,
+                        "errorMessage": "Cannot generate efficient code for storing an array in a non-sequence type",
+                        "functionName": "values",
+                        "line": 904
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on currentIndex.",
+                        "functionName": "currentIndex",
+                        "line": 905
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 293,
+                        "errorMessage": "Cannot access value for name currentIndex",
+                        "functionName": "onCurrentIndexChanged",
+                        "line": 906
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on checked.",
+                        "functionName": "checked",
+                        "line": 911
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 229,
+                        "errorMessage": "Cannot access value for name checked",
+                        "functionName": "onCheckedChanged",
+                        "line": 912
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on checked.",
+                        "functionName": "checked",
+                        "line": 917
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 67,
+                        "errorMessage": "Cannot access value for name checked",
+                        "functionName": "onCheckedChanged",
+                        "line": 918
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 161,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 926
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 496,
+                        "errorMessage": "Cannot generate efficient code for storing an array in a non-sequence type",
+                        "functionName": "values",
+                        "line": 933
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on currentIndex.",
+                        "functionName": "currentIndex",
+                        "line": 934
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 1150,
+                        "errorMessage": "Cannot access value for name currentIndex",
+                        "functionName": "onCurrentIndexChanged",
+                        "line": 935
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 442,
+                        "errorMessage": "Cannot generate efficient code for storing an array in a non-sequence type",
+                        "functionName": "values",
+                        "line": 943
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on currentIndex.",
+                        "functionName": "currentIndex",
+                        "line": 944
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 238,
+                        "errorMessage": "Cannot access value for name currentIndex",
+                        "functionName": "onCurrentIndexChanged",
+                        "line": 945
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 81,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 950
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on checked.",
+                        "functionName": "checked",
+                        "line": 951
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 728,
+                        "errorMessage": "Cannot access value for name checked",
+                        "functionName": "onCheckedChanged",
+                        "line": 952
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 56,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 963
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on checked.",
+                        "functionName": "checked",
+                        "line": 970
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 131,
+                        "errorMessage": "Cannot access value for name checked",
+                        "functionName": "onCheckedChanged",
+                        "line": 971
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on checked.",
+                        "functionName": "checked",
+                        "line": 976
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 219,
+                        "errorMessage": "Cannot access value for name checked",
+                        "functionName": "onCheckedChanged",
+                        "line": 977
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 599,
+                        "errorMessage": "Cannot generate efficient code for storing an array in a non-sequence type",
+                        "functionName": "values",
+                        "line": 982
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on currentIndex.",
+                        "functionName": "currentIndex",
+                        "line": 983
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 217,
+                        "errorMessage": "Cannot access value for name currentIndex",
+                        "functionName": "onCurrentIndexChanged",
+                        "line": 984
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 136,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 989
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on checked.",
+                        "functionName": "checked",
+                        "line": 990
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 126,
+                        "errorMessage": "Cannot access value for name checked",
+                        "functionName": "onCheckedChanged",
+                        "line": 991
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 85,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 999
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 309,
+                        "errorMessage": "Cannot generate efficient code for storing an array in a non-sequence type",
+                        "functionName": "values",
+                        "line": 1006
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on currentIndex.",
+                        "functionName": "currentIndex",
+                        "line": 1007
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 18,
+                        "errorMessage": "Cannot access value for name currentIndex",
+                        "functionName": "onCurrentIndexChanged",
+                        "line": 1008
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 196,
+                        "errorMessage": "Cannot generate efficient code for storing an array in a non-sequence type",
+                        "functionName": "values",
+                        "line": 1013
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on currentIndex.",
+                        "functionName": "currentIndex",
+                        "line": 1014
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 15,
+                        "errorMessage": "Cannot access value for name currentIndex",
+                        "functionName": "onCurrentIndexChanged",
+                        "line": 1015
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on checked.",
+                        "functionName": "checked",
+                        "line": 1020
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 12,
+                        "errorMessage": "Cannot access value for name checked",
+                        "functionName": "onCheckedChanged",
+                        "line": 1021
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on checked.",
+                        "functionName": "checked",
+                        "line": 1026
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 12,
+                        "errorMessage": "Cannot access value for name checked",
+                        "functionName": "onCheckedChanged",
+                        "line": 1027
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 12,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 1035
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on checked.",
+                        "functionName": "checked",
+                        "line": 1042
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 13,
+                        "errorMessage": "Cannot access value for name checked",
+                        "functionName": "onCheckedChanged",
+                        "line": 1043
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 111,
+                        "errorMessage": "Cannot generate efficient code for storing an array in a non-sequence type",
+                        "functionName": "values",
+                        "line": 1048
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on currentIndex.",
+                        "functionName": "currentIndex",
+                        "line": 1049
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 150,
+                        "errorMessage": "Cannot access value for name currentIndex",
+                        "functionName": "onCurrentIndexChanged",
+                        "line": 1050
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on checked.",
+                        "functionName": "checked",
+                        "line": 1058
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 110,
+                        "errorMessage": "Cannot access value for name checked",
+                        "functionName": "onCheckedChanged",
+                        "line": 1059
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on checked.",
+                        "functionName": "checked",
+                        "line": 1067
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 183,
+                        "errorMessage": "Cannot access value for name checked",
+                        "functionName": "onCheckedChanged",
+                        "line": 1068
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 33,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 1079
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 101,
+                        "errorMessage": "Cannot generate efficient code for storing an array in a non-sequence type",
+                        "functionName": "values",
+                        "line": 1086
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on currentIndex.",
+                        "functionName": "currentIndex",
+                        "line": 1087
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 30,
+                        "errorMessage": "Cannot access value for name currentIndex",
+                        "functionName": "onCurrentIndexChanged",
+                        "line": 1088
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on checked.",
+                        "functionName": "checked",
+                        "line": 1093
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 24,
+                        "errorMessage": "Cannot access value for name checked",
+                        "functionName": "onCheckedChanged",
+                        "line": 1094
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 16,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "visible",
+                        "line": 1099
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on checked.",
+                        "functionName": "checked",
+                        "line": 1100
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 16,
+                        "errorMessage": "Cannot access value for name checked",
+                        "functionName": "onCheckedChanged",
+                        "line": 1101
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 71,
+                        "errorMessage": "Cannot generate efficient code for storing an array in a non-sequence type",
+                        "functionName": "values",
+                        "line": 1106
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Cannot resolve property type  for binding on currentIndex.",
+                        "functionName": "currentIndex",
+                        "line": 1107
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 14,
+                        "errorMessage": "Cannot access value for name currentIndex",
+                        "functionName": "onCurrentIndexChanged",
+                        "line": 1108
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 41,
+                        "durationMicroseconds": 18,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: settingsPage",
+                        "functionName": "preferredHeight",
+                        "line": 1114
+                    }
+                ],
+                "filePath": "D:/clipboard/Clipboard/ui/Settings.qml"
+            }
+        ],
+        "moduleId": "Clipboard(ClipboardApp)"
+    }
+]

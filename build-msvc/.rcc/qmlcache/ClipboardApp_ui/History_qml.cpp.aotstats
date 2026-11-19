@@ -1,0 +1,1580 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessful": true,
+                        "column": 43,
+                        "durationMicroseconds": 390,
+                        "errorMessage": "",
+                        "functionName": "currentMode",
+                        "line": 10
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 5,
+                        "durationMicroseconds": 131,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: searchInput",
+                        "functionName": "focusSearchInput",
+                        "line": 640
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 5,
+                        "durationMicroseconds": 479,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: historyPage",
+                        "functionName": "getRequiredHeight",
+                        "line": 646
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 5,
+                        "durationMicroseconds": 134,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "triggerWindowResize",
+                        "line": 676
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 5,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "applySearch",
+                        "line": 682
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 5,
+                        "durationMicroseconds": 176,
+                        "errorMessage": "",
+                        "functionName": "resetMode",
+                        "line": 703
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 5,
+                        "durationMicroseconds": 503,
+                        "errorMessage": "Cannot access value for name settings",
+                        "functionName": "enforceLimit",
+                        "line": 707
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 5,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "getLimitValue",
+                        "line": 715
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 5,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "getDensityHeight",
+                        "line": 720
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 100,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 13
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"visible\".",
+                        "functionName": "visible",
+                        "line": 19
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"color\".",
+                        "functionName": "color",
+                        "line": 20
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"elide\".",
+                        "functionName": "elide",
+                        "line": 25
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"verticalAlignment\".",
+                        "functionName": "verticalAlignment",
+                        "line": 26
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"weight\".",
+                        "functionName": "weight",
+                        "line": 24
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 22,
+                        "durationMicroseconds": 160,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 31
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 71,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: searchInput",
+                        "functionName": "onStateChanged",
+                        "line": 58
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 74,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 52
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 52,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 53
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 55,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 54
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 46,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 46
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 45,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 47
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 48
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 63,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 40
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 47,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 41
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 42
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 26,
+                        "durationMicroseconds": 117,
+                        "errorMessage": "",
+                        "functionName": "enabled",
+                        "line": 73
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 84,
+                        "errorMessage": "",
+                        "functionName": "onClicked",
+                        "line": 75
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 64,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: searchInput",
+                        "functionName": "color",
+                        "line": 85
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 29,
+                        "durationMicroseconds": 165,
+                        "errorMessage": "",
+                        "functionName": "source",
+                        "line": 86
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 35,
+                        "durationMicroseconds": 37,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 80
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"visible\".",
+                        "functionName": "visible",
+                        "line": 99
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"color\".",
+                        "functionName": "color",
+                        "line": 101
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 40,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"verticalAlignment\".",
+                        "functionName": "verticalAlignment",
+                        "line": 106
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"fill\".",
+                        "functionName": "fill",
+                        "line": 98
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 34,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"weight\".",
+                        "functionName": "weight",
+                        "line": 103
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"visible\".",
+                        "functionName": "visible",
+                        "line": 112
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"color\".",
+                        "functionName": "color",
+                        "line": 114
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"focus\".",
+                        "functionName": "focus",
+                        "line": 116
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 43,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"activeFocusChanged\".",
+                        "functionName": "onActiveFocusChanged",
+                        "line": 122
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 84,
+                        "errorMessage": "function without return type annotation returns . This may prevent proper compilation to Cpp.",
+                        "functionName": "getActiveList",
+                        "line": 124
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 36,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"textChanged\".",
+                        "functionName": "onTextChanged",
+                        "line": 158
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"fill\".",
+                        "functionName": "fill",
+                        "line": 111
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 34,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"weight\".",
+                        "functionName": "weight",
+                        "line": 118
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 37,
+                        "durationMicroseconds": 326,
+                        "errorMessage": "Cannot load property currentIndex from call to method getActiveList, returning QVariant.",
+                        "functionName": "onPressed",
+                        "line": 133
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 37,
+                        "durationMicroseconds": 47,
+                        "errorMessage": "",
+                        "functionName": "onPressed",
+                        "line": 133
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 22,
+                        "durationMicroseconds": 402,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 175
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 80,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 180
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 24,
+                        "durationMicroseconds": 50,
+                        "errorMessage": "",
+                        "functionName": "model",
+                        "line": 197
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 33,
+                        "durationMicroseconds": 24,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: historyPage",
+                        "functionName": "onCountChanged",
+                        "line": 201
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 39,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 194
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"width\".",
+                        "functionName": "width",
+                        "line": 205
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"height\".",
+                        "functionName": "height",
+                        "line": 206
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 48,
+                        "durationMicroseconds": 63,
+                        "errorMessage": "",
+                        "functionName": "highlighted",
+                        "line": 209
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 31,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: historyDelegate",
+                        "functionName": "triggerAction",
+                        "line": 211
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"clicked\".",
+                        "functionName": "onClicked",
+                        "line": 254
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 301,
+                        "errorMessage": "Cannot access value for name historyDelegate",
+                        "functionName": "color",
+                        "line": 214
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 33,
+                        "durationMicroseconds": 120,
+                        "errorMessage": "Cannot access value for name Qt",
+                        "functionName": "radius",
+                        "line": 216
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 50,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 219
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 37,
+                        "durationMicroseconds": 62,
+                        "errorMessage": "Cannot access value for name model",
+                        "functionName": "source",
+                        "line": 226
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 36,
+                        "durationMicroseconds": 45,
+                        "errorMessage": "Cannot access value for name model",
+                        "functionName": "color",
+                        "line": 227
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 63,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 233
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 26,
+                        "errorMessage": "Cannot access value for name model",
+                        "functionName": "text",
+                        "line": 237
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 40,
+                        "durationMicroseconds": 81,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 240
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 40,
+                        "durationMicroseconds": 51,
+                        "errorMessage": "",
+                        "functionName": "elide",
+                        "line": 241
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 46,
+                        "durationMicroseconds": 43,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 239
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 90,
+                        "errorMessage": "Cannot access value for name model",
+                        "functionName": "text",
+                        "line": 244
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 40,
+                        "durationMicroseconds": 96,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 246
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 46,
+                        "durationMicroseconds": 50,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 247
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 33,
+                        "durationMicroseconds": 231,
+                        "errorMessage": "",
+                        "functionName": "boundsBehavior",
+                        "line": 270
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 37,
+                        "durationMicroseconds": 49,
+                        "errorMessage": "",
+                        "functionName": "flickableDirection",
+                        "line": 271
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 34,
+                        "durationMicroseconds": 46,
+                        "errorMessage": "",
+                        "functionName": "transformOrigin",
+                        "line": 272
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 33,
+                        "durationMicroseconds": 23,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: historyPage",
+                        "functionName": "onCountChanged",
+                        "line": 275
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 49,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 266
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"width\".",
+                        "functionName": "width",
+                        "line": 281
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"height\".",
+                        "functionName": "height",
+                        "line": 282
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 48,
+                        "durationMicroseconds": 88,
+                        "errorMessage": "",
+                        "functionName": "highlighted",
+                        "line": 285
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 28,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: delegateLoader",
+                        "functionName": "triggerAction",
+                        "line": 286
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"clicked\".",
+                        "functionName": "onClicked",
+                        "line": 361
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 311,
+                        "errorMessage": "Cannot access value for name delegateLoader",
+                        "functionName": "color",
+                        "line": 289
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 33,
+                        "durationMicroseconds": 99,
+                        "errorMessage": "Cannot access value for name Qt",
+                        "functionName": "radius",
+                        "line": 291
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 55,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 294
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 37,
+                        "durationMicroseconds": 59,
+                        "errorMessage": "Cannot access value for name model",
+                        "functionName": "source",
+                        "line": 301
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 36,
+                        "durationMicroseconds": 46,
+                        "errorMessage": "Cannot access value for name model",
+                        "functionName": "color",
+                        "line": 302
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 48,
+                        "durationMicroseconds": 263,
+                        "errorMessage": "Cannot access value for name settings",
+                        "functionName": "height",
+                        "line": 297
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 42,
+                        "durationMicroseconds": 180,
+                        "errorMessage": "Cannot access value for name settings",
+                        "functionName": "visible",
+                        "line": 311
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 52,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 312
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 43,
+                        "durationMicroseconds": 30,
+                        "errorMessage": "Cannot access value for name model",
+                        "functionName": "text",
+                        "line": 317
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 44,
+                        "durationMicroseconds": 79,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 320
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 44,
+                        "durationMicroseconds": 57,
+                        "errorMessage": "",
+                        "functionName": "elide",
+                        "line": 321
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 56,
+                        "durationMicroseconds": 50,
+                        "errorMessage": "",
+                        "functionName": "verticalAlignment",
+                        "line": 322
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 50,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 319
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 43,
+                        "durationMicroseconds": 33,
+                        "errorMessage": "Cannot access value for name model",
+                        "functionName": "text",
+                        "line": 325
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 44,
+                        "durationMicroseconds": 70,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 327
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 50,
+                        "durationMicroseconds": 41,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 328
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 55,
+                        "durationMicroseconds": 62,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 329
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 42,
+                        "durationMicroseconds": 200,
+                        "errorMessage": "Cannot access value for name settings",
+                        "functionName": "visible",
+                        "line": 335
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 72,
+                        "errorMessage": "",
+                        "functionName": "left",
+                        "line": 336
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 48,
+                        "durationMicroseconds": 59,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 337
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 57,
+                        "durationMicroseconds": 55,
+                        "errorMessage": "",
+                        "functionName": "verticalCenter",
+                        "line": 338
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 43,
+                        "durationMicroseconds": 31,
+                        "errorMessage": "Cannot access value for name model",
+                        "functionName": "text",
+                        "line": 343
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 44,
+                        "durationMicroseconds": 73,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 346
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 44,
+                        "durationMicroseconds": 83,
+                        "errorMessage": "",
+                        "functionName": "elide",
+                        "line": 347
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 50,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 345
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 43,
+                        "durationMicroseconds": 71,
+                        "errorMessage": "Cannot access value for name model",
+                        "functionName": "text",
+                        "line": 350
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 44,
+                        "durationMicroseconds": 72,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 352
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 50,
+                        "durationMicroseconds": 45,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 353
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 52,
+                        "durationMicroseconds": 193,
+                        "errorMessage": "Cannot access value for name settings",
+                        "functionName": "preferredWidth",
+                        "line": 358
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "Cannot access value for name backend",
+                        "functionName": "target",
+                        "line": 370
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "onItemAdded",
+                        "line": 371
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 33,
+                        "durationMicroseconds": 236,
+                        "errorMessage": "",
+                        "functionName": "boundsBehavior",
+                        "line": 389
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 33,
+                        "durationMicroseconds": 27,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: historyPage",
+                        "functionName": "onCountChanged",
+                        "line": 391
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 101,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 383
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"width\".",
+                        "functionName": "width",
+                        "line": 402
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"height\".",
+                        "functionName": "height",
+                        "line": 403
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 48,
+                        "durationMicroseconds": 78,
+                        "errorMessage": "",
+                        "functionName": "highlighted",
+                        "line": 405
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 33,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: actionControl",
+                        "functionName": "triggerAction",
+                        "line": 406
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"clicked\".",
+                        "functionName": "onClicked",
+                        "line": 479
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 33,
+                        "durationMicroseconds": 317,
+                        "errorMessage": "Cannot access value for name actionControl",
+                        "functionName": "color",
+                        "line": 409
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 33,
+                        "durationMicroseconds": 103,
+                        "errorMessage": "Cannot access value for name Qt",
+                        "functionName": "radius",
+                        "line": 411
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 18,
+                        "errorMessage": "Cannot access value for name parent",
+                        "functionName": "fill",
+                        "line": 416
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 48,
+                        "durationMicroseconds": 189,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "verticalAlignment",
+                        "line": 423
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 37,
+                        "durationMicroseconds": 213,
+                        "errorMessage": "Cannot access value for name model",
+                        "functionName": "source",
+                        "line": 426
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 36,
+                        "durationMicroseconds": 9,
+                        "errorMessage": "Cannot access value for name palette",
+                        "functionName": "color",
+                        "line": 427
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 258,
+                        "errorMessage": "Cannot access value for name model",
+                        "functionName": "text",
+                        "line": 431
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 36,
+                        "durationMicroseconds": 9,
+                        "errorMessage": "Cannot access value for name palette",
+                        "functionName": "color",
+                        "line": 434
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 48,
+                        "durationMicroseconds": 201,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "verticalAlignment",
+                        "line": 436
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 42,
+                        "durationMicroseconds": 192,
+                        "errorMessage": "Cannot access value for name Font",
+                        "functionName": "weight",
+                        "line": 433
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 47,
+                        "durationMicroseconds": 93,
+                        "errorMessage": "Cannot access value for name Qt",
+                        "functionName": "alignment",
+                        "line": 440
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 48,
+                        "durationMicroseconds": 26,
+                        "errorMessage": "Cannot access value for name ctrlText",
+                        "functionName": "implicitWidth",
+                        "line": 443
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 49,
+                        "durationMicroseconds": 21,
+                        "errorMessage": "Cannot access value for name ctrlText",
+                        "functionName": "implicitHeight",
+                        "line": 444
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 47,
+                        "durationMicroseconds": 130,
+                        "errorMessage": "Cannot access value for name Qt",
+                        "functionName": "color",
+                        "line": 447
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 43,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"text\".",
+                        "functionName": "text",
+                        "line": 451
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"color\".",
+                        "functionName": "color",
+                        "line": 455
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 55,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"centerIn\".",
+                        "functionName": "centerIn",
+                        "line": 452
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 50,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"weight\".",
+                        "functionName": "weight",
+                        "line": 454
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 48,
+                        "durationMicroseconds": 26,
+                        "errorMessage": "Cannot access value for name actionKeyText",
+                        "functionName": "implicitWidth",
+                        "line": 460
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 49,
+                        "durationMicroseconds": 21,
+                        "errorMessage": "Cannot access value for name actionKeyText",
+                        "functionName": "implicitHeight",
+                        "line": 461
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 47,
+                        "durationMicroseconds": 126,
+                        "errorMessage": "Cannot access value for name Qt",
+                        "functionName": "color",
+                        "line": 464
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 43,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"text\".",
+                        "functionName": "text",
+                        "line": 469
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"color\".",
+                        "functionName": "color",
+                        "line": 473
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 55,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"centerIn\".",
+                        "functionName": "centerIn",
+                        "line": 470
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 50,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"weight\".",
+                        "functionName": "weight",
+                        "line": 472
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"text\".",
+                        "functionName": "text",
+                        "line": 496
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 36,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"verticalAlignment\".",
+                        "functionName": "verticalAlignment",
+                        "line": 499
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 38,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"horizontalAlignment\".",
+                        "functionName": "horizontalAlignment",
+                        "line": 500
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"color\".",
+                        "functionName": "color",
+                        "line": 502
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"visible\".",
+                        "functionName": "visible",
+                        "line": 503
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"weight\".",
+                        "functionName": "weight",
+                        "line": 498
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"centerIn\".",
+                        "functionName": "centerIn",
+                        "line": 501
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 22,
+                        "durationMicroseconds": 510,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 509
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 107,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 514
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 22,
+                        "durationMicroseconds": 444,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 519
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 88,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 522
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"clicked\".",
+                        "functionName": "onClicked",
+                        "line": 535
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 191,
+                        "errorMessage": "Cannot access value for name settingsButton",
+                        "functionName": "color",
+                        "line": 530
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 11,
+                        "errorMessage": "Cannot access value for name palette",
+                        "functionName": "color",
+                        "line": 548
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"verticalAlignment\".",
+                        "functionName": "verticalAlignment",
+                        "line": 552
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"elide\".",
+                        "functionName": "elide",
+                        "line": 555
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"color\".",
+                        "functionName": "color",
+                        "line": 556
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 38,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"weight\".",
+                        "functionName": "weight",
+                        "line": 554
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"clicked\".",
+                        "functionName": "onClicked",
+                        "line": 576
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 151,
+                        "errorMessage": "Cannot access value for name actionsButton",
+                        "functionName": "color",
+                        "line": 571
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"verticalAlignment\".",
+                        "functionName": "verticalAlignment",
+                        "line": 589
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"color\".",
+                        "functionName": "color",
+                        "line": 592
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 38,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"weight\".",
+                        "functionName": "weight",
+                        "line": 591
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 43,
+                        "durationMicroseconds": 103,
+                        "errorMessage": "Cannot access value for name Qt",
+                        "functionName": "alignment",
+                        "line": 597
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 26,
+                        "errorMessage": "Cannot access value for name ctrlText",
+                        "functionName": "implicitWidth",
+                        "line": 600
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 45,
+                        "durationMicroseconds": 19,
+                        "errorMessage": "Cannot access value for name ctrlText",
+                        "functionName": "implicitHeight",
+                        "line": 601
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 43,
+                        "durationMicroseconds": 126,
+                        "errorMessage": "Cannot access value for name Qt",
+                        "functionName": "color",
+                        "line": 604
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"text\".",
+                        "functionName": "text",
+                        "line": 609
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 40,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"color\".",
+                        "functionName": "color",
+                        "line": 613
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 51,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"centerIn\".",
+                        "functionName": "centerIn",
+                        "line": 610
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 46,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"weight\".",
+                        "functionName": "weight",
+                        "line": 612
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 69,
+                        "errorMessage": "Cannot access value for name aText",
+                        "functionName": "implicitWidth",
+                        "line": 618
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 45,
+                        "durationMicroseconds": 30,
+                        "errorMessage": "Cannot access value for name aText",
+                        "functionName": "implicitHeight",
+                        "line": 619
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 43,
+                        "durationMicroseconds": 263,
+                        "errorMessage": "Cannot access value for name Qt",
+                        "functionName": "color",
+                        "line": 622
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 40,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"color\".",
+                        "functionName": "color",
+                        "line": 631
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 51,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"centerIn\".",
+                        "functionName": "centerIn",
+                        "line": 628
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 46,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"weight\".",
+                        "functionName": "weight",
+                        "line": 630
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 62,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: historyPage",
+                        "functionName": "onTriggered",
+                        "line": 735
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 219,
+                        "errorMessage": "",
+                        "functionName": "sequences",
+                        "line": 740
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 18,
+                        "durationMicroseconds": 166,
+                        "errorMessage": "",
+                        "functionName": "context",
+                        "line": 741
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 243,
+                        "errorMessage": "Cannot access value for name bottomNav",
+                        "functionName": "onActivated",
+                        "line": 742
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 173,
+                        "errorMessage": "",
+                        "functionName": "sequences",
+                        "line": 749
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 18,
+                        "durationMicroseconds": 140,
+                        "errorMessage": "",
+                        "functionName": "context",
+                        "line": 750
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 156,
+                        "errorMessage": "Cannot access value for name backend",
+                        "functionName": "onActivated",
+                        "line": 751
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 157,
+                        "errorMessage": "",
+                        "functionName": "sequences",
+                        "line": 759
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 18,
+                        "durationMicroseconds": 137,
+                        "errorMessage": "",
+                        "functionName": "context",
+                        "line": 760
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 237,
+                        "errorMessage": "Cannot access value for name bottomNav",
+                        "functionName": "onActivated",
+                        "line": 761
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 162,
+                        "errorMessage": "",
+                        "functionName": "sequences",
+                        "line": 767
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 18,
+                        "durationMicroseconds": 136,
+                        "errorMessage": "",
+                        "functionName": "context",
+                        "line": 768
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 164,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "onActivated",
+                        "line": 769
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 155,
+                        "errorMessage": "",
+                        "functionName": "sequences",
+                        "line": 775
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 18,
+                        "durationMicroseconds": 134,
+                        "errorMessage": "",
+                        "functionName": "context",
+                        "line": 776
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 22,
+                        "durationMicroseconds": 138,
+                        "errorMessage": "",
+                        "functionName": "onActivated",
+                        "line": 777
+                    }
+                ],
+                "filePath": "D:/clipboard/Clipboard/ui/History.qml"
+            }
+        ],
+        "moduleId": "Clipboard(ClipboardApp)"
+    }
+]

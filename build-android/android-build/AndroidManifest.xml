@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:installLocation="auto"
+    android:versionCode="1"
+    android:versionName="1.0">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android:maxSdkVersion='30'  />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"  />
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion='30'  />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion='30'  />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" android:minSdkVersion='31'  />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" android:minSdkVersion='31'  />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:minSdkVersion='31' android:usesPermissionFlags='neverForLocation'  />
+    <uses-permission android:name="android.permission.INTERNET"  />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"  />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <!-- Background sync: foreground service with a notification -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Granted only over adb: "adb shell pm grant <package> android.permission.READ_LOGS".
+         Lets the app notice clipboard changes in the background. -->
+    <uses-permission android:name="android.permission.READ_LOGS" tools:ignore="ProtectedPermissions" />
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true" />
+    <application
+        android:name="org.qtproject.qt.android.bindings.QtApplication"
+        android:hardwareAccelerated="true"
+        android:label="ClipboardApp"
+        android:requestLegacyExternalStorage="true"
+        android:enableOnBackInvokedCallback="false"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:fullBackupOnly="false">
+        <activity
+            android:name="org.qtproject.qt.android.bindings.QtActivity"
+            android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density"
+            android:label="ClipboardApp"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+          <meta-data
+                android:name="android.app.lib_name"
+                android:value="ClipboardApp" />
+          <meta-data
+                android:name="android.app.arguments"
+                android:value="" />
+          <!-- Keep Qt event loops (network) running when the app is in the background -->
+          <meta-data
+                android:name="android.app.background_running"
+                android:value="true" />
+        </activity>
+        <service
+            android:name="com.clipboard.app.ClipboardSyncService"
+            android:exported="false"
+            android:foregroundServiceType="connectedDevice" />
+        <activity
+            android:name="com.clipboard.app.FloatingClipboardActivity"
+            android:label="Clipboard sync"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:taskAffinity=""
+            android:launchMode="singleInstance"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:theme="@style/FloatingClipboardTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.qtprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/clipboard_paths"/>
+        </provider>
+    </application>
+</manifest>

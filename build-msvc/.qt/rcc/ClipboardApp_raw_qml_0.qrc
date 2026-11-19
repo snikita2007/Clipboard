@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="/Clipboard/">
+    <file alias="ui/main.qml">D:/clipboard/Clipboard/ui/main.qml</file>
+    <file alias="ui/components/MobileBottomNav.qml">D:/clipboard/Clipboard/ui/components/MobileBottomNav.qml</file>
+    <file alias="ui/Settings.qml">D:/clipboard/Clipboard/ui/Settings.qml</file>
+    <file alias="ui/History.qml">D:/clipboard/Clipboard/ui/History.qml</file>
+  </qresource>
+</RCC>
+

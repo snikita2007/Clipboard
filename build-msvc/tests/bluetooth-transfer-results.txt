@@ -1,0 +1,23 @@
+********* Start testing of BluetoothTransferTest *********
+Config: Using QtTest library 6.9.3, Qt 6.9.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by MSVC 2022), windows 11
+PASS   : BluetoothTransferTest::initTestCase()
+PASS   : BluetoothTransferTest::fragmentedTextAndLegacy()
+PASS   : BluetoothTransferTest::attachmentsRoundTrip(photo)
+PASS   : BluetoothTransferTest::attachmentsRoundTrip(binary)
+PASS   : BluetoothTransferTest::attachmentsRoundTrip(empty-file)
+PASS   : BluetoothTransferTest::attachmentsRoundTrip(limit)
+PASS   : BluetoothTransferTest::multipleFilesStayTogether()
+PASS   : BluetoothTransferTest::rejectsOversizedOrUnreadableSelection()
+PASS   : BluetoothTransferTest::malformedFramesAndRecovery()
+PASS   : BluetoothTransferTest::interruptedReadDoesNotApplyPartialFile()
+PASS   : BluetoothTransferTest::boundsQueueAndReportsWriteFailure()
+PASS   : BluetoothTransferTest::closingConnectionDiscardsPendingData()
+PASS   : BluetoothTransferTest::preservesOrderOfQueuedFrames()
+PASS   : BluetoothTransferTest::receivedFilesAreSafeAndCopyable()
+PASS   : BluetoothTransferTest::receivedPhotoAndEmptyFileEnterHistory()
+PASS   : BluetoothTransferTest::copiesMultipleFilesFromHistory()
+PASS   : BluetoothTransferTest::noEchoWithHistoryDisabledAndLocalCopyIsNotLost()
+PASS   : BluetoothTransferTest::excludingImagesDoesNotExcludeFiles()
+PASS   : BluetoothTransferTest::cleanupTestCase()
+Totals: 19 passed, 0 failed, 0 skipped, 0 blacklisted, 341ms
+********* Finished testing of BluetoothTransferTest *********

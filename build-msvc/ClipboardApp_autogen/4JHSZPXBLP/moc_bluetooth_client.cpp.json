@@ -1,0 +1,260 @@
+{
+    "classes": [
+        {
+            "className": "BluetoothClient",
+            "lineNumber": 14,
+            "methods": [
+                {
+                    "access": "public",
+                    "index": 17,
+                    "name": "startDiscovery",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "addressStr",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 18,
+                    "name": "connectToDevice",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 19,
+                    "name": "disconnectFromDevice",
+                    "returnType": "void"
+                }
+            ],
+            "object": true,
+            "properties": [
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 0,
+                    "name": "devices",
+                    "notify": "devicesDiscovered",
+                    "read": "devices",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QVariantList",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 1,
+                    "name": "discovering",
+                    "notify": "discoveringChanged",
+                    "read": "isDiscovering",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 2,
+                    "name": "connecting",
+                    "notify": "stateChanged",
+                    "read": "isConnecting",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 3,
+                    "name": "connectedAddress",
+                    "notify": "stateChanged",
+                    "read": "connectedAddress",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QString",
+                    "user": false
+                }
+            ],
+            "qualifiedClassName": "BluetoothClient",
+            "signals": [
+                {
+                    "access": "public",
+                    "index": 0,
+                    "name": "connectionRequested",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 1,
+                    "name": "disconnectRequested",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "sender",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "message",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 2,
+                    "name": "messageReceived",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "item",
+                            "type": "QVariantMap"
+                        }
+                    ],
+                    "index": 3,
+                    "name": "dataReceived",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "error",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 4,
+                    "name": "transferError",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 5,
+                    "name": "transferFinished",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "name",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 6,
+                    "name": "connected",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 7,
+                    "name": "disconnected",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "error",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 8,
+                    "name": "socketErrorOccurred",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "devicesList",
+                            "type": "QVariantList"
+                        }
+                    ],
+                    "index": 9,
+                    "name": "devicesDiscovered",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 10,
+                    "name": "discoveringChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 11,
+                    "name": "stateChanged",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "private",
+                    "arguments": [
+                        {
+                            "name": "device",
+                            "type": "QBluetoothDeviceInfo"
+                        }
+                    ],
+                    "index": 12,
+                    "name": "onDeviceDiscovered",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 13,
+                    "name": "onDiscoveryFinished",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "arguments": [
+                        {
+                            "name": "error",
+                            "type": "QBluetoothSocket::SocketError"
+                        }
+                    ],
+                    "index": 14,
+                    "name": "onSocketErrorOccurred",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 15,
+                    "name": "connectedSlot",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 16,
+                    "name": "onSocketDisconnected",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "bluetooth_client.h",
+    "outputRevision": 69
+}

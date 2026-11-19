@@ -1,0 +1,396 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessful": false,
+                        "column": 14,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"visible\".",
+                        "functionName": "visible",
+                        "line": 8
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 12,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"color\".",
+                        "functionName": "color",
+                        "line": 9
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 12,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"width\".",
+                        "functionName": "width",
+                        "line": 11
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 13,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"height\".",
+                        "functionName": "height",
+                        "line": 12
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 19,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"minimumWidth\".",
+                        "functionName": "minimumWidth",
+                        "line": 13
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"minimumHeight\".",
+                        "functionName": "minimumHeight",
+                        "line": 14
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 19,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"maximumWidth\".",
+                        "functionName": "maximumWidth",
+                        "line": 15
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"maximumHeight\".",
+                        "functionName": "maximumHeight",
+                        "line": 16
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 12,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"flags\".",
+                        "functionName": "flags",
+                        "line": 19
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"activeChanged\".",
+                        "functionName": "onActiveChanged",
+                        "line": 49
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 18,
+                        "durationMicroseconds": 274,
+                        "errorMessage": "",
+                        "functionName": "onSoftClose",
+                        "line": 123
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 18,
+                        "durationMicroseconds": 263,
+                        "errorMessage": "Cannot access value for name backend",
+                        "functionName": "onSoftOpen",
+                        "line": 140
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 5,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "updateWindowSize",
+                        "line": 183
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"widthChanged\".",
+                        "functionName": "onWidthChanged",
+                        "line": 203
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"heightChanged\".",
+                        "functionName": "onHeightChanged",
+                        "line": 218
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 18,
+                        "durationMicroseconds": 18,
+                        "errorMessage": "Cannot access value for name settings",
+                        "functionName": "visible",
+                        "line": 27
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 128,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "onActivated",
+                        "line": 42
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 22,
+                        "durationMicroseconds": 43,
+                        "errorMessage": "",
+                        "functionName": "onActivated",
+                        "line": 42
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 22,
+                        "durationMicroseconds": 186,
+                        "errorMessage": "",
+                        "functionName": "source",
+                        "line": 28
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 63,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "onTriggered",
+                        "line": 37
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 59,
+                        "durationMicroseconds": 56,
+                        "errorMessage": "Cannot access value for name backend",
+                        "functionName": "onTriggered",
+                        "line": 38
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 62,
+                        "durationMicroseconds": 20,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "onTriggered",
+                        "line": 39
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 58,
+                        "durationMicroseconds": 64,
+                        "errorMessage": "",
+                        "functionName": "onTriggered",
+                        "line": 40
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"currentIndex\".",
+                        "functionName": "currentIndex",
+                        "line": 58
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"interactive\".",
+                        "functionName": "interactive",
+                        "line": 60
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"currentIndexChanged\".",
+                        "functionName": "onCurrentIndexChanged",
+                        "line": 85
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"fill\".",
+                        "functionName": "fill",
+                        "line": 57
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 57,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: mainSwipe",
+                        "functionName": "onCompleted",
+                        "line": 63
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 25,
+                        "durationMicroseconds": 64,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "onNavigate",
+                        "line": 77
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 33,
+                        "errorMessage": "",
+                        "functionName": "onNavigate",
+                        "line": 77
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 16,
+                        "durationMicroseconds": 52,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 94
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 48,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "onNavigate",
+                        "line": 96
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 21,
+                        "durationMicroseconds": 23,
+                        "errorMessage": "",
+                        "functionName": "onNavigate",
+                        "line": 96
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 12,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: historyPage",
+                        "functionName": "onSearchTextChanged",
+                        "line": 105
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 19,
+                        "errorMessage": "",
+                        "functionName": "onSearchTextChanged",
+                        "line": 105
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 78,
+                        "errorMessage": "",
+                        "functionName": "bottom",
+                        "line": 93
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 72,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: mainSwipe",
+                        "functionName": "onActivated",
+                        "line": 112
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 30,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: mainSwipe",
+                        "functionName": "onStopped",
+                        "line": 133
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 15,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "target",
+                        "line": 130
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 97,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 130
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 19,
+                        "durationMicroseconds": 54,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "onStarted",
+                        "line": 161
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 34,
+                        "durationMicroseconds": 13,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "target",
+                        "line": 160
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 96,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 160
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 78,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "onStopped",
+                        "line": 175
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 46,
+                        "durationMicroseconds": 13,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "target",
+                        "line": 172
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 99,
+                        "durationMicroseconds": 43,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 172
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 46,
+                        "durationMicroseconds": 12,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "target",
+                        "line": 173
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 100,
+                        "durationMicroseconds": 39,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 173
+                    }
+                ],
+                "filePath": "D:/clipboard/Clipboard/ui/main.qml"
+            }
+        ],
+        "moduleId": "Clipboard(ClipboardApp)"
+    }
+]

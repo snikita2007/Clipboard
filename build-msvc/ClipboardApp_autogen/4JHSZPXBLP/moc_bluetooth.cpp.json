@@ -1,0 +1,156 @@
+{
+    "classes": [
+        {
+            "className": "BluetoothServer",
+            "lineNumber": 12,
+            "object": true,
+            "qualifiedClassName": "BluetoothServer",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "sender",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "message",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 0,
+                    "name": "messageReceived",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "item",
+                            "type": "QVariantMap"
+                        }
+                    ],
+                    "index": 1,
+                    "name": "dataReceived",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "error",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 2,
+                    "name": "transferError",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 3,
+                    "name": "transferFinished",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "name",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 4,
+                    "name": "clientConnected",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "address",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "name",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 5,
+                    "name": "peerConnected",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "name",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 6,
+                    "name": "clientDisconnected",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "error",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 7,
+                    "name": "errorOccurred",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "message",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 8,
+                    "name": "sendMessage",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "frame",
+                            "type": "QByteArray"
+                        }
+                    ],
+                    "index": 9,
+                    "name": "sendFrame",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 10,
+                    "name": "clientConnected",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 11,
+                    "name": "clientDisconnected",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "bluetooth.h",
+    "outputRevision": 69
+}

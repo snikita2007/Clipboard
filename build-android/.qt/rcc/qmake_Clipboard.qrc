@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/Clipboard">
+    <file alias="qmldir">D:/clipboard/build-android/Clipboard/qmldir</file>
+  </qresource>
+</RCC>
+

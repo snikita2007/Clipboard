@@ -1,0 +1,50 @@
+{
+    "classes": [
+        {
+            "className": "BluetoothTransfer",
+            "lineNumber": 25,
+            "object": true,
+            "qualifiedClassName": "BluetoothTransfer",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "item",
+                            "type": "QVariantMap"
+                        }
+                    ],
+                    "index": 0,
+                    "name": "itemReceived",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "error",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 1,
+                    "name": "transferError",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 2,
+                    "name": "finished",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "bluetooth_transfer.h",
+    "outputRevision": 69
+}

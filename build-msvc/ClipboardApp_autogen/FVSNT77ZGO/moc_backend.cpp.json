@@ -1,0 +1,168 @@
+{
+    "classes": [
+        {
+            "className": "Backend",
+            "lineNumber": 29,
+            "methods": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "data",
+                            "type": "QVariant"
+                        }
+                    ],
+                    "index": 3,
+                    "name": "copyToClip",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 4,
+                    "name": "backgroundSendStatus",
+                    "returnType": "QString"
+                },
+                {
+                    "access": "public",
+                    "index": 5,
+                    "name": "clearHistory",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 6,
+                    "name": "getGlobalMousePos",
+                    "returnType": "QPoint"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "enabled",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 7,
+                    "name": "setLaunchAtStartup",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "index",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 8,
+                    "name": "setHistoryLimit",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "enabled",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 9,
+                    "name": "setSaveClipboardHistory",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "enabled",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 10,
+                    "name": "setDeviceSync",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "index",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 11,
+                    "name": "setAutoClear",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "enabled",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 12,
+                    "name": "setExcludeImages",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "enabled",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 13,
+                    "name": "setClearOnExit",
+                    "returnType": "void"
+                }
+            ],
+            "object": true,
+            "qualifiedClassName": "Backend",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "item",
+                            "type": "QVariant"
+                        }
+                    ],
+                    "index": 0,
+                    "name": "itemAdded",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "index": 1,
+                    "name": "onClipboardChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "data",
+                            "type": "QVariantMap"
+                        }
+                    ],
+                    "index": 2,
+                    "name": "handleRemoteData",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "backend.h",
+    "outputRevision": 69
+}

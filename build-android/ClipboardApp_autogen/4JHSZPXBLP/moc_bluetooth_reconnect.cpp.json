@@ -1,0 +1,48 @@
+{
+    "classes": [
+        {
+            "className": "BluetoothReconnect",
+            "lineNumber": 8,
+            "object": true,
+            "qualifiedClassName": "BluetoothReconnect",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "address",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 0,
+                    "name": "connectRequested",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "address",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "name",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 1,
+                    "name": "savedDeviceChanged",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "bluetooth_reconnect.h",
+    "outputRevision": 69
+}

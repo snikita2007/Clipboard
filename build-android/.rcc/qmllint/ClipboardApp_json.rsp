@@ -1,0 +1,15 @@
+--bare
+-I
+D:/clipboard/build-android
+-I
+D:/Qt/6.9.3/android_arm64_v8a/qml
+--resource
+D:/clipboard/build-android/.qt/rcc/qmake_Clipboard.qrc
+--resource
+D:/clipboard/build-android/.qt/rcc/ClipboardApp_raw_qml_0.qrc
+D:/clipboard/Clipboard/ui/main.qml
+D:/clipboard/Clipboard/ui/components/MobileBottomNav.qml
+D:/clipboard/Clipboard/ui/Settings.qml
+D:/clipboard/Clipboard/ui/History.qml
+--json
+D:/clipboard/build-android/ClipboardApp_qmllint.json

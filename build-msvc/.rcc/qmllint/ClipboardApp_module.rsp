@@ -1,0 +1,10 @@
+-I
+D:/clipboard/build-msvc
+-I
+D:/Qt/6.9.3/msvc2022_64/qml
+--resource
+D:/clipboard/build-msvc/.qt/rcc/qmake_Clipboard.qrc
+--resource
+D:/clipboard/build-msvc/.qt/rcc/ClipboardApp_raw_qml_0.qrc
+--module
+Clipboard

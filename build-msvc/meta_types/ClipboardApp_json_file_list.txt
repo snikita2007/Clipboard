@@ -1,0 +1,10 @@
+D:/clipboard/build-msvc/ClipboardApp_autogen/include/../4JHSZPXBLP/moc_bluetooth.cpp.json
+D:/clipboard/build-msvc/ClipboardApp_autogen/include/../4JHSZPXBLP/moc_bluetooth_client.cpp.json
+D:/clipboard/build-msvc/ClipboardApp_autogen/include/../4JHSZPXBLP/moc_bluetooth_reconnect.cpp.json
+D:/clipboard/build-msvc/ClipboardApp_autogen/include/../4JHSZPXBLP/moc_bluetooth_transfer.cpp.json
+D:/clipboard/build-msvc/ClipboardApp_autogen/include/../4JHSZPXBLP/moc_ip.cpp.json
+D:/clipboard/build-msvc/ClipboardApp_autogen/include/../4JHSZPXBLP/moc_server.cpp.json
+D:/clipboard/build-msvc/ClipboardApp_autogen/include/../4JHSZPXBLP/moc_switch.cpp.json
+D:/clipboard/build-msvc/ClipboardApp_autogen/include/../FVSNT77ZGO/moc_NetworkManager.cpp.json
+D:/clipboard/build-msvc/ClipboardApp_autogen/include/../FVSNT77ZGO/moc_backend.cpp.json
+D:/clipboard/build-msvc/ClipboardApp_autogen/include/../LXZCOWZB6T/moc_WindowEffects.cpp.json

@@ -1,0 +1,14 @@
+-rootPath
+D:/clipboard/Clipboard
+-cmake-output
+-output-file
+D:/clipboard/build-msvc/.qt/qml_imports/ClipboardApp_conf.cmake
+-importPath
+D:/clipboard/build-msvc/Clipboard
+-importPath
+D:/clipboard/build-msvc
+-importPath
+D:/Qt/6.9.3/msvc2022_64/qml
+-qrcFiles
+D:/clipboard/build-msvc/.qt/rcc/qmake_Clipboard.qrc
+D:/clipboard/build-msvc/.qt/rcc/ClipboardApp_raw_qml_0.qrc

@@ -1,0 +1,8 @@
+--resource
+D:/clipboard/build-android/.qt/rcc/qmake_Clipboard.qrc
+--resource
+D:/clipboard/build-android/.qt/rcc/ClipboardApp_raw_qml_0.qrc
+/Clipboard/ui/main.qml
+/Clipboard/ui/components/MobileBottomNav.qml
+/Clipboard/ui/Settings.qml
+/Clipboard/ui/History.qml

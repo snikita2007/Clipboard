@@ -1,0 +1,315 @@
+D:/clipboard/build-msvc/tests/tst_bluetooth_transfer_autogen/J5ZTFAC3FZ/moc_backend.cpp: D:/clipboard/Clipboard/backend/backend.h \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/algorithm \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/array \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/atomic \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/cassert \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/chrono \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/climits \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/cmath \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/concurrencysal.h \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/cstddef \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/cstdint \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/cstring \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/filesystem \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/functional \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/initializer_list \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/iterator \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/limits \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/limits.h \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/list \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/map \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/memory \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/new \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/numeric \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/optional \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/sal.h \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/set \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/stdarg.h \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/stdbool.h \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/string \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/string_view \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/tuple \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/type_traits \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/unordered_map \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/unordered_set \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/utility \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/vadefs.h \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/variant \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/vcruntime.h \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/vcruntime_string.h \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/vector \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/version \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/yvals.h \
+  C:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include/yvals_core.h \
+  C:/Program\ Files\ (x86)/Windows\ Kits/10/include/10.0.26100.0/ucrt/assert.h \
+  C:/Program\ Files\ (x86)/Windows\ Kits/10/include/10.0.26100.0/ucrt/corecrt.h \
+  C:/Program\ Files\ (x86)/Windows\ Kits/10/include/10.0.26100.0/ucrt/corecrt_malloc.h \
+  C:/Program\ Files\ (x86)/Windows\ Kits/10/include/10.0.26100.0/ucrt/corecrt_memcpy_s.h \
+  C:/Program\ Files\ (x86)/Windows\ Kits/10/include/10.0.26100.0/ucrt/corecrt_memory.h \
+  C:/Program\ Files\ (x86)/Windows\ Kits/10/include/10.0.26100.0/ucrt/corecrt_search.h \
+  C:/Program\ Files\ (x86)/Windows\ Kits/10/include/10.0.26100.0/ucrt/corecrt_stdio_config.h \
+  C:/Program\ Files\ (x86)/Windows\ Kits/10/include/10.0.26100.0/ucrt/corecrt_wctype.h \
+  C:/Program\ Files\ (x86)/Windows\ Kits/10/include/10.0.26100.0/ucrt/corecrt_wstdio.h \
+  C:/Program\ Files\ (x86)/Windows\ Kits/10/include/10.0.26100.0/ucrt/corecrt_wstdlib.h \
+  C:/Program\ Files\ (x86)/Windows\ Kits/10/include/10.0.26100.0/ucrt/corecrt_wstring.h \
+  C:/Program\ Files\ (x86)/Windows\ Kits/10/include/10.0.26100.0/ucrt/ctype.h \
+  C:/Program\ Files\ (x86)/Windows\ Kits/10/include/10.0.26100.0/ucrt/errno.h \
+  C:/Program\ Files\ (x86)/Windows\ Kits/10/include/10.0.26100.0/ucrt/stddef.h \
+  C:/Program\ Files\ (x86)/Windows\ Kits/10/include/10.0.26100.0/ucrt/stdio.h \
+  C:/Program\ Files\ (x86)/Windows\ Kits/10/include/10.0.26100.0/ucrt/stdlib.h \
+  C:/Program\ Files\ (x86)/Windows\ Kits/10/include/10.0.26100.0/ucrt/string.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/QBluetoothAddress \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/QBluetoothDeviceDiscoveryAgent \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/QBluetoothDeviceInfo \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/QBluetoothHostInfo \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/QBluetoothLocalDevice \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/QBluetoothServer \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/QBluetoothServiceInfo \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/QBluetoothSocket \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/QBluetoothUuid \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/qbluetooth.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/qbluetoothaddress.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/qbluetoothdevicediscoveryagent.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/qbluetoothdeviceinfo.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/qbluetoothhostinfo.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/qbluetoothlocaldevice.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/qbluetoothserver.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/qbluetoothserviceinfo.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/qbluetoothsocket.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/qbluetoothuuid.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/qtbluetooth-config.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/qtbluetoothexports.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtBluetooth/qtbluetoothglobal.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QBuffer \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QByteArray \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QCryptographicHash \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QDataStream \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QDateTime \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QDebug \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QDir \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QFileInfo \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QIODevice \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QList \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QMap \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QMetaType \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QMimeData \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QObject \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QProcess \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QQueue \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QSet \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QSettings \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QSharedPointer \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QStandardPaths \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QString \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QStringList \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QTimer \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QUrl \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QUuid \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QVariant \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QVariantList \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QVariantMap \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/QtGlobal \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/q17memory.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/q20functional.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/q20iterator.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/q20memory.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/q20type_traits.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/q20utility.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/q23utility.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qabstracteventdispatcher.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qalgorithms.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qanystringview.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qarraydata.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qarraydataops.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qarraydatapointer.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qassert.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qatomic.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qatomic_cxx11.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qbasicatomic.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qbasictimer.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qbindingstorage.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qbuffer.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qbytearray.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qbytearrayalgorithms.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qbytearraylist.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qbytearrayview.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qcalendar.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qchar.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qcompare.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qcompare_impl.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qcomparehelpers.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qcompilerdetection.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qconfig.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qconstructormacros.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qcontainerfwd.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qcontainerinfo.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qcontainertools_impl.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qcontiguouscache.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qcoreapplication.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qcoreapplication_platform.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qcoreevent.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qcryptographichash.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qdarwinhelpers.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qdatastream.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qdatetime.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qdeadlinetimer.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qdebug.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qdir.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qdirlisting.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qelapsedtimer.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qendian.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qeventloop.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qexceptionhandling.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qfile.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qfiledevice.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qfileinfo.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qflags.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qfloat16.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qforeach.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qfunctionaltools_impl.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qfunctionpointer.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qgenericatomic.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qglobal.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qglobalstatic.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qhash.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qhashfunctions.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qiodevice.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qiodevicebase.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qiterable.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qiterator.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qlatin1stringview.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qline.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qlist.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qlocale.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qlogging.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qmalloc.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qmap.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qmargins.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qmath.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qmetacontainer.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qmetatype.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qmimedata.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qminmax.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qnamespace.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qnativeinterface.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qnumeric.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qobject.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qobject_impl.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qobjectdefs.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qobjectdefs_impl.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qoverload.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qpair.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qpoint.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qprocess.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qprocessordetection.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qqueue.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qrect.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qrefcount.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qscopedpointer.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qscopeguard.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qset.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qsettings.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qshareddata.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qshareddata_impl.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qsharedpointer.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qsharedpointer_impl.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qsize.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qspan.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qstandardpaths.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qstdlibdetection.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qstring.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qstringalgorithms.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qstringbuilder.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qstringconverter.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qstringconverter_base.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qstringfwd.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qstringlist.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qstringliteral.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qstringmatcher.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qstringtokenizer.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qstringview.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qswap.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qsysinfo.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qsystemdetection.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtaggedpointer.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtclasshelpermacros.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtconfiginclude.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtconfigmacros.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtcore-config.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtcoreexports.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtcoreglobal.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtdeprecationdefinitions.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtdeprecationmarkers.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtenvironmentvariables.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtextstream.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtformat_impl.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtimer.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtimezone.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtmetamacros.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtnoop.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtpreprocessorsupport.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtresource.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qttranslation.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qttypetraits.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtversion.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtversionchecks.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtypeinfo.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qtypes.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qurl.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qutf8stringview.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/quuid.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qvariant.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qvariantlist.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qvariantmap.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qvarlengtharray.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qversiontagging.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qxptype_traits.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtCore/qyieldcpu.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/QClipboard \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/QCursor \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/QGuiApplication \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/QImage \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qbitmap.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qclipboard.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qcolor.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qcursor.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qguiapplication.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qguiapplication_platform.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qimage.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qinputmethod.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qpaintdevice.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qpixelformat.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qpixmap.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qpolygon.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qregion.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qrgb.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qrgba64.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qtgui-config.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qtguiexports.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qtguiglobal.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qtransform.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qwindowdefs.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtGui/qwindowdefs_win.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtNetwork/QNetworkDatagram \
+  D:/Qt/6.9.3/msvc2022_64/include/QtNetwork/QNetworkInterface \
+  D:/Qt/6.9.3/msvc2022_64/include/QtNetwork/QTcpServer \
+  D:/Qt/6.9.3/msvc2022_64/include/QtNetwork/QTcpSocket \
+  D:/Qt/6.9.3/msvc2022_64/include/QtNetwork/QUdpSocket \
+  D:/Qt/6.9.3/msvc2022_64/include/QtNetwork/qabstractsocket.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtNetwork/qhostaddress.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtNetwork/qnetworkdatagram.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtNetwork/qnetworkinterface.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtNetwork/qtcpserver.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtNetwork/qtcpsocket.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtNetwork/qtnetwork-config.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtNetwork/qtnetworkexports.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtNetwork/qtnetworkglobal.h \
+  D:/Qt/6.9.3/msvc2022_64/include/QtNetwork/qudpsocket.h \
+  D:/clipboard/Clipboard/backend/NetworkManager.h \
+  D:/clipboard/Clipboard/backend/ble/bluetooth.h \
+  D:/clipboard/Clipboard/backend/ble/bluetooth_client.h \
+  D:/clipboard/Clipboard/backend/ble/bluetooth_reconnect.h \
+  D:/clipboard/Clipboard/backend/ble/bluetooth_transfer.h \
+  D:/clipboard/Clipboard/backend/ble/ip.h \
+  D:/clipboard/Clipboard/backend/ble/server.h \
+  D:/clipboard/Clipboard/backend/ble/switch.h

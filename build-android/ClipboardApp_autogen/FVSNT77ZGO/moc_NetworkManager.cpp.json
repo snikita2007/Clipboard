@@ -1,0 +1,70 @@
+{
+    "classes": [
+        {
+            "className": "NetworkManager",
+            "lineNumber": 15,
+            "object": true,
+            "qualifiedClassName": "NetworkManager",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "data",
+                            "type": "QVariantMap"
+                        }
+                    ],
+                    "index": 0,
+                    "name": "dataReceived",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "ip",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 1,
+                    "name": "deviceFound",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "private",
+                    "index": 2,
+                    "name": "sendDiscoveryPacket",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 3,
+                    "name": "processUdpPackets",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 4,
+                    "name": "onNewTcpConnection",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 5,
+                    "name": "readIncomingData",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "NetworkManager.h",
+    "outputRevision": 69
+}

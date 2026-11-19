@@ -1,0 +1,88 @@
+{
+    "classes": [
+        {
+            "className": "UdpServer",
+            "lineNumber": 11,
+            "object": true,
+            "qualifiedClassName": "UdpServer",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "data",
+                            "type": "QVariantMap"
+                        }
+                    ],
+                    "index": 0,
+                    "name": "dataReceived",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 1,
+                    "name": "serverStopped",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "port",
+                            "type": "quint16"
+                        }
+                    ],
+                    "index": 2,
+                    "name": "startServer",
+                    "returnType": "bool"
+                },
+                {
+                    "access": "public",
+                    "index": 3,
+                    "name": "stopServer",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "newIps",
+                            "type": "QVariantList"
+                        }
+                    ],
+                    "index": 4,
+                    "name": "updateIps",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "item",
+                            "type": "QVariantMap"
+                        }
+                    ],
+                    "index": 5,
+                    "name": "sayHello",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 6,
+                    "name": "Connection",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "server.h",
+    "outputRevision": 69
+}

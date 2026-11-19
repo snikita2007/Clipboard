@@ -1,0 +1,27 @@
+********* Start testing of BluetoothStartupTest *********
+Config: Using QtTest library 6.9.3, Qt 6.9.3 (x86_64-little_endian-llp64 shared (dynamic) release build; by MSVC 2022), windows 11
+PASS   : BluetoothStartupTest::initTestCase()
+PASS   : BluetoothStartupTest::startupMode(automatic-overrides-wifi)
+PASS   : BluetoothStartupTest::startupMode(automatic-bluetooth)
+PASS   : BluetoothStartupTest::startupMode(manual-wifi)
+PASS   : BluetoothStartupTest::startupMode(manual-bluetooth)
+PASS   : BluetoothStartupTest::startupDefaultsToBluetooth()
+PASS   : BluetoothStartupTest::remembersIncomingConnectionWithoutDiscovery()
+PASS   : BluetoothStartupTest::restoresPeerAndWaitsForAdapter()
+PASS   : BluetoothStartupTest::retriesUnavailablePeer()
+PASS   : BluetoothStartupTest::incomingConnectionCancelsAttemptAndReconnectsAfterLoss()
+PASS   : BluetoothStartupTest::cancellation(switch-to-wifi)
+PASS   : BluetoothStartupTest::cancellation(adapter-not-ready)
+PASS   : BluetoothStartupTest::cancellation(manual-disconnect)
+PASS   : BluetoothStartupTest::manualDisconnectPersistsUntilNextSession()
+PASS   : BluetoothStartupTest::manualChoiceDoesNotRetryOldPeer()
+PASS   : BluetoothStartupTest::ignoresInvalidSavedAddresses(first-launch)
+PASS   : BluetoothStartupTest::ignoresInvalidSavedAddresses(corrupt-setting)
+PASS   : BluetoothStartupTest::ignoresInvalidSavedAddresses(null-address)
+QWARN  : BluetoothStartupTest::settingsPageReflectsStartupMode() file:///D:/clipboard/Clipboard/ui/Settings.qml:688: ReferenceError: backend is not defined
+QWARN  : BluetoothStartupTest::settingsPageReflectsStartupMode() QFontDatabase: Cannot find font directory D:/Qt/6.9.3/msvc2022_64/lib/fonts.
+Note that Qt no longer ships fonts. Deploy some (from https://dejavu-fonts.github.io/ for example) or switch to fontconfig.
+PASS   : BluetoothStartupTest::settingsPageReflectsStartupMode()
+PASS   : BluetoothStartupTest::cleanupTestCase()
+Totals: 20 passed, 0 failed, 0 skipped, 0 blacklisted, 11292ms
+********* Finished testing of BluetoothStartupTest *********

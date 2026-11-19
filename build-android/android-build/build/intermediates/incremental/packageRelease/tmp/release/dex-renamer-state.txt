@@ -1,0 +1,4 @@
+#Tue Nov 17 03:34:05 MSK 2026
+base.0=D\:\\clipboard\\build-android\\android-build\\build\\intermediates\\dex\\release\\mergeDexRelease\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

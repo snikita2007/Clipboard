@@ -1,0 +1,14 @@
+-rootPath
+D:/clipboard/Clipboard
+-cmake-output
+-output-file
+D:/clipboard/build-android/.qt/qml_imports/ClipboardApp_conf.cmake
+-importPath
+D:/clipboard/build-android/Clipboard
+-importPath
+D:/clipboard/build-android
+-importPath
+D:/Qt/6.9.3/android_arm64_v8a/qml
+-qrcFiles
+D:/clipboard/build-android/.qt/rcc/qmake_Clipboard.qrc
+D:/clipboard/build-android/.qt/rcc/ClipboardApp_raw_qml_0.qrc

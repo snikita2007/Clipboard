@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="/Clipboard">D:/clipboard/build-msvc/Clipboard</file>
+
+  </qresource>
+</RCC>

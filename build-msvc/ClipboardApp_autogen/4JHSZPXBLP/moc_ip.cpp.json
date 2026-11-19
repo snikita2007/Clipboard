@@ -1,0 +1,70 @@
+{
+    "classes": [
+        {
+            "className": "NetworkScanner",
+            "lineNumber": 13,
+            "methods": [
+                {
+                    "access": "public",
+                    "index": 3,
+                    "name": "rescan",
+                    "returnType": "void"
+                }
+            ],
+            "object": true,
+            "properties": [
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 0,
+                    "name": "devices",
+                    "notify": "devicesUpdated",
+                    "read": "devices",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QVariantList",
+                    "user": false
+                }
+            ],
+            "qualifiedClassName": "NetworkScanner",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "ipList",
+                            "type": "QVariantList"
+                        }
+                    ],
+                    "index": 0,
+                    "name": "devicesUpdated",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "private",
+                    "index": 1,
+                    "name": "sendDiscoveryRequest",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 2,
+                    "name": "readPendingDatagrams",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "ip.h",
+    "outputRevision": 69
+}

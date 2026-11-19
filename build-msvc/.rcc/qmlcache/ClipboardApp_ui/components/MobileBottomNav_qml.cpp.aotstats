@@ -1,0 +1,804 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessful": false,
+                        "column": 14,
+                        "durationMicroseconds": 391,
+                        "errorMessage": "Cannot access value for name settingsPage",
+                        "functionName": "visible",
+                        "line": 10
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 12,
+                        "durationMicroseconds": 153,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 15
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 13,
+                        "durationMicroseconds": 363,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 16
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 41,
+                        "durationMicroseconds": 1057,
+                        "errorMessage": "",
+                        "functionName": "panelColor",
+                        "line": 21
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 21,
+                        "durationMicroseconds": 94,
+                        "errorMessage": "",
+                        "functionName": "bottom",
+                        "line": 12
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 66,
+                        "errorMessage": "",
+                        "functionName": "horizontalCenter",
+                        "line": 13
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 81,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: mobileSearchField",
+                        "functionName": "onTriggered",
+                        "line": 30
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 17,
+                        "durationMicroseconds": 58,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 37
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 9,
+                        "durationMicroseconds": 98,
+                        "errorMessage": "Cannot load property visible from QtObject::inputMethod with type QObject.",
+                        "functionName": "onVisibleChanged",
+                        "line": 38
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 19,
+                        "durationMicroseconds": 50,
+                        "errorMessage": "",
+                        "functionName": "when",
+                        "line": 54
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 56
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 66,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"width\". You may want use ID-based grouped properties here.",
+                        "functionName": "width",
+                        "line": 56
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 57,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 57
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 38,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 58
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 46,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 59
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 45,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 60
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 39,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 85
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 120,
+                        "durationMicroseconds": 51,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 85
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 68,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 86
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 102,
+                        "durationMicroseconds": 49,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 86
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 55,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 87
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 41,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 88
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 109,
+                        "durationMicroseconds": 45,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 88
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 45,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 91
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 112,
+                        "durationMicroseconds": 65,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 91
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 52,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 92
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 102,
+                        "durationMicroseconds": 49,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 92
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 84,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 93
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 45,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 69
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 112,
+                        "durationMicroseconds": 49,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 69
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 68,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 70
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 102,
+                        "durationMicroseconds": 39,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 70
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 64,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 71
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 40,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 74
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 120,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 74
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 75
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 102,
+                        "durationMicroseconds": 62,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 75
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 64,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 76
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 38,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 77
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 109,
+                        "durationMicroseconds": 45,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 77
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 16,
+                        "durationMicroseconds": 49,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 101
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 94,
+                        "errorMessage": "",
+                        "functionName": "bottom",
+                        "line": 103
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 21,
+                        "durationMicroseconds": 381,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 108
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 112,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 109
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 92,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 113
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 22,
+                        "durationMicroseconds": 63,
+                        "errorMessage": "",
+                        "functionName": "enabled",
+                        "line": 114
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 24,
+                        "durationMicroseconds": 117,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 118
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 92,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 119
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 95,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 120
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 640,
+                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method rgba, returning QVariant -> QColor stored as QVariant",
+                        "functionName": "color",
+                        "line": 121
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 668,
+                        "errorMessage": "",
+                        "functionName": "x",
+                        "line": 123
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 41,
+                        "durationMicroseconds": 96,
+                        "errorMessage": "",
+                        "functionName": "verticalCenter",
+                        "line": 122
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 67,
+                        "durationMicroseconds": 65,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 126
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 42,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 131
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 103,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 134
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 29,
+                        "durationMicroseconds": 52,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 135
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 32,
+                        "durationMicroseconds": 104,
+                        "errorMessage": "",
+                        "functionName": "onClicked",
+                        "line": 136
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 43,
+                        "durationMicroseconds": 35,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 139
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 36,
+                        "durationMicroseconds": 269,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 147
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 55,
+                        "durationMicroseconds": 71,
+                        "errorMessage": "",
+                        "functionName": "horizontalCenter",
+                        "line": 143
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 36,
+                        "durationMicroseconds": 199,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 156
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 55,
+                        "durationMicroseconds": 58,
+                        "errorMessage": "",
+                        "functionName": "horizontalCenter",
+                        "line": 152
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 42,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 155
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 84,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 163
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 29,
+                        "durationMicroseconds": 42,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 164
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 32,
+                        "durationMicroseconds": 157,
+                        "errorMessage": "",
+                        "functionName": "onClicked",
+                        "line": 165
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 43,
+                        "durationMicroseconds": 42,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 168
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 36,
+                        "durationMicroseconds": 232,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 176
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 55,
+                        "durationMicroseconds": 61,
+                        "errorMessage": "",
+                        "functionName": "horizontalCenter",
+                        "line": 172
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 36,
+                        "durationMicroseconds": 191,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 185
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 55,
+                        "durationMicroseconds": 69,
+                        "errorMessage": "",
+                        "functionName": "horizontalCenter",
+                        "line": 181
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 42,
+                        "durationMicroseconds": 56,
+                        "errorMessage": "",
+                        "functionName": "weight",
+                        "line": 184
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 63,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 205
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 16,
+                        "durationMicroseconds": 80,
+                        "errorMessage": "",
+                        "functionName": "x",
+                        "line": 207
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 21,
+                        "durationMicroseconds": 63,
+                        "errorMessage": "",
+                        "functionName": "radius",
+                        "line": 211
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 24,
+                        "durationMicroseconds": 63,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 218
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 131,
+                        "errorMessage": "",
+                        "functionName": "x",
+                        "line": 219
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 164,
+                        "errorMessage": "",
+                        "functionName": "y",
+                        "line": 220
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "",
+                        "functionName": "enabled",
+                        "line": 225
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 93,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: mobileSearchField",
+                        "functionName": "onClicked",
+                        "line": 226
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 35,
+                        "durationMicroseconds": 41,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 223
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 26,
+                        "durationMicroseconds": 83,
+                        "errorMessage": "",
+                        "functionName": "enabled",
+                        "line": 238
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 401,
+                        "errorMessage": "",
+                        "functionName": "onClicked",
+                        "line": 239
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 112,
+                        "errorMessage": "",
+                        "functionName": "onPressed",
+                        "line": 244
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 29,
+                        "durationMicroseconds": 89,
+                        "errorMessage": "",
+                        "functionName": "onReleased",
+                        "line": 245
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 29,
+                        "durationMicroseconds": 61,
+                        "errorMessage": "",
+                        "functionName": "onCanceled",
+                        "line": 246
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 43,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 237
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 26,
+                        "durationMicroseconds": 82,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 260
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 80,
+                        "errorMessage": "",
+                        "functionName": "left",
+                        "line": 252
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 32,
+                        "durationMicroseconds": 58,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 254
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 54,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 256
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 33,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "",
+                        "functionName": "bottom",
+                        "line": 257
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 43,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"placeholderTextColor\".",
+                        "functionName": "placeholderTextColor",
+                        "line": 267
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"color\".",
+                        "functionName": "color",
+                        "line": 268
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"inputMethodHints\".",
+                        "functionName": "inputMethodHints",
+                        "line": 271
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 36,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"textChanged\".",
+                        "functionName": "onTextChanged",
+                        "line": 273
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 33,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"accepted\".",
+                        "functionName": "onAccepted",
+                        "line": 275
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 16,
+                        "durationMicroseconds": 49,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 295
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 122,
+                        "errorMessage": "",
+                        "functionName": "bottom",
+                        "line": 294
+                    }
+                ],
+                "filePath": "D:/clipboard/Clipboard/ui/components/MobileBottomNav.qml"
+            }
+        ],
+        "moduleId": "Clipboard(ClipboardApp)"
+    }
+]
